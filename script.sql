@@ -69,6 +69,18 @@ CREATE TABLE `usuarios` (
 
 -- Tabla Recetas
 
+/* 
+Cabe destacar que para añadir una nueva fila a esta tabla, debemos añadir los pasos en formato JSON, lo que significa que debe seguir este esquema:
+
+{
+    "1": "explicacion paso 1",
+    "2": "explicacion paso 2",
+    "...": "..."
+}
+
+todo dentro de las comillas que delimitan el valor de la columna pasos.
+
+*/
 CREATE TABLE `recetas` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
  `Nombre` varchar(100) NOT NULL,

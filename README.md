@@ -15,7 +15,7 @@ Para poder interactuar con nuestra aplicación en Local, se deben seguir estos p
 4. Copiar el contenido del archivo **script.sql** que se encuentra en esta carpeta.
 5. Pulsar en Continuar. 
 
-Para más información sobre el contenido y explicaciones de nuestra Base de Datos, leer el archivo **script.sql**.
+Para más información sobre el contenido, cómo introducir algunas filas y otras explicaciones de nuestra Base de Datos, leer el archivo **script.sql**.
 
 
 ¡Enhorabuena! Ya tienes cargada nuestra base de datos. De ahora en adelante los datos que varíen lo harán solo en tu dispositivo.
