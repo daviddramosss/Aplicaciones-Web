@@ -1,4 +1,4 @@
-**MarketChef**
+# MarketChef
 
 ¡Bienvenidos a MarketChef!
 
@@ -6,7 +6,7 @@ MarketChef es una plataforma única donde los apasionados de la cocina pueden co
 
 A diferencia de otras plataformas de cocina, aquí las recetas son activos valiosos, permitiendo a los creadores monetizar su conocimiento culinario y a los compradores acceder a contenido exclusivo de calidad, proporcionado solamente por Chefs verificados.
 
-**Creación de la Base de Datos**
+## Creación de la Base de Datos
 
 Para poder interactuar con nuestra aplicación en Local, se deben seguir estos pasos:
 1. Ejecutar XAMPP y activar Apache y MySQL.
