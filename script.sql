@@ -74,7 +74,7 @@ CREATE TABLE `recetas` (
  `Nombre` varchar(100) NOT NULL,
  `Autor` int(11) NOT NULL,
  `Descripcion` text NOT NULL,
- `Pasos` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Pasos`)),
+ `Pasos` json NOT NULL,
  `Tiempo` int(11) NOT NULL,
  `Precio` double NOT NULL,
  `Fecha_Creacion` timestamp NOT NULL DEFAULT current_timestamp(),
