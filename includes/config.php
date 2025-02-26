@@ -4,17 +4,17 @@
 /* */
 
 // Parámetros de configuración generales
-define('RUTA_APP', '/Proyecto-AW/Green-Capiltal/Practica2');
+define('RUTA_APP', '/MarketChef');
 define('RUTA_IMGS', RUTA_APP . '/img');
-define('RUTA_CSS', RUTA_APP . '/css');
+define('RUTA_CSS', RUTA_APP . '/CSS');
 define('RUTA_JS', RUTA_APP . '/js');
 define('INSTALADA', true);
 
 // Parámetros de configuración de la BD
 define('BD_HOST', 'localhost');
-define('BD_NAME', 'greencapital');
-define('BD_USER', 'greencapital');
-define('BD_PASS', 'greencapital');
+define('BD_NAME', 'root');
+define('BD_USER', 'root');
+define('BD_PASS', 'root');
 
 /* */
 /* Utilidades básicas de la aplicación */
