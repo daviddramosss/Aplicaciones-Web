@@ -8,9 +8,10 @@ body {
 .header_cabecera {
     background-color: #f6f6ae;
     color: white;
-    padding: 15px 0; 
+    padding: 15px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Añadir sombra difusa */
     position: relative; /* Mantener el contexto para el logo */
+    min-height: 35px; /* Altura mínima para la cabecera */
 }
 
 .container_cabecera {
@@ -19,16 +20,17 @@ body {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 0px;
 }
 
 .logo_cabecera {
     position: absolute; /* Cambiado a absolute */
     left: 50%; /* Centrado horizontalmente */
     transform: translateX(-50%); /* Ajuste para centrar */
+    top: 15%; /* Centrado verticalmente */
     display: flex;
-    justify-content: center;
     align-items: center;
+
 }
 
 .logo_cabecera img {
@@ -60,14 +62,47 @@ body {
     background-color: #0056b3;
 }
 
-.help-button_cabecera {
-    padding: 8px 12px;
-    background-color: #28a745;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
+.boton_ayuda_cabecera {
+    position: absolute;
+    left: 2%;
+    top: 50%;
+    display:flex;
+    transform: translateY(-50%);
+    align-items: center;
+    gap: 15px;
 }
 
-.help-button_cabecera:hover {
-    background-color: #218838;
+.boton_ayuda_cabecera img{
+    height: 30px; /* Tamaño reducido */
+    display: block;
+}
+
+.lupa_cabecera {
+    position: absolute;
+    left: 6%;
+    top: 50%;
+    display:flex;
+    transform: translateY(-50%);
+    align-items: center;
+    gap: 15px;
+}
+
+.lupa_cabecera img{
+    height: 30px; /* Tamaño reducido */
+    display: block;
+}
+
+.estrella_cabecera {
+    position: absolute;
+    right: 2%;
+    top: 50%;
+    display:flex;
+    transform: translateY(-50%);
+    align-items: center;
+    gap: 15px;
+}
+
+.estrella_cabecera img{
+    height: 30px; /* Tamaño reducido */
+    display: block;
 }
