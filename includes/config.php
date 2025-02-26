@@ -3,9 +3,9 @@
 require_once("application.php");
 
 define('BD_HOST', 'localhost');
-define('BD_NAME', 'root');
-define('BD_USER', 'root');
-define('BD_PASS', 'root');
+define('BD_NAME', 'MarketChef');
+define('BD_USER', 'MarketChef');
+define('BD_PASS', 'MarketChef');
 
 ini_set('default_charset', 'UTF-8');
 setLocale(LC_ALL, 'es_ES.UTF.8');

@@ -390,6 +390,7 @@ CREATE TABLE `receta_ingrediente` (
 
 
 -- Tabla Ingrediente_Alérgeno
+
 CREATE TABLE `ingrediente_alergeno` (
  `Ingrediente` int(11) NOT NULL,
  `Alergeno` int(11) NOT NULL,
@@ -399,6 +400,18 @@ CREATE TABLE `ingrediente_alergeno` (
  CONSTRAINT `fk_ia_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+-- Eliminar el usuario 'MarketChef' si ya existe
+DROP USER IF EXISTS 'MarketChef'@'%';
+
+-- Crear el usuario 'MarketChef' con la contraseña 'MarketChef'
+CREATE USER 'MarketChef'@'%' IDENTIFIED BY 'MarketChef';
+
+-- Conceder todos los permisos sobre la base de datos MarketChef a este usuario
+GRANT ALL PRIVILEGES ON MarketChef.* TO 'MarketChef'@'%';
+
+-- Aplicar los cambios
+FLUSH PRIVILEGES;
 
 
 -- Los triggers que se crearán son:
