@@ -23,7 +23,7 @@
             </a>
            
             <h2 class="market"> Market </h2>
-            
+
             <!-- Logo -->
             <a href="index.php" class="logo_cabecera">
               <img src="img/Logo.png" alt="Home">
@@ -40,11 +40,23 @@
               <img src="img/carrito.png" alt="Carrito">
             </a>
             
-            <a href="desplegable" class="usuario_desplegable_cabecera">
-              <img src="img/usuario.png" alt="Usuario">
-            </a>
-          
-        </div>
+           <!-- Icono de usuario con menú desplegable -->
+            <div class="usuario_desplegable_cabecera">
+                <img src="img/usuario.png" alt="Usuario">
+                     
+            </div>
+            <div class="menu_usuario">
+              <?php if (isset($_SESSION['usuario'])): ?>
+                  <a href="perfil.php">Mi Perfil</a>
+                  <a href="cerrar_sesion.php">Cerrar Sesión</a>
+              <?php else: ?>
+                  <a href="login.php">Iniciar Sesión</a>
+                  <a href="registro.php">Registrarse</a>
+              <?php endif; ?>
+              </div>
+
+
     </header>
+    <script src="JS/desplegable_perfil.js"></script>
 </body>
 </html>
