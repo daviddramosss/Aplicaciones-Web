@@ -136,3 +136,19 @@ body {
     height: 31px; /* Tamaño reducido */
     display: block;
 }
+
+.market {
+    position: absolute;
+    left: 39%;
+    color:black;
+    font-size: 32px;
+    top: -10%
+}
+
+.chef {
+    position: absolute;
+    left: 52.5%;
+    color:black;
+    font-size: 32px;
+    top:-10%;
+}

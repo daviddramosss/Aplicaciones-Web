@@ -22,11 +22,15 @@
               <img src="img/busqueda-de-lupa.png" alt="Buscar">
             </a>
            
+            <h2 class="market"> Market </h2>
+            
             <!-- Logo -->
             <a href="index.php" class="logo_cabecera">
               <img src="img/Logo.png" alt="Home">
             </a>
             
+            <h2 class="chef"> Chef </h2>
+
             <!-- Buscador -->
             <a href="estrellaMichelin.php" class="estrella_cabecera">
               <img src="img/estrella_michelin.png" alt="Estrella Michelin">
