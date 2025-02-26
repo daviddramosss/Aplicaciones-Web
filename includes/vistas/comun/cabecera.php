@@ -12,16 +12,18 @@
 <body>
     <header class="header">
         <div class="container">
+           <!-- Buscador -->
+           <form class="search-form" action="buscar.php" method="GET">
+                <input class="search-input" type="search" placeholder="Buscar..." name="q" aria-label="Buscar">
+                <button class="search-button" type="submit">Buscar</button>
+            </form>
+            
             <!-- Logo -->
             <a href="index.php" class="logo">
             <img src="img/Logo.png" alt="Home">
             </a>
             
-            <!-- Buscador -->
-            <form class="search-form" action="buscar.php" method="GET">
-                <input class="search-input" type="search" placeholder="Buscar..." name="q" aria-label="Buscar">
-                <button class="search-button" type="submit">Buscar</button>
-            </form>
+           
             
             <!-- Botón de Ayuda -->
             <a href="ayuda.php" class="help-button">Ayuda</a>

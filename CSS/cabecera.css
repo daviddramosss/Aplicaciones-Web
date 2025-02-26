@@ -21,8 +21,11 @@ body {
 }
 
 .logo {
+    position: absolute; /* Cambiado a absolute */
+    left: 50%; /* Centrado horizontalmente */
+    transform: translateX(-50%); /* Ajuste para centrar */
     display: flex;
-    justify-content: center; /* Centrar horizontalmente */
+    justify-content: center;
     align-items: center;
 }
 
