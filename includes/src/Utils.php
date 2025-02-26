@@ -6,15 +6,7 @@ abstract class Utils
     private function __construct()
     {
     }
-
-    public static function paginaError($codigoRespuesta, $tituloPagina, $mensajeError, $explicacion = '')
-    {
-        http_response_code($codigoRespuesta);
-        $contenidoPrincipal = "<h1 class='error'>{$mensajeError}</h1><p class='mensaje'>{$explicacion}</p>";
-        require dirname(__DIR__).'/vistas/comun/layout.php';
-        exit();    
-    }
-    
+   
     public static function redirige($url) 
     {
         header('Location: '.$url);
