@@ -21,10 +21,14 @@ body {
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center;
+}
+
+.logo img {
+    height: 50px; /* Tamaño reducido */
+    display: block;
 }
 
 .search-form {
