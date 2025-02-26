@@ -28,42 +28,16 @@ class BD
         $this->conexion = null;
     }
 
-    /**
-     * Evita que se pueda utilizar el operador clone.
-     */
-    public function __clone()
-    {
-        throw new Exception('No tiene sentido el clonado');
-    }
-
-    /**
-     * Evita que se pueda utilizar serialize().
-     */
-    public function __sleep()
-    {
-        throw new Exception('No tiene sentido el serializar el objeto');
-    }
-
-    /**
-     * Evita que se pueda utilizar unserialize().
-     */
-    public function __wakeup()
-    {
-        throw new Exception('No tiene sentido el deserializar el objeto');
-    }
-
     function getConexion()
     {
         if ($this->conexion == null) {
             $conn = new mysqli(BD_HOST, BD_USER, BD_PASS, BD_NAME);
             if ($conn->connect_errno) {
                 error_log("Error de conexión a la BD: ({$conn->connect_errno }) {$conn->connect_error}");
-                paginaError(502, 'Error', 'Oops', 'No ha sido posible conectarse a la base de datos.');
             }
 
             if (!$conn->set_charset("utf8mb4")) {
                 error_log("Error al configurar la codificación de la BD: ({$conn->errno }) {$conn->error}");
-                paginaError(502, 'Error', 'Oops', 'No ha sido posible configurar la base de datos.');
             }
 
             $this->conexion = $conn;
