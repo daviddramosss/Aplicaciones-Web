@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+h2 {
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+.contenedor-flechas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.boton-flecha {
+    font-size: 1.5em;
+    padding: 10px 15px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #ff6600;
+    color: white;
+    border-radius: 5px;
+}
+
+.contenido {
+    width: 300px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1.2em;
+}
