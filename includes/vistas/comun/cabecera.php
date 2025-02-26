@@ -12,30 +12,25 @@
 <body>
     <header class="header_cabecera">
         <div class="container_cabecera">
-          <div class="left-icons">
-
-           <!-- Botón de Ayuda -->
-          <a href="ayuda.php" class="boton_ayuda_cabecera">
-            <img src="img/informacion.png" alt="Ayuda">
+         
+            <!-- Botón de Ayuda -->
+            <a href="ayuda.php" class="boton_ayuda_cabecera">
+              <img src="img/informacion.png" alt="Ayuda">
             </a>
-
-            <a href="bucar.php" class="lupa_cabecera"><img src="img/busqueda-de-lupa.png" alt="Buscar"></a>
-          </div>
-           
             
-
-           <!-- Buscador -->
-           <form class="search-form_cabecera" action="buscar.php" method="GET">
-                <input class="search-input_cabecera" type="search" placeholder="Buscar..." name="q" aria-label="Buscar">
-                <button class="search-button_cabecera" type="submit">Buscar</button>
-            </form>
-
+            <a href="bucar.php" class="lupa_cabecera">
+              <img src="img/busqueda-de-lupa.png" alt="Buscar">
+            </a>
+           
             <!-- Logo -->
             <a href="index.php" class="logo_cabecera">
-            <img src="img/Logo.png" alt="Home">
+              <img src="img/Logo.png" alt="Home">
             </a>
             
-           
+            <!-- Buscador -->
+            <a href="estrellaMichelin.php" class="estrella_cabecera">
+              <img src="img/estrella_michelin.png" alt="Estrella Michelin">
+            </a>           
             
           
         </div>
