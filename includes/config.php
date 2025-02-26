@@ -27,7 +27,7 @@ require_once __DIR__.'/src/Utils.php';
 /* */
 
 if (!INSTALADA) {
-	//Utils::paginaError(502, 'Error', 'Oops', 'La aplicación no está configurada. Tienes que modificar el fichero config.php');
+	Utils::paginaError(502, 'Error', 'Vaya...', 'La aplicación no está configurada debes de modificar el fichero config.php');
 }
 
 /* */

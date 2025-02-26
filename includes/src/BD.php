@@ -58,12 +58,12 @@ class BD
             $conn = new mysqli(BD_HOST, BD_USER, BD_PASS, BD_NAME);
             if ($conn->connect_errno) {
                 error_log("Error de conexión a la BD: ({$conn->connect_errno }) {$conn->connect_error}");
-                paginaError(502, 'Error', 'Oops', 'No ha sido posible conectarse a la base de datos.');
+                Utils::paginaError(502, 'Error', 'Oops', 'No ha sido posible conectarse a la base de datos.');
             }
 
             if (!$conn->set_charset("utf8mb4")) {
                 error_log("Error al configurar la codificación de la BD: ({$conn->errno }) {$conn->error}");
-                paginaError(502, 'Error', 'Oops', 'No ha sido posible configurar la base de datos.');
+                Utils::paginaError(502, 'Error', 'Oops', 'No ha sido posible configurar la base de datos.');
             }
 
             $this->conexion = $conn;
