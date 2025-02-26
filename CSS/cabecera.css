@@ -5,13 +5,15 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.header {
-    background-color: #333;
+.header_cabecera {
+    background-color: #f6f6ae;
     color: white;
-    padding: 15px 0;
+    padding: 15px 0; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Añadir sombra difusa */
+    position: relative; /* Mantener el contexto para el logo */
 }
 
-.container {
+.container_cabecera {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,7 +22,7 @@ body {
     padding: 0 20px;
 }
 
-.logo {
+.logo_cabecera {
     position: absolute; /* Cambiado a absolute */
     left: 50%; /* Centrado horizontalmente */
     transform: translateX(-50%); /* Ajuste para centrar */
@@ -29,23 +31,23 @@ body {
     align-items: center;
 }
 
-.logo img {
+.logo_cabecera img {
     height: 50px; /* Tamaño reducido */
     display: block;
 }
 
-.search-form {
+.search-form_cabecera {
     display: flex;
 }
 
-.search-input {
+.search-input_cabecera {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px 0 0 5px;
     outline: none;
 }
 
-.search-button {
+.search-button_cabecera {
     padding: 8px 12px;
     background-color: #007bff;
     color: white;
@@ -54,11 +56,11 @@ body {
     cursor: pointer;
 }
 
-.search-button:hover {
+.search-button_cabecera:hover {
     background-color: #0056b3;
 }
 
-.help-button {
+.help-button_cabecera {
     padding: 8px 12px;
     background-color: #28a745;
     color: white;
@@ -66,6 +68,6 @@ body {
     border-radius: 5px;
 }
 
-.help-button:hover {
+.help-button_cabecera:hover {
     background-color: #218838;
 }
