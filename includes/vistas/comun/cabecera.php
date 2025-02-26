@@ -30,8 +30,15 @@
             <!-- Buscador -->
             <a href="estrellaMichelin.php" class="estrella_cabecera">
               <img src="img/estrella_michelin.png" alt="Estrella Michelin">
-            </a>           
+            </a>
             
+            <a href="carrito.php" class="carrito_cabecera">
+              <img src="img/carrito.png" alt="Carrito">
+            </a>
+            
+            <a href=".php" class="carrito_cabecera">
+              <img src="img/carrito.png" alt="Carrito">
+            </a>
           
         </div>
     </header>
