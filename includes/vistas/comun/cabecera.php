@@ -13,7 +13,9 @@
     <header class="header">
         <div class="container">
             <!-- Logo -->
-            <a href="index.php" class="logo">MiLogo</a>
+            <a href="index.php" class="logo">
+            <img src="img/Logo.png" alt="Home">
+            </a>
             
             <!-- Buscador -->
             <form class="search-form" action="buscar.php" method="GET">
