@@ -36,8 +36,8 @@
               <img src="img/carrito.png" alt="Carrito">
             </a>
             
-            <a href=".php" class="carrito_cabecera">
-              <img src="img/carrito.png" alt="Carrito">
+            <a href="desplegable" class="usuario_desplegable_cabecera">
+              <img src="img/usuario.png" alt="Usuario">
             </a>
           
         </div>
