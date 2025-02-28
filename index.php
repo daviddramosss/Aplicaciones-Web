@@ -10,7 +10,7 @@
     <div id="contenedor">
     
         <!-- Plantilla de la página web --> 
-        <?php include 'includes/vistas/comun/plantilla.php'; ?>
+        <?php include 'includes/comun/plantilla.php'; ?>
 
         <!-- Parte central de la página web -->
         <main> 
