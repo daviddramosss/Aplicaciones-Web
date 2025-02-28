@@ -14,7 +14,7 @@
         <div class="container_cabecera">
          
             <!-- Botón de Ayuda -->
-            <a href="ayuda.php" class="boton_ayuda_cabecera">
+            <a href="crearReceta.php" class="boton_ayuda_cabecera">
               <img src="img/informacion.png" alt="Ayuda">
             </a>
             
