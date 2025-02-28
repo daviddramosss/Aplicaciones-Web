@@ -1,15 +1,17 @@
 <?php
 
 require_once("includes/config.php");
+require_once("includes/crearRecetaForm.php");
 
-$tituloPagina = 'Crear Receta'
+$tituloPagina = 'Nueva Receta';
 
+$form = new crearRecetaForm();
+$htmlFormReceta = $form->Manage();
 
+$contenidoPrincipal = <<<EOS
+<h1>Crear Nueva Receta</h1>
+$htmlFormReceta
+EOS;
 
-
-
-
-
-
-
+require("includes/comun/plantilla.php");
 ?>
