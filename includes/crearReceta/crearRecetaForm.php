@@ -58,7 +58,8 @@ class crearRecetaForm extends formularioBase
         </fieldset>
 
         <!-- Importar el archivo JavaScript -->
-        <script src="js/crearReceta.js"></script>        
+        <script src="js/crearReceta.js"></script>    
+        <script src="js/ingredientes.js"></script> 
         EOF;
         
         return $html;

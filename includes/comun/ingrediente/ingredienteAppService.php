@@ -1,6 +1,6 @@
 <?php
 
-requir("ingredienteFactory.php");
+require("ingredienteFactory.php");
 
 class IngredienteAppService {
 
@@ -41,7 +41,8 @@ class IngredienteAppService {
 
         $buscarIngredienteDTO = $IIngredienteDAO->obtenerIngredientes();
 
-        return $buscarIngredienteDTO;
+        echo "<script>var ingredientes = " . json_encode($buscarIngredienteDTO) . ";</script>";
+        exit;
     }
 }
 ?>

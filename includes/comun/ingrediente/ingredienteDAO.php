@@ -34,29 +34,26 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
 
             $conn = application::getInstance()->getConexionBd();
 
-            $query = "SELECT id, nombre FROM ingredientes";
+            $query = "SELECT id, nombre FROM ingredientes;
 
             $stmt = $conn->prepare($query);
 
             $stmt->execute();
 
+            $ingredientes = array();
 
-            if ($stmt->fetch())
+            if($stmt->num_rows > 0)
             {
-                $ingredientes = [];
-
-                while ($row = $result->fetch_assoc())
+                while($row = $result->fetch_assoc())
                 {
-                    $ingredientes[] = new IngredienteDTO($row['id'], $row['nombre']);
+                    $ingredientes[] = $row;
                 }
-
-                $stmt->close();
-
-                return $ingredientes;
             }
 
+            $stmt->close();
 
-
+            return $ingredientes;
+            
         }catch(mysqli_sql_exception $e)
         {
               // código de violación de restricción de integridad (PK)
@@ -70,5 +67,6 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
               throw $e;
         }
     }
+    
 }
 ?>
