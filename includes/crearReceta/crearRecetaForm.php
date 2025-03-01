@@ -24,7 +24,7 @@ class crearRecetaForm extends formularioBase
             <p><label>Precio:</label> <input type="number" step="0.01" name="precio" value="$precio" required/></p>
             <button type="submit" name="crear">Crear Receta</button>
         </fieldset>
-EOF;
+        EOF;
         return $html;
     }
     
@@ -47,10 +47,11 @@ EOF;
         }
         
         if (count($result) === 0) {
-            $recetaDTO = new recetaDTO(0, $titulo, $descripcion, $precio);
+            //$recetaDTO = new recetaDTO(0, $titulo, $descripcion, $precio);
+            $recetaDTO = null;
             $recetaAppService = recetaAppService::GetSingleton();
             
-            if (!$recetaAppService->crearReceta($recetaDTO)) {
+            if (!$recetaAppService->create($recetaDTO)) {
                 $result[] = "Error al crear la receta.";
             } else {
                 $result = 'index.php';

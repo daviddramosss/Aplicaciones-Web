@@ -9,15 +9,8 @@ class recetaFactory
     {
         $recetaDAO = false;
 
-        if (true)
-        {
-            $recetaDAO = new recetaDAO();
-        }
-        else
-        {
-            $recetaDAO = new recetMock();
-        }
-        
+        $recetaDAO = new recetaDAO();
+               
         return $recetaDAO;
     }
 }

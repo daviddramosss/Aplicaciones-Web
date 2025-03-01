@@ -1,6 +1,6 @@
 <?php
 
-abstract class formBase
+abstract class formularioBase
 {
     private $formId;
 

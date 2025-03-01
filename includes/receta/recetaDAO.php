@@ -12,7 +12,7 @@ class recetaDAO extends baseDAO implements IReceta
 
     }
 
-    private function buscarReceta($recetId)
+    private function buscarReceta($recetaId)
     {
         //Evita consultas que no sean string
         $escRecetaId = $this->realEscapeString($recetaId);
@@ -31,6 +31,9 @@ class recetaDAO extends baseDAO implements IReceta
 
         //Ejecuta la consulta
         $stmt->execute();
+
+        //Declaramos las variables para evitar error después
+        $Id = $Nombre = $Autor = $Descripcion = $Pasos = $Tiempo = $Precio = $Fecha_Creacion = $Valoracion = null;
 
         //Asocia las columans qeu se obtendran de la consulta con variables php
         $stmt->bind_result($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion);
