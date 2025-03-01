@@ -9,13 +9,11 @@
 
     <?php include 'cabecera.php'; ?>
 
-    <div class="contenido_plantilla">
-        <!-- El contenido principal va aquí -->
-        <h2>Bienvenido a la tienda</h2>
-        <p>Contenido dinámico de la tienda...</p>
-    </div>
-
-    <?php include 'pie.php'; ?>
+    <main>
+        <article>
+            <?= $contenidoPrincipal ?>
+        </article>
+    </main>
 
 
 </body>

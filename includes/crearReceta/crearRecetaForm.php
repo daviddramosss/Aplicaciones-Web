@@ -18,45 +18,44 @@ class crearRecetaForm extends formularioBase
         
         $html = <<<EOF
         <fieldset>
-            <legend>Crear Receta</legend>
+            <legend>Nueva Receta</legend>
+            
             <p><label>Título:</label> <input type="text" name="titulo" value="$titulo" required/></p>
+            
             <p><label>Descripción:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
-            <p><label>Precio:</label> <input type="number" step="0.01" name="precio" value="$precio" required/></p>
-            <button type="submit" name="crear">Crear Receta</button>
+            
+            <p><label>Precio Final:</label> <input type="number" step="0.01" name="precio" value="$precio" required/> €</p>
+            <p>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef)</p>
+            
+            <p><label>Ingredientes:</label> <button type="button" id="addIngredient">+ Añadir ingrediente</button></p>
+            <div id="ingredientList"></div>
+            
+            <h3>Pasos para elaborar la receta</h3>
+            <div id="stepsContainer">
+                <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
+            </div>
+            <button type="button" id="addStep">+ Añadir paso</button>
+            
+            <h3>Selecciona los alérgenos</h3>
+            <p>
+                <input type="checkbox" name="alergenos[]" value="mariscos"> Mariscos
+                <input type="checkbox" name="alergenos[]" value="frutos_secos"> Frutos secos
+                <input type="checkbox" name="alergenos[]" value="gluten"> Gluten
+            </p>
+            <p><input type="checkbox" name="confirmAlergenos" required> Afirmo que he seleccionado correctamente los alérgenos</p>
+            
+            <h3>Etiquetas</h3>
+            <p>Añade etiquetas para recomendar tu receta:</p>
+            <div id="tagsContainer"></div>
+            <button type="button" id="addTag">+ Añadir etiqueta</button>
+            
+            <p>
+                <button type="button" onclick="location.href='index.php'">Cancelar</button>
+                <button type="submit" name="guardar">Guardar</button>
+            </p>
         </fieldset>
         EOF;
+        
         return $html;
-    }
-    
-    protected function Process($datos)
-    {
-        $result = array();
-
-        $titulo = trim($datos['titulo'] ?? '');
-        $descripcion = trim($datos['descripcion'] ?? '');
-        $precio = trim($datos['precio'] ?? '');
-        
-        if (empty($titulo)) {
-            $result[] = "El título no puede estar vacío.";
-        }
-        if (empty($descripcion)) {
-            $result[] = "La descripción no puede estar vacía.";
-        }
-        if (!is_numeric($precio) || $precio < 0) {
-            $result[] = "El precio debe ser un número positivo.";
-        }
-        
-        if (count($result) === 0) {
-            //$recetaDTO = new recetaDTO(0, $titulo, $descripcion, $precio);
-            $recetaDTO = null;
-            $recetaAppService = recetaAppService::GetSingleton();
-            
-            if (!$recetaAppService->create($recetaDTO)) {
-                $result[] = "Error al crear la receta.";
-            } else {
-                $result = 'index.php';
-            }
-        }
-        return $result;
     }
 }

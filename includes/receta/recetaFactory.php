@@ -1,7 +1,6 @@
 <?php
 
 require("recetaDAO.php");
-require("recetaMock.php");
 
 class recetaFactory
 {
