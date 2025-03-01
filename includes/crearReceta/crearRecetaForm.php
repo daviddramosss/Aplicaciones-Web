@@ -5,6 +5,7 @@ include __DIR__ . '/../receta/recetaAppService.php';
 
 class crearRecetaForm extends formularioBase
 {
+  
     public function __construct() 
     {
         parent::__construct('crearRecetaForm');
@@ -35,6 +36,7 @@ class crearRecetaForm extends formularioBase
                 <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
             </div>
             <button type="button" id="addStep">+ Añadir paso</button>
+            <button type="button" id="removeStep">- Eliminar paso</button>
             
             <h3>Selecciona los alérgenos</h3>
             <p>
@@ -54,8 +56,12 @@ class crearRecetaForm extends formularioBase
                 <button type="submit" name="guardar">Guardar</button>
             </p>
         </fieldset>
+
+        <!-- Importar el archivo JavaScript -->
+        <script src="js/crearReceta.js"></script>        
         EOF;
         
         return $html;
     }
+
 }
