@@ -2,7 +2,7 @@
 
 require_once("includes/config.php");
 
-require_once("includes/login/loginForm.php");
+require_once("includes/vistas/helpers/loginForm.php");
 
 $tituloPagina = 'Acceso al sistema';
 
