@@ -7,7 +7,7 @@ class IngredienteDTO
 
     private $nombre;
 
-    private $verificado:
+    private $verificado;
 
     public function __construct($id, $nombre) {
         $this->id = $id;
