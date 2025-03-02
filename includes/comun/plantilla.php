@@ -15,6 +15,7 @@
         </article>
     </main>
 
+    <?php include 'pie.php'; ?>
 
 </body>
 </html>
