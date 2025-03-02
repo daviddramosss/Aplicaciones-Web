@@ -41,8 +41,7 @@ class IngredienteAppService {
 
         $buscarIngredienteDTO = $IIngredienteDAO->obtenerIngredientes();
 
-        echo "<script>var ingredientes = " . json_encode($buscarIngredienteDTO) . ";</script>";
-        exit;
+        return $buscarIngredienteDTO;
     }
 }
 ?>

@@ -1,69 +1,68 @@
 document.addEventListener("DOMContentLoaded", function () {
     const addIngredientButton = document.getElementById("addIngredient");
-    const ingredientListDiv = document.getElementById("ingredientList");
+    const ingredientList = document.getElementById("ingredientList");
 
-    addIngredientButton.addEventListener("click", function () {
-        agregarDesplegableIngredientes();
+    addIngredientButton.addEventListener("click", async function () {
+        if (document.getElementById("ingredientDropdown")) return;
+
+        // Crear el contenedor del desplegable
+        const dropdown = document.createElement("div");
+        dropdown.id = "ingredientDropdown";
+        dropdown.innerHTML = `
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Ingrediente</th>
+                        <th>Cantidad</th>
+                        <th>Magnitud</th>
+                        <th>Seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody id="ingredientTableBody">
+                    <tr><td colspan="4">Cargando ingredientes...</td></tr>
+                </tbody>
+            </table>
+        `;
+        ingredientList.appendChild(dropdown);
+
+        try {
+            // Hacer petición a PHP para obtener ingredientes
+            const response = await fetch("obtenerIngredientes.php");
+            const result = await response.json();
+
+            if (result.success) {
+                const tableBody = document.getElementById("ingredientTableBody");
+                tableBody.innerHTML = ""; // Limpiar la tabla
+
+                result.data.forEach(ingrediente => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${ingrediente.nombre}</td>
+                        <td><input type="number" step="0.01" placeholder="Cantidad"></td>
+                        <td>
+                            <select>
+                                <option value="g">g</option>
+                                <option value="ml">ml</option>
+                                <option value="unidad">unidad</option>
+                            </select>
+                        </td>
+                        <td><button type="button" class="selectIngredient" data-id="${ingrediente.id}" data-nombre="${ingrediente.nombre}">✔</button></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } else {
+                document.getElementById("ingredientTableBody").innerHTML = "<tr><td colspan='4'>Error al cargar ingredientes</td></tr>";
+            }
+        } catch (error) {
+            document.getElementById("ingredientTableBody").innerHTML = "<tr><td colspan='4'>Error de conexión</td></tr>";
+        }
     });
 
-    async function obtenerIngredientes() {
-        try {
-            const response = await fetch("../receta/ingredienteAppService.php");
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error("Error obteniendo los ingredientes:", error);
-            return [];
+    // Evento para manejar la selección del ingrediente
+    ingredientList.addEventListener("click", function (event) {
+        if (event.target.classList.contains("selectIngredient")) {
+            const ingredienteNombre = event.target.getAttribute("data-nombre");
+            alert(`Ingrediente seleccionado: ${ingredienteNombre}`);
         }
-    }
-
-    async function agregarDesplegableIngredientes() {
-        const ingredientes = await obtenerIngredientes();
-        if (ingredientes.length === 0) {
-            alert("No se pudieron cargar los ingredientes.");
-            return;
-        }
-        
-        const div = document.createElement("div");
-        div.classList.add("ingredient-item");
-        
-        const select = document.createElement("select");
-        select.name = "ingredientes[]";
-        select.required = true;
-        
-        ingredientes.forEach(ingrediente => {
-            const option = document.createElement("option");
-            option.value = ingrediente.id;
-            option.textContent = ingrediente.nombre;
-            select.appendChild(option);
-        });
-        
-        const cantidadInput = document.createElement("input");
-        cantidadInput.type = "number";
-        cantidadInput.name = "cantidades[]";
-        cantidadInput.step = "0.01";
-        cantidadInput.min = "0";
-        cantidadInput.placeholder = "Cantidad";
-        cantidadInput.required = true;
-        
-        const unidadInput = document.createElement("input");
-        unidadInput.type = "text";
-        unidadInput.name = "unidades[]";
-        unidadInput.placeholder = "Unidad (g, ml, etc.)";
-        unidadInput.required = true;
-        
-        const removeButton = document.createElement("button");
-        removeButton.type = "button";
-        removeButton.textContent = "Eliminar";
-        removeButton.addEventListener("click", function () {
-            div.remove();
-        });
-        
-        div.appendChild(select);
-        div.appendChild(cantidadInput);
-        div.appendChild(unidadInput);
-        div.appendChild(removeButton);
-        ingredientListDiv.appendChild(div);
-    }
+    });
 });
-

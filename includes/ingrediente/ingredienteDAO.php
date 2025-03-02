@@ -31,10 +31,9 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
     {
         try
         {
-
             $conn = application::getInstance()->getConexionBd();
 
-            $query = "SELECT id, nombre FROM ingredientes;
+            $query = "SELECT id, nombre FROM ingredientes";
 
             $stmt = $conn->prepare($query);
 
@@ -42,12 +41,14 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
 
             $ingredientes = array();
 
-            if($stmt->num_rows > 0)
+            $result = $stmt->get_result();
+            if($result->num_rows > 0)   
             {
                 while($row = $result->fetch_assoc())
                 {
                     $ingredientes[] = $row;
                 }
+                
             }
 
             $stmt->close();
