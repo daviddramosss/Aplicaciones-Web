@@ -3,6 +3,7 @@
 require("IIngrediente.php");
 require("IngredienteDTO.php");
 require(__DIR__ . "/../comun/baseDAO.php");
+require(__DIR__ . "/../application.php");
 
 
 class IngredienteDAO extends baseDAO implements IIngrediente {
@@ -31,27 +32,29 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
     {
         try
         {
-
             $conn = application::getInstance()->getConexionBd();
 
-            $query = "SELECT id, nombre FROM ingredientes;
-
+            $query = "SELECT id, nombre FROM ingredientes";
+    
             $stmt = $conn->prepare($query);
-
             $stmt->execute();
-
+    
             $ingredientes = array();
-
-            if($stmt->num_rows > 0)
+            $result = $stmt->get_result();
+    
+            if ($result->num_rows > 0)
             {
-                while($row = $result->fetch_assoc())
+                while ($row = $result->fetch_assoc())
                 {
-                    $ingredientes[] = $row;
+                    $ingredientes[] = [
+                        'id' => $row['id'],
+                        'nombre' => $row['nombre']
+                    ];
                 }
             }
-
+    
             $stmt->close();
-
+    
             return $ingredientes;
             
         }catch(mysqli_sql_exception $e)

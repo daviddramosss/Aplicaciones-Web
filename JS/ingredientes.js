@@ -1,69 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const addIngredientButton = document.getElementById("addIngredient");
-    const ingredientListDiv = document.getElementById("ingredientList");
+    document.getElementById("addIngredient").addEventListener("click", function () {
+        fetch("ingredienteAppService.php?action=obtenerIngredientes")
+            .then(response => response.json())
+            .then(data => {
+                let container = document.getElementById("ingredientList");
+                container.innerHTML = ""; // Limpiamos antes de mostrar
 
-    addIngredientButton.addEventListener("click", function () {
-        agregarDesplegableIngredientes();
+                data.forEach(ingrediente => {
+                    let div = document.createElement("div");
+                    div.innerHTML = `
+                        <input type="checkbox" name="ingredientes[]" value="${ingrediente.id}">
+                        ${ingrediente.nombre}
+                        <input type="number" name="cantidad_${ingrediente.id}" placeholder="Cantidad" min="0.1" step="0.1" required>
+                        <select name="unidad_${ingrediente.id}">
+                            <option value="g">g</option>
+                            <option value="kg">kg</option>
+                            <option value="ml">ml</option>
+                            <option value="l">l</option>
+                            <option value="u">Unidad</option>
+                        </select>
+                    `;
+                    container.appendChild(div);
+                });
+            })
+            .catch(error => console.error("Error obteniendo ingredientes:", error));
     });
-
-    async function obtenerIngredientes() {
-        try {
-            const response = await fetch("../receta/ingredienteAppService.php");
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error("Error obteniendo los ingredientes:", error);
-            return [];
-        }
-    }
-
-    async function agregarDesplegableIngredientes() {
-        const ingredientes = await obtenerIngredientes();
-        if (ingredientes.length === 0) {
-            alert("No se pudieron cargar los ingredientes.");
-            return;
-        }
-        
-        const div = document.createElement("div");
-        div.classList.add("ingredient-item");
-        
-        const select = document.createElement("select");
-        select.name = "ingredientes[]";
-        select.required = true;
-        
-        ingredientes.forEach(ingrediente => {
-            const option = document.createElement("option");
-            option.value = ingrediente.id;
-            option.textContent = ingrediente.nombre;
-            select.appendChild(option);
-        });
-        
-        const cantidadInput = document.createElement("input");
-        cantidadInput.type = "number";
-        cantidadInput.name = "cantidades[]";
-        cantidadInput.step = "0.01";
-        cantidadInput.min = "0";
-        cantidadInput.placeholder = "Cantidad";
-        cantidadInput.required = true;
-        
-        const unidadInput = document.createElement("input");
-        unidadInput.type = "text";
-        unidadInput.name = "unidades[]";
-        unidadInput.placeholder = "Unidad (g, ml, etc.)";
-        unidadInput.required = true;
-        
-        const removeButton = document.createElement("button");
-        removeButton.type = "button";
-        removeButton.textContent = "Eliminar";
-        removeButton.addEventListener("click", function () {
-            div.remove();
-        });
-        
-        div.appendChild(select);
-        div.appendChild(cantidadInput);
-        div.appendChild(unidadInput);
-        div.appendChild(removeButton);
-        ingredientListDiv.appendChild(div);
-    }
 });
-

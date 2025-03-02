@@ -16,7 +16,7 @@ class crearRecetaForm extends formularioBase
         $titulo = $datos['titulo'] ?? '';
         $descripcion = $datos['descripcion'] ?? '';
         $precio = $datos['precio'] ?? '';
-        
+
         $html = <<<EOF
         <fieldset>
             <legend>Nueva Receta</legend>
@@ -27,10 +27,15 @@ class crearRecetaForm extends formularioBase
             
             <p><label>Precio Final:</label> <input type="number" step="0.01" name="precio" value="$precio" required/> €</p>
             <p>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef)</p>
-            
+
+            <!-- Ingredientes -->
             <p><label>Ingredientes:</label> <button type="button" id="addIngredient">+ Añadir ingrediente</button></p>
-            <div id="ingredientList"></div>
             
+            <!-- Contenedor donde se listarán los ingredientes dinámicamente -->
+            <div id="ingredientContainer">
+                <!-- Aquí se insertarán los ingredientes mediante JS -->
+            </div>
+
             <h3>Pasos para elaborar la receta</h3>
             <div id="stepsContainer">
                 <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
@@ -40,7 +45,7 @@ class crearRecetaForm extends formularioBase
             
             <h3>Selecciona los alérgenos</h3>
             <p>
-                <input type="checkbox" name="alergenos[]" value="mariscos"> Mariscos
+                <input type="checkbox" name="alergenos[]" value="lácteos"> Mariscos
                 <input type="checkbox" name="alergenos[]" value="frutos_secos"> Frutos secos
                 <input type="checkbox" name="alergenos[]" value="gluten"> Gluten
             </p>
@@ -61,8 +66,9 @@ class crearRecetaForm extends formularioBase
         <script src="js/crearReceta.js"></script>    
         <script src="js/ingredientes.js"></script> 
         EOF;
-        
+
         return $html;
     }
+
 
 }

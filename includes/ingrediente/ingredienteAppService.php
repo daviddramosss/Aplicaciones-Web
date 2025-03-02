@@ -38,11 +38,14 @@ class IngredienteAppService {
     public function obtenerIngredientes()
     {
         $IIngredienteDAO = ingredienteFactory::CreateIngrediente();
-
-        $buscarIngredienteDTO = $IIngredienteDAO->obtenerIngredientes();
-
-        echo "<script>var ingredientes = " . json_encode($buscarIngredienteDTO) . ";</script>";
-        exit;
+        return $IIngredienteDAO->obtenerIngredientes();
     }
 }
-?>
+
+// **Endpoint para obtener los ingredientes en formato JSON**
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'obtenerIngredientes') {
+    header('Content-Type: application/json');
+    $ingredientes = IngredienteAppService::GetSingleton()->obtenerIngredientes();
+    echo json_encode($ingredientes);
+    exit;
+}
