@@ -17,6 +17,30 @@ $app->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PAS
 
 register_shutdown_function([$app, 'shutdown']);
 
+function getConexionBD() 
+{
+  global $BD;
+  
+  if (!$BD) 
+  {
+    $BD = new mysqli(BD_HOST, BD_USER, BD_PASS, BD_NAME);
+    
+    if ( $BD->connect_errno ) 
+    {
+      echo "Error de conexión a la BD: (" . $BD->connect_errno . ") " . $BD->connect_error;
+      exit();
+    }
+    
+    if ( ! $BD->set_charset("utf8mb4")) 
+    {
+      echo "Error al configurar la codificación de la BD: (" . $BD->errno . ") " . $BD->error;
+      exit();
+    }
+  }
+
+  return $BD;
+}
+
 function gestorExcepciones(Throwable $exception) 
 {
     error_log(jTraceEx($exception)); 
