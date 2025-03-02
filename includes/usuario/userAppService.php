@@ -1,7 +1,7 @@
 <?php
 
-require("userFactory.php");
-require("userDTO.php");
+require_once("userFactory.php");
+require_once("userDTO.php");
 
 class userAppService
 {
