@@ -13,14 +13,14 @@
 
         <!-- Redes sociales -->
         <div class="footer_social">
-            <a href="https://facebook.com" target="_blank">
-                <img src="img/facebook.png" alt="Facebook">
+            <a href="https://facebook.com" target="_blank" style="display:inline-block; text-decoration:none;">
+                <img src="img/facebook_logo.png" alt="Facebook">
             </a>
-            <a href="https://twitter.com" target="_blank">
-                <img src="img/twitter.png" alt="Twitter">
+            <a href="https://twitter.com" target="_blank" style="display:inline-block; text-decoration:none;">
+                <img src="img/twitter_logo.png" alt="Twitter">
             </a>
-            <a href="https://instagram.com" target="_blank">
-                <img src="img/instagram.png" alt="Instagram">
+            <a href="https://instagram.com" target="_blank" style="display:inline-block; text-decoration:none;">
+                <img src="img/instagram_logo.png" alt="Instagram">
             </a>
         </div>
 
