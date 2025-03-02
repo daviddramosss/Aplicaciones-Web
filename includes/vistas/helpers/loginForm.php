@@ -1,7 +1,7 @@
 <?php
 
-include __DIR__ . "/../comun/formBase.php";
-include __DIR__ . "/../usuario/userAppService.php";
+include __DIR__ . "/../../comun/formularioBase.php";
+include __DIR__ . "/../../usuario/userAppService.php";
 
 class loginForm extends formularioBase
 {
