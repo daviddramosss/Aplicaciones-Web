@@ -1,7 +1,7 @@
 <?php
 
 require("userFactory.php");
-//require("userDTO.php");
+require("userDTO.php");
 
 class userAppService
 {
