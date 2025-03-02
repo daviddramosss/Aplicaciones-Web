@@ -45,7 +45,7 @@ class crearRecetaForm extends formularioBase
             
             <h3>Selecciona los alérgenos</h3>
             <p>
-                <input type="checkbox" name="alergenos[]" value="lácteos"> Mariscos
+                <input type="checkbox" name="alergenos[]" value="lacteos"> Lácteos
                 <input type="checkbox" name="alergenos[]" value="frutos_secos"> Frutos secos
                 <input type="checkbox" name="alergenos[]" value="gluten"> Gluten
             </p>

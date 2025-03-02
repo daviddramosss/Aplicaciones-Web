@@ -1,5 +1,6 @@
 <?php
 
+require_once("../config.php");
 require("ingredienteFactory.php");
 
 class IngredienteAppService {
@@ -38,6 +39,7 @@ class IngredienteAppService {
     public function obtenerIngredientes()
     {
         $IIngredienteDAO = ingredienteFactory::CreateIngrediente();
+
         return $IIngredienteDAO->obtenerIngredientes();
     }
 }
