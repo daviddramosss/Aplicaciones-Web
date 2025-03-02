@@ -5,9 +5,10 @@ require("userMock.php");
 
 class userFactory
 {
+    //Permite asociar la creación de usuarios a esta clase exclusivamente
     public static function CreateUser() : IUser
     {
-        $userDAO = false;
+        /*$userDAO = false;
 
         if (true)
         {
@@ -18,7 +19,8 @@ class userFactory
             $userDAO = new userMock();
         }
         
-        return $userDAO;
+        return $userDAO;*/
+        return new userDAO();
     }
 }
 
