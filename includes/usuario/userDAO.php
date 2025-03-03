@@ -27,7 +27,7 @@ class userDAO implements IUser
     {
         $conn = getConexionBD();
         
-        $query = sprintf("SELECT Id, UserName, Password FROM Usuarios WHERE username='%s'", $conn->real_escape_string($username));
+        $query = sprintf("SELECT ID, Email, Password FROM usuarios WHERE Email='%s'", $conn->real_escape_string($username));
         
         $rs = $conn->query($query);
         
@@ -35,8 +35,8 @@ class userDAO implements IUser
         {
             $fila = $rs->fetch_assoc();
             
-            $user = new userDTO($fila['Id'], $fila['UserName'], $fila['Password']);
-            
+            $user = new userDTO($fila['ID'], $fila['Email'], $fila['Password']);
+
             $rs->free();
 
             return $user;

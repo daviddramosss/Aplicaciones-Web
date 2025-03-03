@@ -6,7 +6,17 @@ class userDTO
 
     private $username;
 
+    private $apellidos;
+
+    private $email;
+
+    private $rol;
+
     private $password;
+
+    private $DNI;
+
+    private $cuentaBancaria;
 
     public function __construct($id, $username, $password)
     {
