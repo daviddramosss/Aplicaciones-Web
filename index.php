@@ -2,6 +2,7 @@
 
 require_once("includes/config.php");
 
+$tituloPagina = 'Market Chef';
 
 $contenidoPrincipal = <<<EOS
 
