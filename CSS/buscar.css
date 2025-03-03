@@ -1,3 +1,13 @@
+/* Estilo para centrar y mejorar el título */
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 /* Estilos generales del formulario */
 #buscarFormulario {
     width: 60%;
@@ -69,12 +79,12 @@ input, select {
     border-radius: 5px;
 }
 
-/* Botón de agregar etiquetas */
+/* Botón de agregar + etiquetas */
 #agregarEtiqueta {
     background-color: #28a745;
     color: white;
     border: none;
-    padding: 4px 8px; /* Tamaño reducido */
+    padding: 6px 12px; /* Tamaño reducido */
     border-radius: 5px;
     cursor: pointer;
     font-size: 12px;
@@ -82,6 +92,7 @@ input, select {
     align-items: center;
     justify-content: center;
     height: 30px;
+    
 }
 
 #agregarEtiqueta:hover {
