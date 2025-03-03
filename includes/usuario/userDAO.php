@@ -13,7 +13,7 @@ class userDAO implements IUser
 
     public function login($userDTO)
     {
-        $foundedUserDTO = $this->buscaUsuario($userDTO->username());
+        $foundedUserDTO = $this->buscaUsuario($userDTO->email());
         
         if ($foundedUserDTO && $foundedUserDTO->password() === $userDTO->password()) 
         {
@@ -23,11 +23,11 @@ class userDAO implements IUser
         return false;
     }
 
-    private function buscaUsuario($username)
+    private function buscaUsuario($email)
     {
         $conn = getConexionBD();
         
-        $query = sprintf("SELECT ID, Email, Password FROM usuarios WHERE Email='%s'", $conn->real_escape_string($username));
+        $query = sprintf("SELECT ID, Email, Password FROM usuarios WHERE Email='%s'", $conn->real_escape_string($email));
         
         $rs = $conn->query($query);
         
@@ -35,7 +35,7 @@ class userDAO implements IUser
         {
             $fila = $rs->fetch_assoc();
             
-            $user = new userDTO($fila['ID'], $fila['Email'], $fila['Password']);
+            $user = new userDTO($fila['ID'], $fila['Nombre'], $fila['Apellidos'], $fila['Email'], $fila['Rol'], $fila['Password'], $fila['DNI'], $fila['Cuenta_Bancaria']);
 
             $rs->free();
 

@@ -36,14 +36,40 @@ class userDTO
         return $this->id;
     }
 
-    public function username()
+    public function name()
     {
-        return $this->username;
+        return $this->name;
+    }
+
+    public function apellidos()
+    {
+        return $this->apellidos;
+    }
+
+    public function email()
+    {
+        return $this->email;
+    }
+
+    public function rol()
+    {
+        return $this->rol;
     }
 
     public function password()
     {
         return $this->password;
     }
+
+    public function DNI()
+    {
+        return $this->DNI;
+    }
+
+    public function cuentaBancaria()
+    {
+        return $this->cuentaBancaria;
+    }
+    
 }
 ?>
