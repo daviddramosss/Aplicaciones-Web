@@ -400,6 +400,14 @@ CREATE TABLE `ingrediente_alergeno` (
  CONSTRAINT `fk_ia_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Tabla Receta_Etiqueta
+
+CREATE TABLE `receta_etiqueta` (
+ `Receta` int(11) NOT NULL,
+ `Etiqueta` varchar(100) NOT NULL,
+ KEY `fk_re_receta` (`Receta`),
+ CONSTRAINT `fk_re_receta` FOREIGN KEY (`Receta`) REFERENCES `recetas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Eliminar el usuario 'MarketChef' si ya existe
 DROP USER IF EXISTS 'MarketChef'@'%';
