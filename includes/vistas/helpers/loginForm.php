@@ -43,7 +43,7 @@ EOF;
                 
         if ( empty($nombreUsuario) ) 
         {
-            $result[] = "El nombre de usuario no puede estar vacío";
+            $result[] = "El email no puede estar vacío";
         }
         
         $password = trim($datos['password'] ?? '');
@@ -66,7 +66,7 @@ EOF;
             if ( ! $foundedUserDTO ) 
             {
                 // No se da pistas a un posible atacante
-                $result[] = "El usuario o el password no coinciden";
+                $result[] = "El email o el password no coinciden";
             } 
             else 
             {
