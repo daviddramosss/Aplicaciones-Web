@@ -23,6 +23,8 @@ class registerForm extends formularioBase
         <fieldset>
             <legend>Crea tu cuenta</legend>
             <p><label>Nombre:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
+            <p><label>Apellidos:</label> <input type="text" name="apellidos" /></p>
+            <p><label>Email:</label> <input type="text" name="nombreUsuario" /></p>
             <p><label>Contraseña:</label> <input type="password" name="password" /></p>
             <p><label>Repetir Contraseña:</label> <input type="password" name="rePassword" /></p>
             <button type="submit" name="login">Entrar</button>

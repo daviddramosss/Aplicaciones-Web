@@ -12,17 +12,17 @@ class loginForm extends formularioBase
     
     protected function CreateFields($datos)
     {
-        $nombreUsuario = '';
+        $email = '';
         
         if ($datos) 
         {
-            $nombreUsuario = isset($datos['nombreUsuario']) ? $datos['nombreUsuario'] : $nombreUsuario;
+            $email = isset($datos['email']) ? $datos['email'] : $email;
         }
 
         $html = <<<EOF
         <fieldset>
             <legend>Usuario y contraseña</legend>
-            <p><label>Email:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
+            <p><label>Email:</label> <input type="text" name="email" value="$email"/></p>
             <p><label>Password:</label> <input type="password" name="password" /></p>
             <button type="submit" name="login">Entrar</button>
         </fieldset>
@@ -37,11 +37,11 @@ EOF;
         
         //filter_var vs htmlspecialchars(trim(strip_tags($_REQUEST["username"])));
 
-        $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
+        $email = trim($datos['email'] ?? '');
         
-        $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $email = filter_var($email, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 
-        if ( empty($nombreUsuario) ) 
+        if ( empty($email) ) 
         {
             $result[] = "El email no puede estar vacío";
         }
@@ -57,7 +57,7 @@ EOF;
         
         if (count($result) === 0) 
         {
-            $userDTO = new userDTO(0, $nombreUsuario, $password);
+            $userDTO = new userDTO(0, $email, $password);
 
             $userAppService = userAppService::GetSingleton();
 
@@ -71,7 +71,7 @@ EOF;
             else 
             {
                 $_SESSION["login"] = true;
-                $_SESSION["usuario"] = $nombreUsuario;
+                $_SESSION["usuario"] = $email;
 
                 $result = 'index.php';
             }
