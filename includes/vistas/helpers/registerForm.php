@@ -13,16 +13,20 @@ class registerForm extends formularioBase
     protected function CreateFields($datos)
     {
         $nombreUsuario = '';
+        $email = '';
         
         if ($datos) 
         {
             $nombreUsuario = isset($datos['nombreUsuario']) ? $datos['nombreUsuario'] : $nombreUsuario;
-        }
+            $email = isset($datos['email']) ? $datos['email'] : $email;
+        } 
 
         $html = <<<EOF
         <fieldset>
             <legend>Crea tu cuenta</legend>
             <p><label>Nombre:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
+            <p><label>Apellidos:</label> <input type="text" name="apellidos" /></p>
+            <p><label>Email:</label> <input type="text" name="email" /></p>
             <p><label>Contraseña:</label> <input type="password" name="password" /></p>
             <p><label>Repetir Contraseña:</label> <input type="password" name="rePassword" /></p>
             <button type="submit" name="login">Entrar</button>
@@ -39,6 +43,15 @@ EOF;
         $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
         
         $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        if ( empty($nombreUsuario) ) 
+        {
+            $result[] = "El nombre de usuario no puede estar vacío";
+        }
+
+        $email = trim($datos['email'] ?? '');
+        
+        $email = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if ( empty($nombreUsuario) ) 
         {
@@ -65,7 +78,7 @@ EOF;
         
         if (count($result) === 0) 
         {
-            $userDTO = new userDTO(0, $nombreUsuario, $password);
+            $userDTO = new userDTO(0, $nombreUsuario, $password, $email, );
 
             $userAppService = userAppService::GetSingleton();
 
