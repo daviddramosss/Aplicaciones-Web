@@ -51,19 +51,29 @@ class userDAO implements IUser
 
         $conn = getConexionBD();
 
+        $nombreUsuario = $conn->real_escape_string($userDTO->name());
+        $apellidosUsuario = $conn->real_escape_string($userDTO->apellidos());
+        $emailUsuario = $conn->real_escape_string($userDTO->email());
+        $passwordUsuario = $conn->real_escape_string($userDTO->password());
+        $rolUsuario = $conn->real_escape_string($userDTO->rol());
+        $dniUsuario = $conn->real_escape_string($userDTO->dni());
+        $cuentaBancariaUsuario = $conn->real_escape_string($userDTO->cuentaBancaria());
+
         $query = sprintf("INSERT INTO usuarios(Nombre, Apellidos, Email, Rol, Password) VALUES ('%s', '%s', '%s', '%s', '%s')"
             , $conn->real_escape_string($userDTO->name())
             , $conn->real_escape_string($userDTO->apellidos())
             , $conn->real_escape_string($userDTO->email())
             , $conn->real_escape_string($userDTO->rol())
             , $conn->real_escape_string($userDTO->password()) 
+            , $conn->real_escape_string($userDTO->dni())
+            ,  $conn->real_escape_string($userDTO->cuentaBancaria())
         );
 
         if ( $conn->query($query) ) 
         {
             $idUser = $conn->insert_id;
             
-            $createdUserDTO = new userDTO($idUser, $userName, $password);
+            $createdUserDTO = new userDTO($idUser, $nombreUsuario, $apellidosUsuario, $emailUsuario, $rolUsuario, $passwordUsuario, $dniUsuario, $cuentaBancariaUsuario );
         } 
 
         return $createdUserDTO;
