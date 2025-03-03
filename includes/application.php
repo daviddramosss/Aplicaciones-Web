@@ -36,7 +36,9 @@ class application
     		
 			$this->inicializada = true;
     		
-			session_start();
+			if (session_status() === PHP_SESSION_NONE) {
+				session_start();
+			}
 
 			$this->atributosPeticion = $_SESSION[self::ATRIBUTOS_PETICION] ?? [];
 			
