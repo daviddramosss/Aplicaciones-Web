@@ -18,7 +18,7 @@
               <img src="img/informacion.png" alt="Ayuda">
             </a>
             
-            <a href="bucar.php" class="lupa_cabecera">
+            <a href="buscar.php" class="lupa_cabecera">
               <img src="img/busqueda-de-lupa.png" alt="Buscar">
             </a>
            
