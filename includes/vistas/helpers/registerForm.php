@@ -103,7 +103,7 @@ EOF;
             else 
             {
                 $_SESSION["login"] = true;
-                $_SESSION["usuario"] = $nombreUsuario;
+                $_SESSION["usuario"] = $email;
 
                 $result = 'index.php';
             }
