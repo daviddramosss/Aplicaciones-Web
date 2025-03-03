@@ -4,7 +4,7 @@ class userDTO
 {
     private $id;
 
-    private $username;
+    private $name;
 
     private $apellidos;
 
@@ -18,12 +18,18 @@ class userDTO
 
     private $cuentaBancaria;
 
-    public function __construct($id, $username, $password)
+    public function __construct($id, $name, $apellidos, $email, $rol, $password, $DNI, $cuentaBancaria)
     {
         $this->id = $id;
-        $this->username = $username;
+        $this->name = $name;
+        $this->apellidos = $apellidos;
+        $this->email = $email;
+        $this->rol = $rol;
         $this->password = $password;
+        $this->DNI = $DNI;
+        $this->cuentaBancaria = $cuentaBancaria;
     }
+    
 
     public function id()
     {
