@@ -48,10 +48,10 @@
             <div class="menu_usuario">
               <?php if (isset($_SESSION['usuario'])): ?>
                   <a href="perfil.php">Mi Perfil</a>
-                  <a href="cerrar_sesion.php">Cerrar Sesión</a>
+                  <a href="logout.php">Cerrar Sesión</a>
               <?php else: ?>
                   <a href="login.php">Iniciar Sesión</a>
-                  <a href="registro.php">Registrarse</a>
+                  <a href="register.php">Registrarse</a>
               <?php endif; ?>
               </div>
 

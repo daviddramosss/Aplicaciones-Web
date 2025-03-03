@@ -22,7 +22,7 @@ class loginForm extends formularioBase
         $html = <<<EOF
         <fieldset>
             <legend>Usuario y contraseña</legend>
-            <p><label>Nombre:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
+            <p><label>Email:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
             <p><label>Password:</label> <input type="password" name="password" /></p>
             <button type="submit" name="login">Entrar</button>
         </fieldset>
@@ -43,7 +43,7 @@ EOF;
                 
         if ( empty($nombreUsuario) ) 
         {
-            $result[] = "El nombre de usuario no puede estar vacío";
+            $result[] = "El email no puede estar vacío";
         }
         
         $password = trim($datos['password'] ?? '');
@@ -66,12 +66,12 @@ EOF;
             if ( ! $foundedUserDTO ) 
             {
                 // No se da pistas a un posible atacante
-                $result[] = "El usuario o el password no coinciden";
+                $result[] = "El email o el password no coinciden";
             } 
             else 
             {
                 $_SESSION["login"] = true;
-                $_SESSION["nombre"] = $nombreUsuario;
+                $_SESSION["usuario"] = $nombreUsuario;
 
                 $result = 'index.php';
             }
