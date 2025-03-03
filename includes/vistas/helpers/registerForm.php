@@ -18,96 +18,78 @@ class registerForm extends formularioBase
         
         if ($datos) 
         {
-            $nombreUsuario = isset($datos['nombreUsuario']) ? $datos['nombreUsuario'] : $nombreUsuario;
-            $apellidosUsuario = isset($datos['apellidosUsuario']) ? $datos['apellidosUsuario'] : $apellidosUsuario;
-            $email = isset($datos['email']) ? $datos['email'] : $email;
-            
+            $nombreUsuario = $datos['nombreUsuario'] ?? $nombreUsuario;
+            $apellidosUsuario = $datos['apellidosUsuario'] ?? $apellidosUsuario;
+            $email = $datos['email'] ?? $email;
         } 
 
         $html = <<<EOF
         <fieldset>
             <legend>Crea tu cuenta</legend>
             <p><label>Nombre:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
-            <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidosUsuario"/></p>
+            <p><label>Apellidos:</label> <input type="text" name="apellidosUsuario" value="$apellidosUsuario"/></p>
             <p><label>Email:</label> <input type="text" name="email" value="$email"/></p>
             <p><label>Contraseña:</label> <input type="password" name="password" /></p>
             <p><label>Repetir Contraseña:</label> <input type="password" name="rePassword" /></p>
-            <button type="submit" name="login">Entrar</button>
+            <button type="submit" name="register">Registrarse</button>
         </fieldset>
 EOF;
         return $html;
     }
     
-
     protected function Process($datos)
     {
-        $result = array();
-        
+        $result = [];
+
         $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
-        
-        $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-        if ( empty($nombreUsuario) ) 
-        {
-            $result[] = "El nombre de usuario no puede estar vacío";
-        }
-
         $apellidosUsuario = trim($datos['apellidosUsuario'] ?? '');
-        
-        $apellidosUsuario = filter_var($apellidosUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-        if ( empty($apellidosUsuario) ) 
-        {
-            $result[] = "Los apellidos del usuario no pueden estar vacíos";
-        }
         $email = trim($datos['email'] ?? '');
-        
-        $email = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-        if ( empty($email) ) 
-        {
-            $result[] = "El email no puede estar vacío";
-        }
-        
         $password = trim($datos['password'] ?? '');
-        
-        $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-        if ( empty($password) ) 
-        {
-            $result[] = "El password no puede estar vacío.";
-        }
-
         $rePassword = trim($datos['rePassword'] ?? '');
-        
-        $rePassword = filter_var($rePassword, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if ($password !== $rePassword)
-        {
-            $result[] = "El password no coincide.";
+        $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $apellidosUsuario = filter_var($apellidosUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+        if (empty($nombreUsuario)) {
+            $result[] = "El nombre de usuario no puede estar vacío.";
         }
-        
+
+        if (empty($apellidosUsuario)) {
+            $result[] = "Los apellidos del usuario no pueden estar vacíos.";
+        }
+
+        if (empty($email)) {
+            $result[] = "El email no puede estar vacío.";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $result[] = "El email no es válido.";
+        }
+
+        if (empty($password)) {
+            $result[] = "La contraseña no puede estar vacía.";
+        }
+
+        if ($password !== $rePassword) {
+            $result[] = "Las contraseñas no coinciden.";
+        }
+
         if (count($result) === 0) 
         {
-            $userDTO = new userDTO(0, $nombreUsuario, $apellidosUsuario,
-            $email, "User", $password, null, null);
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
+            $userDTO = new userDTO(0, $nombreUsuario, $apellidosUsuario, $email, "User", $hashedPassword, null, null);
             $userAppService = userAppService::GetSingleton();
-
             $createdUserDTO = $userAppService->create($userDTO);
 
-            if ( ! $createdUserDTO ) 
-            {
-                $result[] = "Error en el proceso de creación del usuario";
-            } 
-            else 
-            {
+            if (!$createdUserDTO) {
+                $result[] = "Error en el proceso de creación del usuario.";
+            } else {
                 $_SESSION["login"] = true;
                 $_SESSION["usuario"] = $email;
-
                 $result = 'index.php';
             }
         }
+
         return $result;
     }
 }
