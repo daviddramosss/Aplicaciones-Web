@@ -26,13 +26,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Navegación de recetas
-    document.getElementById("prevReceta").addEventListener("click", function() {
-        recetaIndex = (recetaIndex - 1 + recetas.length) % recetas.length;
+    document.getElementById("nextReceta").addEventListener("click", function() {
+        if (recetaIndex < recetas.length - 1) {
+            recetaIndex++;
+        }
         actualizarReceta();
     });
-
-    document.getElementById("nextReceta").addEventListener("click", function() {
-        recetaIndex = (recetaIndex + 1) % recetas.length;
+    
+    document.getElementById("prevReceta").addEventListener("click", function() {
+        if (recetaIndex > 0) {
+            recetaIndex--;
+        }
         actualizarReceta();
     });
 
