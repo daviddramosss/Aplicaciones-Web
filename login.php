@@ -4,7 +4,7 @@ require_once("includes/config.php");
 
 require_once("includes/vistas/helpers/loginForm.php");
 
-$tituloPagina = 'Acceso al sistema';
+$tituloPagina = 'Inicio de sesión';
 
 $form = new loginForm(); 
 
