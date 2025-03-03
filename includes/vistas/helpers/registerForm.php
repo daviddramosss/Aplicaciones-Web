@@ -56,17 +56,17 @@ EOF;
         
         $apellidosUsuario = filter_var($apellidosUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if ( empty($nombreUsuario) ) 
+        if ( empty($apellidosUsuario) ) 
         {
-            $result[] = "El nombre de usuario no puede estar vacío";
+            $result[] = "Los apellidos del usuario no pueden estar vacíos";
         }
         $email = trim($datos['email'] ?? '');
         
         $email = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if ( empty($nombreUsuario) ) 
+        if ( empty($email) ) 
         {
-            $result[] = "El nombre de usuario no puede estar vacío";
+            $result[] = "El email no puede estar vacío";
         }
         
         $password = trim($datos['password'] ?? '');
