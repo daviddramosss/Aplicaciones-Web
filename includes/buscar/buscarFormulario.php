@@ -15,6 +15,10 @@ class buscarFormulario extends formularioBase
         $html = <<<EOF
         <form id="buscarFormulario" method="POST" action="procesarBusqueda.php">
             <div class="buscar-contenedor">
+
+                <label for="buscarPlato">Buscar:</label>
+                <input type="text" id="buscarPlato" name="buscarPlato" placeholder="Escribe el nombre del plato...">
+
                 <label for="ordenar">Ordenar por:</label>
                 <select id="ordenar" name="ordenar">
                     <option value="precio">Precio</option>
@@ -38,19 +42,21 @@ class buscarFormulario extends formularioBase
                 </div>
 
                 <label for="etiquetas">Busca etiquetas:</label>
-                <input type="text" id="etiquetas" name="etiquetas">
-                <button type="button" id="agregarEtiqueta">+</button>
+                <div class="etiquetas-container">
+                    <input type="text" id="etiquetas" name="etiquetas">
+                    <button type="button" id="agregarEtiqueta">+</button>
+                </div>
                 <div id="etiquetasSeleccionadas"></div>
 
-                <label>
-                    <input type="checkbox" name="usarDespensa">
-                    Usar Mi Despensa
-                </label>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="usarDespensa" name="usarDespensa">
+                    <label for="usarDespensa">Usar Mi Despensa</label>
+                </div>
 
-                <label>
-                    <input type="checkbox" name="usarAlergenos">
-                    Usar mis alérgenos
-                </label>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="usarAlergenos" name="usarAlergenos">
+                    <label for="usarAlergenos">Usar mis alérgenos</label>
+                </div>
 
                 <button type="submit">Buscar</button>
             </div>

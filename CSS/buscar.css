@@ -6,9 +6,89 @@
     background: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-/* Estilos para las etiquetas y el contenedor */
+/* Nueva barra de búsqueda (arriba del todo) */
+#buscarPlato {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Contenedor de filtros */
+.buscar-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Campos de entrada */
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Sección de valoración con estrellas */
+.valoracion {
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+}
+
+.estrella {
+    color: gray;
+    transition: color 0.3s;
+}
+
+.estrella.seleccionada,
+.estrella:hover {
+    color: gold;
+}
+
+/* Contenedor de etiquetas */
+.etiquetas-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Campo de entrada de etiquetas */
+#etiquetas {
+    flex: 1;  /* Ocupa todo el espacio disponible */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botón de agregar etiquetas */
+#agregarEtiqueta {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 4px 8px; /* Tamaño reducido */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+
+#agregarEtiqueta:hover {
+    background-color: #218838;
+}
+
+/* Contenedor de etiquetas seleccionadas */
 #etiquetasSeleccionadas {
     display: flex;
     flex-wrap: wrap;
@@ -34,55 +114,39 @@
     color: red;
 }
 
-/* Botón de agregar etiquetas */
-#agregarEtiqueta {
-    background-color: #28a745;
+/* Ajuste para los checkbox */
+.buscar-contenedor label input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Botón de búsqueda (colocado abajo del todo) */
+#buscarFormulario button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
+    margin-top: 20px;
 }
 
-#agregarEtiqueta:hover {
-    background-color: #218838;
+#buscarFormulario button[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
-/* Campos de entrada */
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Sección de filtros */
-.filtro-container {
+/* Estilos para los checkboxes y sus etiquetas */
+.checkbox-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    gap: 5px; /* Espaciado pequeño entre checkbox y texto */
+    margin-top: 5px;
 }
 
-.filtro-container label {
-    font-weight: bold;
-}
-
-.valoracion {
-    font-size: 2rem;
+/* Asegurar que los checkboxes no se vean desalineados */
+.checkbox-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
     cursor: pointer;
-    display: flex;
-    gap: 5px;
-}
-
-.estrella {
-    color: gray;
-    transition: color 0.3s;
-}
-
-.estrella.seleccionada,
-.estrella:hover {
-    color: gold;
 }
