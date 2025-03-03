@@ -1,0 +1,88 @@
+/* Estilos generales del formulario */
+#buscarFormulario {
+    width: 60%;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para las etiquetas y el contenedor */
+#etiquetasSeleccionadas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.etiqueta {
+    background-color: #ffcc00;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-eliminar {
+    background: none;
+    border: none;
+    font-weight: bold;
+    margin-left: 8px;
+    cursor: pointer;
+    color: red;
+}
+
+/* Botón de agregar etiquetas */
+#agregarEtiqueta {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#agregarEtiqueta:hover {
+    background-color: #218838;
+}
+
+/* Campos de entrada */
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Sección de filtros */
+.filtro-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.filtro-container label {
+    font-weight: bold;
+}
+
+.valoracion {
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+}
+
+.estrella {
+    color: gray;
+    transition: color 0.3s;
+}
+
+.estrella.seleccionada,
+.estrella:hover {
+    color: gold;
+}
