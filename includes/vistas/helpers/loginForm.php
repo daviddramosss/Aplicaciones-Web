@@ -57,7 +57,8 @@ EOF;
         
         if (count($result) === 0) 
         {
-            $userDTO = new userDTO(0, $email, $password);
+            $userDTO = new userDTO(0, '', '', $email, '',$password, 
+            '', '');
 
             $userAppService = userAppService::GetSingleton();
 
