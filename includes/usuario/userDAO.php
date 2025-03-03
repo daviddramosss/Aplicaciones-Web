@@ -51,9 +51,12 @@ class userDAO implements IUser
 
         $conn = getConexionBD();
 
-        $query = sprintf("INSERT INTO usuarios(Email, Password) VALUES ('%s', '%s')"
-            , $conn->real_escape_string($userDTO->userName())
-            , $conn->real_escape_string($userDTO->password())
+        $query = sprintf("INSERT INTO usuarios(Nombre, Apellidos, Email, Rol, Password) VALUES ('%s', '%s', '%s', '%s', '%s')"
+            , $conn->real_escape_string($userDTO->name())
+            , $conn->real_escape_string($userDTO->apellidos())
+            , $conn->real_escape_string($userDTO->email())
+            , $conn->real_escape_string($userDTO->rol())
+            , $conn->real_escape_string($userDTO->password()) 
         );
 
         if ( $conn->query($query) ) 
