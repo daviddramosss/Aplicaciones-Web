@@ -78,7 +78,7 @@ EOF;
             else 
             {
                 $_SESSION["login"] = true;
-                $_SESSION["nombre"] = $nombreUsuario;
+                $_SESSION["usuario"] = $nombreUsuario;
 
                 $result = 'index.php';
             }
