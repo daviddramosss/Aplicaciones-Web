@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("includes/login/registerForm.php");
+include("includes/vistas/helpers/registerForm.php");
 
 $tituloPagina = 'Registro en el sistema';
 

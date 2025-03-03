@@ -51,7 +51,7 @@
                   <a href="logout.php">Cerrar Sesión</a>
               <?php else: ?>
                   <a href="login.php">Iniciar Sesión</a>
-                  <a href="registro.php">Registrarse</a>
+                  <a href="register.php">Registrarse</a>
               <?php endif; ?>
               </div>
 
