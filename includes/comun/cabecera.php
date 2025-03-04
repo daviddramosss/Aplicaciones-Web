@@ -48,6 +48,7 @@
             <div class="menu_usuario">
               <?php if (isset($_SESSION['usuario'])): ?>
                   <a href="perfil.php">Mi Perfil</a>
+                  <a href="despensa.php">Mi Despensa</a>
                   <a href="logout.php">Cerrar Sesión</a>
               <?php else: ?>
                   <a href="login.php">Iniciar Sesión</a>
