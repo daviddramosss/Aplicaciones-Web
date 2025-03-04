@@ -1,4 +1,21 @@
 <?php
+
+$esAdmin = false;
+require_once("includes/usuario/userDAO.php");
+require_once("includes/usuario/userFactory.php");
+
+// Comprobamos si el usuario está logueado y tiene el rol de Admin
+if (isset($_SESSION["login"])) {
+    $IUserDAO = userFactory::CreateUser();
+    $foundedUserDTO = $IUserDAO->buscaUsuario($_SESSION["usuario"]);
+    if($foundedUserDTO){
+        if($foundedUserDTO->rol() == "Admin"){
+            $esAdmin = true;
+        }
+    }
+    
+}
+
 // cabecera.php - Archivo de cabecera con banner, buscador y botón de ayuda
 ?>
 <!DOCTYPE html>
@@ -40,13 +57,19 @@
               <img src="img/carrito.png" alt="Carrito">
             </a>
             
+            <?php if ($esAdmin): ?>
+              <!--INCLUIR PERMISOS DE ADMIN (Gestionar usuarios y Añadir ingredientes)-->
+              <a href="gestionarUsuarios.php" class="gestionar_cabecera">
+              <img src="img/editar.png" alt="Gestionar usuarios">
+            <?php endif; ?>
+
            <!-- Icono de usuario con menú desplegable -->
             <div class="usuario_desplegable_cabecera">
                 <img src="img/usuario.png" alt="Usuario">
                      
             </div>
             <div class="menu_usuario">
-              <?php if (isset($_SESSION['usuario'])): ?>
+              <?php if (isset($_SESSION['login'])): ?>
                   <a href="perfil.php">Mi Perfil</a>
                   <a href="despensa.php">Mi Despensa</a>
                   <a href="logout.php">Cerrar Sesión</a>
