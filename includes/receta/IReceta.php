@@ -2,10 +2,10 @@
 
 interface IReceta
 {
-   public function create($recetaDTO);
+   public function crearReceta($recetaDTO);
 
-   public function edit($recetaDTO);
+   public function editarReceta($recetaDTO);
 
-   public function delete($recetaDTO);
+   public function borrarReceta($recetaDTO);
 }
 ?>

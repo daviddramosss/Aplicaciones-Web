@@ -51,7 +51,7 @@ class recetaDAO extends baseDAO implements IReceta
         return false;
     }
 
-    public function create($recetaDTO)
+    public function crearReceta($recetaDTO)
     {
         $createdRecetaDTO = false;
 
@@ -98,7 +98,7 @@ class recetaDAO extends baseDAO implements IReceta
         return $createdRecetaDTO;
     }
 
-    public function edit($recetaDTO)
+    public function editarReceta($recetaDTO)
     {
         $editedRecetaDTO = false;
 
@@ -147,7 +147,7 @@ class recetaDAO extends baseDAO implements IReceta
         return $editedRecetaDTO;
     }
 
-    public function delete($recetaDTO)
+    public function borarReceta($recetaDTO)
     {
         $deletedRecetaDTO = false;
 
