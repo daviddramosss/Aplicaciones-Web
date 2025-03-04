@@ -76,7 +76,8 @@ class crearRecetaForm extends formularioBase
         $result = array();
 
         //Comprobar bien como se hace esto
-        $usuarioId = $_SESSION['usuario'] ?? null;
+        //$usuarioId = $_SESSION['usuario'] ?? null;
+        $usuarioId = 1;
 
         //Comprobnar si funciona
         $fecha_creacion = date('Y-m-d H:i:s');

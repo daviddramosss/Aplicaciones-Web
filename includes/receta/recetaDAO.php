@@ -78,10 +78,8 @@ class recetaDAO extends baseDAO implements IReceta
             $fechaCreacion = $recetaDTO->getFechaCreacion(); 
             $valoracion = $recetaDTO->getValoracion();
 
-
-
             //Definimos los tipos como int,string,string,string,string,int,decimal,string,decimal
-            $stmt->bind_param("ssssidsd", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
+            $stmt->bind_param("sissidsd", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
 
             if ($stmt->execute())
             {
