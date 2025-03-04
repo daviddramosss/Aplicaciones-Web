@@ -23,7 +23,7 @@ class userDAO implements IUser
         return false;
     }
 
-    private function buscaUsuario($email)
+    public function buscaUsuario($email)
     {
         $conn = getConexionBD();
         
