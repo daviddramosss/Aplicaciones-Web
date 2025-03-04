@@ -29,8 +29,12 @@ class crearRecetaForm extends formularioBase
             <p>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef)</p>
 
             <!-- Ingredientes -->
-            <p><label>Ingredientes:</label> <button type="button" id="addIngredient">+ Añadir ingrediente</button></p>
-            
+            <p>
+                <label>Ingredientes:</label> 
+                <button type="button" id="addIngredient">Añadir ingrediente</button>
+                <button type="button" id="closeIngredientList">Cerrar lista ingredientes</button>
+            </p>
+
             <!-- Contenedor donde se listarán los ingredientes dinámicamente -->
             <div id="ingredientContainer">
                 <!-- Aquí se insertarán los ingredientes mediante JS -->

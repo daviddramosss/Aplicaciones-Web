@@ -1,19 +1,35 @@
 document.addEventListener("DOMContentLoaded", function () {
     const addIngredientBtn = document.getElementById("addIngredient");
+    const closeIngredientListBtn = document.getElementById("closeIngredientList");
     const ingredientContainer = document.getElementById("ingredientContainer");
 
+    let ingredientesVisibles = false; // Controla la visibilidad del contenedor
+
     addIngredientBtn.addEventListener("click", function () {
-        fetch("/MarketChef/includes/ingrediente/getIngredientes.php") // Llamamos al archivo PHP que devuelve la lista de ingredientes
-            .then(response => response.json())
-            .then(data => {
-                mostrarIngredientes(data);
-            })
-            .catch(error => console.error("Error cargando los ingredientes:", error));
+        if (!ingredientesVisibles) {
+            fetch("/MarketChef/includes/ingrediente/getIngredientes.php") // Llamamos al archivo PHP que devuelve la lista de ingredientes
+                .then(response => response.json())
+                .then(data => {
+                    mostrarIngredientes(data);
+                    ingredientesVisibles = true;
+                    ingredientContainer.style.display = "block"; // Asegurar que se muestre
+                })
+                .catch(error => console.error("Error cargando los ingredientes:", error));
+        } else {
+            ingredientContainer.style.display = "block"; // Si ya están cargados, solo los muestra
+        }
+    });
+
+    closeIngredientListBtn.addEventListener("click", function () {
+        if (ingredientesVisibles) {
+            ingredientContainer.style.display = ingredientContainer.style.display === "none" ? "block" : "none";
+        }
     });
 
     function mostrarIngredientes(ingredientes) {
         // Limpiamos el contenedor antes de agregar nuevos ingredientes
         ingredientContainer.innerHTML = "";
+        ingredientContainer.style.display = "block"; // Asegurar que el contenedor sea visible
 
         ingredientes.forEach(ingrediente => {
             const div = document.createElement("div");
