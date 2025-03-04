@@ -30,7 +30,7 @@ if (isset($_SESSION["login"])) {
     <?php if ($esAdmin): ?>
         <?php include 'sideBarIzq.php'; ?>
     <?php endif; ?>
-    <main>
+    <main class="contenido.plantilla">
         <article>
             <?= $contenidoPrincipal ?>
         </article>
