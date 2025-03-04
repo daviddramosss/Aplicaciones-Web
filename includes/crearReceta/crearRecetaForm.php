@@ -48,10 +48,12 @@ class crearRecetaForm extends formularioBase
             <button type="button" id="removeStep">- Eliminar paso</button>
             
             <h3>Etiquetas</h3>
-            <p>Añade etiquetas para recomendar tu receta:</p>
-            <div id="tagsContainer"></div>
+            <p>Añade etiquetas para recomendar tu receta: (Máximo 3)</p>
+            <input type="text" id="etiquetaInput" placeholder="Escribe una etiqueta..."/>
             <button type="button" id="addTag">+ Añadir etiqueta</button>
             
+            <div id="tagsContainer"></div>
+
             <p>
                 <button type="button" onclick="location.href='index.php'">Cancelar</button>
                 <button type="submit" name="guardar">Guardar</button>
