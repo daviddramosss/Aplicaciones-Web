@@ -21,8 +21,6 @@ class contactoFormulario extends formularioBase
             <div class="input-container"><textarea name="mensaje" placeholder="MESSAGE (If you have any queries or issues regarding a placed order, please tell us in your message so that we can expedite your case. Thank you very much.)" required></textarea></div>
             <button type="submit" class="send-button">ENVIAR</button>
         </form>
-
-       
         <script src="JS/contacto.js"></script>
         EOF;
         return $html;

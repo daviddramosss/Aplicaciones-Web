@@ -9,6 +9,7 @@ $contenidoPrincipal = <<<EOS
     
 
     $htmlFormContacto
+    
 
 EOS;
 
