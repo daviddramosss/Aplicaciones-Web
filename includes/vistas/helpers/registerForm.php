@@ -82,7 +82,7 @@ EOF;
             $createdUserDTO = $userAppService->create($userDTO);
 
             if (!$createdUserDTO) {
-                $result[] = "Error en el proceso de creación del usuario.";
+                $result[] = "Ya hay un usuario con ese email, por favor utiliza otro email";
             } else {
                 $_SESSION["login"] = true;
                 $_SESSION["usuario"] = $email;
