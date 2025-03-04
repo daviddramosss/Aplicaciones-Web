@@ -68,7 +68,7 @@ class recetaDTO
         return $this->precio;
     }
 
-    public function getFecha_Creacion()
+    public function getFechaCreacion()
     {
         return $this->fecha_creacion;
     }
