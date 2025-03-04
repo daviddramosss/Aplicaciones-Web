@@ -1,9 +1,9 @@
 <?php
 
-require("IReceta.php");
-require("recetaDTO.php");
-require(__DIR__ . "/../comun/baseDAO.php");
-require("recetaAlreadyExistException.php");
+require_once("IReceta.php");
+require_once("recetaDTO.php");
+require_once(__DIR__ . "/../comun/baseDAO.php");
+require_once("recetaAlreadyExistException.php");
 
 class recetaDAO extends baseDAO implements IReceta
 {

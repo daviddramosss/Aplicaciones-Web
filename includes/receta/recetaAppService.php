@@ -1,6 +1,6 @@
 <?php
 
-require("recetaFactory.php");
+require_once("recetaFactory.php");
 
 class recetaAppService
 {
