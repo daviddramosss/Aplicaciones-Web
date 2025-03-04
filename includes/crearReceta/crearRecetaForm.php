@@ -71,7 +71,7 @@ class crearRecetaForm extends formularioBase
         return $html;
     }
 
-    protected function procesar($datos)
+    protected function Process($datos)
     {
         $result = array();
 

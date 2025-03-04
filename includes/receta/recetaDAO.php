@@ -147,7 +147,7 @@ class recetaDAO extends baseDAO implements IReceta
         return $editedRecetaDTO;
     }
 
-    public function borarReceta($recetaDTO)
+    public function borrarReceta($recetaDTO)
     {
         $deletedRecetaDTO = false;
 
