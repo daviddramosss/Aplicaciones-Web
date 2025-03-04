@@ -33,47 +33,47 @@ class recetaDTO
         $this->valoracion = $valoracion;
     }
 
-    private function getId()
+    public function getId()
     {
         return $this->id;
     }
 
-    private function getNombre()
+    public function getNombre()
     {
         return $this->nombre;
     }
 
-    private function getAutor()
+    public function getAutor()
     {
         return $this->autor;
     }
 
-    private function getDescripcion()
+    public function getDescripcion()
     {
         return $this->descripcion;
     }
 
-    private function getPasos()
+    public function getPasos()
     {
         return $this->pasos;
     }
 
-    private function getTiempo()
+    public function getTiempo()
     {
         return $this->tiempo;
     }
 
-    private function getPrecio()
+    public function getPrecio()
     {
         return $this->precio;
     }
 
-    private function getFecha_Creacion()
+    public function getFecha_Creacion()
     {
         return $this->fecha_creacion;
     }
 
-    private function getValoracion()
+    public function getValoracion()
     {
         return $this->valoracion;
     }

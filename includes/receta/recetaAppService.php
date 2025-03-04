@@ -20,7 +20,7 @@ class recetaAppService
     {
     } 
 
-    public function create($recetaDTO)
+    public function crearReceta($recetaDTO)
     {
         $IRecetaDAO = recetaFactory::CreateReceta();
 
@@ -29,7 +29,7 @@ class recetaAppService
         return $createdRecetaDTO;
     }
 
-    public function edit($recetaDTO)
+    public function editarReceta($recetaDTO)
     {
         $IRecetaDAO = recetaFactory::CreateReceta();
 
@@ -38,7 +38,7 @@ class recetaAppService
         return $editedRecetaDTO;
     }
 
-    public function delete($recetaDTO)
+    public function borrarReceta($recetaDTO)
     {
         $IRecetaDAO = recetaFactory::CreateReceta();
 
