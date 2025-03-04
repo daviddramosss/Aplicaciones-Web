@@ -28,7 +28,7 @@ if (isset($_SESSION["login"])) {
 
     <?php include 'cabecera.php'; ?>
     <?php if ($esAdmin): ?>
-        <?php include 'sideBarIzq.php'; ?>
+        <!--INCLUIR PERMISOS DE ADMIN (Gestionar usuarios y Añadir ingredientes)-->
     <?php endif; ?>
     <main class="contenido.plantilla">
         <article>

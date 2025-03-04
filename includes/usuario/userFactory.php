@@ -1,7 +1,6 @@
 <?php
 
 require_once("userDAO.php");
-require_once("userMock.php");
 
 class userFactory
 {
