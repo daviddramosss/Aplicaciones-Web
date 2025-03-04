@@ -67,7 +67,7 @@ class recetaDAO extends baseDAO implements IReceta
             $nombre = $recetaDTO->getNombre();
             $autor = $recetaDTO->getAutor();
             $descripcion = $recetaDTO->getDescripcion();
-            $pasos = $recetaDTO->getPasos();
+            $pasos =json_encode($recetaDTO->getPasos());
             $tiempo = $recetaDTO->getTiempo();
             $precio = $recetaDTO->getPrecio();
             $fechaCreacion = $recetaDTO->getFechaCreacion(); 
@@ -78,9 +78,7 @@ class recetaDAO extends baseDAO implements IReceta
 
             if ($stmt->execute())
             {
-                $idReceta = $conn->insert_id;
-                
-                $createdRecetaDTO = new recetaDTO($idReceta, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
+                $createdRecetaDTO = new recetaDTO($nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
 
                 return $createdRecetaDTO;
             }
@@ -117,11 +115,22 @@ class recetaDAO extends baseDAO implements IReceta
 
             if($recetaExiste)
             {
+                $nombre = $recetaDTO->getNombre();
+                $autor = $recetaDTO->getAutor();
+                $descripcion = $recetaDTO->getDescripcion();
+                $pasos = json_encode($recetaDTO->getPasos());
+                $tiempo = $recetaDTO->getTiempo();
+                $precio = $recetaDTO->getPrecio();
+                $fechaCreacion = $recetaDTO->getFechaCreacion();
+                $valoracion = $recetaDTO->getValoracion();
+                $id = $recetaDTO->getId();
 
+                $stmt->bind_param("ssssidsdi", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $id);
+
+                if ($stmt->execute()) {
+                    $editedRecetaDTO = new recetaDTO($nombre, $autor, $descripcion, json_decode($pasos, true), $tiempo, $precio, $fechaCreacion, $valoracion);
+                }
             }
-
-
-
 
         } catch(mysqli_sql_exception $e)
         {
@@ -146,14 +155,18 @@ class recetaDAO extends baseDAO implements IReceta
         {
             $conn = application::getInstance()->getConexionBd();
 
-            //Preparamos la consulta
-            $query = "UPDATE recetas SET Nombre = ?, Autor = ?, Descripcion = ?, Pasos = ?, Tiempo = ?, Precio = ?, Fecha_Creacion = ?, Valoracion = ? WHERE Id = ?";
+            $query = "DELETE FROM recetas WHERE recetaId = ?";
 
             $stmt = $conn->prepare($query);
 
+            $id = $recetaDTO->getId();
 
+            $stmt->bind_param("i", $id);
 
-
+            if ($stmt->execute())
+            {
+                $deletedRecetaDTO = $recetaDTO;
+            }
 
         } catch(mysqli_sql_exception $e)
         {

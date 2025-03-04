@@ -75,4 +75,5 @@ document.addEventListener("DOMContentLoaded", function() {
         etiqueta.appendChild(btnEliminar);
         contenedorEtiquetas.appendChild(etiqueta);
     }
+
 });
