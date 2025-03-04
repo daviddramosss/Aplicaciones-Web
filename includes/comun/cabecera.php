@@ -48,6 +48,13 @@ if (isset($_SESSION["login"])) {
             
             <h2 class="chef"> Chef </h2>
 
+            <?php if ($esAdmin): ?>
+              <!--INCLUIR BOTÓN EXCLUSIVO DEL ADMIN -->
+              <a href="gestionarUsuarios.php" class="editar_cabecera"> 
+              <img src="img/editar.png" alt="Panel Admin">
+              </a>
+            <?php endif; ?>
+
             <!-- Buscador -->
             <a href="estrellaMichelin.php" class="estrella_cabecera">
               <img src="img/estrella_michelin.png" alt="Estrella Michelin">
@@ -57,12 +64,7 @@ if (isset($_SESSION["login"])) {
               <img src="img/carrito.png" alt="Carrito">
             </a>
             
-            <?php if ($esAdmin): ?>
-              <!--INCLUIR PERMISOS DE ADMIN (Gestionar usuarios y Añadir ingredientes)-->
-              <a href="gestionarUsuarios.php" class="gestionar_cabecera">
-              <img src="img/editar.png" alt="Gestionar usuarios">
-            <?php endif; ?>
-
+           
            <!-- Icono de usuario con menú desplegable -->
             <div class="usuario_desplegable_cabecera">
                 <img src="img/usuario.png" alt="Usuario">

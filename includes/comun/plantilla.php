@@ -1,20 +1,3 @@
-<?php
-$esAdmin = false;
-require_once("includes/usuario/userDAO.php");
-require_once("includes/usuario/userFactory.php");
-
-// Comprobamos si el usuario está logueado y tiene el rol de Admin
-if (isset($_SESSION["login"])) {
-    $IUserDAO = userFactory::CreateUser();
-    $foundedUserDTO = $IUserDAO->buscaUsuario($_SESSION["usuario"]);
-    if($foundedUserDTO){
-        if($foundedUserDTO->rol() == "Admin"){
-            $esAdmin = true;
-        }
-    }
-    
-}
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -27,9 +10,7 @@ if (isset($_SESSION["login"])) {
 <body>
 
     <?php include 'cabecera.php'; ?>
-    <?php if ($esAdmin): ?>
-        <!--INCLUIR PERMISOS DE ADMIN (Gestionar usuarios y Añadir ingredientes)-->
-    <?php endif; ?>
+
     <main class="contenido.plantilla">
         <article>
             <?= $contenidoPrincipal ?>
