@@ -40,8 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <label>${ingrediente.nombre}</label>
                 <input type="number" class="ingrediente-cantidad" placeholder="Cantidad" min="0" step="0.1" disabled>
                 <select class="ingrediente-magnitud" disabled>
-                    <option value="gramos">Gramos</option>
-                    <option value="mililitros">Mililitros</option>
+                    <option value="gramos">Gramos (g)</option>
+                    <option value="kilos">Kilos (Kg)</option>
+                    <option value="mililitros">Mililitros (ml)</option>
+                    <option value="litros">Litros (L)</option>
+                    <option value="cucharadas">Cucharadas</option>
                     <option value="unidades">Unidades</option>
                 </select>
             `;

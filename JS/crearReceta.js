@@ -17,8 +17,23 @@ document.addEventListener("DOMContentLoaded", function() {
         let stepsContainer = document.getElementById("stepsContainer");
         let steps = stepsContainer.getElementsByClassName("step-item");
 
-        stepsContainer.removeChild(steps[steps.length - 1]); // Eliminar el último paso
-        stepCounter--; // Decrementa el contador
-
+        if (steps.length > 0) {
+            stepsContainer.removeChild(steps[steps.length - 1]); // Eliminar el último paso
+            stepCounter--; // Decrementa el contador
+        }
     });
+
+    // Referencias a los elementos del precio y del ingreso estimado
+    let precioInput = document.querySelector('input[name="precio"]');
+    let ingresoEstimadoSpan = document.getElementById("ingresoEstimado");
+
+    // Función para actualizar el ingreso estimado
+    function actualizarIngresoEstimado() {
+        let precio = parseFloat(precioInput.value) || 0; // Obtener el precio y convertirlo a número
+        let ingresoEstimado = precio * 0.85; // Aplicar el 15% de comisión (85% restante)
+        ingresoEstimadoSpan.textContent = ingresoEstimado.toFixed(2); // Mostrar con 2 decimales
+    }
+
+    // Evento cuando el usuario introduce o modifica el precio
+    precioInput.addEventListener("input", actualizarIngresoEstimado);
 });
