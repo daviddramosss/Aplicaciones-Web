@@ -18,7 +18,7 @@ class recetaDAO extends baseDAO implements IReceta
         $escRecetaId = $this->realEscapeString($recetaId);
 
         //Conexion con la base de datos (Patron Singleton)
-        $conn = application::getInstance()->getConexionBd();
+        $conn = getConexionBd();
 
         //Consulta
         $query = "SELECT * FROM recetas WHERE recetaId = ?";
@@ -63,6 +63,11 @@ class recetaDAO extends baseDAO implements IReceta
 
             $stmt = $conn->prepare($query);
 
+            if (!$stmt)
+            {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
             // Obtener valores del DTO y limpiar entradas para evitar inyección SQL
             $nombre = $recetaDTO->getNombre();
             $autor = $recetaDTO->getAutor();
@@ -73,25 +78,22 @@ class recetaDAO extends baseDAO implements IReceta
             $fechaCreacion = $recetaDTO->getFechaCreacion(); 
             $valoracion = $recetaDTO->getValoracion();
 
+
+
             //Definimos los tipos como int,string,string,string,string,int,decimal,string,decimal
-            $stmt->bind_param("issssidsd", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
+            $stmt->bind_param("ssssidsd", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
 
             if ($stmt->execute())
             {
-                $createdRecetaDTO = new recetaDTO($nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
+                $id = $conn->insert_id;
+
+                $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
 
                 return $createdRecetaDTO;
             }
         }
         catch(mysqli_sql_exception $e)
         {
-            // código de violación de restricción de integridad (PK)
-
-            if ($conn->sqlstate == 23000) 
-            { 
-                throw new recetaAlreadyExistException("Ya existe la receta '{$recetaDTO->recetaName()}'");
-            }
-
             throw $e;
         }
 
@@ -128,7 +130,7 @@ class recetaDAO extends baseDAO implements IReceta
                 $stmt->bind_param("ssssidsdi", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $id);
 
                 if ($stmt->execute()) {
-                    $editedRecetaDTO = new recetaDTO($nombre, $autor, $descripcion, json_decode($pasos, true), $tiempo, $precio, $fechaCreacion, $valoracion);
+                    $editedRecetaDTO = new recetaDTO(0, $nombre, $autor, $descripcion, json_decode($pasos, true), $tiempo, $precio, $fechaCreacion, $valoracion);
                 }
             }
 

@@ -38,8 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
             div.innerHTML = `
                 <input type="checkbox" class="ingrediente-check" data-nombre="${ingrediente.nombre}">
                 <label>${ingrediente.nombre}</label>
-                <input type="number" class="ingrediente-cantidad" placeholder="Cantidad" min="0" step="0.1" disabled>
-                <select class="ingrediente-magnitud" disabled>
+                <input type="number" class="ingrediente-cantidad" name="ingredientes[${ingrediente.id}][cantidad]" placeholder="Cantidad" min="0" step="0.1" disabled>
+                <select class="ingrediente-magnitud" name="ingredientes[${ingrediente.id}][magnitud]" disabled>
                     <option value="gramos">Gramos (g)</option>
                     <option value="kilos">Kilos (Kg)</option>
                     <option value="mililitros">Mililitros (ml)</option>
@@ -68,5 +68,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         });
+
+        //Selecciona los ingredientes que se han seleccionado
+        document.addEventListener("change", function (event) {
+            if (event.target.classList.contains("ingrediente-check")) {
+                let parent = event.target.closest(".ingrediente-item");
+                let cantidadInput = parent.querySelector(".ingrediente-cantidad");
+                let magnitudSelect = parent.querySelector(".ingrediente-magnitud");
+        
+                if (event.target.checked) {
+                    cantidadInput.disabled = false;
+                    magnitudSelect.disabled = false;
+                } else {
+                    cantidadInput.disabled = true;
+                    cantidadInput.value = ""; // Limpiar valor
+                    magnitudSelect.disabled = true;
+                }
+            }
+        });
+        
     }
 });

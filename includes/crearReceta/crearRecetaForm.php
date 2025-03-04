@@ -76,7 +76,7 @@ class crearRecetaForm extends formularioBase
         $result = array();
 
         //Comprobar bien como se hace esto
-        $usuarioId = $_SESSION['usuario_id'] ?? null;
+        $usuarioId = $_SESSION['usuario'] ?? null;
 
         //Comprobnar si funciona
         $fecha_creacion = date('Y-m-d H:i:s');
@@ -104,6 +104,15 @@ class crearRecetaForm extends formularioBase
 
         if (!is_array($ingredientes) || count($ingredientes) === 0) {
             $result[] = "Error: Debes añadir al menos un ingrediente.";
+        } else {
+            foreach ($ingredientes as $id => $ingrediente) {
+                $cantidad = floatval($ingrediente['cantidad'] ?? 0);
+                $magnitud = filter_var($ingrediente['magnitud'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                if ($cantidad <= 0 || empty($magnitud)) {
+                    $result[] = "Error: Todos los ingredientes deben tener una cantidad válida y una magnitud seleccionada.";
+                }
+            }
         }
 
         if (!is_array($pasos) || count($pasos) === 0) {
@@ -134,17 +143,16 @@ class crearRecetaForm extends formularioBase
                 $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion,0);
 
                 // Crear instancia del servicio de recetas
-                $recetaService = new recetaAppService();
+                $recetaService = recetaAppService::GetSingleton();
 
                 $recetaId = $recetaService->crearReceta($recetaDTO);
 
                 $result = 'index.php';
 
-                if (!$recetaId) {
-                    $result[] = "Error: No se pudo guardar la receta.";
-                }
-
-                
+                $app = application::getInstance();
+                $mensaje = "Se ha creado la nueva actividad exitosamente";
+                $app->putAtributoPeticion('mensaje', $mensaje);
+          
 
                 /*
                 // Guardar ingredientes
