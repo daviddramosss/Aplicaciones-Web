@@ -24,7 +24,7 @@ class recetaAppService
     {
         $IRecetaDAO = recetaFactory::CreateReceta();
 
-        $createdRecetaDTO = $IRecetaDAO->create($recetaDTO);
+        $createdRecetaDTO = $IRecetaDAO->crearReceta($recetaDTO);
 
         return $createdRecetaDTO;
     }
@@ -33,7 +33,7 @@ class recetaAppService
     {
         $IRecetaDAO = recetaFactory::CreateReceta();
 
-        $editedRecetaDTO = $IRecetaDAO->edit($recetaDTO);
+        $editedRecetaDTO = $IRecetaDAO->editarReceta($recetaDTO);
 
         return $editedRecetaDTO;
     }
@@ -42,7 +42,7 @@ class recetaAppService
     {
         $IRecetaDAO = recetaFactory::CreateReceta();
 
-        $deletedRecetaDTO = $IRecetaDAO->delete($recetaDTO);
+        $deletedRecetaDTO = $IRecetaDAO->borrarReceta($recetaDTO);
 
         return $deletedRecetaDTO;
     }
