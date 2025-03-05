@@ -20,19 +20,31 @@ class ingredienteRecetaAppService
     {
     } 
 
-    public function crearIngredienteReceta($ingredienteDTO)
+    public function crearIngredienteReceta($ingredienteRecetaDTO)
     {
+        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
 
+        $createdIngredienteRecetaDTO = $IIngredienteRecetaDAO->crearIngredienteReceta($ingredienteRecetaDTO);
+    
+        return $createdIngredienteRecetaDTO;
     }
 
-    public function editarIngredienteReceta($ingredienteDTO)
+    public function editarIngredienteReceta($ingredienteRecetaDTO)
     {
+        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
 
+        $editedIngredienteRecetaDTO = $IIngredienteRecetaDAO->editarIngredienteReceta($ingredienteRecetaDTO);
+    
+        return $editedIngredienteRecetaDTO;
     }
 
-    public function borrarIngredienteReceta($ingredienteDTO)
+    public function borrarIngredienteReceta($ingredienteRecetaDTO)
     {
+        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
 
+        $deletedIngredienteRecetaDTO = $IIngredienteRecetaDAO->borrarIngredienteReceta($ingredienteRecetaDTO);
+    
+        return $deletedIngredienteRecetaDTO;
     }
 
 }

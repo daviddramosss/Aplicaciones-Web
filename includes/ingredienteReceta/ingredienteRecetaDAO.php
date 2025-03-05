@@ -14,27 +14,61 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
 
     private function buscarPorIngrediente($ingredienteId)
     {
-
+        //Implementar más adelante
     }
 
     private function buscarPorRecetaId($recetaId)
     {
-
+        //Implementar más adelante
     }
 
-    public function crearIngredienteReceta($ingredienteReceta)
+    public function crearIngredienteReceta($ingredienteRecetaDTO)
     {
+        $createdIngredienteReceta = false;
 
+        try
+        {
+            $conn = application::getInstance()->getConexionBd();
+
+            $query = "INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES (?, ?, ?, ?)";
+
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt)
+            {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
+            $recetaId = $ingredienteRecetaDTO->getRecetaId();
+            $ingredienteId = $ingredienteRecetaDTO->gerIngredienteId();
+            $cantidad = $ingredienteRecetaDTO->getCantidad();
+            $magnitud = $ingredienteRecetaDTO->getMagnitud();
+
+            //Definimos los tipos
+            $stmt->bind_param("iiis", $recetaId, $ingredienteId, $cantidad, $magnitud);
+
+            if ($stmt->execute())
+            {
+                $createdRecetaDTO = new ingredienteRecetaDTO($recetaId, $ingredienteId, $cantidad, $magnitud);
+
+                return $createdRecetaDTO;
+            }
+        }
+        catch(mysqli_sql_exception $e)
+        {
+            throw $e;
+        }
+        return $createdIngredienteReceta;
     }
 
-    public function editarIngredienteReceta($ingredienteReceta)
+    public function editarIngredienteReceta($ingredienteRecetaDTO)
     {
-
+        //Implementar más adelante
     }
 
-    public function borrarIngredienteReceta($ingredienteReceta)
+    public function borrarIngredienteReceta($ingredienteRecetaDTO)
     {
-
+        //Implementar más adelante
     }
     
 }

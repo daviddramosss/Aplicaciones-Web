@@ -1,5 +1,5 @@
 <?php
-require_once("includes/contacto/contactoFormulario.php");
+require_once("includes/helpers/contactoFormulario.php");
 
 $tituloPagina = 'Contacto';
 $form = new contactoFormulario();
