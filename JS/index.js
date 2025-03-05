@@ -1,3 +1,4 @@
+//Esta funcion sirve para pasar los boxes de recetas y de ofertas
 document.addEventListener("DOMContentLoaded", function() {
     let recetas = [
         "Receta 1: Pasta Carbonara",
