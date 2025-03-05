@@ -2,19 +2,19 @@
 
 class etiquetaRecetaDTO
 {
-    private $etiquetaId;
+    private $etiqueta;
 
     private $recetaId;
 
-    public function __construct($etiquetaId, $recetaId)
-    {
-        $this->etiquetaId = $etiquetaId;
+    public function __construct($recetaId, $etiqueta)
+    {        
         $this->recetaId = $recetaId;
+        $this->etiqueta = $etiqueta;
     }
 
-    public function getEtiquetaId()
+    public function getEtiqueta()
     {
-        return $this->etiquetaId;
+        return $this->etiqueta;
     }
 
     public function getRecetaId()
