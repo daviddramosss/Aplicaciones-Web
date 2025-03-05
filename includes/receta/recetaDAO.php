@@ -189,41 +189,5 @@ class recetaDAO extends baseDAO implements IReceta
         return $deletedRecetaDTO;
     }
 
-    public function agregarIngredienteAReceta($recetaId, $ingredienteId, $cantidad, $magnitud)
-    {
-        $createdIngredienteReceta = false;
-
-        try
-        {
-            $conn = application::getInstance()->getConexionBd();
-
-            $query = "INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-            $stmt = $conn->prepare($query);
-
-            if (!$stmt)
-            {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
-            //Definimos los tipos
-            $stmt->bind_param("iiis", $recetaId, $ingredienteId, $cantidad, $magnitud);
-
-            if ($stmt->execute())
-            {
-                $id = $conn->insert_id;
-
-                $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
-
-                return $createdRecetaDTO;
-            }
-        }
-        catch(mysqli_sql_exception $e)
-        {
-            throw $e;
-        }
-        return $createdIngredienteReceta;
-    }
-
 }
 ?>
