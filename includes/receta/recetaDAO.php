@@ -92,6 +92,11 @@ class recetaDAO extends baseDAO implements IReceta
         }
         catch(mysqli_sql_exception $e)
         {
+            if ($conn->sqlstate == 23000) 
+            { 
+                throw new recetaAlreadyExistException("Ha ocurrido un erro al crear la receta '{$recetaDTO->recetaName()}'");
+            }
+            
             throw $e;
         }
 
@@ -115,6 +120,7 @@ class recetaDAO extends baseDAO implements IReceta
 
             if($recetaExiste)
             {
+                $id = $recetaDTO->getId();
                 $nombre = $recetaDTO->getNombre();
                 $autor = $recetaDTO->getAutor();
                 $descripcion = $recetaDTO->getDescripcion();
@@ -125,10 +131,10 @@ class recetaDAO extends baseDAO implements IReceta
                 $valoracion = $recetaDTO->getValoracion();
                 $id = $recetaDTO->getId();
 
-                $stmt->bind_param("ssssidsdi", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $id);
+                $stmt->bind_param("sissidsdi", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $id);
 
                 if ($stmt->execute()) {
-                    $editedRecetaDTO = new recetaDTO(0, $nombre, $autor, $descripcion, json_decode($pasos, true), $tiempo, $precio, $fechaCreacion, $valoracion);
+                    $editedRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, json_decode($pasos, true), $tiempo, $precio, $fechaCreacion, $valoracion);
                 }
             }
 
@@ -181,6 +187,89 @@ class recetaDAO extends baseDAO implements IReceta
         }
 
         return $deletedRecetaDTO;
+    }
+
+    public function agregarIngredienteAReceta($recetaId, $ingredienteId, $cantidad, $magnitud)
+    {
+        $createdIngredienteReceta = false;
+
+        try
+        {
+            $conn = application::getInstance()->getConexionBd();
+
+            $query = "INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt)
+            {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
+            //Definimos los tipos
+            $stmt->bind_param("iiis", $recetaId, $ingredienteId, $cantidad, $magnitud);
+
+            if ($stmt->execute())
+            {
+                $id = $conn->insert_id;
+
+                $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
+
+                return $createdRecetaDTO;
+            }
+        }
+        catch(mysqli_sql_exception $e)
+        {
+            throw $e;
+        }
+        return $createdIngredienteReceta;
+    }
+
+    public function agregarEtiquetaAReceta($recetaId, $etiqueta)
+    {
+        $crearEtiquetaReceta = false;
+
+        try
+        {
+            $conn = application::getInstance()->getConexionBd();
+
+            $query = "INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Fecha_Creacion, Valoracion) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt)
+            {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
+            // Obtener valores del DTO y limpiar entradas para evitar inyección SQL
+            $nombre = $recetaDTO->getNombre();
+            $autor = $recetaDTO->getAutor();
+            $descripcion = $recetaDTO->getDescripcion();
+            $pasos =json_encode($recetaDTO->getPasos());
+            $tiempo = $recetaDTO->getTiempo();
+            $precio = $recetaDTO->getPrecio();
+            $fechaCreacion = $recetaDTO->getFechaCreacion(); 
+            $valoracion = $recetaDTO->getValoracion();
+
+            //Definimos los tipos como int,string,string,string,string,int,decimal,string,decimal
+            $stmt->bind_param("sissidsd", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
+
+            if ($stmt->execute())
+            {
+                $id = $conn->insert_id;
+
+                $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
+
+                return $createdRecetaDTO;
+            }
+        }
+        catch(mysqli_sql_exception $e)
+        {
+            throw $e;
+        }
+        
+        return $crearEtiquetaReceta;
     }
 
 }
