@@ -1,0 +1,15 @@
+.titulo-centrado {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-top: 20px;
+    color: #333;
+}
+
+p {
+    text-align: justify;
+    line-height: 1.6;
+}
