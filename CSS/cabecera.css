@@ -94,7 +94,7 @@ body {
 
 .editar_cabecera {
     position: absolute; /* Para moverlo libremente */
-    right: 13%; /* Ajusta según necesites */
+    right: 14%; /* Ajusta según necesites */
     top: 50%;
     transform: translateY(-50%);
     display: flex;
