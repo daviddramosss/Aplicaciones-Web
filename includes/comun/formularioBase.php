@@ -38,9 +38,9 @@ abstract class formularioBase
             } 
 			else 
 			{
-                //header('Location: '.$result);
+                header('Location: '.$result);
                 
-				//exit();
+				exit();
             }
         }  
     }

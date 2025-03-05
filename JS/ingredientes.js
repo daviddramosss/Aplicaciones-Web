@@ -36,56 +36,34 @@ document.addEventListener("DOMContentLoaded", function () {
             div.classList.add("ingrediente-item");
 
             div.innerHTML = `
-                <input type="checkbox" class="ingrediente-check" data-nombre="${ingrediente.nombre}">
+                <input type="checkbox" class="ingrediente-check" data-id="${ingrediente.id}" data-nombre="${ingrediente.nombre}">
                 <label>${ingrediente.nombre}</label>
                 <input type="number" class="ingrediente-cantidad" name="ingredientes[${ingrediente.id}][cantidad]" placeholder="Cantidad" min="0" step="0.1" disabled>
                 <select class="ingrediente-magnitud" name="ingredientes[${ingrediente.id}][magnitud]" disabled>
-                    <option value="gramos">Gramos (g)</option>
-                    <option value="kilos">Kilos (Kg)</option>
-                    <option value="mililitros">Mililitros (ml)</option>
-                    <option value="litros">Litros (L)</option>
-                    <option value="cucharadas">Cucharadas</option>
-                    <option value="unidades">Unidades</option>
+                    <option value="g">Gramos</option>
+                    <option value="ml">Mililitros</option>
+                    <option value="unidad">Unidad</option>
                 </select>
             `;
 
-            ingredientContainer.appendChild(div);
-        });
+            // Obtener referencias a los elementos
+            const checkbox = div.querySelector(".ingrediente-check");
+            const cantidadInput = div.querySelector(".ingrediente-cantidad");
+            const magnitudSelect = div.querySelector(".ingrediente-magnitud");
 
-        // Habilitar cantidad y magnitud solo si el checkbox está marcado
-        document.querySelectorAll(".ingrediente-check").forEach(checkbox => {
+            // Habilitar los inputs solo si el checkbox está marcado
             checkbox.addEventListener("change", function () {
-                const parent = this.parentElement;
-                const cantidadInput = parent.querySelector(".ingrediente-cantidad");
-                const magnitudSelect = parent.querySelector(".ingrediente-magnitud");
-
-                if (this.checked) {
-                    cantidadInput.removeAttribute("disabled");
-                    magnitudSelect.removeAttribute("disabled");
-                } else {
-                    cantidadInput.setAttribute("disabled", "true");
-                    magnitudSelect.setAttribute("disabled", "true");
-                }
-            });
-        });
-
-        //Selecciona los ingredientes que se han seleccionado
-        document.addEventListener("change", function (event) {
-            if (event.target.classList.contains("ingrediente-check")) {
-                let parent = event.target.closest(".ingrediente-item");
-                let cantidadInput = parent.querySelector(".ingrediente-cantidad");
-                let magnitudSelect = parent.querySelector(".ingrediente-magnitud");
-        
-                if (event.target.checked) {
+                if (checkbox.checked) {
                     cantidadInput.disabled = false;
                     magnitudSelect.disabled = false;
                 } else {
                     cantidadInput.disabled = true;
-                    cantidadInput.value = ""; // Limpiar valor
+                    cantidadInput.value = ""; // Limpiar el valor si se deselecciona
                     magnitudSelect.disabled = true;
                 }
-            }
+            });
+
+            ingredientContainer.appendChild(div);
         });
-        
     }
 });
