@@ -8,7 +8,7 @@ class ingredienteRecetaFactory
     {
         $ingredienteRecetaDAO = false;
 
-        $ingredienteRecetaDAO = new ingrdienteRecetaDAO();
+        $ingredienteRecetaDAO = new ingredienteRecetaDAO();
                
         return $ingredienteRecetaDAO;
     }
