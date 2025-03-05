@@ -1,6 +1,7 @@
 <?php
 
 $esAdmin = false;
+$esChef =false;
 require_once("includes/usuario/userAppService.php");
 
 // Comprobamos si el usuario está logueado y tiene el rol de Admin
@@ -9,10 +10,16 @@ if (isset($_SESSION["login"])) {
   $foundedUserDTO = $userAppService->buscarUsuario($_SESSION["usuario"]);
 
   if($foundedUserDTO){
-    if ($foundedUserDTO->rol() == "Admin") {
-        $esAdmin = true;
+      if ($foundedUserDTO->rol() == "Admin") {
+          $esAdmin = true;
+        }
+        //añadido nico
+      if ($foundedUserDTO->rol() == "Chef") {
+            $esChef = true;
       }
+
     }
+
 }
 
 // cabecera.php - Archivo de cabecera con banner, buscador y botón de ayuda
@@ -52,12 +59,27 @@ if (isset($_SESSION["login"])) {
               <a href="gestionarUsuarios.php" class="editar_cabecera"> 
               <img src="img/editar.png" alt="Panel Admin">
               </a>
+              
             <?php endif; ?>
 
             <!-- Buscador -->
-            <a href="estrellaMichelin.php" class="estrella_cabecera">
-              <img src="img/estrella_michelin.png" alt="Estrella Michelin">
+
+            <?php if (!$esChef): ?>
+
+            <a href="estrellaMichelinNoChef.php" class="estrella_cabecera">
+              <img src="img/estrella_michelin.png" alt="Estrella Michelin No Chef">
             </a>
+
+            <?php endif; ?>
+
+
+            <?php if ($esChef): ?>
+             
+              <a href="estrellaMichelinChef.php" class="estrella_cabecera"> 
+              <img src="img/estrella_michelin.png" alt="Estrella Michelin Chef">
+              </a>
+
+            <?php endif; ?>
             
             <a href="carrito.php" class="carrito_cabecera">
               <img src="img/carrito.png" alt="Carrito">
@@ -73,7 +95,9 @@ if (isset($_SESSION["login"])) {
               <?php if (isset($_SESSION['login'])): ?>
                   <a href="perfil.php">Mi Perfil</a>
                   <a href="despensa.php">Mi Despensa</a>
+                  <a href ="recetario.php">Mi Recetario</a>
                   <a href="logout.php">Cerrar Sesión</a>
+                 
               <?php else: ?>
                   <a href="login.php">Iniciar Sesión</a>
                   <a href="register.php">Registrarse</a>

@@ -9,7 +9,7 @@ $contenidoPrincipal = <<<EOS
     <link rel="stylesheet" href="CSS/index.css">
     <h1> Mi recetario </h1>
 
-    <section class="compradas">
+        <section class="compradas">
             <h2>Recetas compradas</h2>
             <div class="contenedor-flechas">
                 <button id="prevReceta" type="button" class="boton-flecha">&lt;</button>
