@@ -1,8 +1,6 @@
 <?php
 
 $esAdmin = false;
-require_once("includes/usuario/userDAO.php");
-require_once("includes/usuario/userFactory.php");
 require_once("includes/usuario/userAppService.php");
 
 // Comprobamos si el usuario está logueado y tiene el rol de Admin
