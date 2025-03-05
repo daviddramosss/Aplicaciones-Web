@@ -11,7 +11,7 @@ $form = new loginForm();
 $htmlFormLogin = $form->Manage();
 
 $contenidoPrincipal = <<<EOS
-<h1>Login de usuario</h1>
+<h1>Inicio de sesión</h1>
 $htmlFormLogin
 EOS;
 
