@@ -39,6 +39,18 @@ class userAppService
         return $createdUserDTO;
     }
 
+        
+    public function buscarUsuario($email)
+    {
+        $IUserDAO = userFactory::CreateUser();
+        $foundedUserDTO = $IUserDAO->buscaUsuario($email);
+        if($foundedUserDTO){
+            return $foundedUserDTO;
+        }
+        return false;
+    }
+   
 }
+
 
 ?>

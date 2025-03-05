@@ -92,16 +92,16 @@ body {
     display: block;
 }
 
-.editar_cabecera {
+.admin_desplegable_cabecera {
     position: absolute; /* Para moverlo libremente */
-    right: 13%; /* Ajusta según necesites */
+    right: 14%; /* Ajusta según necesites */
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     align-items: center;
 }
 
-.editar_cabecera img {
+.admin_desplegable_cabecera img {
     height: 30px;
     display: block;
 }
@@ -197,5 +197,32 @@ body {
 }
 
 .menu_usuario a:hover {
+    background-color: #f6f6ae;
+}
+
+.menu_admin {
+    position: fixed;
+    right: 8%;
+    top: 10.5%; /* Ajusta la distancia desde el icono */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    min-width: 150px;
+    z-index: 100;
+}
+
+/* Estilo para los enlaces dentro del menú */
+.menu_admin a {
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    display: block;
+    text-align: left;
+}
+
+.menu_admin a:hover {
     background-color: #f6f6ae;
 }
