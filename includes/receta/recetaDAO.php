@@ -225,52 +225,5 @@ class recetaDAO extends baseDAO implements IReceta
         return $createdIngredienteReceta;
     }
 
-    public function agregarEtiquetaAReceta($recetaId, $etiqueta)
-    {
-        $crearEtiquetaReceta = false;
-
-        try
-        {
-            $conn = application::getInstance()->getConexionBd();
-
-            $query = "INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Fecha_Creacion, Valoracion) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-            $stmt = $conn->prepare($query);
-
-            if (!$stmt)
-            {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
-            // Obtener valores del DTO y limpiar entradas para evitar inyección SQL
-            $nombre = $recetaDTO->getNombre();
-            $autor = $recetaDTO->getAutor();
-            $descripcion = $recetaDTO->getDescripcion();
-            $pasos =json_encode($recetaDTO->getPasos());
-            $tiempo = $recetaDTO->getTiempo();
-            $precio = $recetaDTO->getPrecio();
-            $fechaCreacion = $recetaDTO->getFechaCreacion(); 
-            $valoracion = $recetaDTO->getValoracion();
-
-            //Definimos los tipos como int,string,string,string,string,int,decimal,string,decimal
-            $stmt->bind_param("sissidsd", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
-
-            if ($stmt->execute())
-            {
-                $id = $conn->insert_id;
-
-                $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
-
-                return $createdRecetaDTO;
-            }
-        }
-        catch(mysqli_sql_exception $e)
-        {
-            throw $e;
-        }
-        
-        return $crearEtiquetaReceta;
-    }
-
 }
 ?>
