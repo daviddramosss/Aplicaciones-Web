@@ -1,16 +1,20 @@
 <?php
 
+// Archivo del perfil del usuario
+
 require_once("includes/config.php");
 require_once("includes/usuario/userAppService.php");
 
-
+// Guardamos el email del usuario que está logueado
 $email_usuario = $_SESSION["usuario"];
 
+// Creamos la instancia del userAppService y la usamos para obtener todos los datos del usuario logueado
 $userAppService = userAppService::GetSingleton();
 $user = $userAppService->buscarUsuario($email_usuario);
 
 $tituloPagina = 'Mi perfil';
 
+// contenido guardado en la variable dinámica de la plantilla
 $contenidoPrincipal = <<<EOS
 <!DOCTYPE html>
 <html lang="es">
@@ -23,15 +27,15 @@ $contenidoPrincipal = <<<EOS
 <body>
     <div class="container mt-5">
         <div class="card mx-auto" style="width: 25rem;">
-            <!-- Aquí debería ir la imagen de perfil del usuario -->
             <img src="img/avatar_ejemplo.jpg" style="width: 100px"  class="card-img-top" alt="Avatar">
             <div class="card-body">
-                <!-- Aquí va el nombre del usuario obtenido de la base de datos -->
+                <!-- Aquí va el nombre y los apellidos del usuario obtenido de la base de datos -->
                 <h2 class="card-title">Hola, {$user->nombre()}, {$user->apellidos()}</h2>
                 <!-- Aquí va el correo electrónico del usuario -->
                 <p class="card-text"><strong>Email:</strong> {$user->email()}</p>
+                <!-- Aquí va el rol del usuario -->
                 <p class="card-text"><strong>Rol:</strong> {$user->rol()}</p>
-
+                <!-- Añadimos dos botónes, uno para editar su perfil y otro para cerrar la sesión -->
                 <a href="editar_perfil.php" class="btn btn-primary">Editar Perfil</a>
                 <a href="logout.php" class="btn btn-danger">Cerrar sesión</a>
             </div>
