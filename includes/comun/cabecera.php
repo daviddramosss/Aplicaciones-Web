@@ -1,19 +1,18 @@
 <?php
 
 $esAdmin = false;
-require_once("includes/usuario/userDAO.php");
-require_once("includes/usuario/userFactory.php");
+require_once("includes/usuario/userAppService.php");
 
 // Comprobamos si el usuario está logueado y tiene el rol de Admin
 if (isset($_SESSION["login"])) {
-    $IUserDAO = userFactory::CreateUser();
-    $foundedUserDTO = $IUserDAO->buscaUsuario($_SESSION["usuario"]);
-    if($foundedUserDTO){
-        if($foundedUserDTO->rol() == "Admin"){
-            $esAdmin = true;
-        }
+  $userAppService = userAppService::GetSingleton();
+  $foundedUserDTO = $userAppService->buscarUsuario($_SESSION["usuario"]);
+
+  if($foundedUserDTO){
+    if ($foundedUserDTO->rol() == "Admin") {
+        $esAdmin = true;
+      }
     }
-    
 }
 
 // cabecera.php - Archivo de cabecera con banner, buscador y botón de ayuda

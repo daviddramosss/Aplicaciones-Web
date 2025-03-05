@@ -1,18 +1,24 @@
-
 <?php
+session_start();
 
-require_once("includes/config.php");
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION["usuario"])) {
+    header("Location: login.php");
+    exit();
+}
+
+$email_usuario = $_SESSION["usuario"];
 
 $tituloPagina = 'Mi perfil';
 
 $contenidoPrincipal = <<<EOS
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Perfil</title>
+    
 </head>
 <body>
     <div class="container mt-5">
@@ -23,7 +29,7 @@ $contenidoPrincipal = <<<EOS
                 <!-- Aquí va el nombre del usuario obtenido de la base de datos -->
                 <h5 class="card-title">Hola, NOMBRE_USUARIO!</h5>
                 <!-- Aquí va el correo electrónico del usuario -->
-                <p class="card-text"><strong>Email:</strong> EMAIL_USUARIO</p>
+                <p class="card-text"><strong>Email:</strong> {$email_usuario}</p>
                 <!-- Aquí va la fecha de registro del usuario -->
                 <p class="card-text"><strong>Fecha de registro:</strong> FECHA_REGISTRO</p>
                 
@@ -34,11 +40,7 @@ $contenidoPrincipal = <<<EOS
     </div>
 </body>
 </html>
-
 EOS;
 
-
 require("includes/comun/plantilla.php");
-
 ?>
-
