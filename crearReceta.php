@@ -11,8 +11,7 @@ $htmlFormReceta = $form->Manage();
 
 $contenidoPrincipal = <<<EOS
     <link rel="stylesheet" href="CSS/crearReceta.css">
-    <h1>Crear Nueva Receta</h1>
-    
+   
     $htmlFormReceta
     
 EOS;

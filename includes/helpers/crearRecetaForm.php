@@ -25,22 +25,22 @@ class crearRecetaForm extends formularioBase
 
         $html = <<<EOF
         <fieldset>
-            <legend>Nueva Receta</legend>
+            <legend><h1>Nueva Receta</h1></legend>
             
             <p><label>Título:</label> <input type="text" name="titulo" value="$titulo" required/></p>
             
             <p><label>Descripción:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
             
-            <p><label>Precio Final:</label> <input type="number" step="0.1" name="precio" value="$precio" required/> €</p>
-            <p>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</p>
+            <p><label>Precio Final:</label> <input type="number" step="0.1" name="precio" value="$precio" required/> <label>€</label></p>
+            <p><label>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</lable></p>
 
             <p><label>Tiempo de elaboración:</label> <input type="number" step="1" name="tiempo" value="$tiempo" required/> minutos</p>
 
             <!-- Ingredientes -->
             <p>
-                <label>Ingredientes:</label> 
-                <button type="button" id="addIngredient">Añadir ingrediente</button>
-                <button type="button" id="closeIngredientList">Cerrar lista ingredientes</button>
+                <h2>Ingredientes</h2> 
+                <button type="button" class="btn-verde" id="addIngredient">Añadir ingrediente</button>
+                <button type="button" class="btn-rojo" id="closeIngredientList">Cerrar lista ingredientes</button>
             </p>
 
             <!-- Contenedor donde se listarán los ingredientes dinámicamente -->
@@ -48,23 +48,23 @@ class crearRecetaForm extends formularioBase
                 <!-- Aquí se insertarán los ingredientes mediante JS -->
             </div>
 
-            <h3>Pasos para elaborar la receta</h3>
+            <h2>Pasos para elaborar la receta</h2>
             <div id="stepsContainer">
                 <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
             </div>
-            <button type="button" id="addStep">+ Añadir paso</button>
-            <button type="button" id="removeStep">- Eliminar paso</button>
+            <button type="button" class="btn-verde" id="addStep">+ Añadir paso</button>
+            <button type="button" class="btn-rojo" id="removeStep">- Eliminar paso</button>
             
-            <h3>Etiquetas</h3>
+            <h2>Etiquetas</h2>
             <p>Añade etiquetas para recomendar tu receta: (Máximo 3)</p>
             <input type="text" id="etiquetaInput" placeholder="Escribe una etiqueta..."/>
-            <button type="button" id="addTag">+ Añadir etiqueta</button>
+            <button type="button" class="btn-verde" id="addTag">+ Añadir etiqueta</button>
             
             <div id="tagsContainer"></div>
 
             <p>
-                <button type="button" onclick="location.href='index.php'">Cancelar</button>
-                <button type="submit" name="guardar">Guardar</button>
+                <button type="button" class="btn-rojo" onclick="location.href='index.php'">Cancelar</button>
+                <button type="submit" class="btn-verde" name="guardar">Guardar</button>
             </p>
         </fieldset>
 
