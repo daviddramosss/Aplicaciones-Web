@@ -2,6 +2,11 @@
 
 include __DIR__ . '/../comun/formularioBase.php';
 include __DIR__ . '/../receta/recetaAppService.php';
+include __DIR__ . '/../ingredienteReceta/ingredienteRecetaAppService.php';
+include __DIR__ . '/../etiquetaReceta/etiquetaRecetaAppService.php';
+
+
+
 
 class crearRecetaForm extends formularioBase
 {
@@ -93,6 +98,8 @@ class crearRecetaForm extends formularioBase
 
         $ingredientes = $datos['ingredientes'] ?? [];
 
+        var_dump($ingredientes);
+
         $pasos = $datos['steps'] ?? [];
 
         $etiquetas = $datos['etiquetas'] ?? [];
@@ -105,37 +112,11 @@ class crearRecetaForm extends formularioBase
 
         if (!is_array($ingredientes) || count($ingredientes) === 0) {
             $result[] = "Error: Debes añadir al menos un ingrediente.";
-        } else {
-            foreach ($ingredientes as $id => $ingrediente) {
-                $cantidad = floatval($ingrediente['cantidad'] ?? 0);
-                $magnitud = filter_var($ingrediente['magnitud'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-                if ($cantidad <= 0 || empty($magnitud)) {
-                    $result[] = "Error: Todos los ingredientes deben tener una cantidad válida y una magnitud seleccionada.";
-                }
-            }
         }
 
         if (!is_array($pasos) || count($pasos) === 0) {
             $result[] = "Error: La receta debe tener al menos un paso.";
         }
-
-        if (!is_array($etiquetas)) {
-            $etiquetas = [];
-        }
-
-        // Crear el array de pasos como un objeto JSON
-        $pasosJSON = [];
-        foreach ($pasos as $orden => $paso) {
-            $paso = filter_var($paso, FILTER_SANITIZE_STRING);
-            if (!empty($paso)) {
-                // Guardar cada paso como parte de un objeto JSON
-                $pasosJSON[] = ['orden' => $orden + 1, 'paso' => $paso];
-            }
-        }
-
-        // Convertir el array de pasos a JSON
-        $pasosJSON = json_encode($pasosJSON);
 
         if(count($result) === 0)
         {
@@ -146,42 +127,48 @@ class crearRecetaForm extends formularioBase
                 // Crear instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
 
-                $recetaId = $recetaService->crearReceta($recetaDTO);
+                $recetaCreadaDTO = $recetaService->crearReceta($recetaDTO);
 
-                $result = 'index.php';
+                $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
 
-                $app = application::getInstance();
-                $mensaje = "Se ha creado la nueva actividad exitosamente";
-                $app->putAtributoPeticion('mensaje', $mensaje);
-          
-
-                /*
                 // Guardar ingredientes
                 foreach ($ingredientes as $ingrediente) {
-                    if (!isset($ingrediente['id'], $ingrediente['cantidad'], $ingrediente['magnitud'])) {
-                        continue; // Saltar ingredientes mal formateados
-                    }
-
                     $ingredienteId = intval($ingrediente['id']);
                     $cantidad = floatval($ingrediente['cantidad']);
                     $magnitud = filter_var($ingrediente['magnitud'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
                     if ($ingredienteId > 0 && $cantidad > 0 && !empty($magnitud)) {
-                        //$recetaService->agregarIngredienteAReceta($recetaId, $ingredienteId, $cantidad, $magnitud);
-                    }
-                }
 
-                
+                        $ingredienteRecetaDTO = new ingredienteRecetaDTO($recetaCreadaDTO->getId(), $ingredienteId, $cantidad, $magnitud);
+
+                        var_dump($ingredienteRecetaDTO);
+
+                        $ingredienteRecetaCreadoDTO = $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
+                    
+                        if (!$ingredienteRecetaCreadoDTO) {
+                            $result[] = "Error al guardar el ingrediente con ID: $ingredienteId";
+                        }
+
+                    }
+                }         
+
+                $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
 
                 // Guardar etiquetas
                 $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Máximo 3 etiquetas únicas
                 foreach ($etiquetas as $etiqueta) {
                     $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
                     if (!empty($etiqueta)) {
-                        //$recetaService->agregarEtiquetaAReceta($recetaId, $etiqueta);
+                        
+                        $etiquetaRecetaDTO = new etiquetaRecetaDTO($recetaCreadaDTO->getId(), $etiqueta);
+
+                        $etiquetaRecetaCreadaDTO = $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
                     }
                 }
-                    */
+
+                $result = 'index.php';
+                
             }
             catch(recetaAlreadyExistException $e)
             {
