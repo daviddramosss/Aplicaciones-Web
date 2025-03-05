@@ -1,58 +1,67 @@
+// Espera a que el DOM se cargue completamente antes de ejecutar el código
 document.addEventListener("DOMContentLoaded", function() {
+
+    // Listado de recetas compradas (por ahora, con datos de prueba)
     let recetas = [
-        "-Todavia no se han comprado recetas-",
+        "-Todavía no se han comprado recetas-",
         "2",
         "3",
         "4",
         "5"
     ];
 
+    // Listado de recetas destacadas en la sección de ofertas (por ahora, con datos de prueba)
     let ofertas = [
-        "-Todavia no se han destacado recetas-",
+        "-Todavía no se han destacado recetas-",
         "2",
         "3"
     ];
 
+    // Índices para controlar la receta y oferta mostrada actualmente
     let recetaIndex = 0;
     let ofertaIndex = 0;
 
-    // Función para actualizar recetas destacadas
+    // Función para actualizar la receta destacada en la interfaz
     function actualizarReceta() {
         document.getElementById("recetaDestacada").innerText = recetas[recetaIndex];
     }
 
-    // Función para actualizar ofertas
+    // Función para actualizar la oferta destacada en la interfaz
     function actualizarOferta() {
         document.getElementById("ofertaDestacada").innerText = ofertas[ofertaIndex];
     }
 
-    // Navegación de recetas
+    // Manejo de la navegación de recetas (siguiente)
     document.getElementById("nextReceta").addEventListener("click", function() {
         if (recetaIndex < recetas.length - 1) {
-            recetaIndex++;
-        }
-        actualizarReceta();
-    });
-    
-    document.getElementById("prevReceta").addEventListener("click", function() {
-        if (recetaIndex > 0) {
-            recetaIndex--;
+            recetaIndex++; // Avanza al siguiente índice si no está en el final
         }
         actualizarReceta();
     });
 
-    // Navegación de ofertas
+    // Manejo de la navegación de recetas (anterior)
+    document.getElementById("prevReceta").addEventListener("click", function() {
+        if (recetaIndex > 0) {
+            recetaIndex--; // Retrocede al índice anterior si no está en el inicio
+        }
+        actualizarReceta();
+    });
+
+    // Manejo de la navegación de ofertas (anterior)
     document.getElementById("prevOferta").addEventListener("click", function() {
+        // Usa aritmética modular para hacer que la navegación sea circular
         ofertaIndex = (ofertaIndex - 1 + ofertas.length) % ofertas.length;
         actualizarOferta();
     });
 
+    // Manejo de la navegación de ofertas (siguiente)
     document.getElementById("nextOferta").addEventListener("click", function() {
+        // Usa aritmética modular para hacer que la navegación sea circular
         ofertaIndex = (ofertaIndex + 1) % ofertas.length;
         actualizarOferta();
     });
 
-    // Cargar contenido inicial
+    // Cargar el contenido inicial en la interfaz
     actualizarReceta();
     actualizarOferta();
 });
