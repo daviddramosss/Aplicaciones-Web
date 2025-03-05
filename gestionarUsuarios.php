@@ -3,7 +3,7 @@
 
 require_once("includes/config.php");
 
-// Página de Gestionar usuarios, exclusiva para el rol Admin
+// Página de gestionar usuarios, exclusiva para el rol Admin
 $tituloPagina = 'Gestionar Usuarios';
 
 // Guardamos el contenido principal de la página en la variable dinámica que gestiona la plantilla para cargar el contenido
