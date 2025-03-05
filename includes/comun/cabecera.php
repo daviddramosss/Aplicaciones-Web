@@ -47,11 +47,20 @@ if (isset($_SESSION["login"])) {
             
             <h2 class="chef"> Chef </h2>
 
+            
+            
             <?php if ($esAdmin): ?>
-              <!--INCLUIR BOTÓN EXCLUSIVO DEL ADMIN -->
-              <a href="gestionarUsuarios.php" class="editar_cabecera"> 
-              <img src="img/editar.png" alt="Panel Admin">
-              </a>
+               <!-- Icono de admin con menú desplegable -->
+              <div class="admin_desplegable_cabecera">
+                  <img src="img/editar.png" alt="Admin">
+                      
+              </div>
+              <div class="menu_admin">
+                    <a href="gestionarUsuarios.php">Gestionar usuarios</a>
+                    <a href="gestionarIngredientes.php">Gestionar ingredientes</a>
+                    
+                </div>
+              
             <?php endif; ?>
 
             <!-- Buscador -->
@@ -83,5 +92,6 @@ if (isset($_SESSION["login"])) {
 
     </header>
     <script src="JS/desplegable_perfil.js"></script>
+    <script src="JS/desplegable_admin.js"></script>
 </body>
 </html>
