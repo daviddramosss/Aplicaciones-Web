@@ -98,12 +98,9 @@ class crearRecetaForm extends formularioBase
 
         $ingredientes = $datos['ingredientes'] ?? [];
 
-        var_dump($ingredientes);
-
         $pasos = $datos['steps'] ?? [];
 
         $etiquetas = $datos['etiquetas'] ?? [];
-
 
         // Validaciones
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
@@ -132,25 +129,17 @@ class crearRecetaForm extends formularioBase
                 $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
 
                 // Guardar ingredientes
-                foreach ($ingredientes as $ingrediente) {
-                    $ingredienteId = intval($ingrediente['id']);
-                    $cantidad = floatval($ingrediente['cantidad']);
-                    $magnitud = filter_var($ingrediente['magnitud'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+                foreach ($ingredientes as $ingredienteId => $ingredienteData) {
+                    $ingredienteId = intval($ingredienteId);
+                    $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
+                    $magnitud = filter_var($ingredienteData['magnitud'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                
                     if ($ingredienteId > 0 && $cantidad > 0 && !empty($magnitud)) {
-
                         $ingredienteRecetaDTO = new ingredienteRecetaDTO($recetaCreadaDTO->getId(), $ingredienteId, $cantidad, $magnitud);
-
-                        var_dump($ingredienteRecetaDTO);
-
-                        $ingredienteRecetaCreadoDTO = $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
-                    
-                        if (!$ingredienteRecetaCreadoDTO) {
-                            $result[] = "Error al guardar el ingrediente con ID: $ingredienteId";
-                        }
-
+                        $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
                     }
-                }         
+                }
 
                 $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
 

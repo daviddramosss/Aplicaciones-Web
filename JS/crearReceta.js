@@ -39,40 +39,46 @@ document.addEventListener("DOMContentLoaded", function() {
     precioInput.addEventListener("input", actualizarIngresoEstimado);
 
    // Agregar etiquetas dinámicamente (Máximo 3 etiquetas)
-    const etiquetaInput = document.getElementById("etiquetaInput");
-    const btnAgregarEtiqueta = document.getElementById("addTag");
-    const contenedorEtiquetas = document.getElementById("tagsContainer");
+   const etiquetaInput = document.getElementById("etiquetaInput");
+   const btnAgregarEtiqueta = document.getElementById("addTag");
+   const contenedorEtiquetas = document.getElementById("tagsContainer");
 
-    btnAgregarEtiqueta.addEventListener("click", function () {
-        const etiquetasActuales = contenedorEtiquetas.getElementsByClassName("etiqueta").length;
+   btnAgregarEtiqueta.addEventListener("click", function () {
+       const etiquetasActuales = contenedorEtiquetas.getElementsByClassName("etiqueta").length;
 
-        if (etiquetasActuales >= maxEtiquetas) {
-            alert("Solo puedes añadir hasta 3 etiquetas.");
-            return;
-        }
+       if (etiquetasActuales >= maxEtiquetas) {
+           alert("Solo puedes añadir hasta 3 etiquetas.");
+           return;
+       }
 
-        const etiquetaTexto = etiquetaInput.value.trim();
+       const etiquetaTexto = etiquetaInput.value.trim();
 
-        if (etiquetaTexto !== "") {
-            agregarEtiqueta(etiquetaTexto);
-            etiquetaInput.value = ""; // Limpiar el campo de entrada
-        }
-    });
+       if (etiquetaTexto !== "") {
+           agregarEtiqueta(etiquetaTexto);
+           etiquetaInput.value = ""; // Limpiar el campo de entrada
+       }
+   });
 
     function agregarEtiqueta(texto) {
         const etiqueta = document.createElement("div");
         etiqueta.classList.add("etiqueta");
         etiqueta.textContent = texto;
 
-        // Botón para eliminar la etiqueta
+        const inputOculto = document.createElement("input");
+        inputOculto.type = "hidden";
+        inputOculto.name = "etiquetas[]"; // Importante para que llegue como array
+        inputOculto.value = texto;
+
         const btnEliminar = document.createElement("button");
         btnEliminar.textContent = "✖";
         btnEliminar.classList.add("btn-eliminar");
         btnEliminar.addEventListener("click", function () {
             etiqueta.remove();
+            inputOculto.remove();
         });
 
         etiqueta.appendChild(btnEliminar);
+        etiqueta.appendChild(inputOculto);
         contenedorEtiquetas.appendChild(etiqueta);
     }
 
