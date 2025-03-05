@@ -1,1 +1,136 @@
+/* Estilo general del cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
 
+/* Contenedor principal */
+.contenido.plantilla {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Estilos del formulario */
+fieldset {
+    width: 50%;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+/* Estilos del título del formulario */
+legend {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Etiquetas */
+label {
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Inputs y textarea */
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Contenedor de ingredientes y pasos */
+#ingredientContainer, #stepsContainer, #tagsContainer {
+    background: #eef2f5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Botones generales */
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Botón de cancelar */
+button.secondary {
+    background-color: #dc3545;
+}
+
+button.secondary:hover {
+    background-color: #c82333;
+}
+
+/* Botones pequeños (ingredientes, etiquetas) */
+button.small {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+}
+
+/* Contenedor de etiquetas seleccionadas */
+.etiqueta {
+    background-color: #ffcc00;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin: 5px;
+}
+
+/* Botón para eliminar etiquetas */
+.etiqueta .btn-eliminar {
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: red;
+}
+
+/* Ajuste para los pasos de receta */
+#stepsContainer p {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Ajuste de la estructura dentro del contenedor */
+.contenido.plantilla article {
+    display: flex;
+    justify-content: center;
+}

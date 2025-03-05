@@ -102,9 +102,6 @@ class crearRecetaForm extends formularioBase
 
         $etiquetas = $datos['etiquetas'] ?? [];
 
-        var_dump($etiquetas);
-
-
         // Validaciones
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
             $result[] = "Error: Todos los campos son obligatorios y el precio debe ser mayor a 0.";
