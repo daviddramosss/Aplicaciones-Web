@@ -1,6 +1,6 @@
 <?php
 require_once("includes/config.php");
-require_once("includes/buscar/buscarFormulario.php");
+require_once("includes/helpers/buscarFormulario.php");
 
 $tituloPagina = 'Buscar Recetas';
 
