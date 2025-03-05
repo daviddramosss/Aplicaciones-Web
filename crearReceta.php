@@ -1,7 +1,7 @@
 <?php
 
 require_once("includes/config.php");
-require_once("includes/crearReceta/crearRecetaForm.php");
+require_once("includes/helpers/crearRecetaForm.php");
 
 
 $tituloPagina = 'Nueva Receta';
