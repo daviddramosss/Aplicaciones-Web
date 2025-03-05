@@ -55,7 +55,7 @@ if (isset($_SESSION["login"])) {
             <?php endif; ?>
 
             <!-- Buscador -->
-            <a href="recetario.php" class="estrella_cabecera">
+            <a href="estrellaMichelin.php" class="estrella_cabecera">
               <img src="img/estrella_michelin.png" alt="Estrella Michelin">
             </a>
             
