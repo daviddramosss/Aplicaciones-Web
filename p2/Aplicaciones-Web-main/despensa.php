@@ -1,6 +1,6 @@
 <?php
 require_once("includes/config.php");
-require_once("includes/helpers/despensaFormulario.php");
+require_once("includes/despensa/despensaFormulario.php");
 
 $tituloPagina = 'Mi despensa';
 

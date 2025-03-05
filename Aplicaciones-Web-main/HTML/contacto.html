@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es"> 
+    <!-- Página de contacto -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+</head>
+<body>
+    <!-- Título en H1 -->
+    <h1>Contacto </h1>
+
+    <!-- Panel de navegación -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="detalles.html">Detalles</a></li>
+            <li><a href="bocetos.html">Bocetos</a></li>
+            <li><a href="miembros.html">Miembros</a></li>
+            <li><a href="planificacion.html">Planificación</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Formulario de contacto -->
+    <h2>Formulario de Contacto</h2>
+    
+     <!-- Acción al darle a Enviar en el Formulario: Abre la aplicación de correo por defecto del usuario y permite 
+          enviar el contenido del formulario directamente a nuestro correo -->
+    <form action="mailto:correo@ejemplo.com" method="post" enctype="text/plain">
+
+        <!-- Label del campo Nombre y el cuadro para introducirlo -->
+        <label for="nombre">Nombre:</label>  
+        <input type="text" id="nombre" name="nombre" required>
+        
+        <!-- Label del campo Email y el cuadro para introducirlo -->
+        <label for="email">Dirección de email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <!-- Label del campo Motivo de la consulta y los Radio Buttons correspondientes para seleccionarlo  -->
+        <p>Motivo de la consulta:</p>
+        <div class="radio-group">
+            <label><input type="radio" id="evaluacion" name="motivo" value="Evaluación" required> Evaluación</label>
+            <label><input type="radio" id="sugerencias" name="motivo" value="Sugerencias" required> Sugerencias</label>
+            <label><input type="radio" id="criticas" name="motivo" value="Críticas" required> Críticas</label>
+        </div>
+        
+        <!-- Casilla obligatoria a marcar por el usuario indicando que acepta nuestros términos y condiciones -->
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="terminos" name="terminos" required> Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio</label>
+        </div>
+        
+        <!-- Label del campo mensaje y el cuadro para introducirlo -->
+        <label for="mensaje">Consulta:</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+        
+        <!-- Nombre para el botón de enviar, del tipo submit, que realiza la acción del formulario -->
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
