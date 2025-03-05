@@ -23,33 +23,17 @@ $contenidoPrincipal = <<<EOS
     <h2>Formulario de Acreditación</h2>
     <form action="procesar_formulario.php" method="post">
         
-        <!-- Campo para el nombre -->
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <!-- Campo para el DNI -->
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" required>
         <br><br>
         
-        <!-- Campo para los apellidos -->
-        <label for="apellidos">Apellidos:</label>
-        <input type="text" id="apellidos" name="apellidos" required>
+        <!-- Campo para la cuenta bancaria -->
+        <label for="cuentaBancaria">Cuenta bancaria:</label>
+        <input type="text" id="cuentaBancaria" name="cuentaBancaria" required>
         <br><br>
         
-        <!-- Selector de sexo -->
-        <label for="sexo">Sexo:</label>
-        <select id="sexo" name="sexo" required>
-            <option value="masculino">Masculino</option>
-            <option value="femenino">Femenino</option>
-            <option value="otro">Otro</option>
-        </select>
-        <br><br>
         
-        <!-- Área de texto para el motivo de inscripción -->
-        <label for="motivo">¿Por qué te gustaría entrar en Market Chef?</label>
-        <br>
-        <textarea id="motivo" name="motivo" rows="4" cols="50" required></textarea>
-        <br><br>
-        
-        <!-- Botón para enviar el formulario -->
-        <button type="submit">Enviar</button>
 
     </form>
 

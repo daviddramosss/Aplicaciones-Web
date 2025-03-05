@@ -11,6 +11,7 @@ $contenidoPrincipal = <<<EOS
 
     <!-- Enlace a la hoja de estilos para la página de Estrella Michelin -->
     <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="CSS/estrellaMichelin.css">
 
     <!-- Título principal de la página -->
     <h1> Estrella Michelin </h1>
@@ -18,6 +19,11 @@ $contenidoPrincipal = <<<EOS
     <!-- Sección para mostrar el saldo del usuario -->
     <h2> Saldo: ...............</h2>
     
+    <!-- Botón para crear una nueva receta -->
+    <div class="crear-receta-container">
+        <a href="crearReceta.php" class="boton-crear" id="botonCrearReceta">Crear Receta</a>
+    </div>
+
     <!-- Sección donde se mostrarán las recetas en venta -->
     <section class="En venta"> 
         <h2>Recetas en venta</h2>
