@@ -2,7 +2,7 @@
 
 require_once("includes/config.php");
 
-require_once("includes/vistas/helpers/loginForm.php");
+require_once("includes/helpers/loginForm.php");
 
 $tituloPagina = 'Inicio de sesión';
 
