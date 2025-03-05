@@ -5,6 +5,9 @@ require_once("recetaDTO.php");
 require_once(__DIR__ . "/../comun/baseDAO.php");
 require_once("recetaAlreadyExistException.php");
 
+include __DIR__ . '/../ingredienteReceta/ingredienteRecetaAppService.php';
+include __DIR__ . '/../etiquetaReceta/etiquetaRecetaAppService.php';
+
 class recetaDAO extends baseDAO implements IReceta
 {
     public function __construct()
@@ -51,7 +54,7 @@ class recetaDAO extends baseDAO implements IReceta
         return false;
     }
 
-    public function crearReceta($recetaDTO)
+    public function crearReceta($recetaDTO, $ingredientes, $etiquetas)
     {
         $createdRecetaDTO = false;
 
@@ -86,6 +89,35 @@ class recetaDAO extends baseDAO implements IReceta
                 $id = $conn->insert_id;
 
                 $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
+
+                //Guardamos los ingredientes
+                $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
+
+                foreach ($ingredientes as $ingredienteId => $ingredienteData) {
+                    $ingredienteId = intval($ingredienteId);
+                    $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
+                    $magnitud = filter_var($ingredienteData['magnitud'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                
+                    if ($ingredienteId > 0 && $cantidad > 0 && !empty($magnitud)) {
+                        $ingredienteRecetaDTO = new ingredienteRecetaDTO($id, $ingredienteId, $cantidad, $magnitud);
+                        $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
+                    }
+                }
+
+                //Guardamos las etiquetas
+                $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
+
+                $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Máximo 3 etiquetas únicas
+                foreach ($etiquetas as $etiqueta) {
+                    $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                    if (!empty($etiqueta)) {
+                        
+                        $etiquetaRecetaDTO = new etiquetaRecetaDTO($id, $etiqueta);
+
+                        $etiquetaRecetaCreadaDTO = $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
+                    }
+                }           
 
                 return $createdRecetaDTO;
             }

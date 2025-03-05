@@ -20,11 +20,11 @@ class recetaAppService
     {
     } 
 
-    public function crearReceta($recetaDTO)
+    public function crearReceta($recetaDTO, $ingredientes, $etiquetas)
     {
         $IRecetaDAO = recetaFactory::CreateReceta();
 
-        $createdRecetaDTO = $IRecetaDAO->crearReceta($recetaDTO);
+        $createdRecetaDTO = $IRecetaDAO->crearReceta($recetaDTO, $ingredientes, $etiquetas);
 
         return $createdRecetaDTO;
     }

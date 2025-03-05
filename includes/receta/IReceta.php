@@ -2,7 +2,7 @@
 
 interface IReceta
 {
-   public function crearReceta($recetaDTO);
+   public function crearReceta($recetaDTO, $ingredientes, $etiquetas);
 
    public function editarReceta($recetaDTO);
 

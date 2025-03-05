@@ -2,11 +2,6 @@
 
 include __DIR__ . '/../comun/formularioBase.php';
 include __DIR__ . '/../receta/recetaAppService.php';
-include __DIR__ . '/../ingredienteReceta/ingredienteRecetaAppService.php';
-include __DIR__ . '/../etiquetaReceta/etiquetaRecetaAppService.php';
-
-
-
 
 class crearRecetaForm extends formularioBase
 {
@@ -124,37 +119,7 @@ class crearRecetaForm extends formularioBase
                 // Crear instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
 
-                $recetaCreadaDTO = $recetaService->crearReceta($recetaDTO);
-
-                $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-
-                // Guardar ingredientes
-
-                foreach ($ingredientes as $ingredienteId => $ingredienteData) {
-                    $ingredienteId = intval($ingredienteId);
-                    $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
-                    $magnitud = filter_var($ingredienteData['magnitud'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                
-                    if ($ingredienteId > 0 && $cantidad > 0 && !empty($magnitud)) {
-                        $ingredienteRecetaDTO = new ingredienteRecetaDTO($recetaCreadaDTO->getId(), $ingredienteId, $cantidad, $magnitud);
-                        $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
-                    }
-                }
-
-                $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
-
-                // Guardar etiquetas
-                $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Máximo 3 etiquetas únicas
-                foreach ($etiquetas as $etiqueta) {
-                    $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-                    if (!empty($etiqueta)) {
-                        
-                        $etiquetaRecetaDTO = new etiquetaRecetaDTO($recetaCreadaDTO->getId(), $etiqueta);
-
-                        $etiquetaRecetaCreadaDTO = $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
-                    }
-                }
+                $recetaCreadaDTO = $recetaService->crearReceta($recetaDTO, $ingredientes, $etiquetas);        
 
                 $result = 'index.php';
                 
