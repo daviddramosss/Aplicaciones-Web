@@ -10,7 +10,7 @@ $form = new registerForm();
 $htmlFormRegistro = $form->Manage();
 
 $contenidoPrincipal = <<<EOS
-<h1>Registro de usuario</h1>
+<h1>Registrar nuevo usuario</h1>
 <div>
     <img src="img/LogoRegistro.png" alt="LogoRegistro" style="width: 150px; height: auto;">
 </div>
