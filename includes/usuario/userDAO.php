@@ -19,10 +19,10 @@ class userDAO implements IUser
     // devuelve al usuario encontrado, en caso contrario, devuelve falso
     public function login($userDTO)
     {
-        $foundedUserDTO = $this->buscaUsuario($userDTO->email());
+        $foundedUserDTO = $this->buscaUsuario($userDTO->getEmail());
         
         // Comparamos los hashes de las contraseñas
-        if ($foundedUserDTO && password_verify($userDTO->password(), $foundedUserDTO->password()))
+        if ($foundedUserDTO && password_verify($userDTO->getPassword(), $foundedUserDTO->getPassword()))
         {
             return $foundedUserDTO;
         } 
@@ -72,13 +72,13 @@ class userDAO implements IUser
         $conn = getConexionBD();
 
         // Guardamos los atributos del usuario que queremos crear en variables
-        $nombreUsuario = $conn->real_escape_string($userDTO->nombre());
-        $apellidosUsuario = $conn->real_escape_string($userDTO->apellidos());
-        $emailUsuario = $conn->real_escape_string($userDTO->email());
-        $passwordUsuario = $conn->real_escape_string($userDTO->password());
-        $rolUsuario = $conn->real_escape_string($userDTO->rol());
-        $dniUsuario = $conn->real_escape_string($userDTO->dni());
-        $cuentaBancariaUsuario = $conn->real_escape_string($userDTO->cuentaBancaria());
+        $nombreUsuario = $conn->real_escape_string($userDTO->getNombre());
+        $apellidosUsuario = $conn->real_escape_string($userDTO->getApellidos());
+        $emailUsuario = $conn->real_escape_string($userDTO->getEmail());
+        $passwordUsuario = $conn->real_escape_string($userDTO->getPassword());
+        $rolUsuario = $conn->real_escape_string($userDTO->getRol());
+        $dniUsuario = $conn->real_escape_string($userDTO->getDNI());
+        $cuentaBancariaUsuario = $conn->real_escape_string($userDTO->getCuentaBancaria());
 
         // Buscamos primero si existe un usuario con el email del que queremos crear. Si existe, devolvemos false y no lo creamos
         $foundedUserDTO = $this->buscaUsuario($emailUsuario);

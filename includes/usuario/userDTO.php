@@ -37,42 +37,42 @@ class userDTO
     
 
     //Getters de cada atributo para emplearlo en otras clases
-    public function id()
+    public function getId()
     {
         return $this->id;
     }
 
-    public function nombre()
+    public function getNombre()
     {
         return $this->nombre;
     }
 
-    public function apellidos()
+    public function getApellidos()
     {
         return $this->apellidos;
     }
 
-    public function email()
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function rol()
+    public function getRol()
     {
         return $this->rol;
     }
 
-    public function password()
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function DNI()
+    public function getDNI()
     {
         return $this->DNI;
     }
 
-    public function cuentaBancaria()
+    public function getCuentaBancaria()
     {
         return $this->cuentaBancaria;
     }
