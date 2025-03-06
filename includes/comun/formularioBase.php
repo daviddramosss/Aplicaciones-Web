@@ -1,5 +1,7 @@
 <?php
 
+//Clase abstracta que es implementada por todos los formularios usados en la plataforma
+//Se establece un formulatio común 
 abstract class formularioBase
 {
     private $formId;
