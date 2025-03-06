@@ -38,7 +38,7 @@ class contactoFormulario extends formularioBase
 
             <!-- Área de texto para ingresar el mensaje -->
             <div class="input-container">
-                <textarea name="mensaje" placeholder="MESSAGE (If you have any queries or issues regarding a placed order, please tell us in your message so that we can expedite your case. Thank you very much.)" required></textarea>
+                <textarea name="mensaje" placeholder="MENSAJE (Si tiene alguna consulta debido a la compra de una receta, porfavor comentelo detalladamente para que podamos ayudarle. Muchas gracias)" required></textarea>
             </div>
 
             <!-- Botón de envío del formulario -->
