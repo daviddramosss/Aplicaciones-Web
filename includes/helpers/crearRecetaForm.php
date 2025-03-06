@@ -1,23 +1,39 @@
 <?php
 
-include __DIR__ . '/../comun/formularioBase.php';
-include __DIR__ . '/../receta/recetaAppService.php';
+// Incluye la clase base para formularios y el servicio de recetas
+include_once __DIR__ . '/../comun/formularioBase.php';
+include_once __DIR__ . '/../receta/recetaAppService.php';
 
+/**
+ * Clase crearRecetaForm
+ * Representa el formulario para crear una nueva receta.
+ */
 class crearRecetaForm extends formularioBase
 {
-  
+    /**
+     * Constructor del formulario.
+     * Llama al constructor de la clase base con el identificador del formulario.
+     */
     public function __construct() 
     {
         parent::__construct('crearRecetaForm');
     }
     
+    /**
+     * Genera los campos del formulario HTML para la creación de recetas.
+     * 
+     * @param array $datos Datos previos en caso de reenvío del formulario.
+     * @return string Código HTML del formulario.
+     */
     protected function CreateFields($datos)
     {
+        // Recuperar valores previos o establecerlos vacíos
         $titulo = $datos['titulo'] ?? '';
         $descripcion = $datos['descripcion'] ?? '';
         $precio = $datos['precio'] ?? '';
         $tiempo = $datos['tiempo'] ?? '';
 
+        // Generación del formulario con HTML incrustado
         $html = <<<EOF
         <fieldset>
             <legend><h1>Nueva Receta</h1></legend>
@@ -27,22 +43,22 @@ class crearRecetaForm extends formularioBase
             <p><label>Descripción:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
             
             <p><label>Precio Final:</label> <input type="number" step="0.1" name="precio" value="$precio" required/> <label>€</label></p>
-            <p><label>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</lable></p>
+            <p><label>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</label></p>
 
             <p><label>Tiempo de elaboración:</label> <input type="number" step="1" name="tiempo" value="$tiempo" required/> minutos</p>
 
-            <!-- Ingredientes -->
+            <!-- Sección de ingredientes -->
             <p>
                 <h2>Ingredientes</h2> 
                 <button type="button" class="btn-verde" id="addIngredient">Añadir ingrediente</button>
                 <button type="button" class="btn-rojo" id="closeIngredientList">Cerrar lista ingredientes</button>
             </p>
 
-            <!-- Contenedor donde se listarán los ingredientes dinámicamente -->
             <div id="ingredientContainer">
-                <!-- Aquí se insertarán los ingredientes mediante JS -->
+                <!-- Los ingredientes se insertarán dinámicamente con JavaScript -->
             </div>
 
+            <!-- Sección de pasos -->
             <h2>Pasos para elaborar la receta</h2>
             <div id="stepsContainer">
                 <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
@@ -50,6 +66,7 @@ class crearRecetaForm extends formularioBase
             <button type="button" class="btn-verde" id="addStep">+ Añadir paso</button>
             <button type="button" class="btn-rojo" id="removeStep">- Eliminar paso</button>
             
+            <!-- Sección de etiquetas -->
             <h2>Etiquetas</h2>
             <p>Añade etiquetas para recomendar tu receta: (Máximo 3)</p>
             <input type="text" id="etiquetaInput" placeholder="Escribe una etiqueta..."/>
@@ -57,13 +74,14 @@ class crearRecetaForm extends formularioBase
             
             <div id="tagsContainer"></div>
 
+            <!-- Botones de acción -->
             <p>
                 <button type="button" class="btn-rojo" onclick="location.href='index.php'">Cancelar</button>
                 <button type="submit" class="btn-verde" name="guardar">Guardar</button>
             </p>
         </fieldset>
 
-        <!-- Importar el archivo JavaScript -->
+        <!-- Importación de scripts JavaScript -->
         <script src="js/crearReceta.js"></script>    
         <script src="js/ingredientes.js"></script> 
         EOF;
@@ -71,35 +89,33 @@ class crearRecetaForm extends formularioBase
         return $html;
     }
 
+    /**
+     * Procesa la información del formulario una vez enviado.
+     * 
+     * @param array $datos Datos enviados desde el formulario.
+     * @return array|string Mensaje de error o redirección a otra página.
+     */
     protected function Process($datos)
     {
         $result = array();
 
-        //Comprobar bien como se hace esto
-        //$usuarioId = $_SESSION['usuario'] ?? null;
+        // Obtener el usuario actual
         $application = application::GetInstance();
-
         $usuarioId = $application->getIdUsuario();
 
-        //Comprobnar si funciona
+        // Obtener la fecha de creación en formato adecuado
         $fecha_creacion = date('Y-m-d H:i:s');
 
-        // Saneamos los datos de entrada
+        // Saneamiento de datos de entrada
         $titulo = filter_var(trim($datos['titulo'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
         $descripcion = filter_var(trim($datos['descripcion'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
         $precio = floatval($datos['precio'] ?? 0);
-
         $tiempo = floatval($datos['tiempo'] ?? 0);
-
         $ingredientes = $datos['ingredientes'] ?? [];
-
         $pasos = $datos['steps'] ?? [];
-
         $etiquetas = $datos['etiquetas'] ?? [];
 
-        // Validaciones
+        // Validaciones de datos obligatorios
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
             $result[] = "Error: Todos los campos son obligatorios y el precio debe ser mayor a 0.";
         }
@@ -112,28 +128,32 @@ class crearRecetaForm extends formularioBase
             $result[] = "Error: La receta debe tener al menos un paso.";
         }
 
-        if(count($result) === 0)
+        // Si no hay errores, proceder con la creación de la receta
+        if (count($result) === 0)
         {
             try
             {
-                $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion,0);
+                // Crear el objeto DTO de receta con los datos ingresados
+                $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, 0);
 
-                // Crear instancia del servicio de recetas
+                // Instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
 
+                // Llamada al servicio para crear la receta
                 $recetaCreadaDTO = $recetaService->crearReceta($recetaDTO, $ingredientes, $etiquetas);        
 
+                // Redireccionar a la página principal si todo fue correcto
                 $result = 'index.php';
-                
             }
-            catch(recetaAlreadyExistException $e)
+            catch (recetaAlreadyExistException $e)
             {
+                // Captura de excepción en caso de que la receta ya exista
                 $result[] = $e->getMessage();
             }
-           
         }
 
         return $result;
     }
     
 }
+?>
