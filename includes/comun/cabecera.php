@@ -17,10 +17,10 @@ if (isset($_SESSION["login"])) {
   $foundedUserDTO = $userAppService->buscarUsuario($_SESSION["usuario"]); // Buscamos el usuario que está logueado mediante su email
 
   if($foundedUserDTO){  // Si existe, vemos su rol
-      if ($foundedUserDTO->rol() == "Admin") {
+      if ($foundedUserDTO->getRol() == "Admin") {
           $esAdmin = true;
         }
-      if ($foundedUserDTO->rol() == "Chef") {
+      if ($foundedUserDTO->getRol() == "Chef") {
             $esChef = true;
       }
     }
