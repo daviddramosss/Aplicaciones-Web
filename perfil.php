@@ -36,7 +36,7 @@ $contenidoPrincipal = <<<EOS
                 <!-- Aquí va el rol del usuario -->
                 <p class="card-text"><strong>Rol:</strong> {$user->getRol()}</p>
                 <!-- Añadimos dos botónes, uno para editar su perfil y otro para cerrar la sesión -->
-                <a href="editar_perfil.php" class="btn btn-primary">Editar Perfil</a>
+                <a href="editarPerfil.php" class="btn btn-primary">Editar Perfil</a>
                 <a href="logout.php" class="btn btn-danger">Cerrar sesión</a>
             </div>
         </div>
