@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!ingredientesVisibles) {
             
             // Hace una petición a un archivo PHP que devuelve la lista de ingredientes en formato JSON
-            fetch("/MarketChef/includes/ingrediente/getIngredientes.php")
+            fetch("includes/ingrediente/getIngredientes.php")
                 .then(response => response.json()) // Convierte la respuesta a JSON
                 .then(data => {
 
