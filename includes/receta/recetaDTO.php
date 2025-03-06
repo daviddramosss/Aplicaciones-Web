@@ -17,19 +17,7 @@ class recetaDTO
     private $fecha_creacion;
     private $valoracion;
 
-    /**
-     * Constructor de la clase recetaDTO
-     * 
-     * @param int $id Identificador único de la receta.
-     * @param string $nombre Nombre de la receta.
-     * @param string $autor Autor/creador de la receta.
-     * @param string $descripcion Descripción breve de la receta.
-     * @param string $pasos Pasos de preparación en formato texto o array.
-     * @param int $tiempo Tiempo estimado de preparación en minutos.
-     * @param float $precio Precio estimado de los ingredientes.
-     * @param string $fecha_creacion Fecha de creación de la receta.
-     * @param float $valoracion Valoración promedio de la receta.
-     */
+    //Constructor de la clase recetaDTO
     public function __construct($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, $valoracion)
     {
         $this->id = $id;
