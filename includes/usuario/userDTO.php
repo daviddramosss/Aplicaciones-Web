@@ -1,7 +1,11 @@
 <?php
 
+//userDTO permite crear instancias de usuarios que NO se conectan directamente a la BBDD
+//Permiten agrupar datos en instancias de usuario para enviarlo a funciones como parámetros por ejemplo
 class userDTO
 {
+    //Contiene todos los atributos de un usuario, tal cual aparencen en la tabla Usuarios
+    //en nuestra BBDD (MarketChef)
     private $id;
 
     private $nombre;
@@ -20,6 +24,7 @@ class userDTO
 
     public function __construct($id, $nombre, $apellidos, $email, $rol, $password, $DNI, $cuentaBancaria)
     {
+        //Asigna los parametros a los atributos del usuario
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
@@ -31,6 +36,7 @@ class userDTO
     }
     
 
+    //Getters de cada atributo para emplearlo en otras clases
     public function id()
     {
         return $this->id;
