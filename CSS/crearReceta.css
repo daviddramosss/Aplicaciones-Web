@@ -1,6 +1,6 @@
 /* Estilo general del cuerpo */
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
@@ -8,9 +8,9 @@ body {
 
 /* Estilos del formulario */
 fieldset {
-    margin: 0 auto; /* Elimina el espacio entre el título y el fieldset */
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;   
+    flex-direction: column;
     width: 70%;
     background: #ffffff;
     border-radius: 8px;
@@ -30,7 +30,7 @@ legend {
 }
 
 /* Etiquetas */
-label{
+label {
     font-weight: bold;
     color: #000000;
     margin-top: 10px;
@@ -40,7 +40,7 @@ label{
 input[type="text"],
 input[type="number"],
 textarea {
-    width: 90%;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -48,7 +48,7 @@ textarea {
     box-sizing: border-box;
 }
 
-/* Contenedor de ingredientes y pasos */
+/* Contenedores de ingredientes, pasos y etiquetas */
 #ingredientContainer, #stepsContainer, #tagsContainer {
     background: #eef2f5;
     padding: 10px;
@@ -56,62 +56,63 @@ textarea {
     margin-top: 10px;
 }
 
-/* Títulos de sección (Ingredientes y Pasos) más grandes y centrados */
+/* Títulos de sección */
 h2 {
     text-align: center;
-    font-size: 28px;
+    font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-/* Centrando los botones de ingredientes */
-.ingredientes-container {
-    text-align: center;
+/* Botones alineados en la misma fila */
+.botones-container, .pasos-botones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
 }
 
-/* Ajustar la descripción para que aparezca arriba */
-.form-group.descripcion {
-    order: -1;
-}
-
-/* Botones generales */
-button {
-    margin: 10px auto;
-    padding: 10px;
+.botones-container button, .pasos-botones button {
+    flex: 0 1 auto; /* Evita que ocupen toda la fila */
+    max-width: 150px; /* Ajusta el ancho para que no sean demasiado grandes */
+    padding: 8px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
+    text-align: center;
 }
 
-/* Botones en dos columnas */
-.botones-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-}
-
-.botones-container button {
-    width: calc(50% - 10px); /* Dos botones por fila */
-}
-
-/* Ajustar los botones de añadir/eliminar paso en la misma línea */
-.pasos-botones {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-/* Estilos de colores para los botones */
+/* Estilos para los botones */
 .btn-verde {
     background-color: green;
     color: white;
 }
 
+.btn-verde:hover {
+    background-color: #0b6e0b;
+    transform: scale(1.05);
+}
+
+.btn-verde:active {
+    background-color: #094d09;
+    transform: scale(0.95);
+}
+
 .btn-rojo {
     background-color: red;
     color: white;
+}
+
+.btn-rojo:hover {
+    background-color: #c40000;
+    transform: scale(1.05);
+}
+
+.btn-rojo:active {
+    background-color: #990000;
+    transform: scale(0.95);
 }
 
 /* Ajuste para los pasos de receta */
@@ -121,12 +122,7 @@ button {
     gap: 5px;
 }
 
-/* Eliminar el espacio extra entre "Nueva Receta" y el fieldset */
-h1 {
-    margin-bottom: 0;
-}
-
-/* Contenedor de etiquetas seleccionadas */
+/* Contenedor de etiquetas */
 .etiqueta {
     background-color: #ffcc00;
     padding: 5px 10px;
