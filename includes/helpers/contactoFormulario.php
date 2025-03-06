@@ -20,7 +20,7 @@ class contactoFormulario extends formularioBase
         <link rel="stylesheet" href="CSS/contacto.css">
         
         <!-- Título de la sección de contacto -->
-        <h1>CONTACT</h1>
+        <h1>CONTACTO</h1>
 
         <!-- Descripción breve sobre cómo contactar -->
         <p>PARA CONTACTARNOS RELLENE ESTE FORMULARIO.</p>
