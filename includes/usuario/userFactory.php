@@ -5,20 +5,10 @@ require_once("userDAO.php");
 class userFactory
 {
     //Permite asociar la creación de usuarios a esta clase exclusivamente
+    //Aisla y centraliza la lógica de creación de usuarios
     public static function CreateUser() : IUser
     {
-        /*$userDAO = false;
-
-        if (true)
-        {
-            $userDAO = new userDAO();
-        }
-        else
-        {
-            $userDAO = new userMock();
-        }
-        
-        return $userDAO;*/
+        //Devuelve un usuario en formato DAO
         return new userDAO();
     }
 }
