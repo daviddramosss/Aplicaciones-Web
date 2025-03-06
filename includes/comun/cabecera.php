@@ -9,12 +9,14 @@ $logged = false;
 
 // incluimos el userAppService, a través del cual nos comunicaremos con la base de datos
 require_once("includes/usuario/userAppService.php");
-
+require_once("includes/application.php");
 // Comprobamos si el usuario está logueado, y qué tipo de rol tiene
-if (isset($_SESSION["login"])) {
-  $logged = true; // Si esta logueado, marcamos esta variable como true
+$application = application::getInstance();
+
+$logged = $application->isLogged();
+if ($logged) {
   $userAppService = userAppService::GetSingleton(); // llamamos a la Singleton de userAppService y la guardamos en una variable para hacerla accesible
-  $foundedUserDTO = $userAppService->buscarUsuario($_SESSION["usuario"]); // Buscamos el usuario que está logueado mediante su email
+  $foundedUserDTO = $userAppService->buscarUsuario($application->getEmail()); // Buscamos el usuario que está logueado mediante su email
 
   if($foundedUserDTO){  // Si existe, vemos su rol
       if ($foundedUserDTO->getRol() == "Admin") {

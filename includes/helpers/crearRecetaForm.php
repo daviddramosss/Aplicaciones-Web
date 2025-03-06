@@ -100,7 +100,7 @@ class crearRecetaForm extends formularioBase
         $result = array();
 
         // Obtener el usuario actual
-        $application = application::GetInstance();
+        $application = application::getInstance();
         $usuarioId = $application->getIdUsuario();
 
         // Obtener la fecha de creación en formato adecuado

@@ -141,9 +141,22 @@ class application
 			$foundedUser = $ususarioService->buscarUsuario($_SESSION['usuario']);
 
 			if($foundedUser)
-				return $foundedUser->id();
+				return $foundedUser->getId();
 			else	
 				return false;
 		}
+	}
+
+	public function isLogged()
+	{
+		if(isset($_SESSION['login'])){
+			return true;
+		}
+		return false;
+	}
+
+	public function getEmail()
+	{
+		return $_SESSION['usuario'];
 	}
 }
