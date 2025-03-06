@@ -141,7 +141,7 @@ class application
 			$foundedUser = $ususarioService->buscarUsuario($_SESSION['usuario']);
 
 			if($foundedUser)
-				return $foundedUser->id();
+				return $foundedUser->getId();
 			else	
 				return false;
 		}
