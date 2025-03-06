@@ -2,16 +2,16 @@
 
 // Este es el script de Cabecera, en el que está el código usado para mostrar la cabecera y sus elementos
 
-// Declaramos varias variables que nos van a ser útiles para distinguir lo que mostrar o no mostrar en la cabecera
-$esAdmin = false;
-$esChef =false;
-$logged = false;
-
 // incluimos el userAppService, a través del cual nos comunicaremos con la base de datos
 require_once("includes/usuario/userAppService.php");
 require_once("includes/application.php");
 // Comprobamos si el usuario está logueado, y qué tipo de rol tiene
 $application = application::getInstance();
+
+// Declaramos varias variables que nos van a ser útiles para distinguir lo que mostrar o no mostrar en la cabecera
+$esAdmin = false;
+$esChef =false;
+
 
 $logged = $application->isLogged();
 if ($logged) {
