@@ -30,11 +30,11 @@ $contenidoPrincipal = <<<EOS
             <img src="img/avatar_ejemplo.jpg" style="width: 100px"  class="card-img-top" alt="Avatar">
             <div class="card-body">
                 <!-- Aquí va el nombre y los apellidos del usuario obtenido de la base de datos -->
-                <h2 class="card-title">Hola, {$user->nombre()}, {$user->apellidos()}</h2>
+                <h2 class="card-title">Hola, {$user->getNombre()}, {$user->getApellidos()}</h2>
                 <!-- Aquí va el correo electrónico del usuario -->
-                <p class="card-text"><strong>Email:</strong> {$user->email()}</p>
+                <p class="card-text"><strong>Email:</strong> {$user->getEmail()}</p>
                 <!-- Aquí va el rol del usuario -->
-                <p class="card-text"><strong>Rol:</strong> {$user->rol()}</p>
+                <p class="card-text"><strong>Rol:</strong> {$user->getRol()}</p>
                 <!-- Añadimos dos botónes, uno para editar su perfil y otro para cerrar la sesión -->
                 <a href="editar_perfil.php" class="btn btn-primary">Editar Perfil</a>
                 <a href="logout.php" class="btn btn-danger">Cerrar sesión</a>
