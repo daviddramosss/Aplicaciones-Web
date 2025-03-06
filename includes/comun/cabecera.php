@@ -41,7 +41,7 @@ if (isset($_SESSION["login"])) {
         <div class="container_cabecera">  <!-- Creamos el div en el que estará todo el contenido de la cabecera -->
          
             <!-- Botón de Ayuda -->
-            <a href="crearReceta.php" class="boton_ayuda_cabecera">
+            <a href="informacion.php" class="boton_ayuda_cabecera">
               <img src="img/informacion.png" alt="Ayuda">
             </a>
             
