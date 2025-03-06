@@ -77,7 +77,9 @@ class crearRecetaForm extends formularioBase
 
         //Comprobar bien como se hace esto
         //$usuarioId = $_SESSION['usuario'] ?? null;
-        $usuarioId = 1;
+        $application = application::GetInstance();
+
+        $usuarioId = $application->getIdUsuario();
 
         //Comprobnar si funciona
         $fecha_creacion = date('Y-m-d H:i:s');

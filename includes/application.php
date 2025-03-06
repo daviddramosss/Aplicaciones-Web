@@ -1,5 +1,7 @@
 <?php
 
+include_once("usuario/userAppService.php");
+
 class application
 {
 	private static $instancia;
@@ -128,5 +130,20 @@ class application
 		}
 		
 		return $result;
+	}
+
+	public function getIdUsuario()
+	{
+		if(isset($_SESSION['login'])){
+
+			$ususarioService = userAppService::GetSingleton();
+
+			$foundedUser = $ususarioService->buscarUsuario($_SESSION['usuario']);
+
+			if($foundedUser)
+				return $foundedUser->id();
+			else	
+				return false;
+		}
 	}
 }

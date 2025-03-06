@@ -45,7 +45,7 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
             $magnitud = $ingredienteRecetaDTO->getMagnitud();
 
             //Definimos los tipos
-            $stmt->bind_param("iiis", $recetaId, $ingredienteId, $cantidad, $magnitud);
+            $stmt->bind_param("iids", $recetaId, $ingredienteId, $cantidad, $magnitud);
 
             if ($stmt->execute())
             {
