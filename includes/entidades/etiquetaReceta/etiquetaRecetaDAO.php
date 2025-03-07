@@ -2,7 +2,7 @@
 
 require_once("IEtiquetaReceta.php"); // Interfaz que define las operaciones sobre etiquetas de recetas
 require_once("etiquetaRecetaDTO.php"); // Objeto de transferencia de datos (DTO) para etiquetas de recetas
-require_once(__DIR__ . "/../comun/baseDAO.php"); // Clase base para acceso a datos
+require_once(__DIR__ . "/../../comun/baseDAO.php"); // Clase base para acceso a datos
 
 /**
  * Clase que implementa la interfaz IEtiquetaReceta para gestionar etiquetas de recetas en la base de datos.

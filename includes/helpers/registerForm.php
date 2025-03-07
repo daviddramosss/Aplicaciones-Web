@@ -1,7 +1,7 @@
 <?php
 
 include __DIR__ . "/../comun/formularioBase.php";
-include __DIR__ . "/../usuario/userAppService.php";
+include __DIR__ . "/../entidades/usuario/userAppService.php";
 
 // archivo en el que encontramos el formulario de registro
 

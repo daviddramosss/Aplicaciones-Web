@@ -3,7 +3,7 @@
 // Archivo del perfil del usuario
 
 require_once("includes/config.php");
-require_once("includes/usuario/userAppService.php");
+require_once("includes/entidades/usuario/userAppService.php");
 
 // Guardamos el email del usuario que está logueado
 $email_usuario = $_SESSION["usuario"];

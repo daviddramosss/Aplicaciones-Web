@@ -3,7 +3,7 @@
 // Requiere los archivos necesarios para el funcionamiento de la clase
 require_once("IReceta.php");
 require_once("recetaDTO.php");
-require_once(__DIR__ . "/../comun/baseDAO.php");
+require_once(__DIR__ . "/../../comun/baseDAO.php");
 require_once("recetaAlreadyExistException.php");
 
 // Incluye servicios para gestionar los ingredientes y etiquetas de las recetas
