@@ -1,12 +1,10 @@
 <?php
 
-// Requiere los archivos necesarios para el funcionamiento de la clase
 require_once("IReceta.php");
 require_once("recetaDTO.php");
 require_once(__DIR__ . "/../../comun/baseDAO.php");
 require_once("recetaAlreadyExistException.php");
 
-// Incluye servicios para gestionar los ingredientes y etiquetas de las recetas
 include __DIR__ . '/../ingredienteReceta/ingredienteRecetaAppService.php';
 include __DIR__ . '/../etiquetaReceta/etiquetaRecetaAppService.php';
 
@@ -16,7 +14,7 @@ class recetaDAO extends baseDAO implements IReceta
     // Constructor vacío
     public function __construct()
     {
-        // No se hace nada en el constructor por el momento
+
     }
 
     // Función privada para buscar una receta en la base de datos por su ID

@@ -1,6 +1,5 @@
 <?php
 
-// Incluimos la fábrica de ingredientes, encargada de la creación de instancias de ingredientes
 require_once("ingredienteFactory.php");
 
 // Definimos la clase de servicio para gestionar ingredientes

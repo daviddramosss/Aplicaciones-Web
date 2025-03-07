@@ -1,6 +1,5 @@
 <?php
 
-// Se incluyen las dependencias necesarias
 require_once("IIngredienteReceta.php");
 require_once("ingredienteRecetaDTO.php");
 require_once(__DIR__ . "/../../comun/baseDAO.php");

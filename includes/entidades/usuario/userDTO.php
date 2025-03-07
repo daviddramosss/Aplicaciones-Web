@@ -4,8 +4,7 @@
 //Permiten agrupar datos en instancias de usuario para enviarlo a funciones como parámetros por ejemplo
 class userDTO
 {
-    //Contiene todos los atributos de un usuario, tal cual aparencen en la tabla Usuarios
-    //en nuestra BBDD (MarketChef)
+    //Contiene todos los atributos de un usuario, tal cual aparencen en la tabla Usuarios en nuestra BBDD (MarketChef)
     private $id;
 
     private $nombre;
