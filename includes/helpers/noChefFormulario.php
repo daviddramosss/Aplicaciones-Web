@@ -2,7 +2,7 @@
 // Se incluye el archivo de la clase base 'formularioBase'
 include __DIR__ . '/../comun/formularioBase.php';
 
-// Definición de la clase 'contactoFormulario' que extiende de 'formularioBase', heredando su funcionalidad
+// Definición de la clase 'noChefFormulario' que extiende de 'formularioBase', heredando su funcionalidad
 class noChefFormulario extends formularioBase
 {
     // Constructor de la clase que llama al constructor de la clase base ('formularioBase') con el nombre del formulario
@@ -19,10 +19,10 @@ class noChefFormulario extends formularioBase
         <!-- Enlace al archivo CSS específico para el formulario de contacto -->
         <link rel="stylesheet" href="CSS/contacto.css">
         
-        <!-- Título de la sección de contacto -->
+        <!-- Título de la sección de no Chef -->
         <h1>¡CONVIERTETE EN UN CHEF ESTRELLA MICHELIN!</h1>
 
-        <!-- Descripción breve sobre cómo contactar -->
+        <!-- Descripción breve sobre cómo darse de alta -->
         <p>PARA DARSE DE ALTA RELLENE ESTE FORMULARIO.</p>
 
         <!-- Formulario que se enviará a 'procesarNoChef.php' -->
