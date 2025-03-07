@@ -143,7 +143,7 @@ class crearRecetaForm extends formularioBase
                 $recetaCreadaDTO = $recetaService->crearReceta($recetaDTO, $ingredientes, $etiquetas);        
 
                 // Redireccionar a la página principal si todo fue correcto
-                $result = 'index.php';
+                $result = 'confirmacionRecetaCreada.php';
             }
             catch (recetaAlreadyExistException $e)
             {
