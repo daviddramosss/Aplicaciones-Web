@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
     closeIngredientListBtn.addEventListener("click", function () 
     {
         if (ingredientesVisibles) {
-
             // Alterna la visibilidad del contenedor de ingredientes
             ingredientContainer.style.display = ingredientContainer.style.display === "none" ? "block" : "none";
         }
@@ -82,9 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Obtiene referencias a los elementos dentro del div
             const checkbox = div.querySelector(".ingrediente-check");
-
             const cantidadInput = div.querySelector(".ingrediente-cantidad");
-
             const magnitudSelect = div.querySelector(".ingrediente-magnitud");
 
             // Evento para habilitar los inputs de cantidad y magnitud cuando se marca el checkbox
