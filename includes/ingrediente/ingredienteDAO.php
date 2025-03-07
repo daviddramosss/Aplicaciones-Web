@@ -4,7 +4,6 @@
 require_once("IIngrediente.php"); // Interfaz que define los métodos a implementar
 require_once("IngredienteDTO.php"); // Objeto de transferencia de datos (DTO) para ingredientes
 require_once(__DIR__ . "/../comun/baseDAO.php"); // Clase base para operaciones con la base de datos
-require_once(__DIR__ . "/../application.php"); // Archivo que maneja la aplicación y la conexión a la base de datos
 
 // Definición de la clase IngredienteDAO, que implementa la interfaz IIngrediente y extiende baseDAO
 class IngredienteDAO extends baseDAO implements IIngrediente {
@@ -39,7 +38,7 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
         try
         {
             // Se obtiene la conexión a la base de datos a través de la aplicación
-            $conn = application::getInstance()->getConexionBd();
+            $conn = getConexionBD();
 
             // Consulta SQL para obtener los ingredientes
             $query = "SELECT id, nombre FROM ingredientes"; // Asegurar que 'id' también se obtiene
