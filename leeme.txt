@@ -1,0 +1,17 @@
+A diferencia de README.md, este archivo de texto incluye, de forma clara, qué funcionalidades se han implementado
+para esta primera práctica, indicando el grado de completitud.
+------
+Para llevar a cabo el proyecto de MarketChef hemos estructurado las funcionalidades que requerimos, las cuales son;
+
+> Inicio de sesión y registro de usuarios
+> Crear Recetas
+> Mostrar Recetas
+> Compra de Recetas 
+> Valoración de Recetas
+> Permisos de administrador
+
+Para esta segunda entrega se ha realizado la funcionalidad relacionada con la gestión de usuarios, es decir, el 
+inicio de sesión y registro de nuevos usuarios, la identificación del rol de cada usuario y su consecuente acceso 
+a ciertas funcionalidades (p.e. Estrella Michelin para chef y para no chef). Esta ya está completada al 100%, pues
+se ha desarrollado también toda la base de datos relacionada con los usuarios.
+
