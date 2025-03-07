@@ -3,7 +3,7 @@
 // Este es el script de Cabecera, en el que está el código usado para mostrar la cabecera y sus elementos
 
 // incluimos el userAppService, a través del cual nos comunicaremos con la base de datos
-require_once("includes/usuario/userAppService.php");
+require_once("includes/entidades/usuario/userAppService.php");
 require_once("includes/application.php");
 // Comprobamos si el usuario está logueado, y qué tipo de rol tiene
 $application = application::getInstance();

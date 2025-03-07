@@ -2,7 +2,7 @@
 
 // Incluye la clase base para formularios y el servicio de recetas
 include_once __DIR__ . '/../comun/formularioBase.php';
-include_once __DIR__ . '/../receta/recetaAppService.php';
+include_once __DIR__ . '/../entidades/receta/recetaAppService.php';
 
 /**
  * Clase crearRecetaForm

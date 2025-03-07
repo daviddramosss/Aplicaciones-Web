@@ -3,7 +3,7 @@
 // Se incluyen las dependencias necesarias
 require_once("IIngrediente.php"); // Interfaz que define los métodos a implementar
 require_once("IngredienteDTO.php"); // Objeto de transferencia de datos (DTO) para ingredientes
-require_once(__DIR__ . "/../comun/baseDAO.php"); // Clase base para operaciones con la base de datos
+require_once(__DIR__ . "/../../comun/baseDAO.php"); // Clase base para operaciones con la base de datos
 
 // Definición de la clase IngredienteDAO, que implementa la interfaz IIngrediente y extiende baseDAO
 class IngredienteDAO extends baseDAO implements IIngrediente {
