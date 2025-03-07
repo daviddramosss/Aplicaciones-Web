@@ -1,9 +1,9 @@
 <?php
 
-// Define el título de la página
+// Se define el título de la página
 $tituloPagina = 'Sobre Nosotros';
 
-// Se utiliza la sintaxis de heredoc (<<<EOS) para almacenar el contenido HTML principal en una variable PHP
+// Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <!-- Enlace a la hoja de estilos específica para esta página -->
     <link rel="stylesheet" href="CSS/terminos.css">
@@ -62,7 +62,7 @@ $contenidoPrincipal = <<<EOS
         Valoro mucho pasar tiempo con mi familia y amigos, ya que para mí es importante equilibrar el deporte con buenos momentos en compañía.</p>
 EOS;
 
-// Se incluye la plantilla general de la página, que probablemente contiene la estructura base del sitio web
+// Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
 require("includes/comun/plantilla.php");
 
 ?>

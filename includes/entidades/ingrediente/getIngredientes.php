@@ -1,9 +1,6 @@
 <?php
 
-// Incluimos el archivo de configuración, donde posiblemente se define la conexión a la base de datos
-require_once("../config.php");
-
-// Incluimos la clase encargada de la lógica de negocio relacionada con los ingredientes
+require_once("../../config.php");
 require_once("ingredienteAppService.php");
 
 // Obtenemos una instancia única (Singleton) del servicio de ingredientes

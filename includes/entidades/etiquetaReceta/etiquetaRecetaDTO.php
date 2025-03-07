@@ -9,30 +9,20 @@ class etiquetaRecetaDTO
     private $etiqueta;  // Nombre de la etiqueta asociada a la receta
     private $recetaId;  // ID de la receta asociada a la etiqueta
 
-    /**
-     * Constructor de la clase.
-     * @param int $recetaId ID de la receta a la que pertenece la etiqueta.
-     * @param string $etiqueta Nombre de la etiqueta asociada.
-     */
+    // Constructor de la clase.
     public function __construct($recetaId, $etiqueta)
     {        
         $this->recetaId = $recetaId;
         $this->etiqueta = $etiqueta;
     }
 
-    /**
-     * Método para obtener el nombre de la etiqueta.
-     * @return string Nombre de la etiqueta.
-     */
+    // Método para obtener el nombre de la etiqueta.
     public function getEtiqueta()
     {
         return $this->etiqueta;
     }
 
-    /**
-     * Método para obtener el ID de la receta asociada.
-     * @return int ID de la receta.
-     */
+    // Método para obtener el ID de la receta asociada.
     public function getRecetaId()
     {
         return $this->recetaId;

@@ -1,18 +1,19 @@
 <?php
 
 include __DIR__ . "/../comun/formularioBase.php";
-include __DIR__ . "/../usuario/userAppService.php";
+include __DIR__ . "/../entidades/usuario/userAppService.php";
 
 // archivo en el que encontramos el formulario de registro
 
 class registerForm extends formularioBase
 {
+    // Constructor de la clase
     public function __construct() 
     {
         parent::__construct('registerForm');
     }
     
-     // función que se encarga de crear los campos en los que el usuario debe introducir sus datos para registrarse
+    // Método protegido que crea los campos del formulario 
     protected function CreateFields($datos)
     {
         // creamos variables vacías para precargar los campos con ellas
@@ -20,8 +21,7 @@ class registerForm extends formularioBase
         $apellidosUsuario = '';
         $email = '';
         
-        // si el usuario viene de un registro fallido, tendremos guardados sus datos previamente introducidos, por lo que, si existen, 
-        // los guardamos en las variables definidas para ello
+        // si el usuario viene de un registro fallido, tendremos guardados sus datos previamente introducidos, por lo que, si existen, los guardamos en las variables definidas para ello
         if ($datos) 
         {
             $nombreUsuario = $datos['nombreUsuario'] ?? $nombreUsuario;
@@ -29,7 +29,7 @@ class registerForm extends formularioBase
             $email = $datos['email'] ?? $email;
         } 
 
-        // creamos los campos
+        // Generación del HTML para el formulario
         $html = <<<EOF
         <fieldset>
             <legend>Crea tu cuenta</legend>

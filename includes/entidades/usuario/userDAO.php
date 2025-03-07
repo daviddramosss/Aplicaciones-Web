@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . "/../config.php";
+include_once __DIR__ . "/../../config.php";
 require_once("IUser.php");
 require_once("userDTO.php");
 

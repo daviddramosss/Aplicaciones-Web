@@ -9,8 +9,7 @@
 </head>
 <body>
 
-    <!-- La plantilla va a cargar de manera dinámica tanto el título de la pestaña en la que nos encontramos, como el contenido de la misma
-     dejando como contantes la cabecera y el pie -->
+    <!-- La plantilla va a cargar de manera dinámica tanto el título de la pestaña en la que nos encontramos, como el contenido de la misma dejando como contantes la cabecera y el pie -->
     <?php include 'cabecera.php'; ?>
 
     <main class="contenido.plantilla">

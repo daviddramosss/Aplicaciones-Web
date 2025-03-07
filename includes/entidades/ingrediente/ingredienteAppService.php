@@ -1,9 +1,5 @@
 <?php
 
-// Incluimos el archivo de configuración, donde posiblemente se define la conexión a la base de datos
-require_once("../config.php");
-
-// Incluimos la fábrica de ingredientes, encargada de la creación de instancias de ingredientes
 require_once("ingredienteFactory.php");
 
 // Definimos la clase de servicio para gestionar ingredientes

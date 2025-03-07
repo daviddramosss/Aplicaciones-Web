@@ -18,27 +18,23 @@ class ingredienteRecetaDTO
         $this->magnitud = $magnitud;           // Magnitud de la cantidad (por ejemplo, 'gramos', 'litros', etc.)
     }
 
-    // Métodos getter para acceder a las propiedades privadas
+    // Métodos getter
 
-    // Devuelve el id de la receta
     public function getRecetaId()
     {
         return $this->recetaId;
     }
 
-    // Devuelve el id del ingrediente
     public function gerIngredienteId()
     {
         return $this->ingredienteId;
     }
 
-    // Devuelve la cantidad del ingrediente
     public function getCantidad()
     {
         return $this->cantidad;
     }
 
-    // Devuelve la magnitud de la cantidad del ingrediente
     public function getMagnitud()
     {
         return $this->magnitud;

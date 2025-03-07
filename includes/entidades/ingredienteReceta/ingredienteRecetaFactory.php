@@ -1,6 +1,5 @@
 <?php
 
-// Requiere el archivo donde está definida la clase ingredienteRecetaDAO
 require("ingredienteRecetaDAO.php");
 
 // Clase Factory para crear instancias de IIngredienteReceta (en este caso, ingredienteRecetaDAO)

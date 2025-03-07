@@ -1,22 +1,23 @@
 <?php
-// Incluye el archivo que contiene la clase 'contactoFormulario' que gestiona el formulario de contacto
-require_once("includes/helpers/noChefFormulario.php");
 
-// Establece el título de la página
+require_once("includes/helpers/noChefFormulario.php");      
+
+// Se define el título de la página
 $tituloPagina = 'estrellaMichelinNoChef';
 
 // Crea una instancia de la clase contactoFormulario
 $form = new noChefFormulario();
 
-// Llama al método 'Manage()' de la clase contactoFormulario para generar el HTML del formulario de contacto
+// Se genera el HTML del formulario llamando al método Manage()
 $htmlFormCNoChef = $form->Manage();
 
-// Genera el contenido principal de la página, que incluirá el formulario de contacto
+// Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <!-- Se inserta el formulario generado dinámicamente por la clase noChefFormulario -->
     $htmlFormCNoChef
+
 EOS;
 
-// Incluye la plantilla principal del sitio, donde se integrará el contenido generado
+// Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
 require("includes/comun/plantilla.php");
 ?>

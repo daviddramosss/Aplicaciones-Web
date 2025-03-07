@@ -6,13 +6,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //se activa cuando se selecciona de añadir ingredientes (+)
     btnAgregar.addEventListener("click", function () {
+
         const valor = inputIngrediente.value.trim();
+
         if (valor) { //verificar que no este vacio
+
             //Crea un nuevo elemento div para representar el nuevo ingrediente
             const nuevoElemento = document.createElement("div");
+
             nuevoElemento.classList.add("ingrediente");
             nuevoElemento.textContent = valor; //le asigna el valor introducido
+
             listaIngredientes.appendChild(nuevoElemento);//añade el nuevo ingrediente a la lista de ingredientes
+            
             inputIngrediente.value = "";
         }
     });

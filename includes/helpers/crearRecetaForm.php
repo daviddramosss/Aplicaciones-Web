@@ -1,30 +1,18 @@
 <?php
 
-// Incluye la clase base para formularios y el servicio de recetas
 include_once __DIR__ . '/../comun/formularioBase.php';
-include_once __DIR__ . '/../receta/recetaAppService.php';
+include_once __DIR__ . '/../entidades/receta/recetaAppService.php';
 
-/**
- * Clase crearRecetaForm
- * Representa el formulario para crear una nueva receta.
- */
+// Clase crearRecetaForm
 class crearRecetaForm extends formularioBase
 {
-    /**
-     * Constructor del formulario.
-     * Llama al constructor de la clase base con el identificador del formulario.
-     */
+   // Constructor de la clase
     public function __construct() 
     {
         parent::__construct('crearRecetaForm');
     }
     
-    /**
-     * Genera los campos del formulario HTML para la creación de recetas.
-     * 
-     * @param array $datos Datos previos en caso de reenvío del formulario.
-     * @return string Código HTML del formulario.
-     */
+    // Método protegido que crea los campos del formulario 
     protected function CreateFields($datos)
     {
         // Recuperar valores previos o establecerlos vacíos
@@ -33,68 +21,63 @@ class crearRecetaForm extends formularioBase
         $precio = $datos['precio'] ?? '';
         $tiempo = $datos['tiempo'] ?? '';
 
-        // Generación del formulario con HTML incrustado
+        // Generación del HTML para el formulario
         $html = <<<EOF
-        <fieldset>
-            <legend><h1>Nueva Receta</h1></legend>
-            
-            <p><label>Título:</label> <input type="text" name="titulo" value="$titulo" required/></p>
-            
-            <p><label>Descripción:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
-            
-            <p><label>Precio Final:</label> <input type="number" step="0.1" name="precio" value="$precio" required/> <label>€</label></p>
-            <p><label>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</label></p>
+            <fieldset>
+                <legend><h1>Nueva Receta</h1></legend>
+                
+                <p><label>Título:</label> <input type="text" name="titulo" value="$titulo" required/></p>
+                
+                <p><label>Descripción:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
+                
+                <p><label>Precio Final:</label> <input type="number" step="0.1" name="precio" value="$precio" required/> <label>€</label></p>
+                <p><label>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</label></p>
 
-            <p><label>Tiempo de elaboración:</label> <input type="number" step="1" name="tiempo" value="$tiempo" required/> minutos</p>
+                <p><label>Tiempo de elaboración:</label> <input type="number" step="1" name="tiempo" value="$tiempo" required/> minutos</p>
 
-            <!-- Sección de ingredientes -->
-            <p>
-                <h2>Ingredientes</h2> 
-                <button type="button" class="btn-verde" id="addIngredient">Añadir ingrediente</button>
-                <button type="button" class="btn-rojo" id="closeIngredientList">Cerrar lista ingredientes</button>
-            </p>
+                <!-- Sección de ingredientes -->
+                <p>
+                    <h2>Ingredientes</h2> 
+                    <button type="button" class="btn-verde" id="addIngredient">Añadir ingrediente</button>
+                    <button type="button" class="btn-rojo" id="closeIngredientList">Cerrar lista ingredientes</button>
+                </p>
 
-            <div id="ingredientContainer">
-                <!-- Los ingredientes se insertarán dinámicamente con JavaScript -->
-            </div>
+                <div id="ingredientContainer">
+                    <!-- Los ingredientes se insertarán dinámicamente con JavaScript -->
+                </div>
 
-            <!-- Sección de pasos -->
-            <h2>Pasos para elaborar la receta</h2>
-            <div id="stepsContainer">
-                <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
-            </div>
-            <button type="button" class="btn-verde" id="addStep">+ Añadir paso</button>
-            <button type="button" class="btn-rojo" id="removeStep">- Eliminar paso</button>
-            
-            <!-- Sección de etiquetas -->
-            <h2>Etiquetas</h2>
-            <p>Añade etiquetas para recomendar tu receta: (Máximo 3)</p>
-            <input type="text" id="etiquetaInput" placeholder="Escribe una etiqueta..."/>
-            <button type="button" class="btn-verde" id="addTag">+ Añadir etiqueta</button>
-            
-            <div id="tagsContainer"></div>
+                <!-- Sección de pasos -->
+                <h2>Pasos para elaborar la receta</h2>
+                <div id="stepsContainer">
+                    <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
+                </div>
+                <button type="button" class="btn-verde" id="addStep">+ Añadir paso</button>
+                <button type="button" class="btn-rojo" id="removeStep">- Eliminar paso</button>
+                
+                <!-- Sección de etiquetas -->
+                <h2>Etiquetas</h2>
+                <p>Añade etiquetas para recomendar tu receta: (Máximo 3)</p>
+                <input type="text" id="etiquetaInput" placeholder="Escribe una etiqueta..."/>
+                <button type="button" class="btn-verde" id="addTag">+ Añadir etiqueta</button>
+                
+                <div id="tagsContainer"></div>
 
-            <!-- Botones de acción -->
-            <p>
-                <button type="button" class="btn-rojo" onclick="location.href='index.php'">Cancelar</button>
-                <button type="submit" class="btn-verde" name="guardar">Guardar</button>
-            </p>
-        </fieldset>
+                <!-- Botones de acción -->
+                <p>
+                    <button type="button" class="btn-rojo" onclick="location.href='index.php'">Cancelar</button>
+                    <button type="submit" class="btn-verde" name="guardar">Guardar</button>
+                </p>
+            </fieldset>
 
-        <!-- Importación de scripts JavaScript -->
-        <script src="js/crearReceta.js"></script>    
-        <script src="js/ingredientes.js"></script> 
+            <!-- Importación de scripts JavaScript -->
+            <script src="js/crearReceta.js"></script>    
+            <script src="js/ingredientes.js"></script> 
         EOF;
 
         return $html;
     }
 
-    /**
-     * Procesa la información del formulario una vez enviado.
-     * 
-     * @param array $datos Datos enviados desde el formulario.
-     * @return array|string Mensaje de error o redirección a otra página.
-     */
+    // Procesa la información del formulario una vez enviado.
     protected function Process($datos)
     {
         $result = array();

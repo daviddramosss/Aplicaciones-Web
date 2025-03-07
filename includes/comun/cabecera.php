@@ -2,9 +2,9 @@
 
 // Este es el script de Cabecera, en el que está el código usado para mostrar la cabecera y sus elementos
 
-// incluimos el userAppService, a través del cual nos comunicaremos con la base de datos
-require_once("includes/usuario/userAppService.php");
+require_once("includes/entidades/usuario/userAppService.php");
 require_once("includes/application.php");
+
 // Comprobamos si el usuario está logueado, y qué tipo de rol tiene
 $application = application::getInstance();
 
@@ -12,22 +12,21 @@ $application = application::getInstance();
 $esAdmin = false;
 $esChef =false;
 
-
 $logged = $application->isLogged();
-if ($logged) {
-  $userAppService = userAppService::GetSingleton(); // llamamos a la Singleton de userAppService y la guardamos en una variable para hacerla accesible
-  $foundedUserDTO = $userAppService->buscarUsuario($application->getEmail()); // Buscamos el usuario que está logueado mediante su email
 
-  if($foundedUserDTO){  // Si existe, vemos su rol
-      if ($foundedUserDTO->getRol() == "Admin") {
-          $esAdmin = true;
+  if ($logged) {
+    $userAppService = userAppService::GetSingleton(); // llamamos a la Singleton de userAppService y la guardamos en una variable para hacerla accesible
+    $foundedUserDTO = $userAppService->buscarUsuario($application->getEmail()); // Buscamos el usuario que está logueado mediante su email
+
+    if($foundedUserDTO){  // Si existe, vemos su rol
+        if ($foundedUserDTO->getRol() == "Admin") {
+            $esAdmin = true;
+          }
+        if ($foundedUserDTO->getRol() == "Chef") {
+              $esChef = true;
         }
-      if ($foundedUserDTO->getRol() == "Chef") {
-            $esChef = true;
-      }
     }
-}
-
+  } 
 
 ?>
 <!DOCTYPE html>
@@ -67,24 +66,23 @@ if ($logged) {
             <?php if ($esAdmin): ?>
                <!-- Icono de admin con su menú desplegable -->
               <div class="admin_desplegable_cabecera">
-                  <img src="img/editar.png" alt="Admin">
-                      
+                  <img src="img/editar.png" alt="Admin">    
               </div>
+
                <!-- Opciones dentro del menú desplegable del admin -->
               <div class="menu_admin">
                     <a href="gestionarUsuarios.php">Gestionar usuarios</a>
-                    <a href="gestionarIngredientes.php">Gestionar ingredientes</a>
-                    
-                </div>
+                    <a href="gestionarIngredientes.php">Gestionar ingredientes</a>    
+              </div>
             <?php endif; ?>
 
             <!-- Comprobamos si el usuario está logueado, sino, el botón de estrella michelin no es accesible y redirige al login -->
 
             <?php if (!$logged): ?>
-
               <a href="login.php" class="estrella_cabecera">
                 <img src="img/estrella_michelin.png" alt="Estrella Michelin No Chef">
               </a>
+
             <?php else: ?>
                 <!-- Si está logueado pero no es chef, lo redirigimos a una página para los usuarios y el admin-->
               <?php if (!$esChef): ?>
@@ -92,27 +90,26 @@ if ($logged) {
                 <a href="estrellaMichelinNoChef.php" class="estrella_cabecera">
                   <img src="img/estrella_michelin.png" alt="Estrella Michelin No Chef">
                 </a>
+
               <?php else: ?>
                  <!-- Si está logueado y es chef, lo redirigimos a una página para los chefs -->
-                  <a href="estrellaMichelinChef.php" class="estrella_cabecera"> 
+                <a href="estrellaMichelinChef.php" class="estrella_cabecera"> 
                   <img src="img/estrella_michelin.png" alt="Estrella Michelin Chef">
-                  </a>
+                </a>
 
               <?php endif; ?>
-            <?php endif; ?>
-                        
+            <?php endif; ?>                        
               
              <!-- Botón de carrito -->
             <a href="carrito.php" class="carrito_cabecera">
               <img src="img/carrito.png" alt="Carrito">
-            </a>
-            
+            </a>            
            
            <!-- Icono de usuario con menú desplegable -->
             <div class="usuario_desplegable_cabecera">
-                <img src="img/usuario.png" alt="Usuario">
-                     
+                <img src="img/usuario.png" alt="Usuario">      
             </div>
+
             <div class="menu_usuario">
                <!-- Si el usuario está logueado, mostramos el acceso a su información -->
               <?php if ($logged): ?>
@@ -125,7 +122,7 @@ if ($logged) {
                   <a href="login.php">Iniciar Sesión</a>
                   <a href="register.php">Registrarse</a>
               <?php endif; ?>
-              </div>
+            </div>
 
 
     </header>

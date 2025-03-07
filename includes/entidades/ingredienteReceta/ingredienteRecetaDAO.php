@@ -1,9 +1,8 @@
 <?php
 
-// Se incluyen las dependencias necesarias
 require_once("IIngredienteReceta.php");
 require_once("ingredienteRecetaDTO.php");
-require_once(__DIR__ . "/../comun/baseDAO.php");
+require_once(__DIR__ . "/../../comun/baseDAO.php");
 
 // Clase que maneja la persistencia de los ingredientes de una receta
 class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta

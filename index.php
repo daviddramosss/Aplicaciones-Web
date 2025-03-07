@@ -1,12 +1,11 @@
 <?php
 
-// Se incluye el archivo de configuración general del proyecto 
 require_once("includes/config.php");
 
-// Se define el título de la página que se mostrará en el navegador
+// Se define el título de la página
 $tituloPagina = 'Market Chef';
 
-// Se genera el contenido principal de la página mediante una cadena heredoc
+// Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
 
     <!-- Se incluye el archivo CSS específico para la página de inicio -->
@@ -58,7 +57,7 @@ $contenidoPrincipal = <<<EOS
 
 EOS;
 
-// Se incluye el archivo plantilla.php 
+// Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
 require("includes/comun/plantilla.php");
 
 ?>

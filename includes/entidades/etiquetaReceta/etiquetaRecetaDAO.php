@@ -1,8 +1,8 @@
 <?php
 
-require_once("IEtiquetaReceta.php"); // Interfaz que define las operaciones sobre etiquetas de recetas
-require_once("etiquetaRecetaDTO.php"); // Objeto de transferencia de datos (DTO) para etiquetas de recetas
-require_once(__DIR__ . "/../comun/baseDAO.php"); // Clase base para acceso a datos
+require_once("IEtiquetaReceta.php"); 
+require_once("etiquetaRecetaDTO.php"); 
+require_once(__DIR__ . "/../../comun/baseDAO.php"); 
 
 /**
  * Clase que implementa la interfaz IEtiquetaReceta para gestionar etiquetas de recetas en la base de datos.
@@ -15,12 +15,7 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
     {
     }
 
-    /**
-     * Método para crear una nueva relación entre una receta y una etiqueta en la base de datos.
-     * @param etiquetaRecetaDTO $etiquetaRecetaDTO Objeto DTO con los datos de la relación receta-etiqueta.
-     * @return etiquetaRecetaDTO|bool Devuelve un objeto etiquetaRecetaDTO con los datos insertados o false si falla.
-     * @throws Exception Si hay un error en la preparación o ejecución de la consulta.
-     */
+    // Método para crear una nueva relación entre una receta y una etiqueta en la base de datos.
     public function crearEtiquetaReceta($etiquetaRecetaDTO)
     {
         $crearEtiquetaReceta = false; // Variable de retorno inicializada en false
@@ -66,19 +61,13 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
         return $crearEtiquetaReceta; // Devolver false en caso de fallo
     }
 
-    /**
-     * Método para editar una relación entre una receta y una etiqueta.
-     * (Pendiente de implementación)
-     */
+    // Método para editar una relación entre una receta y una etiqueta.
     public function editarEtiquetaReceta($etiquetaRecetaDTO)
     {
         // Implementar más adelante
     }
 
-    /**
-     * Método para borrar una relación entre una receta y una etiqueta.
-     * (Pendiente de implementación)
-     */
+    // Método para borrar una relación entre una receta y una etiqueta.
     public function borrarEtiquetaReceta($etiquetaRecetaDTO)
     {
         // Implementar más adelante

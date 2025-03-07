@@ -1,4 +1,3 @@
-// Espera a que el DOM se cargue completamente antes de ejecutar el código
 document.addEventListener("DOMContentLoaded", function() {
     
     // Lista de ofertas disponibles (por ahora con datos de prueba)
@@ -18,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Manejo de la navegación de ofertas (anterior)
     document.getElementById("prevOferta").addEventListener("click", function() {
+
         // Usa aritmética modular para hacer que la navegación sea circular
         ofertaIndex = (ofertaIndex - 1 + ofertas.length) % ofertas.length;
         actualizarOferta();
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Manejo de la navegación de ofertas (siguiente)
     document.getElementById("nextOferta").addEventListener("click", function() {
+        
         // Usa aritmética modular para hacer que la navegación sea circular
         ofertaIndex = (ofertaIndex + 1) % ofertas.length;
         actualizarOferta();

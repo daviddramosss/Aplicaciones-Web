@@ -1,6 +1,6 @@
 <?php
 
-require("etiquetaRecetaDAO.php"); // Se requiere la clase que implementa el acceso a datos de etiquetas de recetas.
+require("etiquetaRecetaDAO.php"); 
 
 /**
  * Fábrica para la creación de objetos que implementan la interfaz IEtiquetaReceta.
@@ -8,10 +8,7 @@ require("etiquetaRecetaDAO.php"); // Se requiere la clase que implementa el acce
  */
 class etiquetaRecetaFactory
 {
-    /**
-     * Método estático para crear una instancia de etiquetaRecetaDAO.
-     * @return IEtiquetaReceta Instancia de etiquetaRecetaDAO que implementa IEtiquetaReceta.
-     */
+    // Método estático para crear una instancia de etiquetaRecetaDAO.
     public static function createEtiquetaReceta() : IEtiquetaReceta
     {
         // Inicializa la variable (aunque la asignación previa a false no es necesaria en este caso)

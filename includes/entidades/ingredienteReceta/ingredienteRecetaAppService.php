@@ -1,6 +1,5 @@
 <?php
 
-// Se requiere la clase ingredienteRecetaFactory, que provee instancias de IIngredienteRecetaDAO
 require_once("ingredienteRecetaFactory.php");
 
 // Clase que actúa como servicio de aplicación para gestionar la relación entre ingredientes y recetas

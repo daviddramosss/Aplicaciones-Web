@@ -1,6 +1,5 @@
 <?php
 
-// Incluye la clase base 'formularioBase', que contiene métodos comunes para formularios
 include __DIR__ . '/../comun/formularioBase.php';
 
 // Clase buscarFormulario que extiende de formularioBase
@@ -9,14 +8,13 @@ class buscarFormulario extends formularioBase
     // Constructor de la clase
     public function __construct() 
     {
-        // Llama al constructor de la clase base, pasándole el identificador del formulario
         parent::__construct('buscarFormulario');
     }
 
-    // Método protegido que genera los campos del formulario de búsqueda
+    // Método protegido que crea los campos del formulario 
     protected function CreateFields($datos)
     {
-        // Se genera el código HTML del formulario usando HEREDOC (EOF)
+        // Generación del HTML para el formulario
         $html = <<<EOF
         <form id="buscarFormulario" method="POST" action="procesarBusqueda.php">
             <div class="buscar-contenedor">
@@ -78,7 +76,7 @@ class buscarFormulario extends formularioBase
         <!-- Enlace al script que maneja interacciones dinámicas -->
         <script src="JS/buscar.js"></script>
 
-        EOF;
+    EOF;
 
         // Devuelve el formulario generado
         return $html;

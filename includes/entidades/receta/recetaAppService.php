@@ -1,10 +1,10 @@
 <?php
 
-require_once("recetaFactory.php"); // Incluye la clase que se encargará de la creación del objeto RecetaDAO
+require_once("recetaFactory.php"); 
 
 class recetaAppService
 {
-    private static $instance; // Instancia única para el patrón Singleton
+    private static $instance; 
 
     // Método estático que devuelve la única instancia de la clase (patrón Singleton)
     public static function GetSingleton()

@@ -1,6 +1,5 @@
 <?php
 
-// Se requiere la clase IngredienteDAO, que implementa la interfaz IIngrediente
 require("ingredienteDAO.php");
 
 // Definición de la clase IngredienteFactory

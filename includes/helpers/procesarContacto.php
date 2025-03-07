@@ -1,13 +1,11 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = htmlspecialchars($_POST["nombre"]);
-    $correo = htmlspecialchars($_POST["correo"]);
-    $telefono = htmlspecialchars($_POST["telefono"]);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Aquí guardamos los datos en la base de datos o enviarlos por correo
+        $nombre = htmlspecialchars($_POST["nombre"]);
+        $correo = htmlspecialchars($_POST["correo"]);
+        $telefono = htmlspecialchars($_POST["telefono"]);
 
-    //echo "Formulario enviado correctamente. Nos pondremos en contacto contigo.";
-    header("Location: index.php");
-    exit();
-}
+        header("Location: index.php");
+        exit();
+    }
 ?>

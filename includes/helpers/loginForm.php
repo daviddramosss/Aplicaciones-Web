@@ -1,18 +1,19 @@
 <?php
 
 include __DIR__ . "/../comun/formularioBase.php";
-include_once __DIR__ . "/../usuario/userAppService.php";
+include_once __DIR__ . "/../entidades/usuario/userAppService.php";
 
 // archivo en el que encontramos el formulario de login
 
 class loginForm extends formularioBase
 {
+    // Constructor de la clase
     public function __construct() 
     {
         parent::__construct('loginForm');
     }
     
-    // función que se encarga de crear los campos en los que el usuario debe introducir su email y contraseña para iniciar sesión
+    // Método protegido que crea los campos del formulario 
     protected function CreateFields($datos)
     {
         $email = '';
@@ -23,13 +24,14 @@ class loginForm extends formularioBase
             $email = isset($datos['email']) ? $datos['email'] : $email;
         }
 
+        // Generación del HTML para el formulario
         $html = <<<EOF
-        <fieldset>
-            <legend>Usuario y contraseña</legend>
-            <p><label>Email:</label> <input type="text" name="email" value="$email"/></p>
-            <p><label>Password:</label> <input type="password" name="password" /></p>
-            <button type="submit" name="login">Entrar</button>
-        </fieldset>
+            <fieldset>
+                <legend>Usuario y contraseña</legend>
+                <p><label>Email:</label> <input type="text" name="email" value="$email"/></p>
+                <p><label>Password:</label> <input type="password" name="password" /></p>
+                <button type="submit" name="login">Entrar</button>
+            </fieldset>
         EOF;
 
         return $html;
@@ -39,8 +41,6 @@ class loginForm extends formularioBase
     protected function Process($datos)
     {
         $result = array();
-        
-        //filter_var vs htmlspecialchars(trim(strip_tags($_REQUEST["username"])));
 
         // guardamos el email y comprobamos que tiene formato de email
         $email = trim($datos['email'] ?? '');
@@ -68,8 +68,7 @@ class loginForm extends formularioBase
         if (count($result) === 0) 
         {
             // creamos un usuario con el email y la contraseña pasados por el usuario
-            $userDTO = new userDTO(0, '', '', $email, '',$password, 
-            '', '');
+            $userDTO = new userDTO(0, '', '', $email, '',$password, '', '');
 
             // creamos la instancia de userAppService y llamamos a la función login
             $userAppService = userAppService::GetSingleton();
@@ -87,7 +86,6 @@ class loginForm extends formularioBase
                 // si ha iniciado sesión, se almacenan los valores relevantes de la sesión
                 $_SESSION["login"] = true;
                 $_SESSION["usuario"] = $email;
-
 
                 // se guarda la ruta a la que se debe redirigir al usuario
                 $result = 'index.php';
