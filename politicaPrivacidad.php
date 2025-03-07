@@ -1,6 +1,9 @@
 <?php
+
+// Se define el título de la página
 $tituloPagina = 'Política de Privacidad';
 
+// Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <link rel="stylesheet" href="CSS/privacidad.css">
     <h1 class="titulo-centrado">Política de Privacidad</h1>
@@ -48,5 +51,6 @@ $contenidoPrincipal = <<<EOS
     Gracias por confiar en nosotros y ser parte de nuestra comunidad.</p>
 EOS;
 
+// Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
 require("includes/comun/plantilla.php");
 ?>

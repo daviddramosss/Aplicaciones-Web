@@ -1,6 +1,5 @@
 <?php
 
-// Se incluye el archivo de configuración general del proyecto
 require_once("includes/config.php");
 
 // Se define el título de la página
@@ -13,7 +12,7 @@ $carrito = [
     ["nombre" => "Postre de Chocolate", "precio" => 6.75, "cantidad" => 1]
 ];
 
-// Se comienza a generar el contenido dinámico de la página
+// Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <link rel="stylesheet" href="CSS/carrito.css">
     <h1>Carrito de Compras</h1>
@@ -24,16 +23,17 @@ $contenidoPrincipal = <<<EOS
                 <th>Precio</th>
                 <th>Cantidad</th>
             </tr>
+
 EOS;
 
 // Se recorre el carrito para mostrar cada uno de los productos
 foreach ($carrito as $item) {
     $contenidoPrincipal .= "
-            <tr>
-                <td>" . htmlspecialchars($item['nombre']) . "</td>
-                <td>" . number_format($item['precio'], 2) . " €</td>
-                <td>" . $item['cantidad'] . "</td>
-            </tr>
+        <tr>
+            <td>" . htmlspecialchars($item['nombre']) . "</td>
+            <td>" . number_format($item['precio'], 2) . " €</td>
+            <td>" . $item['cantidad'] . "</td>
+        </tr>
     ";
 }
 
@@ -43,7 +43,7 @@ $contenidoPrincipal .= <<<EOS
     </div>
 EOS;
 
-// Se incluye el archivo plantilla.php que manejará el layout y el HTML común
+// Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
 require("includes/comun/plantilla.php");
 
 ?>

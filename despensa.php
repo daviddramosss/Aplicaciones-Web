@@ -1,20 +1,18 @@
 <?php
-// Incluye el archivo de configuración general del proyecto
-require_once("includes/config.php");
 
-// Incluye el archivo que contiene la clase 'despensaFormulario' que maneja la lógica del formulario para la página de despensa
-require_once("includes/helpers/despensaFormulario.php");
+require_once("includes/config.php");                        
+require_once("includes/helpers/despensaFormulario.php");   
 
-// Establece el título de la página
+// Se define el título de la página
 $tituloPagina = 'Mi despensa';
 
-// Crea una nueva instancia de la clase 'despensaFormulario' para manejar el formulario relacionado con la despensa
+// Crea una nueva instancia de la clase despensaFormulario
 $form = new despensaFormulario();
 
-// Llama al método 'Manage()' de la clase 'despensaFormulario' para generar el HTML del formulario de despensa
+// Se genera el HTML del formulario llamando al método Manage()
 $htmlFormDespensa = $form->Manage();
 
-// Genera el contenido principal de la página, que incluye el formulario de la despensa
+// Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <!-- Enlace al archivo CSS específico para el formulario de la despensa -->
     <link rel="stylesheet" href="CSS/despensa.css">
@@ -26,6 +24,6 @@ $contenidoPrincipal = <<<EOS
     $htmlFormDespensa
 EOS;
 
-// Incluye la plantilla principal del sitio, donde se integrará el contenido generado para la página
+// Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
 require("includes/comun/plantilla.php");
 ?>

@@ -1,6 +1,9 @@
 <?php
+
+// Se define el título de la página
 $tituloPagina = 'Términos y Condiciones';
 
+// Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <link rel="stylesheet" href="CSS/terminos.css">
     <h1 class="titulo-centrado">Términos y Condiciones</h1>
@@ -48,5 +51,7 @@ $contenidoPrincipal = <<<EOS
     El uso continuado de la plataforma implica la aceptación de los cambios.</p>
 EOS;
 
+// Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
 require("includes/comun/plantilla.php");
+
 ?>

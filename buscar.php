@@ -1,11 +1,10 @@
 <?php
-// Incluye el archivo de configuración general, que contiene conexión a la base de datos y otras configuraciones
-require_once("includes/config.php");
 
-// Incluye la clase que gestiona el formulario de búsqueda
-require_once("includes/helpers/buscarFormulario.php");
 
-// Establece el título de la página usado en la plantilla general
+require_once("includes/config.php");                        
+require_once("includes/helpers/buscarFormulario.php");      
+
+// Se define el título de la página
 $tituloPagina = 'Buscar Recetas';
 
 // Crea una instancia de la clase buscarFormulario
@@ -32,4 +31,5 @@ EOS;
 
 // Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
 require("includes/comun/plantilla.php");
+
 ?>

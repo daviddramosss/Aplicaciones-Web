@@ -1,6 +1,5 @@
 <?php
 
-// Se incluyen los archivos de configuración y la clase del formulario para crear recetas.
 require_once("includes/config.php");
 require_once("includes/helpers/crearRecetaForm.php");
 
@@ -13,7 +12,7 @@ $form = new crearRecetaForm();
 // Se genera el HTML del formulario llamando al método Manage().
 $htmlFormReceta = $form->Manage();
 
-// Se define el contenido principal de la página, incluyendo el formulario y una hoja de estilos CSS.
+// Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <link rel="stylesheet" href="CSS/crearReceta.css">
    
@@ -21,7 +20,7 @@ $contenidoPrincipal = <<<EOS
     
 EOS;
 
-// Se requiere la plantilla común para mostrar la página con el contenido generado.
+// Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
 require("includes/comun/plantilla.php");
 
 ?>

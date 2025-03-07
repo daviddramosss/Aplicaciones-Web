@@ -1,7 +1,5 @@
 <?php
 
-// Archivo del perfil del usuario
-
 require_once("includes/config.php");
 require_once("includes/entidades/usuario/userAppService.php");
 
