@@ -20,6 +20,12 @@ el desarrollo en la base de datos de las tablas "ingredientes", "receta_ingredie
 "receta etiqueta", "ingrediente_alergeno" y "alergeno". A su vez, permite crear por primera vez las recetas y añadirlas
 a la base de datos, siendo los preparatorios para también continuar con las próximas entregas y funcionalidades.
 La creación de recetas también está completa al 100%, siguiendo con el enunciado de la segunda entrega.
+Para poder ejecutar esta funcionalidad se deberá iniciar sesión como chef (ver Datos de Acceso en la memoria), y
+posteriormente acceder a Estrella Michelin, que dado nuestro nuevo rol mostrará otra versión de la página. A partir de
+aquí podremos rellenar el formulario de creación (destacar el apartado de ingredientes, por todo el trabajo incurrido con
+los .json), siguiendo con las indicaciones y, en caso de olvidar algún dato, será avisado al intentar crear la receta. 
+A su vez, al terminar de crearla, se mostrará una página de proceso de creación, que redirigirá al index de vuelta después 
+de mostrar un mensaje, muy similar al proceso de logout.
 
 Muchas páginas .php que tenemos implementadas actualmente no tienen su funcionalidad completa (p.e. index.php) dado que
 dependen del resto de funcionalidades como es Mostrar Recetas, que serán fáciles de implementar tras el trabajo incurrido
