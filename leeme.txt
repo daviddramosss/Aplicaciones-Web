@@ -15,3 +15,20 @@ inicio de sesión y registro de nuevos usuarios, la identificación del rol de c
 a ciertas funcionalidades (p.e. Estrella Michelin para chef y para no chef). Esta ya está completada al 100%, pues
 se ha desarrollado también toda la base de datos relacionada con los usuarios.
 
+Por otro lado, se ha desarrollado la funcionalidad de crear recetas. Esto, que es competencia de los chefs, incluye
+el desarrollo en la base de datos de las tablas "ingredientes", "receta_ingrediente", "recetas", "receta_comprada",
+"receta etiqueta", "ingrediente_alergeno" y "alergeno". A su vez, permite crear por primera vez las recetas y añadirlas
+a la base de datos, siendo los preparatorios para también continuar con las próximas entregas y funcionalidades.
+La creación de recetas también está completa al 100%, siguiendo con el enunciado de la segunda entrega.
+
+Muchas páginas .php que tenemos implementadas actualmente no tienen su funcionalidad completa (p.e. index.php) dado que
+dependen del resto de funcionalidades como es Mostrar Recetas, que serán fáciles de implementar tras el trabajo incurrido
+en esta entrega, puesto que la estructura de la plataforma está completa.
+
+La funcionalidad de permisos de administrador incluye el funcionamiento de "gestionarUsuarios.php" (que modifica el rol
+de los usuarios, permitiendo ascender a chefs y admins) y "gestionarIngredientes.php" (que permite añadir ingredientes
+a la base de datos si así lo requieren los chefs). Estas están implementadas en el proyecto con un simple texto 
+descriptivo, puesto que queríamos esperar a la siguiente entrega donde aprenderemos más sobre .css, pudiendo crear
+tablas con información y botones correctamente, donde por ejemplo, se muestren los usuarios registrados, poder ascenderlos,
+eliminarlos, entre otras opciones. Creemos que estas páginas son más delicadas que otras en las que sí hemos añadido .css
+en esta entrega, por lo que preferimos aprender primero.
