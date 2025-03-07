@@ -5,16 +5,16 @@ include __DIR__ . '/../comun/formularioBase.php';
 // Definición de la clase 'contactoFormulario' que extiende de 'formularioBase', heredando su funcionalidad
 class noChefFormulario extends formularioBase
 {
-    // Constructor de la clase que llama al constructor de la clase base ('formularioBase') con el nombre del formulario
+   // Constructor de la clase
     public function __construct() 
     {
         parent::__construct('noChefFormulario');
     }
 
-    // Método protegido que crea los campos del formulario de contacto
+    // Método protegido que crea los campos del formulario 
     protected function CreateFields($datos)
     {
-        // Generación del HTML para el formulario de contacto
+        // Generación del HTML para el formulario
         $html = <<<EOF
         <!-- Enlace al archivo CSS específico para el formulario de contacto -->
         <link rel="stylesheet" href="CSS/contacto.css">
