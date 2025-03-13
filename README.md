@@ -43,3 +43,5 @@ Para acceder, hay precargados una cuenta con cada tipo de usuario, a modo de tes
 # Importante
 *Esta versión en local está pensada para ser utilizada con fines académicos y con el objetivo de ser compartida y accesible tanto por todos los creadores de MarketChef, como por el profesor encargado de evaluar la plataforma y sus entrañas.* 
 
+
+Viva la comida!
