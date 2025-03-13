@@ -13,8 +13,15 @@ document.addEventListener("DOMContentLoaded", function() {
         "Oferta 3: 2x1 en recetas veganas"
     ];
 
+    let recetasVeganas = [
+        "Receta Vegana 1: Ensalada de Quinoa",
+        "Receta Vegana 2: Hamburguesa de Lentejas",
+        "Receta Vegana 3: Leche de Almendras Casera"
+    ];
+
     let recetaIndex = 0;
     let ofertaIndex = 0;
+    let veganaIndex = 0;
 
     // Función para actualizar recetas destacadas
     function actualizarReceta() {
@@ -25,6 +32,12 @@ document.addEventListener("DOMContentLoaded", function() {
     function actualizarOferta() {
         document.getElementById("ofertaDestacada").innerText = ofertas[ofertaIndex];
     }
+
+    // Función para actualizar recetas veganas
+    function actualizarRecetaVegana() {
+        document.getElementById("recetaVegana").innerText = recetasVeganas[veganaIndex];
+    }
+
 
     // Navegación de recetas
     document.getElementById("nextReceta").addEventListener("click", function() {
@@ -52,7 +65,20 @@ document.addEventListener("DOMContentLoaded", function() {
         actualizarOferta();
     });
 
+
+    // Navegación de recetas veganas
+    document.getElementById("prevVegana").addEventListener("click", function() {
+        veganaIndex = (veganaIndex - 1 + recetasVeganas.length) % recetasVeganas.length;
+        actualizarRecetaVegana();
+    });
+
+    document.getElementById("nextVegana").addEventListener("click", function() {
+        veganaIndex = (veganaIndex + 1) % recetasVeganas.length;
+        actualizarRecetaVegana();
+    });
+
     // Cargar contenido inicial
     actualizarReceta();
     actualizarOferta();
+    actualizarRecetaVegana();
 });
