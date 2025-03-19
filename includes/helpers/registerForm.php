@@ -33,11 +33,11 @@ class registerForm extends formularioBase
         $html = <<<EOF
         <fieldset>
             <legend>Crea tu cuenta</legend>
-            <p><label>Nombre:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
-            <p><label>Apellidos:</label> <input type="text" name="apellidosUsuario" value="$apellidosUsuario"/></p>
-            <p><label>Email:</label> <input type="text" name="email" value="$email"/></p>
-            <p><label>Contraseña:</label> <input type="password" name="password" /></p>
-            <p><label>Repetir Contraseña:</label> <input type="password" name="rePassword" /></p>
+            <p><label>Nombre:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario" required/></p>
+            <p><label>Apellidos:</label> <input type="text" name="apellidosUsuario" value="$apellidosUsuario" required/></p>
+            <p><label>Email:</label> <input type="text" name="email" value="$email" required/></p>
+            <p><label>Contraseña:</label> <input type="password" name="password" required/></p>
+            <p><label>Repetir Contraseña:</label> <input type="password" name="rePassword" required /></p>
             <button type="submit" name="register">Registrarse</button>
         </fieldset>
         EOF;
