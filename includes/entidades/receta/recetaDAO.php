@@ -24,7 +24,7 @@ class recetaDAO extends baseDAO implements IReceta
         $escRecetaId = $this->realEscapeString($recetaId);
 
         // Obtiene la conexión a la base de datos usando el patrón Singleton
-        $conn = getConexionBd();
+        $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para buscar la receta
         $query = "SELECT * FROM recetas WHERE recetaId = ?";
