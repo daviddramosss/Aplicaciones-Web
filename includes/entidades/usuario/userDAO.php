@@ -36,7 +36,7 @@ class userDAO implements IUser
     public function buscaUsuario($email)
     {
         // Accede a la base de datos
-        $conn = getConexionBD();
+        $conn = application::getInstance()->getConexionBd();
         
         // busca en la base de datos un usuario con el email pasado por parámetro
         $query = sprintf("SELECT * FROM usuarios WHERE Email='%s'", $conn->real_escape_string($email));
@@ -69,7 +69,7 @@ class userDAO implements IUser
         $createdUserDTO = false;
         
         // nos conectamos con la BBDD
-        $conn = getConexionBD();
+        $conn = application::getInstance()->getConexionBd();
 
         // Guardamos los atributos del usuario que queremos crear en variables
         $nombreUsuario = $conn->real_escape_string($userDTO->getNombre());
