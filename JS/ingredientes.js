@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 div.classList.add("ingrediente-item");
 
                 // Construir el select con las magnitudes obtenidas
-                let selectOptions = magnitudes.map(mag => `<option value="${mag.id}">${mag.nombre}</option>`).join("");
+                let selectOptions = magnitudes.map(mag => `<option value="${mag.nombre}">${mag.nombre}</option>`).join("");
 
                 div.innerHTML = `
                     <input type="checkbox" class="ingrediente-check" data-id="${ingrediente.id}" data-nombre="${ingrediente.nombre}">

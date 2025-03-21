@@ -25,7 +25,7 @@ class ingredienteRecetaDTO
         return $this->recetaId;
     }
 
-    public function gerIngredienteId()
+    public function getIngredienteId()
     {
         return $this->ingredienteId;
     }
