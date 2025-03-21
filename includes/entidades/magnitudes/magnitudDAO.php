@@ -4,7 +4,7 @@ require_once("IMagnitud.php");
 require_once("magnitudDTO.php"); 
 require_once(__DIR__ . "/../../comun/baseDAO.php"); 
 
-class magnitudesDAO extends baseDAO implements IMagnitud 
+class magnitudDAO extends baseDAO implements IMagnitud 
 {
     public function __construct()
     {
@@ -25,29 +25,35 @@ class magnitudesDAO extends baseDAO implements IMagnitud
         //Implementar luego
     }
 
-    public function mostarMagnitudes()
+    public function mostrarMagnitudes()
     {
         // Obtiene la conexión a la base de datos
         $conn = getConexionBd();
 
         // Prepara la consulta SQL para obtener todas las magnitudes
-        $query = "SELECT * FROM magnitudes";
+        $query = "SELECT ID, Magnitud FROM magnitudes";
 
-        // Ejecuta la consulta
-        $result = $conn->query($query);
+        // Se prepara la consulta
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
 
         // Array donde se almacenarán las magnitudes
         $magnitudes = [];
 
+        $result = $stmt->get_result();
         // Si hay resultados, los recorremos
-        if ($result && $result->num_rows > 0) 
+        if ($result->num_rows > 0) 
         {
             while ($fila = $result->fetch_assoc()) 
             {
-                // Crea un objeto etiquetaDTO con los datos obtenidos y lo añade al array
-                $magnitudes[] = new etiquetaDTO($fila['id'], $fila['nombre']);
+                // Crea un objeto magnitudDTO con los datos obtenidos y lo añade al array
+                $magnitudes[] = [
+                    "id" => $fila['ID'], 
+                    "nombre" => $fila['Magnitud']
+                ];
             }
 
+            $stmt->close();
             // Liberamos la memoria del resultado
             $result->free();
         }

@@ -8,7 +8,7 @@ interface IMagnitud
 
     public function borrarMagnitud($etiquetaDTO);
 
-    public function mostarMagnitudes();
+    public function mostrarMagnitudes();
 }
 
 ?>
