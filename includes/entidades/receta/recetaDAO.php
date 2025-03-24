@@ -104,36 +104,7 @@ class recetaDAO extends baseDAO implements IReceta
 
                 // Crea un DTO de receta con los datos insertados
                 $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
-
-                // Guarda los ingredientes relacionados con la receta
-                $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-
-                foreach ($ingredientes as $ingredienteId => $ingredienteData) {
-                    $ingredienteId = intval($ingredienteId);
-                    $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
-                    $magnitud = filter_var($ingredienteData['magnitud'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                
-                    // Si el ingrediente es válido, lo guarda
-                    if ($ingredienteId > 0 && $cantidad > 0 && !empty($magnitud)) {
-                        $ingredienteRecetaDTO = new ingredienteRecetaDTO($id, $ingredienteId, $cantidad, $magnitud);
-                        $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
-                    }
-                }
-
-                // Guarda las etiquetas relacionadas con la receta
-                $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
-
-                $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Limita a 3 etiquetas únicas
-                foreach ($etiquetas as $etiqueta) {
-                    $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-                    // Si la etiqueta es válida, la guarda
-                    if (!empty($etiqueta)) {
-                        $etiquetaRecetaDTO = new etiquetaRecetaDTO($id, $etiqueta);
-                        $etiquetaRecetaCreadaDTO = $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
-                    }
-                }           
-
+                    
                 // Retorna el DTO de la receta creada
                 return $createdRecetaDTO;
             }

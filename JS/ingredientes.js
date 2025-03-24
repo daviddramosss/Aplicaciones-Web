@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Variable de control para saber si los ingredientes ya han sido cargados
     let ingredientesVisibles = false;
+    let magnitudesDisponibles = []; // Almacena las magnitudes obtenidas de la BBDD
 
     // Evento al hacer clic en el botón de "Añadir Ingrediente"
     addIngredientBtn.addEventListener("click", function ()
@@ -56,54 +57,44 @@ document.addEventListener("DOMContentLoaded", function () {
         // Asegura que el contenedor sea visible
         ingredientContainer.style.display = "block";
 
-        // Recorre la lista de ingredientes recibidos
-        ingredientes.forEach(ingrediente => {
+        // Obtener magnitudes antes de mostrar los ingredientes
+        fetch("includes/entidades/magnitudes/getMagnitudes.php")
+        .then(response => response.json())
+        .then(magnitudes => {
+            ingredientes.forEach(ingrediente => {
+                const div = document.createElement("div");
+                div.classList.add("ingrediente-item");
 
-            // Crea un div para cada ingrediente
-            const div = document.createElement("div");
+                // Construir el select con las magnitudes obtenidas
+                let selectOptions = magnitudes.map(mag => `<option value="${mag.nombre}">${mag.nombre}</option>`).join("");
 
-            div.classList.add("ingrediente-item"); // Agrega una clase para estilos
+                div.innerHTML = `
+                    <input type="checkbox" class="ingrediente-check" data-id="${ingrediente.id}" data-nombre="${ingrediente.nombre}">
+                    <label>${ingrediente.nombre}</label>
+                    <input type="number" class="ingrediente-cantidad" name="ingredientes[${ingrediente.id}][cantidad]" placeholder="Cantidad" min="0" step="0.1" disabled>
+                    <select class="ingrediente-magnitud" name="ingredientes[${ingrediente.id}][magnitud]" disabled>
+                        ${selectOptions}
+                    </select>
+                `;
 
-            // Inserta el HTML dentro del div con un checkbox, nombre, input de cantidad y selector de magnitud
-            div.innerHTML = `
-                <input type="checkbox" class="ingrediente-check" data-id="${ingrediente.id}" data-nombre="${ingrediente.nombre}">
-                <label>${ingrediente.nombre}</label>
-                <input type="number" class="ingrediente-cantidad" name="ingredientes[${ingrediente.id}][cantidad]" placeholder="Cantidad" min="0" step="0.1" disabled>
-                <select class="ingrediente-magnitud" name="ingredientes[${ingrediente.id}][magnitud]" disabled>
-                    <option value="g">Gramos (G)</option>
-                    <option value="kg">Kilos (Kg)</option>
-                    <option value="l">Litros (L)</option>
-                    <option value="ml">Mililitros (ml)</option>
-                    <option value="cucharadas">Cucharadas</option>
-                    <option value="unidad">Unidad</option>
-                </select>
-            `;
+                const checkbox = div.querySelector(".ingrediente-check");
+                const cantidadInput = div.querySelector(".ingrediente-cantidad");
+                const magnitudSelect = div.querySelector(".ingrediente-magnitud");
 
-            // Obtiene referencias a los elementos dentro del div
-            const checkbox = div.querySelector(".ingrediente-check");
-            const cantidadInput = div.querySelector(".ingrediente-cantidad");
-            const magnitudSelect = div.querySelector(".ingrediente-magnitud");
+                checkbox.addEventListener("change", function () {
+                    if (checkbox.checked) {
+                        cantidadInput.disabled = false;
+                        magnitudSelect.disabled = false;
+                    } else {
+                        cantidadInput.disabled = true;
+                        cantidadInput.value = "";
+                        magnitudSelect.disabled = true;
+                    }
+                });
 
-            // Evento para habilitar los inputs de cantidad y magnitud cuando se marca el checkbox
-            checkbox.addEventListener("change", function () {
-
-                if (checkbox.checked) {
-
-                    cantidadInput.disabled = false; // Habilita el input de cantidad
-
-                    magnitudSelect.disabled = false; // Habilita el selector de magnitud
-                } else {
-
-                    cantidadInput.disabled = true; // Deshabilita el input de cantidad
-
-                    cantidadInput.value = ""; // Borra el valor ingresado
-
-                    magnitudSelect.disabled = true; // Deshabilita el selector de magnitud
-                }
+                ingredientContainer.appendChild(div);
             });
-
-            // Agrega el ingrediente al contenedor
-            ingredientContainer.appendChild(div);
-        });
-    }
+        })
+        .catch(error => console.error("Error cargando las magnitudes:", error));
+}
 });

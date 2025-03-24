@@ -430,14 +430,14 @@ CREATE TABLE `magnitudes` (
 
 CREATE TABLE `receta_ingrediente` (
  `Receta` int(11) NOT NULL,
- `Ingrediente` varchar(100) NOT NULL,
+ `Ingrediente` int(11) NOT NULL,
  `Cantidad` varchar(100) NOT NULL,
  `Magnitud` varchar(100) NOT NULL,
  KEY `fk_ri_receta` (`Receta`),
  KEY `fk_ri_ingrediente` (`Ingrediente`),
  KEY `fk_ri_magnitud` (`Magnitud`),
  CONSTRAINT `fk_ri_receta` FOREIGN KEY (`Receta`) REFERENCES `recetas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
- CONSTRAINT `fk_ri_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`Nombre`) ON DELETE CASCADE ON UPDATE CASCADE,
+ CONSTRAINT `fk_ri_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
  CONSTRAINT `fk_ri_magnitud` FOREIGN KEY (`Magnitud`) REFERENCES `magnitudes` (`Magnitud`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
