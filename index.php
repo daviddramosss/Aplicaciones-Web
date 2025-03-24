@@ -52,6 +52,17 @@ $contenidoPrincipal = <<<EOS
         </div>
     </section>
 
+    <!-- Sección para recetas veganas -->
+    <section class="veganas"> 
+        <h2>Recetas Veganas</h2>
+        
+        <div class="contenedor-flechas">
+            <button id="prevVegana" type="button" class="boton-flecha">&lt;</button>
+            <div id="recetaVegana" class="contenido"></div>
+            <button id="nextVegana" type="button" class="boton-flecha">&gt;</button>
+        </div>
+    </section>
+
     <!-- Se incluye el archivo JavaScript específico para manejar las interacciones en la página de inicio -->
     <script src="JS/index.js"></script>
 

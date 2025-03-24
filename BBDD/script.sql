@@ -19,13 +19,17 @@ Como hay tablas que dependen unas de otras (relaciones y claves foráneas), hay 
 
 */
 
+DROP TABLE IF EXISTS receta_etiqueta;
+DROP TABLE IF EXISTS etiquetas;
 DROP TABLE IF EXISTS ingrediente_alergeno;
 DROP TABLE IF EXISTS receta_ingrediente;
+DROP TABLE IF EXISTS magnitudes;
 DROP TABLE IF EXISTS receta_comprada;
 DROP TABLE IF EXISTS valoraciones;
 DROP TABLE IF EXISTS alergenos;
 DROP TABLE IF EXISTS ingredientes;
 DROP TABLE IF EXISTS recetas;
+DROP TABLE IF EXISTS chefs;
 DROP TABLE IF EXISTS usuarios;
 
 
@@ -51,9 +55,7 @@ CREATE TABLE `usuarios` (
  `Apellidos` varchar(100) NOT NULL,
  `Email` varchar(100) NOT NULL,
  `Rol` enum('Admin','User','Chef') NOT NULL DEFAULT 'User',
- `Password` varchar(250) NOT NULL COMMENT 'Se guarda el Hash', 
- `DNI` varchar(9) DEFAULT NULL,
- `Cuenta_bancaria` varchar(100) DEFAULT NULL,
+ `Password` varchar(250) NOT NULL COMMENT 'Se guarda el Hash',
  PRIMARY KEY (`ID`),
  UNIQUE KEY `Email` (`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -64,8 +66,22 @@ CREATE TABLE `usuarios` (
     ('usuario', 'ejemplo', 'usuario@marketchef.com', 'User', '$2y$10$wjhoam2JWbGg4I4NRGoJF.ZUsLITJlV05Vg9Jp6GUBMdOWAlCI7FO'),
     ('admin', 'ejemplo', 'admin@marketchef.com', 'Admin', '$2y$10$aAfWpoA8/09hASfXru8j6.PUC1kHGzJyGW4KH.sMfVXg8Bs8RcNze');
 
-    INSERT INTO usuarios (Nombre, Apellidos, Email, Rol, Password, DNI, Cuenta_bancaria) VALUES
-    ('chef', 'ejemplo', 'chef@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu', '12345678A', 'ES00 0000 0000 0000 0000 0000');
+    INSERT INTO usuarios (Nombre, Apellidos, Email, Rol, Password) VALUES
+    ('chef', 'ejemplo', 'chef@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu');
+
+
+
+-- Tabla Chefs
+CREATE TABLE `chefs` (
+ `Usuario` int(11) NOT NULL,
+ `DNI` varchar(9) NOT NULL,
+ `Cuenta_bancaria` varchar(255) NOT NULL,
+ UNIQUE KEY `DNI` (`DNI`),
+ KEY `fk_c_usuario` (`Usuario`),
+ CONSTRAINT `fk_c_usuario` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 
 -- Tabla Recetas
 
@@ -102,218 +118,218 @@ CREATE TABLE `recetas` (
 CREATE TABLE `ingredientes` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
  `Nombre` varchar(100) NOT NULL,
- `Verificado` BOOLEAN NOT NULL,
+ UNIQUE KEY `Nombre` (`Nombre`),
  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
     -- Ingredientes precargados
 
-    INSERT INTO `ingredientes` (`Nombre`, `Verificado`) VALUES
+    INSERT INTO `ingredientes` (`Nombre`) VALUES
 
     -- Líquidos y Grasas
-        ("Agua", 1),
-        ("Aceite de oliva", 1),
-        ("Aceite de girasol", 1),
-        ("Aceite de coco", 1),
-        ("Aceite de sésamo", 1),
-        ("Aceite de aguacate", 1),
-        ("Aceite de nuez", 1),
-        ("Vinagre", 1),
-        ("Vinagre balsámico", 1),
-        ("Salsa de soja", 1),
+        ("Agua"),
+        ("Aceite de oliva"),
+        ("Aceite de girasol"),
+        ("Aceite de coco"),
+        ("Aceite de sésamo"),
+        ("Aceite de aguacate"),
+        ("Aceite de nuez"),
+        ("Vinagre"),
+        ("Vinagre balsámico"),
+        ("Salsa de soja"),
 
     -- Básicos y Condimentos
-        ("Sal", 1),
-        ("Azúcar", 1),
-        ("Azúcar moreno", 1),
-        ("Azúcar glas", 1),
-        ("Miel", 1),
-        ("Mostaza", 1),
-        ("Mostaza Dijon", 1),
-        ("Cacao en polvo", 1),
-        ("Chocolate con leche", 1),
-        ("Chocolate blanco", 1),
-        ("Chocolate negro", 1),
-        ("Jarabe de arce", 1),
-        ("Sirope de agave", 1),
+        ("Sal"),
+        ("Azúcar"),
+        ("Azúcar moreno"),
+        ("Azúcar glas"),
+        ("Miel"),
+        ("Mostaza"),
+        ("Mostaza Dijon"),
+        ("Cacao en polvo"),
+        ("Chocolate con leche"),
+        ("Chocolate blanco"),
+        ("Chocolate negro"),
+        ("Jarabe de arce"),
+        ("Sirope de agave"),
 
     -- Cereales y Harinas
-        ("Harina de trigo", 1),
-        ("Harina de maíz", 1),
-        ("Harina de almendra", 1),
-        ("Harina de arroz", 1),
-        ("Harina de avena", 1),
-        ("Harina integral", 1),
-        ("Avena", 1),
-        ("Cuscús", 1),
-        ("Quinoa", 1),
-        ("Sémola de trigo", 1),
-        ("Trigo sarraceno", 1),
+        ("Harina de trigo"),
+        ("Harina de maíz"),
+        ("Harina de almendra"),
+        ("Harina de arroz"),
+        ("Harina de avena"),
+        ("Harina integral"),
+        ("Avena"),
+        ("Cuscús"),
+        ("Quinoa"),
+        ("Sémola de trigo"),
+        ("Trigo sarraceno"),
 
     -- Lácteos y Derivados
-        ("Leche", 1),
-        ("Leche condensada", 1),
-        ("Leche evaporada", 1),
-        ("Yogur", 1),
-        ("Mantequilla", 1),
-        ("Margarina", 1),
-        ("Nata líquida", 1),
-        ("Crema agria", 1),
-        ("Queso", 1),
-        ("Queso azul", 1),
-        ("Queso feta", 1),
-        ("Queso ricotta", 1),
-        ("Queso parmesano", 1),
-        ("Queso gouda", 1),
-        ("Queso mozzarella", 1),
+        ("Leche"),
+        ("Leche condensada"),
+        ("Leche evaporada"),
+        ("Yogur"),
+        ("Mantequilla"),
+        ("Margarina"),
+        ("Nata líquida"),
+        ("Crema agria"),
+        ("Queso"),
+        ("Queso azul"),
+        ("Queso feta"),
+        ("Queso ricotta"),
+        ("Queso parmesano"),
+        ("Queso gouda"),
+        ("Queso mozzarella"),
 
     -- Carnes y Embutidos
-        ("Ternera", 1),
-        ("Buey", 1),
-        ("Cerdo", 1),
-        ("Pollo", 1),
-        ("Cordero", 1),
-        ("Pavo", 1),
-        ("Conejo", 1),
-        ("Codorniz", 1),
-        ("Pato", 1),
-        ("Jamón", 1),
-        ("Bacon", 1),
-        ("Chorizo", 1),
-        ("Salchichón", 1),
-        ("Morcilla", 1),
-        ("Lomo de cerdo", 1),
-        ("Grasa de cerdo (manteca)", 1),
+        ("Ternera"),
+        ("Buey"),
+        ("Cerdo"),
+        ("Pollo"),
+        ("Cordero"),
+        ("Pavo"),
+        ("Conejo"),
+        ("Codorniz"),
+        ("Pato"),
+        ("Jamón"),
+        ("Bacon"),
+        ("Chorizo"),
+        ("Salchichón"),
+        ("Morcilla"),
+        ("Lomo de cerdo"),
+        ("Grasa de cerdo (manteca)"),
 
     -- Pescados y Mariscos
-        ("Pescado blanco", 1),
-        ("Salmón", 1),
-        ("Atún", 1),
-        ("Gambas", 1),
-        ("Langostinos", 1),
-        ("Calamares", 1),
-        ("Almejas", 1),
-        ("Mejillones", 1),
-        ("Merluza", 1),
-        ("Dorada", 1),
-        ("Lubina", 1),
-        ("Bacalao", 1),
-        ("Trucha", 1),
-        ("Pulpo", 1),
-        ("Cangrejo", 1),
-        ("Erizo de mar", 1),
-        ("Vieiras", 1),
+        ("Pescado blanco"),
+        ("Salmón"),
+        ("Atún"),
+        ("Gambas"),
+        ("Langostinos"),
+        ("Calamares"),
+        ("Almejas"),
+        ("Mejillones"),
+        ("Merluza"),
+        ("Dorada"),
+        ("Lubina"),
+        ("Bacalao"),
+        ("Trucha"),
+        ("Pulpo"),
+        ("Cangrejo"),
+        ("Erizo de mar"),
+        ("Vieiras"),
     
     -- Verduras y Hortalizas
-        ("Cebolla", 1),
-        ("Ajo", 1),
-        ("Tomate", 1),
-        ("Zanahoria", 1),
-        ("Patata", 1),
-        ("Pimiento rojo", 1),
-        ("Pimiento verde", 1),
-        ("Pimiento amarillo", 1),
-        ("Champiñones", 1),
-        ("Espinacas", 1),
-        ("Lechuga", 1),
-        ("Pepino", 1),
-        ("Brócoli", 1),
-        ("Coliflor", 1),
-        ("Berenjena", 1),
-        ("Calabacín", 1),
-        ("Maíz", 1),
-        ("Nabo", 1),
-        ("Rábanos", 1),
-        ("Remolacha", 1),
-        ("Endivias", 1),
-        ("Coles de Bruselas", 1),
-        ("Acelgas", 1),
-        ("Puerro", 1),
-        ("Hinojo", 1),
+        ("Cebolla"),
+        ("Ajo"),
+        ("Tomate"),
+        ("Zanahoria"),
+        ("Patata"),
+        ("Pimiento rojo"),
+        ("Pimiento verde"),
+        ("Pimiento amarillo"),
+        ("Champiñones"),
+        ("Espinacas"),
+        ("Lechuga"),
+        ("Pepino"),
+        ("Brócoli"),
+        ("Coliflor"),
+        ("Berenjena"),
+        ("Calabacín"),
+        ("Maíz"),
+        ("Nabo"),
+        ("Rábanos"),
+        ("Remolacha"),
+        ("Endivias"),
+        ("Coles de Bruselas"),
+        ("Acelgas"),
+        ("Puerro"),
+        ("Hinojo"),
     
     -- Legumbres
-        ("Lentejas", 1),
-        ("Garbanzos", 1),
-        ("Alubias", 1),
-        ("Soja", 1),
-        ("Guisantes", 1),
-        ("Habas", 1),
-        ("Frijoles negros", 1),
+        ("Lentejas"),
+        ("Garbanzos"),
+        ("Alubias"),
+        ("Soja"),
+        ("Guisantes"),
+        ("Habas"),
+        ("Frijoles negros"),
     
     -- Frutas
-        ("Manzana", 1),
-        ("Pera", 1),
-        ("Plátano", 1),
-        ("Naranja", 1),
-        ("Limón", 1),
-        ("Fresas", 1),
-        ("Cereza", 1),
-        ("Mango", 1),
-        ("Piña", 1),
-        ("Uvas", 1),
-        ("Melón", 1),
-        ("Sandía", 1),
-        ("Papaya", 1),
-        ("Kiwi", 1),
-        ("Maracuyá", 1),
-        ("Granada", 1),
-        ("Ciruela", 1),
-        ("Higos", 1),
-        ("Coco", 1),
+        ("Manzana"),
+        ("Pera"),
+        ("Plátano"),
+        ("Naranja"),
+        ("Limón"),
+        ("Fresas"),
+        ("Cereza"),
+        ("Mango"),
+        ("Piña"),
+        ("Uvas"),
+        ("Melón"),
+        ("Sandía"),
+        ("Papaya"),
+        ("Kiwi"),
+        ("Maracuyá"),
+        ("Granada"),
+        ("Ciruela"),
+        ("Higos"),
+        ("Coco"),
     
     -- Frutos Secos y Semillas
-        ("Nueces", 1),
-        ("Almendras", 1),
-        ("Avellanas", 1),
-        ("Anacardos", 1),
-        ("Pistachos", 1),
-        ("Semillas de lino", 1),
-        ("Semillas de chía", 1),
-        ("Semillas de girasol", 1),
-        ("Semillas de calabaza", 1),
-        ("Castañas", 1),
+        ("Nueces"),
+        ("Almendras"),
+        ("Avellanas"),
+        ("Anacardos"),
+        ("Pistachos"),
+        ("Semillas de lino"),
+        ("Semillas de chía"),
+        ("Semillas de girasol"),
+        ("Semillas de calabaza"),
+        ("Castañas"),
     
     -- Especias y Condimentos
-        ("Pimienta negra", 1),
-        ("Pimienta blanca", 1),
-        ("Orégano", 1),
-        ("Tomillo", 1),
-        ("Romero", 1),
-        ("Perejil", 1),
-        ("Cilantro", 1),
-        ("Canela", 1),
-        ("Jengibre", 1),
-        ("Curry", 1),
-        ("Curry rojo", 1),
-        ("Curry verde", 1),
-        ("Comino", 1),
-        ("Pimentón", 1),
-        ("Pimentón picante", 1),
-        ("Vainilla", 1),
-        ("Anís estrellado", 1),
-        ("Nuez moscada", 1),
-        ("Clavo de olor", 1),
-        ("Estragón", 1),
-        ("Albahaca", 1),
-        ("Eneldo", 1),
+        ("Pimienta negra"),
+        ("Pimienta blanca"),
+        ("Orégano"),
+        ("Tomillo"),
+        ("Romero"),
+        ("Perejil"),
+        ("Cilantro"),
+        ("Canela"),
+        ("Jengibre"),
+        ("Curry"),
+        ("Curry rojo"),
+        ("Curry verde"),
+        ("Comino"),
+        ("Pimentón"),
+        ("Pimentón picante"),
+        ("Vainilla"),
+        ("Anís estrellado"),
+        ("Nuez moscada"),
+        ("Clavo de olor"),
+        ("Estragón"),
+        ("Albahaca"),
+        ("Eneldo"),
     
     -- Salsas y Aderezos
-        ("Salsa barbacoa", 1),
-        ("Salsa teriyaki", 1),
-        ("Salsa de ostras", 1),
-        ("Salsa de pescado", 1),
-        ("Salsa worcestershire", 1),
+        ("Salsa barbacoa"),
+        ("Salsa teriyaki"),
+        ("Salsa de ostras"),
+        ("Salsa de pescado"),
+        ("Salsa worcestershire"),
     
     -- Bebidas y Otros
-        ("Café", 1),
-        ("Té verde", 1),
-        ("Té negro", 1),
-        ("Té de manzanilla", 1),
-        ("Ron", 1),
-        ("Vino blanco", 1),
-        ("Vino tinto", 1),
-        ("Cerveza", 1);
+        ("Café"),
+        ("Té verde"),
+        ("Té negro"),
+        ("Té de manzanilla"),
+        ("Ron"),
+        ("Vino blanco"),
+        ("Vino tinto"),
+        ("Cerveza");
 
 
 
@@ -322,6 +338,7 @@ CREATE TABLE `ingredientes` (
 CREATE TABLE `alergenos` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
  `Nombre` varchar(100) NOT NULL,
+ UNIQUE KEY `Nombre` (`Nombre`),
  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -375,30 +392,228 @@ CREATE TABLE `receta_comprada` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
+-- Tabla Magnitudes
+
+CREATE TABLE `magnitudes` (
+ `ID` int(11) NOT NULL AUTO_INCREMENT,
+ `Magnitud` varchar(100) NOT NULL,
+ PRIMARY KEY (`ID`),
+ UNIQUE KEY `Magnitud` (`Magnitud`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+        -- Datos de la tabla magnitudes
+        INSERT INTO magnitudes (Magnitud) VALUES
+        ('gramos'),
+        ('kilogramos'),
+        ('mililitros'),
+        ('litros'),
+        ('tazas'),
+        ('cucharadas'),
+        ('cucharaditas'),
+        ('pizca'),
+        ('unidad'),
+        ('rebanada'),
+        ('diente'),
+        ('puñado'),
+        ('chorro'),
+        ('gota'),
+        ('lata'),
+        ('botella'),
+        ('vaso'),
+        ('copa'),
+        ('onza'),
+        ('libra');
+
+
+
 -- Tabla Receta_Ingrediente
 
 CREATE TABLE `receta_ingrediente` (
  `Receta` int(11) NOT NULL,
  `Ingrediente` int(11) NOT NULL,
- `Cantidad` double NOT NULL,
+ `Cantidad` varchar(100) NOT NULL,
  `Magnitud` varchar(100) NOT NULL,
  KEY `fk_ri_receta` (`Receta`),
- KEY `fk_ri_usuario` (`Ingrediente`),
+ KEY `fk_ri_ingrediente` (`Ingrediente`),
+ KEY `fk_ri_magnitud` (`Magnitud`),
  CONSTRAINT `fk_ri_receta` FOREIGN KEY (`Receta`) REFERENCES `recetas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
- CONSTRAINT `fk_ri_usuario` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+ CONSTRAINT `fk_ri_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ CONSTRAINT `fk_ri_magnitud` FOREIGN KEY (`Magnitud`) REFERENCES `magnitudes` (`Magnitud`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 -- Tabla Ingrediente_Alérgeno
 
 CREATE TABLE `ingrediente_alergeno` (
- `Ingrediente` int(11) NOT NULL,
- `Alergeno` int(11) NOT NULL,
+ `Ingrediente` varchar(100) NOT NULL,
+ `Alergeno` varchar(100) NOT NULL,
  KEY `fk_ia_ingrediente` (`Ingrediente`),
  KEY `fk_ia_alergeno` (`Alergeno`),
- CONSTRAINT `fk_ia_alergeno` FOREIGN KEY (`Alergeno`) REFERENCES `alergenos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
- CONSTRAINT `fk_ia_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+ CONSTRAINT `fk_ia_alergeno` FOREIGN KEY (`Alergeno`) REFERENCES `alergenos` (`Nombre`) ON DELETE CASCADE ON UPDATE CASCADE,
+ CONSTRAINT `fk_ia_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`Nombre`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+       INSERT INTO ingrediente_alergeno (ingrediente, alergeno) VALUES
+
+            -- Gluten
+            ('Harina de trigo', 'Gluten'),
+            ('Harina de avena', 'Gluten'),
+            ('Harina integral', 'Gluten'),
+            ('Avena', 'Gluten'),
+            ('Cuscús', 'Gluten'),
+            ('Sémola de trigo', 'Gluten'),
+            ('Cerveza', 'Gluten'),
+
+            -- Lácteos
+            ('Leche', 'Lácteos'),
+            ('Leche condensada', 'Lácteos'),
+            ('Leche evaporada', 'Lácteos'),
+            ('Yogur', 'Lácteos'),
+            ('Mantequilla', 'Lácteos'),
+            ('Nata líquida', 'Lácteos'),
+            ('Crema agria', 'Lácteos'),
+            ('Queso', 'Lácteos'),
+            ('Queso azul', 'Lácteos'),
+            ('Queso feta', 'Lácteos'),
+            ('Queso ricotta', 'Lácteos'),
+            ('Queso parmesano', 'Lácteos'),
+            ('Queso gouda', 'Lácteos'),
+            ('Queso mozzarella', 'Lácteos'),
+            ('Chocolate con leche', 'Lácteos'),
+            ('Chocolate blanco', 'Lácteos'),
+
+            -- Frutos secos
+            ('Harina de almendra', 'Frutos secos'),
+            ('Nueces', 'Frutos secos'),
+            ('Almendras', 'Frutos secos'),
+            ('Avellanas', 'Frutos secos'),
+            ('Anacardos', 'Frutos secos'),
+            ('Pistachos', 'Frutos secos'),
+            ('Aceite de nuez', 'Frutos secos'),
+
+            -- Soja
+            ('Soja', 'Soja'),
+            ('Salsa de soja', 'Soja'),
+
+            -- Sésamo
+            ('Aceite de sésamo', 'Sesamo'),
+
+            -- Mostaza
+            ('Mostaza', 'Mostaza'),
+            ('Mostaza Dijon', 'Mostaza'),
+
+            -- Pescado
+            ('Pescado blanco', 'Pescado'),
+            ('Salmón', 'Pescado'),
+            ('Atún', 'Pescado'),
+            ('Merluza', 'Pescado'),
+            ('Dorada', 'Pescado'),
+            ('Lubina', 'Pescado'),
+            ('Bacalao', 'Pescado'),
+            ('Trucha', 'Pescado'),
+
+            -- Crustáceos
+            ('Gambas', 'Crustáceos'),
+            ('Langostinos', 'Crustáceos'),
+            ('Cangrejo', 'Crustáceos'),
+
+            -- Moluscos
+            ('Calamares', 'Moluscos'),
+            ('Almejas', 'Moluscos'),
+            ('Mejillones', 'Moluscos'),
+            ('Pulpo', 'Moluscos'),
+            ('Erizo de mar', 'Moluscos'),
+            ('Vieiras', 'Moluscos'),
+
+            -- Sulfitos
+            ('Vinagre balsámico', 'Sulfitos'),
+            ('Vino blanco', 'Sulfitos'),
+            ('Vino tinto', 'Sulfitos'),
+            ('Cerveza', 'Sulfitos');
+
+
+
+-- Tabla Etiquetas
+
+CREATE TABLE `etiquetas` (
+ `ID` int(11) NOT NULL AUTO_INCREMENT,
+ `Etiqueta` varchar(100) NOT NULL,
+ PRIMARY KEY (`ID`),
+ UNIQUE KEY `Etiqueta` (`Etiqueta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+        -- Datos de la tabla etiquetas
+        INSERT INTO etiquetas (Etiqueta) VALUES
+
+        -- Etiquetas por Tipo de Plato
+        ('Entrante'),
+        ('Principal'),
+        ('Postre'),
+        ('Aperitivo'),
+        ('Guarnición'),
+        ('Sopa'),
+        ('Ensalada'),
+        ('Bocadillo'),
+        ('Tarta'),
+        ('Bebida'),
+        ('Salsa'),
+        -- Etiquetas por Tipo de Dieta
+        ('Vegetariano'),
+        ('Vegano'),
+        ('Sin gluten'),
+        ('Sin lactosa'),
+        ('Sin azúcar'),
+        ('Bajo en carbohidratos'),
+        ('Alto en proteínas'),
+        ('Keto'),
+        ('Paleo'),
+        -- Etiquetas por Ingrediente Principal
+        ('Con pollo'),
+        ('Con ternera'),
+        ('Con cerdo'),
+        ('Con pescado'),
+        ('Con marisco'),
+        ('Con verduras'),
+        ('Con pasta'),
+        ('Con arroz'),
+        ('Con legumbres'),
+        ('Con huevos'),
+        ('Con queso'),
+        -- Etiquetas por Método de Cocción
+        ('Al horno'),
+        ('A la plancha'),
+        ('Frito'),
+        ('Hervido'),
+        ('Al vapor'),
+        ('A la parrilla'),
+        ('A baja temperatura'),
+        -- Etiquetas por Cocina Internacional
+        ('Italiana'),
+        ('Mexicana'),
+        ('Japonesa'),
+        ('China'),
+        ('India'),
+        ('Mediterránea'),
+        ('Árabe'),
+        ('Francesa'),
+        ('Americana'),
+        -- Etiquetas por Ocasión
+        ('Navidad'),
+        ('Semana Santa'),
+        ('Verano'),
+        ('Invierno'),
+        ('Cumpleaños'),
+        ('Cena rápida'),
+        ('Comida saludable'),
+        -- Etiquetas de Dificultad y Tiempo
+        ('Fácil'),
+        ('Media'),
+        ('Difícil'),
+        ('Rápida'),
+        ('Larga');
+
 
 -- Tabla Receta_Etiqueta
 
@@ -406,8 +621,15 @@ CREATE TABLE `receta_etiqueta` (
  `Receta` int(11) NOT NULL,
  `Etiqueta` varchar(100) NOT NULL,
  KEY `fk_re_receta` (`Receta`),
- CONSTRAINT `fk_re_receta` FOREIGN KEY (`Receta`) REFERENCES `recetas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+ KEY `fk_re_etiqueta` (`Etiqueta`),
+ CONSTRAINT `fk_re_receta` FOREIGN KEY (`Receta`) REFERENCES `recetas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ CONSTRAINT `fk_re_etiqueta` FOREIGN KEY (`Etiqueta`) REFERENCES `etiquetas` (`Etiqueta`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+
+
 
 -- Eliminar el usuario 'MarketChef' si ya existe
 DROP USER IF EXISTS 'MarketChef'@'%';
@@ -422,18 +644,18 @@ GRANT ALL PRIVILEGES ON MarketChef.* TO 'MarketChef'@'%';
 FLUSH PRIVILEGES;
 
 
--- Los triggers que se crearán son:
+-- -- Los triggers que se crearán son:
 
--- Trigger que actualiza las valoraciones de las recetas para cada nueva valoración creada:
+-- -- Trigger que actualiza las valoraciones de las recetas para cada nueva valoración creada:
 
-DELIMITER $$
+-- DELIMITER $$
 
-CREATE TRIGGER `actualizar_media_valoracion` 
-AFTER INSERT ON `valoraciones`
-FOR EACH ROW 
-BEGIN
-    UPDATE recetas
-    SET Valoracion = (SELECT AVG(Puntuacion) FROM valoraciones WHERE Receta = NEW.Receta) WHERE ID = NEW.Receta;
-END $$
+-- CREATE TRIGGER `actualizar_media_valoracion` 
+-- AFTER INSERT ON `valoraciones`
+-- FOR EACH ROW 
+-- BEGIN
+--     UPDATE recetas
+--     SET Valoracion = (SELECT AVG(Puntuacion) FROM valoraciones WHERE Receta = NEW.Receta) WHERE ID = NEW.Receta;
+-- END $$
 
-DELIMITER ;
+-- DELIMITER ;
