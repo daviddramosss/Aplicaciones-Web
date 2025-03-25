@@ -1,5 +1,6 @@
 <?php
 
+//use es\ucm\fdi\aw\application;
 require_once("application.php");
 
 define('BD_HOST', 'localhost');

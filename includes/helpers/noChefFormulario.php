@@ -20,7 +20,7 @@ class noChefFormulario extends formularioBase
         <link rel="stylesheet" href="CSS/contacto.css">
         
         <!-- Título de la sección de no Chef -->
-        <h1>¡CONVIERTETE EN UN CHEF ESTRELLA MICHELIN!</h1>
+        <h1>¡Coviertete en un Chef Estrella Michelin!</h1>
 
         <!-- Descripción breve sobre cómo darse de alta -->
         <p>PARA DARSE DE ALTA RELLENE ESTE FORMULARIO.</p>

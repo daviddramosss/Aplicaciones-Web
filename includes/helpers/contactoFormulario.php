@@ -38,7 +38,7 @@ class contactoFormulario extends formularioBase
 
             <!-- Área de texto para ingresar el mensaje -->
             <div class="input-container">
-                <textarea name="mensaje" placeholder="MENSAJE (Si tiene alguna consulta debido a la compra de una receta, porfavor comentelo detalladamente para que podamos ayudarle. Muchas gracias)" required></textarea>
+                <textarea name="mensaje" placeholder="MENSAJE (Si tiene alguna consulta debido a la compra de una receta, porfavor comentelo detalladamente para que podamos ayudarle. Si viene por que quiere ser un chef, no olvide incluir su DNI y su Cuenta Bancaria. Muchas gracias)" required></textarea>
             </div>
 
             <!-- Botón de envío del formulario -->

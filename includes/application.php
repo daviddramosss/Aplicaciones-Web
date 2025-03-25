@@ -1,5 +1,7 @@
 <?php
 
+//namespace es\ucm\fdi\aw;
+
 include_once("entidades/usuario/userAppService.php");
 
 class application
