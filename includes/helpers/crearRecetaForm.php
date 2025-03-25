@@ -102,7 +102,14 @@ class crearRecetaForm extends formularioBase
         $tiempo = floatval($datos['tiempo'] ?? 0);
         $ingredientes = $datos['ingredientes'] ?? [];
         $pasos = $datos['steps'] ?? [];
-        $etiquetas = $datos['etiquetas'] ?? [];
+
+        // Int
+        //$etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', $datos['etiquetas'])) : [];
+
+
+        // String
+        $etiquetas = isset($datos['etiquetas']) ? explode(',', $datos['etiquetas']) : [];
+
 
         // Validaciones de datos obligatorios
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
