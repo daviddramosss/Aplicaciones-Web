@@ -146,3 +146,31 @@ h1 {
     cursor: pointer;
     color: red;
 }
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid blue;
+    color: blue;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tag:hover {
+    background-color: blue;
+    color: white;
+}
+
+
+.tag.selected {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+}

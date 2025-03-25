@@ -57,10 +57,13 @@ class crearRecetaForm extends formularioBase
                 <!-- Sección de etiquetas -->
                 <h2>Etiquetas</h2>
                 <p>Añade etiquetas para recomendar tu receta: (Máximo 3)</p>
-                
-                <!-- Botones para mostrar y ocultar etiquetas -->
-                <button type="button" class="btn-verde" id="addTag">Mostrar etiquetas</button>
-                <button type="button" class="btn-rojo" id="closeTagList">Ocultar etiquetas</button>
+
+                <div id="tagsContainer" class="tags-container">
+                    <!-- Aquí se insertarán dinámicamente las etiquetas -->
+                </div>
+
+                <!-- Campo oculto para almacenar las etiquetas seleccionadas -->
+                <input type="hidden" name="etiquetas" id="etiquetasSeleccionadas" value="">
 
                 <div id="tagsContainer"></div>
 
