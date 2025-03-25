@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Variable de control para saber si los ingredientes ya han sido cargados
     let ingredientesVisibles = false;
-    let magnitudesDisponibles = []; // Almacena las magnitudes obtenidas de la BBDD
 
     // Evento al hacer clic en el botón de "Añadir Ingrediente"
     addIngredientBtn.addEventListener("click", function ()

@@ -57,9 +57,11 @@ class crearRecetaForm extends formularioBase
                 <!-- Sección de etiquetas -->
                 <h2>Etiquetas</h2>
                 <p>Añade etiquetas para recomendar tu receta: (Máximo 3)</p>
-                <input type="text" id="etiquetaInput" placeholder="Escribe una etiqueta..."/>
-                <button type="button" class="btn-verde" id="addTag">+ Añadir etiqueta</button>
                 
+                <!-- Botones para mostrar y ocultar etiquetas -->
+                <button type="button" class="btn-verde" id="addTag">Mostrar etiquetas</button>
+                <button type="button" class="btn-rojo" id="closeTagList">Ocultar etiquetas</button>
+
                 <div id="tagsContainer"></div>
 
                 <!-- Botones de acción -->
@@ -71,7 +73,8 @@ class crearRecetaForm extends formularioBase
 
             <!-- Importación de scripts JavaScript -->
             <script src="js/crearReceta.js"></script>    
-            <script src="js/ingredientes.js"></script> 
+            <script src="js/ingredientes.js"></script>
+            <script src="js/etiquetas.js"></script> 
         EOF;
 
         return $html;

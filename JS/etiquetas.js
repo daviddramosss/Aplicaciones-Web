@@ -1,21 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     const addTagBtn = document.getElementById("addTag");
-    const closeTagListBtn = document.createElement("button");
-    const tagsContainer = document.createElement("div");
+    const closeTagListBtn = document.getElementById("closeTagList");
+    const tagsContainer = document.getElementById("tagsContainer");
+
     let etiquetasVisibles = false;
     let etiquetasSeleccionadas = [];
 
-    // Configuración del contenedor de etiquetas
-    tagsContainer.id = "tagsContainer";
-    tagsContainer.style.display = "none";
-    document.body.appendChild(tagsContainer);
-
-    // Configuración del botón de cerrar lista
-    closeTagListBtn.textContent = "Cerrar lista de etiquetas";
-    closeTagListBtn.classList.add("btn-rojo");
-    closeTagListBtn.style.display = "none";
-    document.body.appendChild(closeTagListBtn);
-
+    // Evento al hacer clic en "Añadir Etiqueta"
     addTagBtn.addEventListener("click", function () {
         if (!etiquetasVisibles) {
             fetch("includes/entidades/etiquetas/getEtiquetas.php")
@@ -23,21 +14,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(data => {
                     mostrarEtiquetas(data);
                     etiquetasVisibles = true;
-                    tagsContainer.style.display = "block";
-                    closeTagListBtn.style.display = "inline-block";
+                    tagsContainer.style.display = "grid";
                 })
                 .catch(error => console.error("Error cargando las etiquetas:", error));
         } else {
-            tagsContainer.style.display = "block";
-            closeTagListBtn.style.display = "inline-block";
+            tagsContainer.style.display = "grid";
         }
     });
 
+    // Evento al hacer clic en "Cerrar lista de etiquetas"
     closeTagListBtn.addEventListener("click", function () {
-        tagsContainer.style.display = "none";
-        closeTagListBtn.style.display = "none";
+        if (etiquetasVisibles) {
+            tagsContainer.style.display = "none";
+        }
     });
 
+    // Función para mostrar las etiquetas en una cuadrícula de 6 por fila
     function mostrarEtiquetas(etiquetas) {
         tagsContainer.innerHTML = "";
 
