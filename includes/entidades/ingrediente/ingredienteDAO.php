@@ -37,7 +37,7 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
         try
         {
             // Se obtiene la conexión a la base de datos a través de la aplicación
-            $conn = application::getInstance()->getConexionBd();
+            $conn = getConexionBD();
 
             // Consulta SQL para obtener los ingredientes
             $query = "SELECT id, nombre FROM ingredientes"; // Asegurar que 'id' también se obtiene

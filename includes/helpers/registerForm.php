@@ -93,7 +93,7 @@ class registerForm extends formularioBase
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
             // creamos el usuario con los datos introducidos y un id 0 que será insignificante porque la BBDD le asignará el que le corresponde
-            $userDTO = new userDTO(0, $nombreUsuario, $apellidosUsuario, $email, "User", $hashedPassword);
+            $userDTO = new userDTO(0, $nombreUsuario, $apellidosUsuario, $email, "User", $hashedPassword, null, null);
             // creamos la instancia de userAppService y llamamos a la función create
             $userAppService = userAppService::GetSingleton();
             $createdUserDTO = $userAppService->create($userDTO);

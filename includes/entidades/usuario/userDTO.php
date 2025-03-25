@@ -17,7 +17,11 @@ class userDTO
 
     private $password;
 
-    public function __construct($id, $nombre, $apellidos, $email, $rol, $password)
+    private $DNI;
+
+    private $cuentaBancaria;
+
+    public function __construct($id, $nombre, $apellidos, $email, $rol, $password, $DNI, $cuentaBancaria)
     {
         //Asigna los parametros a los atributos del usuario
         $this->id = $id;
@@ -26,6 +30,8 @@ class userDTO
         $this->email = $email;
         $this->rol = $rol;
         $this->password = $password;
+        $this->DNI = $DNI;
+        $this->cuentaBancaria = $cuentaBancaria;
     }
     
 
@@ -60,6 +66,15 @@ class userDTO
         return $this->password;
     }
 
+    public function getDNI()
+    {
+        return $this->DNI;
+    }
+
+    public function getCuentaBancaria()
+    {
+        return $this->cuentaBancaria;
+    }
     
 }
 ?>

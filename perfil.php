@@ -14,6 +14,14 @@ $tituloPagina = 'Mi perfil';
 
 // contenido guardado en la variable dinámica de la plantilla
 $contenidoPrincipal = <<<EOS
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil</title>
+    
+</head>
 <body>
     <div class="container mt-5">
         <div class="card mx-auto" style="width: 25rem;">
