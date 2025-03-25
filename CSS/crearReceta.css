@@ -174,3 +174,36 @@ h1 {
     color: white;
     font-weight: bold;
 }
+
+.ingrediente-item {
+    display: grid;
+    grid-template-columns: auto 1fr 2fr 1fr; /* Checkbox - Nombre - Cantidad - Magnitud */
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    background-color: #f8f9fa;
+}
+
+.ingrediente-check {
+    width: 20px;
+    height: 20px;
+}
+
+.ingrediente-label {
+    white-space: nowrap; /* Evita que el nombre del ingrediente se divida en varias líneas */
+}
+
+.ingrediente-cantidad {
+    height: 35px; /* Mantiene altura uniforme */
+    width: 100%; /* Se expande dentro del grid */
+    padding: 5px;
+    font-size: 16px;
+}
+
+.ingrediente-magnitud {
+    height: 35px; /* Igual altura que el input de cantidad */
+    width: 100%; /* Se expande dentro del grid */
+    font-size: 16px;
+    padding: 5px;
+}

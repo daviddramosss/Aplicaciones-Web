@@ -61,37 +61,62 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(magnitudes => {
             ingredientes.forEach(ingrediente => {
-                const div = document.createElement("div");
-                div.classList.add("ingrediente-item");
+                
+            const div = document.createElement("div");
+            div.classList.add("ingrediente-item");
 
-                // Construir el select con las magnitudes obtenidas
-                let selectOptions = magnitudes.map(mag => `<option value="${mag.nombre}">${mag.nombre}</option>`).join("");
+            // Crear los elementos y aplicar estilos CSS
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.classList.add("ingrediente-check"); // Aplica una clase al checkbox
+            checkbox.setAttribute("data-id", ingrediente.id);
+            checkbox.setAttribute("data-nombre", ingrediente.nombre);
 
-                div.innerHTML = `
-                    <input type="checkbox" class="ingrediente-check" data-id="${ingrediente.id}" data-nombre="${ingrediente.nombre}">
-                    <label>${ingrediente.nombre}</label>
-                    <input type="number" class="ingrediente-cantidad" name="ingredientes[${ingrediente.id}][cantidad]" placeholder="Cantidad" min="0" step="0.1" disabled>
-                    <select class="ingrediente-magnitud" name="ingredientes[${ingrediente.id}][magnitud]" disabled>
-                        ${selectOptions}
-                    </select>
-                `;
+            const label = document.createElement("label");
+            label.textContent = ingrediente.nombre;
 
-                const checkbox = div.querySelector(".ingrediente-check");
-                const cantidadInput = div.querySelector(".ingrediente-cantidad");
-                const magnitudSelect = div.querySelector(".ingrediente-magnitud");
+            const cantidadInput = document.createElement("input");
+            cantidadInput.type = "number";
+            cantidadInput.classList.add("ingrediente-cantidad"); // Aplica una clase al input de cantidad
+            cantidadInput.name = `ingredientes[${ingrediente.id}][cantidad]`;
+            cantidadInput.placeholder = "Cantidad";
+            cantidadInput.min = "0";
+            cantidadInput.step = "0.1";
+            cantidadInput.disabled = true;
 
-                checkbox.addEventListener("change", function () {
-                    if (checkbox.checked) {
-                        cantidadInput.disabled = false;
-                        magnitudSelect.disabled = false;
-                    } else {
-                        cantidadInput.disabled = true;
-                        cantidadInput.value = "";
-                        magnitudSelect.disabled = true;
-                    }
-                });
+            const magnitudSelect = document.createElement("select");
+            magnitudSelect.classList.add("ingrediente-magnitud"); // Aplica una clase al select
+            magnitudSelect.name = `ingredientes[${ingrediente.id}][magnitud]`;
+            magnitudSelect.disabled = true;
 
-                ingredientContainer.appendChild(div);
+            // Agregar opciones al select
+            magnitudes.forEach(mag => {
+                const option = document.createElement("option");
+                option.value = mag.nombre;
+                option.textContent = mag.nombre;
+                magnitudSelect.appendChild(option);
+            });
+
+            // Evento para habilitar/deshabilitar los campos
+            checkbox.addEventListener("change", function () {
+                if (checkbox.checked) {
+                    cantidadInput.disabled = false;
+                    magnitudSelect.disabled = false;
+                } else {
+                    cantidadInput.disabled = true;
+                    cantidadInput.value = "";
+                    magnitudSelect.disabled = true;
+                }
+            });
+
+            // Agregar los elementos al contenedor principal
+            div.appendChild(checkbox);
+            div.appendChild(label);
+            div.appendChild(cantidadInput);
+            div.appendChild(magnitudSelect);
+
+            ingredientContainer.appendChild(div);
+
             });
         })
         .catch(error => console.error("Error cargando las magnitudes:", error));
