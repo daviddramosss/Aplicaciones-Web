@@ -27,8 +27,8 @@ class etiquetasDAO extends baseDAO implements IEtiquetas
 
     public function mostarEtiquetas()
     {
-        // Obtiene la conexión a la base de datos
-        $conn = getConexionBd();
+        // Accede a la base de datos
+        $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para obtener todas las etiquetas
         $query = "SELECT * FROM etiquetas";

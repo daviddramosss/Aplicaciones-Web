@@ -27,8 +27,8 @@ class magnitudDAO extends baseDAO implements IMagnitud
 
     public function mostrarMagnitudes()
     {
-        // Obtiene la conexión a la base de datos
-        $conn = getConexionBd();
+        // Accede a la base de datos
+        $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para obtener todas las magnitudes
         $query = "SELECT ID, Magnitud FROM magnitudes";
