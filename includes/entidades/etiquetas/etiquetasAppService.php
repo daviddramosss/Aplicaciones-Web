@@ -37,16 +37,29 @@ class etiquetasAppService
         //Implementar luego
     }
 
-    public function mostrarEtiqueta()
+    public function mostrarEtiquetas()
     {
-        $IEtiquetasDAO = etiquetasFactory::GetSingleton()->CreateEtiquetas();
+        $IEtiquetasDAO = etiquetasFactory::CreateEtiquetas();
 
-        $etiquetas = $IEtiquetasDAO->mostrarEtiqueta();
+        return $IEtiquetasDAO->mostrarEtiquetas();
 
-        return $etiquetas;
     }
 
 
+}
+
+// **Endpoint para obtener los etiquetas en formato JSON**
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'mostrarEtiquetas') {
+    
+    // Se especifica que la respuesta será en formato JSON
+    header('Content-Type: application/json');
+    
+    // Se obtiene la lista de etiquetas desde el servicio
+    $etiquetas = EtiquetasAppService::GetSingleton()->mostrarEtiquetas();
+    
+    // Se convierte el resultado a JSON y se envía como respuesta
+    echo json_encode($etiquetas);
+    exit;
 }
 
 ?>

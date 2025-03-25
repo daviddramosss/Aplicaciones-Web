@@ -25,32 +25,39 @@ class etiquetasDAO extends baseDAO implements IEtiquetas
         //Implementar luego
     }
 
-    public function mostarEtiquetas()
+    public function mostrarEtiquetas()
     {
         // Accede a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para obtener todas las etiquetas
-        $query = "SELECT * FROM etiquetas";
+        $query = "SELECT ID, Etiqueta FROM etiquetas";
 
         // Ejecuta la consulta
-        $result = $conn->query($query);
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
 
         // Array donde se almacenarán las etiquetas
         $etiquetas = [];
 
+        $result = $stmt->get_result();
         // Si hay resultados, los recorremos
-        if ($result && $result->num_rows > 0) 
+        if ($result->num_rows > 0) 
         {
             while ($fila = $result->fetch_assoc()) 
             {
                 // Crea un objeto etiquetaDTO con los datos obtenidos y lo añade al array
-                $etiquetas[] = new etiquetaDTO($fila['id'], $fila['nombre']);
+                $etiquetas[] = [
+                    "id" => $fila['ID'], 
+                    "nombre" => $fila['Etiqueta']
+                ];
             }
 
+            $stmt->close();
             // Liberamos la memoria del resultado
             $result->free();
         }
+
 
         // Retorna el array con las etiquetas (puede estar vacío si no hay etiquetas en la BD)
         return $etiquetas;
