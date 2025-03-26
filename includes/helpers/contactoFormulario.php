@@ -16,15 +16,6 @@ class contactoFormulario extends formularioBase
     {
         // Generación del HTML para el formulario
         $html = <<<EOF
-        <!-- Enlace al archivo CSS específico para el formulario de contacto -->
-        <link rel="stylesheet" href="CSS/contacto.css">
-        
-        <!-- Título de la sección de contacto -->
-        <h1>CONTACTO</h1>
-
-        <!-- Descripción breve sobre cómo contactar -->
-        <p>PARA CONTACTARNOS RELLENE ESTE FORMULARIO.</p>
-
         <!-- Formulario que se enviará a 'procesarContacto.php' -->
         <form id="contactoFormulario" method="POST" action="procesarContacto.php">
             <!-- Campo para ingresar el nombre -->
@@ -52,5 +43,25 @@ class contactoFormulario extends formularioBase
         // Devuelve el HTML generado para los campos del formulario
         return $html;
     }
+
+    protected function Heading()
+    {
+        $html = 
+        '<!-- Título de la sección de contacto -->
+        <h1>CONTACTO</h1>
+
+        <!-- Descripción breve sobre cómo contactar -->
+        <p>PARA CONTACTARNOS RELLENE ESTE FORMULARIO.</p>';
+        return $html;
+    }
+
+    protected function defineStyle()
+    {
+        $html =
+        '<!-- Enlace al archivo CSS específico para el formulario de contacto -->
+        <link rel="stylesheet" href="CSS/contacto.css">';
+        return $html;
+    }
+    
 }
 ?>
