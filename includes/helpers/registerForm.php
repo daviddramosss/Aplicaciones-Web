@@ -112,4 +112,11 @@ class registerForm extends formularioBase
         // devolvemos o bien los errores, o bien la pantalla de inicio
         return $result;
     }
+
+    protected function Heading()
+    {
+        $html = '<h1>Registrar nuevo usuario</h1>';
+        $html .= '<div> <img src="img/LogoRegistro.png" alt="LogoRegistro" style="width: 150px; height: auto;"> </div>';
+        return $html;
+    }
 }

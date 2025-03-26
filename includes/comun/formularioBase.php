@@ -56,6 +56,8 @@ abstract class formularioBase
     {
         $html= $this->CreateErrors($errores);
 
+        $html .= $this->Heading();
+
         $html .= '<form method="POST" action="'.$this->action.'" id="'.$this->formId.'" >';
         $html .= '<input type="hidden" name="action" value="'.$this->formId.'" />';
 
@@ -90,5 +92,10 @@ abstract class formularioBase
     protected function Process($datos)
     {
         return array();
+    }
+
+    protected function Heading()
+    {
+        return $htmlHeading = '';
     }
 }
