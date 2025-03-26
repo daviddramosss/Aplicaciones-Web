@@ -12,6 +12,12 @@ class crearRecetaForm extends formularioBase
         parent::__construct('crearRecetaForm');
     }
     
+    protected function Heading()
+    {
+        $html = '<h1>Nueva Receta</h1>';
+        return $html;
+    }
+
     // Método protegido que crea los campos del formulario 
     protected function CreateFields($datos)
     {
@@ -23,9 +29,7 @@ class crearRecetaForm extends formularioBase
 
         // Generación del HTML para el formulario
         $html = <<<EOF
-            <fieldset>
-                <legend><h1>Nueva Receta</h1></legend>
-                
+            <fieldset>                
                 <p><label>Título:</label> <input type="text" name="titulo" value="$titulo" required/></p>
                 
                 <p><label>Descripción:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
