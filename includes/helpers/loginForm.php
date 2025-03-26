@@ -1,6 +1,9 @@
 <?php
 
-include __DIR__ . "/../comun/formularioBase.php";
+namespace es\ucm\fdi\aw\helpers;
+
+use es\ucm\fdi\aw\comun\formularioBase;
+
 include_once __DIR__ . "/../entidades/usuario/userAppService.php";
 
 // archivo en el que encontramos el formulario de login
