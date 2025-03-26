@@ -58,8 +58,7 @@ class contactoFormulario extends formularioBase
     protected function defineStyle()
     {
         $html =
-        '<!-- Enlace al archivo CSS específico para el formulario de contacto -->
-        <link rel="stylesheet" href="CSS/contacto.css">';
+        '<link rel="stylesheet" href="CSS/contacto.css">';
         return $html;
     }
     
