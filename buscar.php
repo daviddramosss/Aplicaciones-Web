@@ -1,8 +1,8 @@
 <?php
 
-//use es\ucm\fdi\aw\helpers\buscarFormulario; //para instanciar clases
+use es\ucm\fdi\aw\helpers\buscarFormulario; //para instanciar clases
 require_once("includes/config.php");                        
-require_once("includes/helpers/buscarFormulario.php");      
+//require_once("includes/helpers/buscarFormulario.php");      
 
 // Se define el título de la página
 $tituloPagina = 'Buscar Recetas';

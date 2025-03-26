@@ -1,7 +1,9 @@
 <?php
-//namespace es\ucm\fdi\aw\helpers;
 
-include __DIR__ . '/../comun/formularioBase.php';
+namespace es\ucm\fdi\aw\helpers;
+
+//include __DIR__ . '/../comun/formularioBase.php';
+use es\ucm\fdi\aw\comun\formularioBase;
 
 // Clase buscarFormulario que extiende de formularioBase
 class buscarFormulario extends formularioBase
