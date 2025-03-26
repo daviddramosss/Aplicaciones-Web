@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Agregar opciones al select
             magnitudes.forEach(mag => {
                 const option = document.createElement("option");
-                option.value = mag.nombre;
+                option.value = mag.id;
                 option.textContent = mag.nombre;
                 magnitudSelect.appendChild(option);
             });

@@ -31,7 +31,7 @@ class etiquetasDAO extends baseDAO implements IEtiquetas
         $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para obtener todas las etiquetas
-        $query = "SELECT ID, Etiqueta FROM etiquetas";
+        $query = "SELECT ID, Nombre FROM etiquetas";
 
         // Ejecuta la consulta
         $stmt = $conn->prepare($query);
@@ -49,7 +49,7 @@ class etiquetasDAO extends baseDAO implements IEtiquetas
                 // Crea un objeto etiquetaDTO con los datos obtenidos y lo añade al array
                 $etiquetas[] = [
                     "id" => $fila['ID'], 
-                    "nombre" => $fila['Etiqueta']
+                    "nombre" => $fila['Nombre']
                 ];
             }
 

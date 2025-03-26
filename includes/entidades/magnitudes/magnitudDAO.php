@@ -31,7 +31,7 @@ class magnitudDAO extends baseDAO implements IMagnitud
         $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para obtener todas las magnitudes
-        $query = "SELECT ID, Magnitud FROM magnitudes";
+        $query = "SELECT ID, Nombre FROM magnitudes";
 
         // Se prepara la consulta
         $stmt = $conn->prepare($query);
@@ -49,7 +49,7 @@ class magnitudDAO extends baseDAO implements IMagnitud
                 // Crea un objeto magnitudDTO con los datos obtenidos y lo añade al array
                 $magnitudes[] = [
                     "id" => $fila['ID'], 
-                    "nombre" => $fila['Magnitud']
+                    "nombre" => $fila['Nombre']
                 ];
             }
 

@@ -34,6 +34,8 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
             // Obtener la conexión a la base de datos
             $conn = application::getInstance()->getConexionBd();
 
+            
+
             // Consulta SQL para insertar un nuevo ingrediente en la receta
             $query = "INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES (?, ?, ?, ?)";
             
@@ -52,7 +54,7 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
             $magnitud = $ingredienteRecetaDTO->getMagnitud();
 
             // Definir los tipos de parámetros y enlazarlos a la consulta preparada
-            $stmt->bind_param("iids", $recetaId, $ingredienteId, $cantidad, $magnitud);
+            $stmt->bind_param("iidi", $recetaId, $ingredienteId, $cantidad, $magnitud);
 
             // Ejecutar la consulta y verificar si se insertó correctamente
             if ($stmt->execute())

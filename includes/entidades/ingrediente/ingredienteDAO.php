@@ -40,7 +40,7 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
             $conn = application::getInstance()->getConexionBd();
 
             // Consulta SQL para obtener los ingredientes
-            $query = "SELECT id, nombre FROM ingredientes"; // Asegurar que 'id' también se obtiene
+            $query = "SELECT id, Nombre FROM ingredientes"; // Asegurar que 'id' también se obtiene
 
             // Se prepara la consulta
             $stmt = $conn->prepare($query);
@@ -57,7 +57,7 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
                 {
                     $ingredientes[] = [
                         "id" => $row['id'],
-                        "nombre" => $row['nombre']
+                        "nombre" => $row['Nombre']
                     ];
                 }
             }

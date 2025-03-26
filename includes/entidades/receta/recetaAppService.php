@@ -41,10 +41,10 @@ class recetaAppService
         foreach ($ingredientes as $ingredienteId => $ingredienteData) {
             $ingredienteId = intval($ingredienteId);
             $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
-            $magnitud = filter_var($ingredienteData['magnitud'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $magnitud = filter_var($ingredienteData['magnitud'] ?? 0, FILTER_VALIDATE_INT);
         
             // Si el ingrediente es válido, lo guarda
-            if ($ingredienteId > 0 && $cantidad > 0 && !empty($magnitud)) {
+            if ($ingredienteId > 0 && $cantidad > 0) {
                 $ingredienteRecetaDTO = new ingredienteRecetaDTO($id, $ingredienteId, $cantidad, $magnitud);
                 $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
             }
