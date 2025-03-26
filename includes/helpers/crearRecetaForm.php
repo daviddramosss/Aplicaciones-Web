@@ -11,12 +11,6 @@ class crearRecetaForm extends formularioBase
     {
         parent::__construct('crearRecetaForm');
     }
-    
-    protected function Heading()
-    {
-        $html = '<h1>Nueva Receta</h1>';
-        return $html;
-    }
 
     // Método protegido que crea los campos del formulario 
     protected function CreateFields($datos)
@@ -150,5 +144,17 @@ class crearRecetaForm extends formularioBase
         return $result;
     }
     
+    protected function Heading()
+    {
+        $html = '<h1>Nueva Receta</h1>';
+        return $html;
+    }
+
+    protected function defineStyle()
+    {
+        $html= '<link rel="stylesheet" href="CSS/crearReceta.css">';
+        return $html;
+    }
+
 }
 ?>
