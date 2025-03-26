@@ -455,7 +455,7 @@ CREATE TABLE `ingrediente_alergeno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-        -- INSERT INTO ingrediente_alergeno (ingrediente, alergeno) VALUES
+        INSERT INTO ingrediente_alergeno (ingrediente, alergeno) VALUES
 
 
             -- -- Gluten
