@@ -13,7 +13,6 @@ $htmlFormLogin = $form->Manage();
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-    <h1>Inicio de sesión</h1>
     $htmlFormLogin
 
 EOS;

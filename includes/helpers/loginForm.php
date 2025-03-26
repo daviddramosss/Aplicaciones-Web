@@ -94,4 +94,9 @@ class loginForm extends formularioBase
         // devolvemos el array con, o bien los errores, o bien la ruta a la que debemos redirigir al usuario
         return $result;
     }
+    protected function Heading()
+    {
+        $html = '<h1>Inicio de sesión</h1>';
+        return $html;
+    }
 }
