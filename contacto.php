@@ -1,6 +1,7 @@
 <?php
 
-require_once("includes/helpers/contactoFormulario.php");
+use es\ucm\fdi\aw\helpers\contactoFormulario;
+require_once("includes/config.php");
 
 // Se define el título de la página
 $tituloPagina = 'Contacto';

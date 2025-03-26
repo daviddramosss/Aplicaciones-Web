@@ -1,6 +1,8 @@
 <?php
 
-include __DIR__ . '/../comun/formularioBase.php';
+namespace es\ucm\fdi\aw\helpers;
+
+use es\ucm\fdi\aw\comun\formularioBase;
 
 // Definición de la clase 'contactoFormulario' que extiende de 'formularioBase', heredando su funcionalidad
 class contactoFormulario extends formularioBase
