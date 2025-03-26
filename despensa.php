@@ -14,10 +14,6 @@ $htmlFormDespensa = $form->Manage();
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-
-    <!-- Enlace al archivo JavaScript que maneja interacciones relacionadas con la despensa -->
-    <script src="JS/despensa.js"></script>
-
     <!-- Inserta el formulario generado dinámicamente por la clase 'despensaFormulario' -->
     $htmlFormDespensa
 EOS;
