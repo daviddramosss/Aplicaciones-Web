@@ -1,0 +1,148 @@
+/* Estilo general del cuerpo */
+body {
+    font-family: Arial;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos del formulario */
+fieldset {
+    margin: 0 auto; /* Elimina el espacio entre el título y el fieldset */
+    display: flex;
+    flex-direction: column;   
+    width: 70%;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+/* Estilos del título del formulario */
+legend {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Etiquetas */
+label{
+    font-weight: bold;
+    color: #000000;
+    margin-top: 10px;
+}
+
+/* Inputs y textarea */
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Contenedor de ingredientes y pasos */
+#ingredientContainer, #stepsContainer, #tagsContainer {
+    background: #eef2f5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Títulos de sección (Ingredientes y Pasos) más grandes y centrados */
+h2 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Centrando los botones de ingredientes */
+.ingredientes-container {
+    text-align: center;
+}
+
+/* Ajustar la descripción para que aparezca arriba */
+.form-group.descripcion {
+    order: -1;
+}
+
+/* Botones generales */
+button {
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* Botones en dos columnas */
+.botones-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.botones-container button {
+    width: calc(50% - 10px); /* Dos botones por fila */
+}
+
+/* Ajustar los botones de añadir/eliminar paso en la misma línea */
+.pasos-botones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Estilos de colores para los botones */
+.btn-verde {
+    background-color: green;
+    color: white;
+}
+
+.btn-rojo {
+    background-color: red;
+    color: white;
+}
+
+/* Ajuste para los pasos de receta */
+#stepsContainer p {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Eliminar el espacio extra entre "Nueva Receta" y el fieldset */
+h1 {
+    margin-bottom: 0;
+}
+
+/* Contenedor de etiquetas seleccionadas */
+.etiqueta {
+    background-color: #ffcc00;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin: 5px;
+}
+
+/* Botón para eliminar etiquetas */
+.etiqueta .btn-eliminar {
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: red;
+}
