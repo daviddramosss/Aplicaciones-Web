@@ -36,12 +36,7 @@ class crearRecetaForm extends formularioBase
                 <p><label>Tiempo de elaboración:</label> <input type="number" step="1" name="tiempo" value="$tiempo" required/> minutos</p>
 
                 <!-- Sección de ingredientes -->
-                <p>
-                    <h2>Ingredientes</h2> 
-                    <button type="button" class="btn-verde" id="addIngredient">Añadir ingrediente</button>
-                    <button type="button" class="btn-rojo" id="closeIngredientList">Cerrar lista ingredientes</button>
-                </p>
-
+                <h2>Ingredientes</h2> 
                 <div id="ingredientContainer">
                     <!-- Los ingredientes se insertarán dinámicamente con JavaScript -->
                 </div>
