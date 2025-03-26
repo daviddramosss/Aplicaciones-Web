@@ -150,6 +150,7 @@ CREATE TABLE `ingredientes` (
         ("Chocolate con leche"),
         ("Chocolate blanco"),
         ("Chocolate negro"),
+        ("Huevo"),
         -- ("Jarabe de arce"),
         -- ("Sirope de agave"),
 
@@ -358,7 +359,7 @@ CREATE TABLE `alergenos` (
         ('Moluscos'),
         ('Mostaza'),
         ('Pescado'),
-        ('Sesamo'),
+        ('Sésamo'),
         ('Soja'),
         ('Sulfitos');
 
@@ -458,6 +459,10 @@ CREATE TABLE `ingrediente_alergeno` (
 
 
             -- -- Gluten
+            (16, 6),
+            (17, 6),
+            (18, 6),
+            (107, 6),
             -- ('Harina de trigo', 'Gluten'),
             -- ('Harina de avena', 'Gluten'),
             -- ('Harina integral', 'Gluten'),
@@ -467,6 +472,15 @@ CREATE TABLE `ingrediente_alergeno` (
             -- ('Cerveza', 'Gluten'),
 
             -- -- Lácteos
+            (13, 8),
+            (14, 8),
+            (20, 8),
+            (21, 8),
+            (22, 8),
+            (23, 8),
+            (24, 8),
+            (25, 8),
+            (26, 8),
             -- ('Leche', 'Lácteos'),
             -- ('Leche condensada', 'Lácteos'),
             -- ('Leche evaporada', 'Lácteos'),
@@ -485,6 +499,12 @@ CREATE TABLE `ingrediente_alergeno` (
             -- ('Chocolate blanco', 'Lácteos'),
 
             -- -- Frutos secos
+            (85, 5),
+            (86, 5),
+            (87, 5),
+            (88, 5),
+            (89, 5),
+            (90, 5),
             -- ('Harina de almendra', 'Frutos secos'),
             -- ('Nueces', 'Frutos secos'),
             -- ('Almendras', 'Frutos secos'),
@@ -494,6 +514,8 @@ CREATE TABLE `ingrediente_alergeno` (
             -- ('Aceite de nuez', 'Frutos secos'),
 
             -- -- Soja
+            (71, 13),
+
             -- ('Soja', 'Soja'),
             -- ('Salsa de soja', 'Soja'),
 
@@ -501,10 +523,17 @@ CREATE TABLE `ingrediente_alergeno` (
             -- ('Aceite de sésamo', 'Sesamo'),
 
             -- -- Mostaza
+            (11, 10),
             -- ('Mostaza', 'Mostaza'),
             -- ('Mostaza Dijon', 'Mostaza'),
 
             -- -- Pescado
+            (38, 11),
+            (39, 11),
+            (45, 11),
+            (46, 11),
+            (47, 11),
+            (48, 11),
             -- ('Pescado blanco', 'Pescado'),
             -- ('Salmón', 'Pescado'),
             -- ('Atún', 'Pescado'),
@@ -515,11 +544,19 @@ CREATE TABLE `ingrediente_alergeno` (
             -- ('Trucha', 'Pescado'),
 
             -- -- Crustáceos
+            (40, 4),
+            (41, 4),
+            (50, 4),
             -- ('Gambas', 'Crustáceos'),
             -- ('Langostinos', 'Crustáceos'),
             -- ('Cangrejo', 'Crustáceos'),
 
             -- -- Moluscos
+            (42, 9),
+            (43, 9),
+            (44, 9),
+            (49, 9),
+            
             -- ('Calamares', 'Moluscos'),
             -- ('Almejas', 'Moluscos'),
             -- ('Mejillones', 'Moluscos'),
@@ -528,6 +565,10 @@ CREATE TABLE `ingrediente_alergeno` (
             -- ('Vieiras', 'Moluscos'),
 
             -- -- Sulfitos
+            (105, 14),
+            (106, 14),
+            (107, 14),
+            (4, 14);
             -- ('Vinagre balsámico', 'Sulfitos'),
             -- ('Vino blanco', 'Sulfitos'),
             -- ('Vino tinto', 'Sulfitos'),
