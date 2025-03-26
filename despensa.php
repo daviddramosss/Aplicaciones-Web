@@ -14,8 +14,6 @@ $htmlFormDespensa = $form->Manage();
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-    <!-- Enlace al archivo CSS específico para el formulario de la despensa -->
-    <link rel="stylesheet" href="CSS/despensa.css">
 
     <!-- Enlace al archivo JavaScript que maneja interacciones relacionadas con la despensa -->
     <script src="JS/despensa.js"></script>
