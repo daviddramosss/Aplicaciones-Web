@@ -207,3 +207,12 @@ h1 {
     font-size: 16px;
     padding: 5px;
 }
+
+
+#ingredientContainer {
+    max-height: 400px; /* Ajusta según el tamaño deseado */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+    border: 1px solid #ccc; /* Opcional, solo para visualizar los límites */
+    padding: 10px;
+    background: #fff;
+}
