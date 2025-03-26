@@ -76,6 +76,7 @@ CREATE TABLE `chefs` (
  `Usuario` int(11) NOT NULL,
  `DNI` varchar(9) NOT NULL,
  `Cuenta_bancaria` varchar(255) NOT NULL,
+ `Saldo` double NOT NULL DEFAULT 0,
  UNIQUE KEY `DNI` (`DNI`),
  KEY `fk_c_usuario` (`Usuario`),
  CONSTRAINT `fk_c_usuario` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -396,13 +397,13 @@ CREATE TABLE `receta_comprada` (
 
 CREATE TABLE `magnitudes` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
- `Magnitud` varchar(100) NOT NULL,
+ `Nombre` varchar(100) NOT NULL,
  PRIMARY KEY (`ID`),
- UNIQUE KEY `Magnitud` (`Magnitud`)
+ UNIQUE KEY `Nombre` (`Nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
         -- Datos de la tabla magnitudes
-        INSERT INTO magnitudes (Magnitud) VALUES
+        INSERT INTO magnitudes (Nombre) VALUES
         ('gramos'),
         ('kilogramos'),
         ('mililitros'),
@@ -432,105 +433,106 @@ CREATE TABLE `receta_ingrediente` (
  `Receta` int(11) NOT NULL,
  `Ingrediente` int(11) NOT NULL,
  `Cantidad` varchar(100) NOT NULL,
- `Magnitud` varchar(100) NOT NULL,
+ `Magnitud` int(11) NOT NULL,
  KEY `fk_ri_receta` (`Receta`),
  KEY `fk_ri_ingrediente` (`Ingrediente`),
  KEY `fk_ri_magnitud` (`Magnitud`),
  CONSTRAINT `fk_ri_receta` FOREIGN KEY (`Receta`) REFERENCES `recetas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
  CONSTRAINT `fk_ri_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
- CONSTRAINT `fk_ri_magnitud` FOREIGN KEY (`Magnitud`) REFERENCES `magnitudes` (`Magnitud`) ON DELETE CASCADE ON UPDATE CASCADE
+ CONSTRAINT `fk_ri_magnitud` FOREIGN KEY (`Magnitud`) REFERENCES `magnitudes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 -- Tabla Ingrediente_Alérgeno
 
 CREATE TABLE `ingrediente_alergeno` (
- `Ingrediente` varchar(100) NOT NULL,
- `Alergeno` varchar(100) NOT NULL,
+ `Ingrediente` int(11) NOT NULL,
+ `Alergeno` int(11) NOT NULL,
  KEY `fk_ia_ingrediente` (`Ingrediente`),
  KEY `fk_ia_alergeno` (`Alergeno`),
- CONSTRAINT `fk_ia_alergeno` FOREIGN KEY (`Alergeno`) REFERENCES `alergenos` (`Nombre`) ON DELETE CASCADE ON UPDATE CASCADE,
- CONSTRAINT `fk_ia_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`Nombre`) ON DELETE CASCADE ON UPDATE CASCADE
+ CONSTRAINT `fk_ia_alergeno` FOREIGN KEY (`Alergeno`) REFERENCES `alergenos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ CONSTRAINT `fk_ia_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-       INSERT INTO ingrediente_alergeno (ingrediente, alergeno) VALUES
+       -- INSERT INTO ingrediente_alergeno (ingrediente, alergeno) VALUES
 
-            -- Gluten
-            ('Harina de trigo', 'Gluten'),
-            ('Harina de avena', 'Gluten'),
-            ('Harina integral', 'Gluten'),
-            ('Avena', 'Gluten'),
-            ('Cuscús', 'Gluten'),
-            ('Sémola de trigo', 'Gluten'),
-            ('Cerveza', 'Gluten'),
 
-            -- Lácteos
-            ('Leche', 'Lácteos'),
-            ('Leche condensada', 'Lácteos'),
-            ('Leche evaporada', 'Lácteos'),
-            ('Yogur', 'Lácteos'),
-            ('Mantequilla', 'Lácteos'),
-            ('Nata líquida', 'Lácteos'),
-            ('Crema agria', 'Lácteos'),
-            ('Queso', 'Lácteos'),
-            ('Queso azul', 'Lácteos'),
-            ('Queso feta', 'Lácteos'),
-            ('Queso ricotta', 'Lácteos'),
-            ('Queso parmesano', 'Lácteos'),
-            ('Queso gouda', 'Lácteos'),
-            ('Queso mozzarella', 'Lácteos'),
-            ('Chocolate con leche', 'Lácteos'),
-            ('Chocolate blanco', 'Lácteos'),
+            -- -- Gluten
+            -- ('Harina de trigo', 'Gluten'),
+            -- ('Harina de avena', 'Gluten'),
+            -- ('Harina integral', 'Gluten'),
+            -- ('Avena', 'Gluten'),
+            -- ('Cuscús', 'Gluten'),
+            -- ('Sémola de trigo', 'Gluten'),
+            -- ('Cerveza', 'Gluten'),
 
-            -- Frutos secos
-            ('Harina de almendra', 'Frutos secos'),
-            ('Nueces', 'Frutos secos'),
-            ('Almendras', 'Frutos secos'),
-            ('Avellanas', 'Frutos secos'),
-            ('Anacardos', 'Frutos secos'),
-            ('Pistachos', 'Frutos secos'),
-            ('Aceite de nuez', 'Frutos secos'),
+            -- -- Lácteos
+            -- ('Leche', 'Lácteos'),
+            -- ('Leche condensada', 'Lácteos'),
+            -- ('Leche evaporada', 'Lácteos'),
+            -- ('Yogur', 'Lácteos'),
+            -- ('Mantequilla', 'Lácteos'),
+            -- ('Nata líquida', 'Lácteos'),
+            -- ('Crema agria', 'Lácteos'),
+            -- ('Queso', 'Lácteos'),
+            -- ('Queso azul', 'Lácteos'),
+            -- ('Queso feta', 'Lácteos'),
+            -- ('Queso ricotta', 'Lácteos'),
+            -- ('Queso parmesano', 'Lácteos'),
+            -- ('Queso gouda', 'Lácteos'),
+            -- ('Queso mozzarella', 'Lácteos'),
+            -- ('Chocolate con leche', 'Lácteos'),
+            -- ('Chocolate blanco', 'Lácteos'),
 
-            -- Soja
-            ('Soja', 'Soja'),
-            ('Salsa de soja', 'Soja'),
+            -- -- Frutos secos
+            -- ('Harina de almendra', 'Frutos secos'),
+            -- ('Nueces', 'Frutos secos'),
+            -- ('Almendras', 'Frutos secos'),
+            -- ('Avellanas', 'Frutos secos'),
+            -- ('Anacardos', 'Frutos secos'),
+            -- ('Pistachos', 'Frutos secos'),
+            -- ('Aceite de nuez', 'Frutos secos'),
 
-            -- Sésamo
-            ('Aceite de sésamo', 'Sesamo'),
+            -- -- Soja
+            -- ('Soja', 'Soja'),
+            -- ('Salsa de soja', 'Soja'),
 
-            -- Mostaza
-            ('Mostaza', 'Mostaza'),
-            ('Mostaza Dijon', 'Mostaza'),
+            -- -- Sésamo
+            -- ('Aceite de sésamo', 'Sesamo'),
 
-            -- Pescado
-            ('Pescado blanco', 'Pescado'),
-            ('Salmón', 'Pescado'),
-            ('Atún', 'Pescado'),
-            ('Merluza', 'Pescado'),
-            ('Dorada', 'Pescado'),
-            ('Lubina', 'Pescado'),
-            ('Bacalao', 'Pescado'),
-            ('Trucha', 'Pescado'),
+            -- -- Mostaza
+            -- ('Mostaza', 'Mostaza'),
+            -- ('Mostaza Dijon', 'Mostaza'),
 
-            -- Crustáceos
-            ('Gambas', 'Crustáceos'),
-            ('Langostinos', 'Crustáceos'),
-            ('Cangrejo', 'Crustáceos'),
+            -- -- Pescado
+            -- ('Pescado blanco', 'Pescado'),
+            -- ('Salmón', 'Pescado'),
+            -- ('Atún', 'Pescado'),
+            -- ('Merluza', 'Pescado'),
+            -- ('Dorada', 'Pescado'),
+            -- ('Lubina', 'Pescado'),
+            -- ('Bacalao', 'Pescado'),
+            -- ('Trucha', 'Pescado'),
 
-            -- Moluscos
-            ('Calamares', 'Moluscos'),
-            ('Almejas', 'Moluscos'),
-            ('Mejillones', 'Moluscos'),
-            ('Pulpo', 'Moluscos'),
-            ('Erizo de mar', 'Moluscos'),
-            ('Vieiras', 'Moluscos'),
+            -- -- Crustáceos
+            -- ('Gambas', 'Crustáceos'),
+            -- ('Langostinos', 'Crustáceos'),
+            -- ('Cangrejo', 'Crustáceos'),
 
-            -- Sulfitos
-            ('Vinagre balsámico', 'Sulfitos'),
-            ('Vino blanco', 'Sulfitos'),
-            ('Vino tinto', 'Sulfitos'),
-            ('Cerveza', 'Sulfitos');
+            -- -- Moluscos
+            -- ('Calamares', 'Moluscos'),
+            -- ('Almejas', 'Moluscos'),
+            -- ('Mejillones', 'Moluscos'),
+            -- ('Pulpo', 'Moluscos'),
+            -- ('Erizo de mar', 'Moluscos'),
+            -- ('Vieiras', 'Moluscos'),
+
+            -- -- Sulfitos
+            -- ('Vinagre balsámico', 'Sulfitos'),
+            -- ('Vino blanco', 'Sulfitos'),
+            -- ('Vino tinto', 'Sulfitos'),
+            -- ('Cerveza', 'Sulfitos');
 
 
 
@@ -538,14 +540,14 @@ CREATE TABLE `ingrediente_alergeno` (
 
 CREATE TABLE `etiquetas` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
- `Etiqueta` varchar(100) NOT NULL,
+ `Nombre` varchar(100) NOT NULL,
  PRIMARY KEY (`ID`),
- UNIQUE KEY `Etiqueta` (`Etiqueta`)
+ UNIQUE KEY `Nombre` (`Nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
         -- Datos de la tabla etiquetas
-        INSERT INTO etiquetas (Etiqueta) VALUES
+        INSERT INTO etiquetas (Nombre) VALUES
 
         -- Etiquetas por Tipo de Plato
         ('Entrante'),
@@ -619,11 +621,11 @@ CREATE TABLE `etiquetas` (
 
 CREATE TABLE `receta_etiqueta` (
  `Receta` int(11) NOT NULL,
- `Etiqueta` varchar(100) NOT NULL,
+ `Etiqueta` int(11) NOT NULL,
  KEY `fk_re_receta` (`Receta`),
  KEY `fk_re_etiqueta` (`Etiqueta`),
  CONSTRAINT `fk_re_receta` FOREIGN KEY (`Receta`) REFERENCES `recetas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
- CONSTRAINT `fk_re_etiqueta` FOREIGN KEY (`Etiqueta`) REFERENCES `etiquetas` (`Etiqueta`) ON DELETE CASCADE ON UPDATE CASCADE
+ CONSTRAINT `fk_re_etiqueta` FOREIGN KEY (`Etiqueta`) REFERENCES `etiquetas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
