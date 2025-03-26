@@ -1,7 +1,7 @@
 
-/* 
+/*
 
-Este script está pensado para ser copiado y ejecutado. Contiene instrucciones para crear todas 
+Este script está pensado para ser copiado y ejecutado. Contiene instrucciones para crear todas
 las tablas, datos, y triggers que nuestra BBDD tiene.
 
 Los datos que se cargarán son los más básicos, un usuario de cada tipo y la tabla de alérgenos completa.
@@ -12,7 +12,7 @@ Los datos que se cargarán son los más básicos, un usuario de cada tipo y la t
 CREATE DATABASE IF NOT EXISTS MarketChef;
 USE MarketChef;
 
-/* 
+/*
 
 Antes de crear todas las tablas, vamos a borrarlas en caso de que ya existan y no estén bien configuradas
 Como hay tablas que dependen unas de otras (relaciones y claves foráneas), hay que borrarlas en el orden inverso de creación
@@ -65,10 +65,7 @@ CREATE TABLE `usuarios` (
     INSERT INTO usuarios (Nombre, Apellidos, Email, Rol, Password) VALUES
     ('usuario', 'ejemplo', 'usuario@marketchef.com', 'User', '$2y$10$wjhoam2JWbGg4I4NRGoJF.ZUsLITJlV05Vg9Jp6GUBMdOWAlCI7FO'),
     ('admin', 'ejemplo', 'admin@marketchef.com', 'Admin', '$2y$10$aAfWpoA8/09hASfXru8j6.PUC1kHGzJyGW4KH.sMfVXg8Bs8RcNze');
-
-    INSERT INTO usuarios (Nombre, Apellidos, Email, Rol, Password) VALUES
     ('chef', 'ejemplo', 'chef@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu');
-
 
 
 -- Tabla Chefs
@@ -82,11 +79,12 @@ CREATE TABLE `chefs` (
  CONSTRAINT `fk_c_usuario` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
+    INSERT INTO chefs (Usuario, DNI, Cuenta_bancaria, Saldo) VALUES
+    (3, '12345678A', 'ES1234567890123456789012', 0);
 
 -- Tabla Recetas
 
-/* 
+/*
 Cabe destacar que para añadir una nueva fila a esta tabla, debemos añadir los pasos en formato JSON, lo que significa que debe seguir este esquema:
 
 {
@@ -132,12 +130,12 @@ CREATE TABLE `ingredientes` (
         ("Agua"),
         ("Aceite de oliva"),
         ("Aceite de girasol"),
-        ("Aceite de coco"),
-        ("Aceite de sésamo"),
-        ("Aceite de aguacate"),
-        ("Aceite de nuez"),
+        -- ("Aceite de coco"),
+        -- ("Aceite de sésamo"),
+        -- ("Aceite de aguacate"),
+        -- ("Aceite de nuez"),
         ("Vinagre"),
-        ("Vinagre balsámico"),
+        -- ("Vinagre balsámico"),
         ("Salsa de soja"),
 
     -- Básicos y Condimentos
@@ -147,64 +145,65 @@ CREATE TABLE `ingredientes` (
         ("Azúcar glas"),
         ("Miel"),
         ("Mostaza"),
-        ("Mostaza Dijon"),
+        -- ("Mostaza Dijon"),
         ("Cacao en polvo"),
         ("Chocolate con leche"),
         ("Chocolate blanco"),
         ("Chocolate negro"),
-        ("Jarabe de arce"),
-        ("Sirope de agave"),
+        -- ("Jarabe de arce"),
+        -- ("Sirope de agave"),
 
     -- Cereales y Harinas
-        ("Harina de trigo"),
-        ("Harina de maíz"),
-        ("Harina de almendra"),
-        ("Harina de arroz"),
-        ("Harina de avena"),
-        ("Harina integral"),
+        ("Harina"),
+        -- ("Harina de trigo"),
+        -- ("Harina de maíz"),
+        -- ("Harina de almendra"),
+        -- ("Harina de arroz"),
+        -- ("Harina de avena"),
+        -- ("Harina integral"),
         ("Avena"),
         ("Cuscús"),
         ("Quinoa"),
-        ("Sémola de trigo"),
-        ("Trigo sarraceno"),
+        -- ("Sémola de trigo"),
+        -- ("Trigo sarraceno"),
 
     -- Lácteos y Derivados
         ("Leche"),
         ("Leche condensada"),
-        ("Leche evaporada"),
+        -- ("Leche evaporada"),
         ("Yogur"),
         ("Mantequilla"),
-        ("Margarina"),
+        -- ("Margarina"),
         ("Nata líquida"),
         ("Crema agria"),
         ("Queso"),
-        ("Queso azul"),
-        ("Queso feta"),
-        ("Queso ricotta"),
-        ("Queso parmesano"),
-        ("Queso gouda"),
-        ("Queso mozzarella"),
+        -- ("Queso azul"),
+        -- ("Queso feta"),
+        -- ("Queso ricotta"),
+        -- ("Queso parmesano"),
+        -- ("Queso gouda"),
+        -- ("Queso mozzarella"),
 
     -- Carnes y Embutidos
         ("Ternera"),
-        ("Buey"),
+        -- ("Buey"),
         ("Cerdo"),
         ("Pollo"),
         ("Cordero"),
         ("Pavo"),
         ("Conejo"),
-        ("Codorniz"),
-        ("Pato"),
+        -- ("Codorniz"),
+        -- ("Pato"),
         ("Jamón"),
         ("Bacon"),
         ("Chorizo"),
         ("Salchichón"),
         ("Morcilla"),
-        ("Lomo de cerdo"),
-        ("Grasa de cerdo (manteca)"),
+        -- ("Lomo de cerdo"),
+        -- ("Grasa de cerdo (manteca)"),
 
     -- Pescados y Mariscos
-        ("Pescado blanco"),
+        -- ("Pescado blanco"),
         ("Salmón"),
         ("Atún"),
         ("Gambas"),
@@ -216,12 +215,12 @@ CREATE TABLE `ingredientes` (
         ("Dorada"),
         ("Lubina"),
         ("Bacalao"),
-        ("Trucha"),
+        -- ("Trucha"),
         ("Pulpo"),
         ("Cangrejo"),
-        ("Erizo de mar"),
-        ("Vieiras"),
-    
+        -- ("Erizo de mar"),
+        -- ("Vieiras"),
+
     -- Verduras y Hortalizas
         ("Cebolla"),
         ("Ajo"),
@@ -240,24 +239,24 @@ CREATE TABLE `ingredientes` (
         ("Berenjena"),
         ("Calabacín"),
         ("Maíz"),
-        ("Nabo"),
-        ("Rábanos"),
-        ("Remolacha"),
-        ("Endivias"),
-        ("Coles de Bruselas"),
-        ("Acelgas"),
-        ("Puerro"),
-        ("Hinojo"),
-    
+        -- ("Nabo"),
+        -- ("Rábanos"),
+        -- ("Remolacha"),
+        -- ("Endivias"),
+        -- ("Coles de Bruselas"),
+        -- ("Acelgas"),
+        -- ("Puerro"),
+        -- ("Hinojo"),
+
     -- Legumbres
         ("Lentejas"),
         ("Garbanzos"),
         ("Alubias"),
         ("Soja"),
         ("Guisantes"),
-        ("Habas"),
-        ("Frijoles negros"),
-    
+        -- ("Habas"),
+        -- ("Frijoles negros"),
+
     -- Frutas
         ("Manzana"),
         ("Pera"),
@@ -271,29 +270,29 @@ CREATE TABLE `ingredientes` (
         ("Uvas"),
         ("Melón"),
         ("Sandía"),
-        ("Papaya"),
-        ("Kiwi"),
-        ("Maracuyá"),
-        ("Granada"),
-        ("Ciruela"),
-        ("Higos"),
-        ("Coco"),
-    
+        -- ("Papaya"),
+        -- ("Kiwi"),
+        -- ("Maracuyá"),
+        -- ("Granada"),
+        -- ("Ciruela"),
+        -- ("Higos"),
+        -- ("Coco"),
+
     -- Frutos Secos y Semillas
         ("Nueces"),
         ("Almendras"),
         ("Avellanas"),
         ("Anacardos"),
         ("Pistachos"),
-        ("Semillas de lino"),
-        ("Semillas de chía"),
-        ("Semillas de girasol"),
-        ("Semillas de calabaza"),
+        -- ("Semillas de lino"),
+        -- ("Semillas de chía"),
+        -- ("Semillas de girasol"),
+        -- ("Semillas de calabaza"),
         ("Castañas"),
-    
+
     -- Especias y Condimentos
         ("Pimienta negra"),
-        ("Pimienta blanca"),
+        -- ("Pimienta blanca"),
         ("Orégano"),
         ("Tomillo"),
         ("Romero"),
@@ -302,32 +301,32 @@ CREATE TABLE `ingredientes` (
         ("Canela"),
         ("Jengibre"),
         ("Curry"),
-        ("Curry rojo"),
-        ("Curry verde"),
-        ("Comino"),
+        -- ("Curry rojo"),
+        -- ("Curry verde"),
+        -- ("Comino"),
         ("Pimentón"),
-        ("Pimentón picante"),
+        -- ("Pimentón picante"),
         ("Vainilla"),
-        ("Anís estrellado"),
+        -- ("Anís estrellado"),
         ("Nuez moscada"),
-        ("Clavo de olor"),
-        ("Estragón"),
-        ("Albahaca"),
-        ("Eneldo"),
-    
+        -- ("Clavo de olor"),
+        -- ("Estragón"),
+        -- ("Albahaca"),
+        -- ("Eneldo"),
+
     -- Salsas y Aderezos
         ("Salsa barbacoa"),
         ("Salsa teriyaki"),
-        ("Salsa de ostras"),
-        ("Salsa de pescado"),
-        ("Salsa worcestershire"),
-    
+        -- ("Salsa de ostras"),
+        -- ("Salsa de pescado"),
+        -- ("Salsa worcestershire"),
+
     -- Bebidas y Otros
-        ("Café"),
-        ("Té verde"),
-        ("Té negro"),
-        ("Té de manzanilla"),
-        ("Ron"),
+        -- ("Café"),
+        -- ("Té verde"),
+        -- ("Té negro"),
+        -- ("Té de manzanilla"),
+        -- ("Ron"),
         ("Vino blanco"),
         ("Vino tinto"),
         ("Cerveza");
@@ -404,26 +403,26 @@ CREATE TABLE `magnitudes` (
 
         -- Datos de la tabla magnitudes
         INSERT INTO magnitudes (Nombre) VALUES
-        ('gramos'),
-        ('kilogramos'),
-        ('mililitros'),
-        ('litros'),
-        ('tazas'),
-        ('cucharadas'),
-        ('cucharaditas'),
-        ('pizca'),
-        ('unidad'),
-        ('rebanada'),
-        ('diente'),
-        ('puñado'),
-        ('chorro'),
-        ('gota'),
-        ('lata'),
-        ('botella'),
-        ('vaso'),
-        ('copa'),
-        ('onza'),
-        ('libra');
+        ('Gramos (g)'),
+        ('Kilogramos (kg)'),
+        ('Mililitros (ml)'),
+        ('Litros (l)'),
+        -- ('Tazas'),
+        ('Cucharada'),
+        -- ('Cucharaditas'),
+        -- ('Pizca'),
+        ('Unidad');
+        -- ('Rebanada'),
+        -- ('Diente'),
+        -- ('Puñado'),
+        -- ('Chorro'),
+        -- ('Gota'),
+        -- ('Lata'),
+        -- ('Botella'),
+        -- ('Vaso'),
+        -- ('Copa'),
+        -- ('Onza'),
+        -- ('Libra');
 
 
 
@@ -455,7 +454,7 @@ CREATE TABLE `ingrediente_alergeno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-       -- INSERT INTO ingrediente_alergeno (ingrediente, alergeno) VALUES
+        INSERT INTO ingrediente_alergeno (ingrediente, alergeno) VALUES
 
 
             -- -- Gluten
@@ -553,36 +552,39 @@ CREATE TABLE `etiquetas` (
         ('Entrante'),
         ('Principal'),
         ('Postre'),
-        ('Aperitivo'),
-        ('Guarnición'),
+        -- ('Aperitivo'),
+        -- ('Guarnición'),
         ('Sopa'),
         ('Ensalada'),
-        ('Bocadillo'),
+        -- ('Bocadillo'),
         ('Tarta'),
-        ('Bebida'),
-        ('Salsa'),
+        -- ('Bebida'),
+        -- ('Salsa'),
+
         -- Etiquetas por Tipo de Dieta
-        ('Vegetariano'),
+        -- ('Vegetariano'),
         ('Vegano'),
         ('Sin gluten'),
         ('Sin lactosa'),
         ('Sin azúcar'),
-        ('Bajo en carbohidratos'),
-        ('Alto en proteínas'),
-        ('Keto'),
-        ('Paleo'),
+        -- ('Bajo en carbohidratos'),
+        -- ('Alto en proteínas'),
+        -- ('Keto'),
+        -- ('Paleo'),
+
         -- Etiquetas por Ingrediente Principal
-        ('Con pollo'),
-        ('Con ternera'),
-        ('Con cerdo'),
-        ('Con pescado'),
-        ('Con marisco'),
-        ('Con verduras'),
-        ('Con pasta'),
-        ('Con arroz'),
-        ('Con legumbres'),
-        ('Con huevos'),
-        ('Con queso'),
+        -- ('Con pollo'),
+        -- ('Con ternera'),
+        -- ('Con cerdo'),
+        -- ('Con pescado'),
+        -- ('Con marisco'),
+        -- ('Con verduras'),
+        -- ('Con pasta'),
+        -- ('Con arroz'),
+        -- ('Con legumbres'),
+        -- ('Con huevos'),
+        -- ('Con queso'),
+
         -- Etiquetas por Método de Cocción
         ('Al horno'),
         ('A la plancha'),
@@ -591,6 +593,7 @@ CREATE TABLE `etiquetas` (
         ('Al vapor'),
         ('A la parrilla'),
         ('A baja temperatura'),
+
         -- Etiquetas por Cocina Internacional
         ('Italiana'),
         ('Mexicana'),
@@ -601,20 +604,22 @@ CREATE TABLE `etiquetas` (
         ('Árabe'),
         ('Francesa'),
         ('Americana'),
+
         -- Etiquetas por Ocasión
         ('Navidad'),
-        ('Semana Santa'),
+        -- ('Semana Santa'),
         ('Verano'),
         ('Invierno'),
         ('Cumpleaños'),
         ('Cena rápida'),
         ('Comida saludable'),
+
         -- Etiquetas de Dificultad y Tiempo
         ('Fácil'),
         ('Media'),
-        ('Difícil'),
-        ('Rápida'),
-        ('Larga');
+        ('Difícil');
+        -- ('Rápida'),
+        -- ('Larga');
 
 
 -- Tabla Receta_Etiqueta
@@ -652,9 +657,9 @@ FLUSH PRIVILEGES;
 
 -- DELIMITER $$
 
--- CREATE TRIGGER `actualizar_media_valoracion` 
+-- CREATE TRIGGER `actualizar_media_valoracion`
 -- AFTER INSERT ON `valoraciones`
--- FOR EACH ROW 
+-- FOR EACH ROW
 -- BEGIN
 --     UPDATE recetas
 --     SET Valoracion = (SELECT AVG(Puntuacion) FROM valoraciones WHERE Receta = NEW.Receta) WHERE ID = NEW.Receta;
