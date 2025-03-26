@@ -56,6 +56,7 @@ class despensaFormulario extends formularioBase
 
             <!-- Enlace al archivo JS específico para manejar interacciones y validaciones en el formulario -->
             <script src="JS/despensa.js"></script>
+            
         EOF;
 
         // Devuelve el HTML generado del formulario
