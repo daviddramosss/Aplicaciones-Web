@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $tituloPagina ?></title>
     <link rel="icon" href="img/Logo.png" type="image/png">
+    <link rel="stylesheet" href="CSS/estiloGeneral.css">
 </head>
 <body>
 

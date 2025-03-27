@@ -35,7 +35,7 @@ $logged = $application->isLogged();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cabecera</title>
-    <link rel="stylesheet" href="CSS/cabecera.css">
+    <!-- <link rel="stylesheet" href="CSS/cabecera.css"> -->
 </head>
 <body>
     <header class="header_cabecera">
