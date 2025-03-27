@@ -5,6 +5,7 @@ namespace es\ucm\fdi\aw\helpers;
 use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
 use es\ucm\fdi\aw\comun\formularioBase;
 use es\ucm\fdi\aw\application;
+
 // include_once __DIR__ . '/../comun/formularioBase.php';
 // include_once __DIR__ . '/../entidades/receta/recetaAppService.php';
 
@@ -102,11 +103,11 @@ class crearRecetaForm extends formularioBase
         $pasos = $datos['steps'] ?? [];
 
         // Int
-        //$etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', $datos['etiquetas'])) : [];
+        $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', $datos['etiquetas'])) : [];
 
 
         // String
-        $etiquetas = isset($datos['etiquetas']) ? explode(',', $datos['etiquetas']) : [];
+        //$etiquetas = isset($datos['etiquetas']) ? explode(',', $datos['etiquetas']) : [];
 
 
         // Validaciones de datos obligatorios

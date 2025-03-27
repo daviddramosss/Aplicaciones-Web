@@ -1,7 +1,7 @@
 <?php
 
 require_once("../../config.php");
-use es\ucm\fdi\aw\entidades\magnitud\MagnitudAppService;
+use es\ucm\fdi\aw\entidades\magnitudes\MagnitudAppService;
 // require_once("magnitudAppService.php");
 
 // Obtenemos una instancia única (Singleton) del servicio de magnitudes
