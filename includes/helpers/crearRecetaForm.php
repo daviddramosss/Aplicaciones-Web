@@ -66,6 +66,12 @@ class crearRecetaForm extends formularioBase
 
                 <div id="tagsContainer"></div>
 
+                <!-- Sección de imagen -->
+                <h2>Imagen de la receta</h2>
+                <p><label>Sube una imagen de tu receta:</label> 
+                    <input type="file" name="imagenReceta" accept="image/jpeg, image/png, image/gif" required/>
+                </p>
+
                 <!-- Botones de acción -->
                 <p>
                     <button type="button" class="btn-rojo" onclick="location.href='index.php'">Cancelar</button>
@@ -123,6 +129,12 @@ class crearRecetaForm extends formularioBase
             $result[] = "Error: La receta debe tener al menos un paso.";
         }
 
+        // Procesar la imagen
+        $imagenGuardada = $this->procesarImagen();
+        if ($imagenGuardada === null) {
+            $result[] = "Error: La imagen subida no es válida.";
+        }
+
         // Si no hay errores, proceder con la creación de la receta
         if (count($result) === 0)
         {
@@ -161,6 +173,37 @@ class crearRecetaForm extends formularioBase
         $html= '<link rel="stylesheet" href="CSS/crearReceta.css">';
         return $html;
     }
+
+    private function procesarImagen()
+    {
+        if (!isset($_FILES['imagenReceta']) || $_FILES['imagenReceta']['error'] !== UPLOAD_ERR_OK) {
+            return null; // No se subió imagen o hubo un error
+        }
+
+        $imagenTmp = $_FILES['imagenReceta']['tmp_name'];
+        $nombreOriginal = $_FILES['imagenReceta']['name'];
+        
+        // Generar un nombre único para evitar duplicados
+        $extension = strtolower(pathinfo($nombreOriginal, PATHINFO_EXTENSION));
+        $nombreImagen = uniqid("receta_") . "." . $extension;
+        
+        $directorioDestino = __DIR__ . "/img/";
+
+        // Validar formato de imagen (solo JPG, PNG, GIF)
+        $formatosPermitidos = ['jpg', 'jpeg', 'png', 'gif'];
+        if (!in_array($extension, $formatosPermitidos)) {
+            return null; // Formato no permitido
+        }
+
+        // Guardar la imagen en el servidor
+        $rutaFinal = $directorioDestino . $nombreImagen;
+        if (!move_uploaded_file($imagenTmp, $rutaFinal)) {
+            return null; // Error al guardar la imagen
+        }
+
+        return $nombreImagen; // Devolver el nombre de la imagen guardada
+    }
+
 
 }
 ?>
