@@ -5,7 +5,6 @@ $tituloPagina = 'Información sobre el proyecto';
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-    <link rel="stylesheet" href="CSS/informacion.css">
     <div class="container">
         <h1>Información</h1>
         <p>Este proyecto se desarrolla exclusivamente con fines académicos para la asignatura de Aplicaciones Web en la Universidad Complutense de Madrid.</p>
