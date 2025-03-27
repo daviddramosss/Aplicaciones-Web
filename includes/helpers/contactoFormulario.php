@@ -50,17 +50,10 @@ class contactoFormulario extends formularioBase
     {
         $html = 
         '<!-- Título de la sección de contacto -->
-        <h1>CONTACTO</h1>
+        <h1>Contacto</h1>
 
         <!-- Descripción breve sobre cómo contactar -->
-        <p>PARA CONTACTARNOS RELLENE ESTE FORMULARIO.</p>';
-        return $html;
-    }
-
-    protected function defineStyle()
-    {
-        $html =
-        '<link rel="stylesheet" href="CSS/contacto.css">';
+        <p>Para contactarnos rellene este formulario</p>';
         return $html;
     }
     

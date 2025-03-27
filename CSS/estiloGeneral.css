@@ -231,5 +231,104 @@ body {
 /* #endregion */
 
 /* #region GENERAL */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+}
+
+h1 {
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+p {
+    color: #666;
+}
+
+form {
+    width: 50%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-container {
+    background: #f5f5f5;
+    padding: 10px;
+    text-align: left;
+}
+
+input, textarea {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 10px;
+    font-size: 1em;
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+}
+
+.send-button {
+    background: #fff;
+    border: 1px solid black;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* #endregion */
+
+/* #region PIE */
+.footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.container_footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer_links {
+    margin-bottom: 15px;
+}
+
+.footer_links a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.footer_links a:hover {
+    text-decoration: underline;
+}
+
+.footer_social {
+    margin-bottom: 15px;
+}
+
+.footer_social a img {
+    width: 24px;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+
+.footer_social a img:hover {
+    transform: scale(1.2);
+}
+
+.footer_copy p {
+    font-size: 12px;
+}
 
 /* #endregion */

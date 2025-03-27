@@ -30,4 +30,3 @@
         </div>
     </div>
 </footer>
-<link rel="stylesheet" href="CSS/pie.css">
