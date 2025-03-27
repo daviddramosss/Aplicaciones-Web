@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-include("includes/helpers/registerForm.php");
+use es\ucm\fdi\aw\helpers\registerForm;
+// include("includes/helpers/registerForm.php");
 
 // Se define el título de la página
 $tituloPagina = 'Registro en el sistema';

@@ -1,7 +1,13 @@
 <?php
 
-include_once __DIR__ . '/../comun/formularioBase.php';
-include_once __DIR__ . '/../entidades/receta/recetaAppService.php';
+namespace es\ucm\fdi\aw\helpers;
+
+use es\ucm\fdi\aw\entidades\receta\recetaAppService;
+use es\ucm\fdi\aw\entidades\receta\recetaDTO;
+use es\ucm\fdi\aw\comun\formularioBase;
+use es\ucm\fdi\aw\application;
+// include_once __DIR__ . '/../comun/formularioBase.php';
+// include_once __DIR__ . '/../entidades/receta/recetaAppService.php';
 
 // Clase crearRecetaForm
 class crearRecetaForm extends formularioBase

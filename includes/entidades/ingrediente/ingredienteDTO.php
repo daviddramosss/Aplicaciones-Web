@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\ingrediente;
 // Definición de la clase IngredienteDTO (Data Transfer Object)
 // Se usa para transportar datos de ingredientes entre capas de la aplicación
 class IngredienteDTO 

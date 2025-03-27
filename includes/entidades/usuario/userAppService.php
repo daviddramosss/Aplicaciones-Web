@@ -1,7 +1,6 @@
 <?php
 
-require_once("userFactory.php");
-require_once("userDTO.php");
+namespace es\ucm\fdi\aw\entidades\usuario;
 
 // Clase intermedia mediante la cual podemos acceder a las operaciones relacionadas con los usuarios
 class userAppService

@@ -1,8 +1,11 @@
 <?php
 
-require_once("IIngrediente.php"); 
-require_once("IngredienteDTO.php"); 
-require_once(__DIR__ . "/../../comun/baseDAO.php"); 
+namespace es\ucm\fdi\aw\entidades\ingrediente;
+use es\ucm\fdi\aw\comun\baseDAO;
+use es\ucm\fdi\aw\application;
+// require_once("IIngrediente.php"); 
+// require_once("IngredienteDTO.php"); 
+// require_once(__DIR__ . "/../../comun/baseDAO.php"); 
 
 // Definición de la clase IngredienteDAO, que implementa la interfaz IIngrediente y extiende baseDAO
 class IngredienteDAO extends baseDAO implements IIngrediente {

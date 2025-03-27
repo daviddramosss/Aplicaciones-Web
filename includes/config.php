@@ -1,7 +1,6 @@
 <?php
 
-//use es\ucm\fdi\aw\application;
-require_once("application.php");
+use es\ucm\fdi\aw\application;
 
 define('BD_HOST', 'localhost');
 define('BD_NAME', 'MarketChef');

@@ -1,6 +1,7 @@
 <?php
 
-require_once("etiquetasFactory.php");
+namespace es\ucm\fdi\aw\entidades\etiquetas;
+// require_once("etiquetasFactory.php");
 
 class etiquetasAppService
 {

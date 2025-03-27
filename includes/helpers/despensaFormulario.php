@@ -1,7 +1,8 @@
 <?php
 
 // Se incluye el archivo de la clase base 'formularioBase'
-include __DIR__ . '/../comun/formularioBase.php';
+namespace es\ucm\fdi\aw\helpers;
+// include __DIR__ . '/../comun/formularioBase.php';
 
 // Definición de la clase 'despensaFormulario' que extiende de 'formularioBase', heredando su funcionalidad
 class despensaFormulario extends formularioBase

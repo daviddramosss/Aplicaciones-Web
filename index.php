@@ -1,7 +1,8 @@
 <?php
 
 require_once("includes/config.php");
-require_once("includes/helpers/IndexHelper.php");
+use es\ucm\fdi\aw\helpers\IndexHelper;
+// require_once("includes/helpers/IndexHelper.php");
 
 // Se define el título de la página
 $tituloPagina = 'Market Chef';

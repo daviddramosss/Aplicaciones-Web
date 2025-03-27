@@ -1,6 +1,8 @@
 <?php
 
-require_once(__DIR__ . '/../entidades/usuario/userAppService.php');
+namespace es\ucm\fdi\aw\helpers;
+use es\ucm\fdi\aw\entidades\usuario\userAppService;
+// require_once(__DIR__ . '/../entidades/usuario/userAppService.php');
 
 class perfilHelper {
 

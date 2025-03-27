@@ -1,8 +1,11 @@
 <?php
 
-require_once("IIngredienteReceta.php");
-require_once("ingredienteRecetaDTO.php");
-require_once(__DIR__ . "/../../comun/baseDAO.php");
+namespace es\ucm\fdi\aw\entidades\ingredienteReceta;
+use es\ucm\fdi\aw\comun\baseDAO;
+use es\ucm\fdi\aw\application;
+// require_once("IIngredienteReceta.php");
+// require_once("ingredienteRecetaDTO.php");
+// require_once(__DIR__ . "/../../comun/baseDAO.php");
 
 // Clase que maneja la persistencia de los ingredientes de una receta
 class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta

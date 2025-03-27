@@ -1,6 +1,7 @@
 <?php
 
-require_once("magnitudFactory.php");
+namespace es\ucm\fdi\aw\entidades\magnitudes;
+// require_once("magnitudFactory.php");
 
 class magnitudAppService
 {

@@ -1,6 +1,7 @@
 <?php
 
-require_once("recetaFactory.php"); 
+namespace es\ucm\fdi\aw\entidades\receta;
+// require_once("recetaFactory.php"); 
 
 class recetaAppService
 {

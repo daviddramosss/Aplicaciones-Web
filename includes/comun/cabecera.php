@@ -1,9 +1,9 @@
 <?php
 
 // Este es el script de Cabecera, en el que está el código usado para mostrar la cabecera y sus elementos
-
-require_once("includes/entidades/usuario/userAppService.php");
-require_once("includes/application.php");
+require_once("includes/config.php");
+use es\ucm\fdi\aw\entidades\usuario\userAppService;
+use es\ucm\fdi\aw\application;
 
 // Comprobamos si el usuario está logueado, y qué tipo de rol tiene
 $application = application::getInstance();

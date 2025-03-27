@@ -1,8 +1,11 @@
 <?php
 
-require_once("IEtiquetas.php"); 
-require_once("etiquetasDTO.php"); 
-require_once(__DIR__ . "/../../comun/baseDAO.php"); 
+namespace es\ucm\fdi\aw\entidades\etiquetas;
+// require_once("IEtiquetas.php"); 
+// require_once("etiquetasDTO.php"); 
+use es\ucm\fdi\aw\comun\baseDAO;
+use es\ucm\fdi\aw\application;
+// require_once(__DIR__ . "/../../comun/baseDAO.php"); 
 
 class etiquetasDAO extends baseDAO implements IEtiquetas 
 {

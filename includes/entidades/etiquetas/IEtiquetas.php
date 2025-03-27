@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\etiquetas;
 
 interface IEtiquetas
 {

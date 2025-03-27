@@ -3,8 +3,7 @@
 namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\comun\formularioBase;
-
-include_once __DIR__ . "/../entidades/usuario/userAppService.php";
+use es\ucm\fdi\aw\entidades\usuario\{userDTO, userAppService};
 
 // archivo en el que encontramos el formulario de login
 

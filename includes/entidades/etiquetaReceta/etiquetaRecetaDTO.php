@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\etiquetaReceta;
 /**
  * Clase DTO (Data Transfer Object) para representar una relación entre una receta y una etiqueta.
  * Se usa para transferir datos entre capas de la aplicación sin exponer directamente la estructura de la base de datos.

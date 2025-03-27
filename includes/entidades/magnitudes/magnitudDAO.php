@@ -1,8 +1,11 @@
 <?php
 
-require_once("IMagnitud.php"); 
-require_once("magnitudDTO.php"); 
-require_once(__DIR__ . "/../../comun/baseDAO.php"); 
+namespace es\ucm\fdi\aw\entidades\magnitudes;
+use es\ucm\fdi\aw\comun\baseDAO;
+use es\ucm\fdi\aw\application;
+// require_once("IMagnitud.php"); 
+// require_once("magnitudDTO.php"); 
+// require_once(__DIR__ . "/../../comun/baseDAO.php"); 
 
 class magnitudDAO extends baseDAO implements IMagnitud 
 {

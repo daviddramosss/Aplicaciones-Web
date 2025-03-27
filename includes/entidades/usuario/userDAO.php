@@ -1,8 +1,8 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\usuario; 
 include_once __DIR__ . "/../../config.php";
-require_once("IUser.php");
-require_once("userDTO.php");
+use es\ucm\fdi\aw\application;
 
 // Clase en la que se implementa la lógica y las funciones que se van a usar en relación con los usuarios
 // este archivo o script posee capacidad de interacción con la base de datos.

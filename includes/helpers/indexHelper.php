@@ -1,5 +1,7 @@
 <?php
 
+namespace es\ucm\fdi\aw\helpers;
+
 class IndexHelper {
     public function getRecetasDestacadas() {
         return <<<HTML

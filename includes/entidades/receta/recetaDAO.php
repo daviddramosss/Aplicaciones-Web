@@ -1,12 +1,17 @@
 <?php
 
-require_once("IReceta.php");
-require_once("recetaDTO.php");
-require_once(__DIR__ . "/../../comun/baseDAO.php");
-require_once("recetaAlreadyExistException.php");
+namespace es\ucm\fdi\aw\entidades\receta;
+use es\ucm\fdi\aw\comun\baseDAO;
+use es\ucm\fdi\aw\application;
+use es\ucm\fdi\aw\ingredienteReceta\ingredienteRecetaAppService;
+use es\ucm\fdi\aw\etiquetaReceta\etiquetaRecetaAppService;
+// require_once("IReceta.php");
+// require_once("recetaDTO.php");
+// require_once(__DIR__ . "/../../comun/baseDAO.php");
+// require_once("recetaAlreadyExistException.php");
 
-include __DIR__ . '/../ingredienteReceta/ingredienteRecetaAppService.php';
-include __DIR__ . '/../etiquetaReceta/etiquetaRecetaAppService.php';
+// include __DIR__ . '/../ingredienteReceta/ingredienteRecetaAppService.php';
+// include __DIR__ . '/../etiquetaReceta/etiquetaRecetaAppService.php';
 
 // La clase recetaDAO hereda de baseDAO e implementa la interfaz IReceta
 class recetaDAO extends baseDAO implements IReceta

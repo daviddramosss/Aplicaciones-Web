@@ -1,7 +1,8 @@
 <?php
 
-require_once("includes/config.php");                        
-require_once("includes/helpers/despensaFormulario.php");   
+require_once("includes/config.php");     
+use es\ucm\fdi\aw\helpers\despensaFormulario;                   
+// require_once("includes/helpers/despensaFormulario.php");   
 
 // Se define el título de la página
 $tituloPagina = 'Mi despensa';

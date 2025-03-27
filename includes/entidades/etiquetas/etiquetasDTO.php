@@ -1,5 +1,7 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\etiquetas;
+
 class etiquetasDTO
 {
     private $id;
