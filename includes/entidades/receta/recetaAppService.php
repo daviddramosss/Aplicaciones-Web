@@ -1,6 +1,8 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\receta;
+use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService, ingredienteRecetaDTO};
+use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRecetaDTO};
 // require_once("recetaFactory.php"); 
 
 class recetaAppService

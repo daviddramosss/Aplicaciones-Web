@@ -45,7 +45,7 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
             $etiqueta = $etiquetaRecetaDTO->getEtiqueta();
 
             // Asociar los parámetros a la consulta, especificando tipos ("i" para entero, "s" para string)
-            $stmt->bind_param("is", $recetaId, $etiqueta);
+            $stmt->bind_param("ii", $recetaId, $etiqueta);
 
             // Ejecutar la consulta y verificar si fue exitosa
             if ($stmt->execute())

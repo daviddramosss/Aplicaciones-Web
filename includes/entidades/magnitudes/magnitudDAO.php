@@ -1,6 +1,7 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\magnitudes;
+require_once("../../config.php");
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
 // require_once("IMagnitud.php"); 
@@ -60,7 +61,6 @@ class magnitudDAO extends baseDAO implements IMagnitud
             // Liberamos la memoria del resultado
             $result->free();
         }
-
         // Retorna el array con las magnitudes (puede estar vacío si no hay magnitudes en la BD)
         return $magnitudes;
     }

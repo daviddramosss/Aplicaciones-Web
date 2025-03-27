@@ -42,11 +42,9 @@ spl_autoload_register(function ($class) {
     $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
     // if the file exists, require it
     if (file_exists($file)) {
-        var_dump("Clase '$class' cargada desde '$file'\n"); // Esta línea es a modo de depuración
         require $file;
     }
     else {
-        var_dump("Clase '$class' no encontrada en '$file'");   // Esta línea es a modo de depuración
         throw new Exception("Clase '$class' no encontrada en '$file'");
     }
 });
@@ -76,7 +74,7 @@ function gestorExcepciones(Throwable $exception)
     require("comun/plantilla.php");
 }
 
-set_exception_handler('gestorExcepciones');
+// set_exception_handler('gestorExcepciones');
 
 // http://php.net/manual/es/exception.gettraceasstring.php#114980
 /**

@@ -1,10 +1,11 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\receta;
+require_once(__DIR__ . "/../../config.php");
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
-use es\ucm\fdi\aw\ingredienteReceta\ingredienteRecetaAppService;
-use es\ucm\fdi\aw\etiquetaReceta\etiquetaRecetaAppService;
+use es\ucm\fdi\aw\entidades\ingredienteReceta\ingredienteRecetaAppService;
+use es\ucm\fdi\aw\entidades\etiquetaReceta\etiquetaRecetaAppService;
 // require_once("IReceta.php");
 // require_once("recetaDTO.php");
 // require_once(__DIR__ . "/../../comun/baseDAO.php");
