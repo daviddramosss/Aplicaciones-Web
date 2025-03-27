@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\comun;
 //Clase abstracta que es implementada por todos los formularios usados en la plataforma
 //Se establece un formulatio común 
 abstract class formularioBase
@@ -56,6 +57,10 @@ abstract class formularioBase
     {
         $html= $this->CreateErrors($errores);
 
+        $html .= $this->defineStyle();
+
+        $html .= $this->Heading();
+
         $html .= '<form method="POST" action="'.$this->action.'" id="'.$this->formId.'" >';
         $html .= '<input type="hidden" name="action" value="'.$this->formId.'" />';
 
@@ -90,5 +95,15 @@ abstract class formularioBase
     protected function Process($datos)
     {
         return array();
+    }
+
+    protected function Heading()
+    {
+        return $htmlHeading = '';
+    }
+
+    protected function defineStyle()
+    {
+        return $htmlStyle = '';
     }
 }

@@ -1,8 +1,12 @@
 <?php
 
-require_once("IMagnitud.php"); 
-require_once("magnitudDTO.php"); 
-require_once(__DIR__ . "/../../comun/baseDAO.php"); 
+namespace es\ucm\fdi\aw\entidades\magnitudes;
+require_once("../../config.php");
+use es\ucm\fdi\aw\comun\baseDAO;
+use es\ucm\fdi\aw\application;
+// require_once("IMagnitud.php"); 
+// require_once("magnitudDTO.php"); 
+// require_once(__DIR__ . "/../../comun/baseDAO.php"); 
 
 class magnitudDAO extends baseDAO implements IMagnitud 
 {
@@ -31,7 +35,7 @@ class magnitudDAO extends baseDAO implements IMagnitud
         $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para obtener todas las magnitudes
-        $query = "SELECT ID, Magnitud FROM magnitudes";
+        $query = "SELECT ID, Nombre FROM magnitudes";
 
         // Se prepara la consulta
         $stmt = $conn->prepare($query);
@@ -49,7 +53,7 @@ class magnitudDAO extends baseDAO implements IMagnitud
                 // Crea un objeto magnitudDTO con los datos obtenidos y lo añade al array
                 $magnitudes[] = [
                     "id" => $fila['ID'], 
-                    "nombre" => $fila['Magnitud']
+                    "nombre" => $fila['Nombre']
                 ];
             }
 
@@ -57,7 +61,6 @@ class magnitudDAO extends baseDAO implements IMagnitud
             // Liberamos la memoria del resultado
             $result->free();
         }
-
         // Retorna el array con las magnitudes (puede estar vacío si no hay magnitudes en la BD)
         return $magnitudes;
     }

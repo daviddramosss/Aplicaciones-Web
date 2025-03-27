@@ -1,6 +1,9 @@
 <?php
 
-include __DIR__ . '/../comun/formularioBase.php';
+namespace es\ucm\fdi\aw\helpers;
+
+//include __DIR__ . '/../comun/formularioBase.php';
+use es\ucm\fdi\aw\comun\formularioBase;
 
 // Clase buscarFormulario que extiende de formularioBase
 class buscarFormulario extends formularioBase
@@ -80,6 +83,19 @@ class buscarFormulario extends formularioBase
 
         // Devuelve el formulario generado
         return $html;
+    }
+
+    protected function Heading()
+    {
+       $html = '<!-- Enlace a la hoja de estilos específica para la página de búsqueda -->
+    <link rel="stylesheet" href="CSS/buscar.css">
+    
+    <!-- Enlace al script JavaScript que maneja la interacción en la búsqueda -->
+    <script src="JS/buscar.js" defer></script>
+    
+    <!-- Título de la página -->
+    <h1>Buscar Recetas</h1>';
+    return $html;
     }
 }
 ?>

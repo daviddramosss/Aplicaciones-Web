@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\receta;
 /**
  * Clase recetaDTO (Data Transfer Object)
  * Representa una receta con sus atributos y métodos de acceso (getters).

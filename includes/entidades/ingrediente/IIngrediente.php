@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\ingrediente;
 // Definimos una interfaz llamada IIngrediente, que establece un contrato para la gestión de ingredientes
 interface IIngrediente 
 {

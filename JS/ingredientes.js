@@ -1,100 +1,95 @@
-// Espera a que el documento HTML esté completamente cargado antes de ejecutar el script
 document.addEventListener("DOMContentLoaded", function () {
-
-    // Obtiene el botón para añadir ingredientes
-    const addIngredientBtn = document.getElementById("addIngredient");
-
-    // Obtiene el botón para cerrar la lista de ingredientes
-    const closeIngredientListBtn = document.getElementById("closeIngredientList");
-
-    // Obtiene el contenedor donde se mostrarán los ingredientes
     const ingredientContainer = document.getElementById("ingredientContainer");
 
-    // Variable de control para saber si los ingredientes ya han sido cargados
-    let ingredientesVisibles = false;
-    let magnitudesDisponibles = []; // Almacena las magnitudes obtenidas de la BBDD
+    // Crear el campo de búsqueda
+    const searchInput = document.createElement("input");
+    searchInput.type = "text";
+    searchInput.placeholder = "Buscar ingredientes...";
+    searchInput.id = "ingredientSearch";
+    ingredientContainer.parentNode.insertBefore(searchInput, ingredientContainer);
 
-    // Evento al hacer clic en el botón de "Añadir Ingrediente"
-    addIngredientBtn.addEventListener("click", function ()
-    {
-        if (!ingredientesVisibles) {
-            
-            // Hace una petición a un archivo PHP que devuelve la lista de ingredientes en formato JSON
-            fetch("includes/entidades/ingrediente/getIngredientes.php")
-                .then(response => response.json()) // Convierte la respuesta a JSON
-                .then(data => {
+    let ingredientesData = [];
 
-                    mostrarIngredientes(data); // Llama a la función que muestra los ingredientes en pantalla
+    // Cargar ingredientes automáticamente
+    fetch("includes/entidades/ingrediente/getIngredientes.php")
+        .then(response => response.json())
+        .then(data => {
+            ingredientesData = data;
+            mostrarIngredientes(data);
+        })
+        .catch(error => console.error("Error cargando los ingredientes:", error));
 
-                    ingredientesVisibles = true; // Marca que los ingredientes ya fueron cargados
-
-                    ingredientContainer.style.display = "block"; // Muestra el contenedor de ingredientes
-                })
-                .catch(error => console.error("Error cargando los ingredientes:", error)); // Muestra error en caso de fallo en la carga
-
-        } else {
-            // Si los ingredientes ya han sido cargados previamente, solo los muestra
-            ingredientContainer.style.display = "block";
-        }
-    });
-
-    // Evento al hacer clic en el botón de cerrar la lista de ingredientes
-    closeIngredientListBtn.addEventListener("click", function () 
-    {
-        if (ingredientesVisibles) {
-            // Alterna la visibilidad del contenedor de ingredientes
-            ingredientContainer.style.display = ingredientContainer.style.display === "none" ? "block" : "none";
-        }
-    });
-
-    // Función que recibe un array de ingredientes y los muestra en el contenedor
-    function mostrarIngredientes(ingredientes)
-    {
-
-        // Limpia el contenedor antes de agregar los nuevos ingredientes
+    function mostrarIngredientes(ingredientes) {
         ingredientContainer.innerHTML = "";
-
-        // Asegura que el contenedor sea visible
         ingredientContainer.style.display = "block";
 
-        // Obtener magnitudes antes de mostrar los ingredientes
         fetch("includes/entidades/magnitudes/getMagnitudes.php")
-        .then(response => response.json())
-        .then(magnitudes => {
-            ingredientes.forEach(ingrediente => {
-                const div = document.createElement("div");
-                div.classList.add("ingrediente-item");
+            .then(response => response.json())
+            .then(magnitudes => {
+                if (ingredientes.length === 0) {
+                    ingredientContainer.innerHTML = "<p>No hay ingredientes que coincidan con la búsqueda.</p>";
+                    return;
+                }
 
-                // Construir el select con las magnitudes obtenidas
-                let selectOptions = magnitudes.map(mag => `<option value="${mag.nombre}">${mag.nombre}</option>`).join("");
+                ingredientes.forEach(ingrediente => {
+                    const div = document.createElement("div");
+                    div.classList.add("ingrediente-item");
 
-                div.innerHTML = `
-                    <input type="checkbox" class="ingrediente-check" data-id="${ingrediente.id}" data-nombre="${ingrediente.nombre}">
-                    <label>${ingrediente.nombre}</label>
-                    <input type="number" class="ingrediente-cantidad" name="ingredientes[${ingrediente.id}][cantidad]" placeholder="Cantidad" min="0" step="0.1" disabled>
-                    <select class="ingrediente-magnitud" name="ingredientes[${ingrediente.id}][magnitud]" disabled>
-                        ${selectOptions}
-                    </select>
-                `;
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.classList.add("ingrediente-check");
+                    checkbox.setAttribute("data-id", ingrediente.id);
+                    checkbox.setAttribute("data-nombre", ingrediente.nombre);
 
-                const checkbox = div.querySelector(".ingrediente-check");
-                const cantidadInput = div.querySelector(".ingrediente-cantidad");
-                const magnitudSelect = div.querySelector(".ingrediente-magnitud");
+                    const label = document.createElement("label");
+                    label.textContent = ingrediente.nombre;
 
-                checkbox.addEventListener("change", function () {
-                    if (checkbox.checked) {
-                        cantidadInput.disabled = false;
-                        magnitudSelect.disabled = false;
-                    } else {
-                        cantidadInput.disabled = true;
-                        cantidadInput.value = "";
-                        magnitudSelect.disabled = true;
-                    }
+                    const cantidadInput = document.createElement("input");
+                    cantidadInput.type = "number";
+                    cantidadInput.classList.add("ingrediente-cantidad");
+                    cantidadInput.name = `ingredientes[${ingrediente.id}][cantidad]`;
+                    cantidadInput.placeholder = "Cantidad";
+                    cantidadInput.min = "0";
+                    cantidadInput.step = "0.1";
+                    cantidadInput.disabled = true;
+
+                    const magnitudSelect = document.createElement("select");
+                    magnitudSelect.classList.add("ingrediente-magnitud");
+                    magnitudSelect.name = `ingredientes[${ingrediente.id}][magnitud]`;
+                    magnitudSelect.disabled = true;
+
+                    magnitudes.forEach(mag => {
+                        const option = document.createElement("option");
+                        option.value = mag.id;
+                        option.textContent = mag.nombre;
+                        magnitudSelect.appendChild(option);
+                    });
+
+                    checkbox.addEventListener("change", function () {
+                        if (checkbox.checked) {
+                            cantidadInput.disabled = false;
+                            magnitudSelect.disabled = false;
+                        } else {
+                            cantidadInput.disabled = true;
+                            cantidadInput.value = "";
+                            magnitudSelect.disabled = true;
+                        }
+                    });
+
+                    div.appendChild(checkbox);
+                    div.appendChild(label);
+                    div.appendChild(cantidadInput);
+                    div.appendChild(magnitudSelect);
+                    ingredientContainer.appendChild(div);
                 });
+            })
+            .catch(error => console.error("Error cargando las magnitudes:", error));
+    }
 
-                ingredientContainer.appendChild(div);
-            });
-        })
-        .catch(error => console.error("Error cargando las magnitudes:", error));
-}
+    // Evento de búsqueda dinámica
+    searchInput.addEventListener("input", function () {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredIngredients = ingredientesData.filter(ing => ing.nombre.toLowerCase().startsWith(searchTerm));
+        mostrarIngredientes(filteredIngredients);
+    });
 });

@@ -1,8 +1,8 @@
 <?php
 
+use es\ucm\fdi\aw\helpers\buscarFormulario; //para instanciar clases
 
 require_once("includes/config.php");                        
-require_once("includes/helpers/buscarFormulario.php");      
 
 // Se define el título de la página
 $tituloPagina = 'Buscar Recetas';
@@ -15,15 +15,6 @@ $htmlFormBuscar = $form->Manage();
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-    <!-- Enlace a la hoja de estilos específica para la página de búsqueda -->
-    <link rel="stylesheet" href="CSS/buscar.css">
-    
-    <!-- Enlace al script JavaScript que maneja la interacción en la búsqueda -->
-    <script src="JS/buscar.js" defer></script>
-    
-    <!-- Título de la página -->
-    <h1>Buscar Recetas</h1>
-
     <!-- Formulario de búsqueda generado dinámicamente -->
     $htmlFormBuscar
 

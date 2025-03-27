@@ -1,9 +1,9 @@
 <?php
 
 // Este es el script de Cabecera, en el que está el código usado para mostrar la cabecera y sus elementos
-
-require_once("includes/entidades/usuario/userAppService.php");
-require_once("includes/application.php");
+require_once(__DIR__ . "/../config.php");
+use es\ucm\fdi\aw\entidades\usuario\userAppService;
+use es\ucm\fdi\aw\application;
 
 // Comprobamos si el usuario está logueado, y qué tipo de rol tiene
 $application = application::getInstance();
@@ -22,9 +22,9 @@ $logged = $application->isLogged();
         if ($foundedUserDTO->getRol() == "Admin") {
             $esAdmin = true;
           }
-        if ($foundedUserDTO->getRol() == "Chef") {
-              $esChef = true;
-        }
+        // if ($foundedUserDTO->getRol() == "Chef") {
+        //       $esChef = true;
+        // }
     }
   } 
 
@@ -84,20 +84,11 @@ $logged = $application->isLogged();
               </a>
 
             <?php else: ?>
-                <!-- Si está logueado pero no es chef, lo redirigimos a una página para los usuarios y el admin-->
-              <?php if (!$esChef): ?>
-
-                <a href="estrellaMichelinNoChef.php" class="estrella_cabecera">
-                  <img src="img/estrella_michelin.png" alt="Estrella Michelin No Chef">
+                
+              <!-- Si está logueado, lo mandamos a la clase de estrella michelin -->
+                <a href="estrellaMichelin.php" class="estrella_cabecera"> 
+                  <img src="img/estrella_michelin.png" alt="Estrella Michelin">
                 </a>
-
-              <?php else: ?>
-                 <!-- Si está logueado y es chef, lo redirigimos a una página para los chefs -->
-                <a href="estrellaMichelinChef.php" class="estrella_cabecera"> 
-                  <img src="img/estrella_michelin.png" alt="Estrella Michelin Chef">
-                </a>
-
-              <?php endif; ?>
             <?php endif; ?>                        
               
              <!-- Botón de carrito -->

@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\ingredienteReceta;
 // Definición de la interfaz IIngredienteReceta
 // Esta interfaz define los métodos que deben implementarse para gestionar ingredientes en recetas
 interface IIngredienteReceta

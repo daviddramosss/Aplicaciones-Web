@@ -1,8 +1,11 @@
 <?php
 
-require_once("IIngrediente.php"); 
-require_once("IngredienteDTO.php"); 
-require_once(__DIR__ . "/../../comun/baseDAO.php"); 
+namespace es\ucm\fdi\aw\entidades\ingrediente;
+use es\ucm\fdi\aw\comun\baseDAO;
+use es\ucm\fdi\aw\application;
+// require_once("IIngrediente.php"); 
+// require_once("IngredienteDTO.php"); 
+// require_once(__DIR__ . "/../../comun/baseDAO.php"); 
 
 // Definición de la clase IngredienteDAO, que implementa la interfaz IIngrediente y extiende baseDAO
 class IngredienteDAO extends baseDAO implements IIngrediente {
@@ -40,7 +43,7 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
             $conn = application::getInstance()->getConexionBd();
 
             // Consulta SQL para obtener los ingredientes
-            $query = "SELECT id, nombre FROM ingredientes"; // Asegurar que 'id' también se obtiene
+            $query = "SELECT id, Nombre FROM ingredientes"; // Asegurar que 'id' también se obtiene
 
             // Se prepara la consulta
             $stmt = $conn->prepare($query);
@@ -57,7 +60,7 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
                 {
                     $ingredientes[] = [
                         "id" => $row['id'],
-                        "nombre" => $row['nombre']
+                        "nombre" => $row['Nombre']
                     ];
                 }
             }

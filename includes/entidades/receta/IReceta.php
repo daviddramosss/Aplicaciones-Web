@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\receta;
 // Interfaz IReceta que define los métodos básicos que cualquier clase que implemente esta interfaz debe tener
 interface IReceta
 {

@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\ingredienteReceta;
 // Clase que representa un objeto Data Transfer Object (DTO) para Ingredientes en una receta
 class ingredienteRecetaDTO
 {

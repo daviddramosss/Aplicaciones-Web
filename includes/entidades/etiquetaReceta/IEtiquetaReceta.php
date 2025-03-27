@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\etiquetaReceta;
 /**
  * Interfaz IEtiquetaReceta
  * Define los métodos que deben implementar las clases encargadas de gestionar la relación entre recetas y etiquetas en la base de datos.
