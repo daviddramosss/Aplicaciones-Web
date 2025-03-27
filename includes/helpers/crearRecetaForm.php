@@ -2,8 +2,7 @@
 
 namespace es\ucm\fdi\aw\helpers;
 
-use es\ucm\fdi\aw\entidades\receta\recetaAppService;
-use es\ucm\fdi\aw\entidades\receta\recetaDTO;
+use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
 use es\ucm\fdi\aw\comun\formularioBase;
 use es\ucm\fdi\aw\application;
 // include_once __DIR__ . '/../comun/formularioBase.php';

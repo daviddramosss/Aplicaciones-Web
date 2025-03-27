@@ -3,6 +3,7 @@
 namespace es\ucm\fdi\aw\entidades\ingredienteReceta;
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
+use Exception;
 // require_once("IIngredienteReceta.php");
 // require_once("ingredienteRecetaDTO.php");
 // require_once(__DIR__ . "/../../comun/baseDAO.php");
