@@ -1,7 +1,10 @@
 <?php
 
-include __DIR__ . "/../comun/formularioBase.php";
-include __DIR__ . "/../entidades/usuario/userAppService.php";
+namespace es\ucm\fdi\aw\helpers;
+use es\ucm\fdi\aw\entidades\usuario\userAppService;
+use es\ucm\fdi\aw\comun\formularioBase;
+// include __DIR__ . "/../comun/formularioBase.php";
+// include __DIR__ . "/../entidades/usuario/userAppService.php";
 
 // archivo en el que encontramos el formulario de registro
 
@@ -111,5 +114,12 @@ class registerForm extends formularioBase
         }
         // devolvemos o bien los errores, o bien la pantalla de inicio
         return $result;
+    }
+
+    protected function Heading()
+    {
+        $html = '<h1>Registrar nuevo usuario</h1>';
+        $html .= '<div> <img src="img/LogoRegistro.png" alt="LogoRegistro" style="width: 150px; height: auto;"> </div>';
+        return $html;
     }
 }

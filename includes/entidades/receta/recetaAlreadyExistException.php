@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\receta;
 // Definición de una excepción personalizada llamada recetaAlreadyExistException
 class recetaAlreadyExistException extends Exception
 {

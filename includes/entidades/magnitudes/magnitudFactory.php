@@ -1,6 +1,7 @@
 <?php
 
-require("magnitudDAO.php");
+namespace es\ucm\fdi\aw\entidades\magnitudes;
+// require("magnitudDAO.php");
 
 class magnitudFactory
 {

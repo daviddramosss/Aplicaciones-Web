@@ -1,6 +1,8 @@
 <?php
 
-include_once("entidades/usuario/userAppService.php");
+namespace es\ucm\fdi\aw;
+use es\ucm\fdi\aw\entidades\usuario\userAppService;
+use mysqli; // Importamos la clase mysqli que no está en nuestro namespace
 
 class application
 {

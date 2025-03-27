@@ -1,5 +1,8 @@
 <?php
 
+namespace es\ucm\fdi\aw\comun;
+use es\ucm\fdi\aw\application;
+
 abstract class baseDAO 
  {
     public function __construct()

@@ -1,5 +1,6 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\usuario;
 //userDTO permite crear instancias de usuarios que NO se conectan directamente a la BBDD
 //Permiten agrupar datos en instancias de usuario para enviarlo a funciones como parámetros por ejemplo
 class userDTO

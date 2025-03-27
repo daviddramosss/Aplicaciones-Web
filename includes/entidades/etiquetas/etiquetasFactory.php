@@ -1,6 +1,7 @@
 <?php
 
-require("etiquetasDAO.php");
+namespace es\ucm\fdi\aw\entidades\etiquetas;
+// require("etiquetasDAO.php");
 
 class etiquetasFactory
 {

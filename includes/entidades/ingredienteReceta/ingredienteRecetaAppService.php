@@ -1,6 +1,7 @@
 <?php
 
-require_once("ingredienteRecetaFactory.php");
+namespace es\ucm\fdi\aw\entidades\ingredienteReceta;
+// require_once("ingredienteRecetaFactory.php");
 
 // Clase que actúa como servicio de aplicación para gestionar la relación entre ingredientes y recetas
 class IngredienteRecetaAppService

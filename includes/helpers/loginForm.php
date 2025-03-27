@@ -1,7 +1,9 @@
 <?php
 
-include __DIR__ . "/../comun/formularioBase.php";
-include_once __DIR__ . "/../entidades/usuario/userAppService.php";
+namespace es\ucm\fdi\aw\helpers;
+
+use es\ucm\fdi\aw\comun\formularioBase;
+use es\ucm\fdi\aw\entidades\usuario\{userDTO, userAppService};
 
 // archivo en el que encontramos el formulario de login
 
@@ -68,7 +70,7 @@ class loginForm extends formularioBase
         if (count($result) === 0) 
         {
             // creamos un usuario con el email y la contraseña pasados por el usuario
-            $userDTO = new userDTO(0, '', '', $email, '',$password, '', '');
+            $userDTO = new userDTO(0, '', '', $email, '',$password);
 
             // creamos la instancia de userAppService y llamamos a la función login
             $userAppService = userAppService::GetSingleton();
@@ -93,5 +95,10 @@ class loginForm extends formularioBase
         }
         // devolvemos el array con, o bien los errores, o bien la ruta a la que debemos redirigir al usuario
         return $result;
+    }
+    protected function Heading()
+    {
+        $html = '<h1>Inicio de sesión</h1>';
+        return $html;
     }
 }

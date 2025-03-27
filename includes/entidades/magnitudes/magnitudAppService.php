@@ -1,6 +1,7 @@
 <?php
 
-require_once("magnitudFactory.php");
+namespace es\ucm\fdi\aw\entidades\magnitudes;
+// require_once("magnitudFactory.php");
 
 class magnitudAppService
 {
@@ -55,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     header('Content-Type: application/json');
     
     // Se obtiene la lista de magnitudes desde el servicio
-    $magnitudes = IngredienteAppService::GetSingleton()->mostrarMagnitudes();
+    $magnitudes = MagnitudAppService::GetSingleton()->mostrarMagnitudes();
     
     // Se convierte el resultado a JSON y se envía como respuesta
     echo json_encode($magnitudes);

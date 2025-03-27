@@ -1,7 +1,9 @@
 <?php
 
 // Se incluye el archivo de la clase base 'formularioBase'
-include __DIR__ . '/../comun/formularioBase.php';
+namespace es\ucm\fdi\aw\helpers;
+use es\ucm\fdi\aw\comun\formularioBase;
+// include __DIR__ . '/../comun/formularioBase.php';
 
 // Definición de la clase 'despensaFormulario' que extiende de 'formularioBase', heredando su funcionalidad
 class despensaFormulario extends formularioBase
@@ -56,10 +58,18 @@ class despensaFormulario extends formularioBase
 
             <!-- Enlace al archivo JS específico para manejar interacciones y validaciones en el formulario -->
             <script src="JS/despensa.js"></script>
+            
         EOF;
 
         // Devuelve el HTML generado del formulario
         return $html;
+    }
+
+    protected function defineStyle()
+    {
+        $html = '<!-- Enlace al archivo CSS específico para el formulario de la despensa -->
+    <link rel="stylesheet" href="CSS/despensa.css">';
+    return $html;
     }
 }
 ?>

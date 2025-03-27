@@ -1,8 +1,11 @@
 <?php
 
-require_once("IEtiquetaReceta.php"); 
-require_once("etiquetaRecetaDTO.php"); 
-require_once(__DIR__ . "/../../comun/baseDAO.php"); 
+namespace es\ucm\fdi\aw\entidades\etiquetaReceta;
+// require_once("IEtiquetaReceta.php"); 
+// require_once("etiquetaRecetaDTO.php"); 
+use es\ucm\fdi\aw\comun\baseDAO;
+use es\ucm\fdi\aw\application;
+// require_once(__DIR__ . "/../../comun/baseDAO.php"); 
 
 /**
  * Clase que implementa la interfaz IEtiquetaReceta para gestionar etiquetas de recetas en la base de datos.
@@ -42,7 +45,7 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
             $etiqueta = $etiquetaRecetaDTO->getEtiqueta();
 
             // Asociar los parámetros a la consulta, especificando tipos ("i" para entero, "s" para string)
-            $stmt->bind_param("is", $recetaId, $etiqueta);
+            $stmt->bind_param("ii", $recetaId, $etiqueta);
 
             // Ejecutar la consulta y verificar si fue exitosa
             if ($stmt->execute())

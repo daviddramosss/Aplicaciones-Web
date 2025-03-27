@@ -1,7 +1,8 @@
 <?php
 
 require_once("../../config.php");
-require_once("ingredienteAppService.php");
+use es\ucm\fdi\aw\entidades\ingrediente\IngredienteAppService;
+// require_once("ingredienteAppService.php");
 
 // Obtenemos una instancia única (Singleton) del servicio de ingredientes
 $ingredienteService = IngredienteAppService::GetSingleton();

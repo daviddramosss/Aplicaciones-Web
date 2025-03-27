@@ -1,7 +1,8 @@
 <?php
 
 require_once("includes/config.php");
-require_once("includes/helpers/crearRecetaForm.php");
+use es\ucm\fdi\aw\helpers\crearRecetaForm;
+// require_once("includes/helpers/crearRecetaForm.php");
 
 // Se define el título de la página.
 $tituloPagina = 'Nueva Receta';
@@ -14,8 +15,7 @@ $htmlFormReceta = $form->Manage();
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-    <link rel="stylesheet" href="CSS/crearReceta.css">
-   
+       
     $htmlFormReceta
     
 EOS;

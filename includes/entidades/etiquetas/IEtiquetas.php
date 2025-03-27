@@ -1,7 +1,8 @@
 <?php
 
+namespace es\ucm\fdi\aw\entidades\etiquetas;
 
-interface IEtiqueta
+interface IEtiquetas
 {
     public function crearEtiqueta($etiquetaDTO);
 
@@ -9,7 +10,7 @@ interface IEtiqueta
 
     public function borrarEtiqueta($etiquetaDTO);
 
-    public function mostarEtiquetas();
+    public function mostrarEtiquetas();
 }
 
 ?>

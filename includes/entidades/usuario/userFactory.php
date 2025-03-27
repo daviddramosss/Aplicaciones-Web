@@ -1,6 +1,6 @@
 <?php
 
-require_once("userDAO.php");
+namespace es\ucm\fdi\aw\entidades\usuario;
 
 class userFactory
 {
