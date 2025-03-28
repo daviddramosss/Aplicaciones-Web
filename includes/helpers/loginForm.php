@@ -29,8 +29,14 @@ class loginForm extends formularioBase
         // Generación del HTML para el formulario
         $html = <<<EOF
             
-                <div class="input-container"><input type="text" name="email" placeholder="EMAIL" value="$email" required/></div>
-                <div class="input-container"><input type="password" name="password" placeholder="CONTRASEÑA" required/></div>
+                <div class="input-container">
+                <input type="text" name="email" placeholder="EMAIL" value="$email" required/>
+                </div>
+
+                <div class="input-container">
+                <input type="password" name="password" placeholder="CONTRASEÑA" required/>
+                </div>
+                
                 <button type="submit" class="send-button" name="login">ENTRAR</button>
         EOF;
 

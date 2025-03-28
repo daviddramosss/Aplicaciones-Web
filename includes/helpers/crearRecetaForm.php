@@ -29,14 +29,22 @@ class crearRecetaForm extends formularioBase
 
         // Generación del HTML para el formulario
         $html = <<<EOF
-                <div class="input-container"><input type="textarea" name="titulo" placeholder="TITULO" value="$titulo" required/></div>
+                <div class="input-container">
+                    <input type="textarea" name="titulo" placeholder="TITULO" value="$titulo" required/>
+                </div>
                 
-                <div class="input-container"><input type="textarea" name="descripcion" placeholder="DESCRIPCION" value="$descripcion" required/></div>
+                <div class="input-container">
+                    <input type="textarea" name="descripcion" placeholder="DESCRIPCION" value="$descripcion" required/>
+                </div>
                 
-                <div class="input-container"><input type="number" step ="0.1" name="precio" placeholder="PRECIO EN €" value="$precio" required/></div>
+                <div class="input-container">
+                    <input type="number" step ="0.1" name="precio" placeholder="PRECIO EN €" value="$precio" required/>
+                </div>
                 <p>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</p>
 
-                <div class="input-container"><input type="number" step ="1" name="tiempo" placeholder="TIEMPO DE ELABORACION EN MINUTOS" value="$tiempo" required/></div>
+                <div class="input-container">
+                    <input type="number" step ="1" name="tiempo" placeholder="TIEMPO DE ELABORACION EN MINUTOS" value="$tiempo" required/>
+                </div>
 
                 <!-- Sección de ingredientes -->
                 <h2>Ingredientes</h2> 
