@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+require_once("includes/config.php");
 use es\ucm\fdi\aw\helpers\registerForm;
 // include("includes/helpers/registerForm.php");
 
