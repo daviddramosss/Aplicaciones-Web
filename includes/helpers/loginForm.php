@@ -30,8 +30,10 @@ class loginForm extends formularioBase
         $html = <<<EOF
             <fieldset>
                 <legend>Usuario y contraseña</legend>
-                <p><label>Email:</label> <input type="text" name="email" value="$email" required/></p>
-                <p><label>Password:</label> <input type="password" name="password" required /></p>
+                <div class="input-container"><input type="text" name="email" placeholder="EMAIL" value="$email" required/></div>
+                <p> </p>
+                <div class="input-container"><input type="password" name="password" placeholder="CONTRASEÑA" required/></div>
+
                 <button type="submit" name="login">Entrar</button>
             </fieldset>
         EOF;
