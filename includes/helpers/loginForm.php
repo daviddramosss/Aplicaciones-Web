@@ -32,7 +32,6 @@ class loginForm extends formularioBase
                 <div class="input-container"><input type="text" name="email" placeholder="EMAIL" value="$email" required/></div>
                 <div class="input-container"><input type="password" name="password" placeholder="CONTRASEÑA" required/></div>
                 <button type="submit" class="send-button" name="login">ENTRAR</button>
-            </fieldset>
         EOF;
 
         return $html;
