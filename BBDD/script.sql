@@ -106,6 +106,7 @@ CREATE TABLE `recetas` (
  `Precio` double NOT NULL,
  `Fecha_Creacion` timestamp NOT NULL DEFAULT current_timestamp(),
  `Valoracion` double DEFAULT NULL,
+  `Ruta` varchar(100) NOT NULL,
  PRIMARY KEY (`ID`),
  KEY `fk_recetas_autor` (`Autor`),
  CONSTRAINT `fk_recetas_autor` FOREIGN KEY (`Autor`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
