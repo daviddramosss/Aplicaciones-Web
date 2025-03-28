@@ -29,15 +29,14 @@ class crearRecetaForm extends formularioBase
 
         // Generación del HTML para el formulario
         $html = <<<EOF
-            <fieldset>                
-                <p><label>Título:</label> <input type="text" name="titulo" value="$titulo" required/></p>
+                <div class="input-container"><input type="textarea" name="titulo" placeholder="TITULO" value="$titulo" required/></div>
                 
-                <p><label>Descripción:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
+                <div class="input-container"><input type="textarea" name="descripcion" placeholder="DESCRIPCION" value="$descripcion" required/></div>
                 
-                <p><label>Precio Final:</label> <input type="number" step="0.1" name="precio" value="$precio" required/> <label>€</label></p>
-                <p><label>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</label></p>
+                <div class="input-container"><input type="number" step ="0.1" name="precio" placeholder="PRECIO EN €" value="$precio" required/></div>
+                <p>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</p>
 
-                <p><label>Tiempo de elaboración:</label> <input type="number" step="1" name="tiempo" value="$tiempo" required/> minutos</p>
+                <div class="input-container"><input type="number" step ="1" name="tiempo" placeholder="TIEMPO DE ELABORACION EN MINUTOS" value="$tiempo" required/></div>
 
                 <!-- Sección de ingredientes -->
                 <h2>Ingredientes</h2> 
@@ -50,10 +49,10 @@ class crearRecetaForm extends formularioBase
                 <div id="stepsContainer">
                     <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
                 </div>
-                <p>
-                    <button type="button" class="btn-verde" id="addStep">+ Añadir paso</button>
-                    <button type="button" class="btn-rojo" id="removeStep">- Eliminar paso</button>
-                </p>
+
+                <button type="button" class="send-button" id="addStep">+ AÑADIR PASO</button>
+                <button type="button" class="send-button" id="removeStep">- ELIMINAR PASO</button>
+                
                 
                 <!-- Sección de etiquetas -->
                 <h2>Etiquetas</h2>
@@ -66,8 +65,6 @@ class crearRecetaForm extends formularioBase
                 <!-- Campo oculto para almacenar las etiquetas seleccionadas -->
                 <input type="hidden" name="etiquetas" id="etiquetasSeleccionadas" value="">
 
-                <div id="tagsContainer"></div>
-
                 <!-- Sección de imagen -->
                 <h2>Imagen de la receta</h2>
                 <p><label>Sube una imagen de tu receta:</label> 
@@ -76,8 +73,8 @@ class crearRecetaForm extends formularioBase
 
                 <!-- Botones de acción -->
                 <p>
-                    <button type="button" class="btn-rojo" onclick="location.href='index.php'">Cancelar</button>
-                    <button type="submit" class="btn-verde" name="guardar">Guardar</button>
+                    <button type="button" class="send-button" onclick="location.href='index.php'">CANCELAR</button>
+                    <button type="submit" class="send-button" name="guardar">GUARDAR</button>
                 </p>
             </fieldset>
 
@@ -140,7 +137,7 @@ class crearRecetaForm extends formularioBase
                 $recetaService = recetaAppService::GetSingleton();
 
                 // Llamada al servicio para crear la receta
-                $recetaCreadaDTO = $recetaService->crearReceta($recetaDTO, $ingredientes, $etiquetas);        
+                $recetaService->crearReceta($recetaDTO, $ingredientes, $etiquetas);        
 
                 // Redireccionar a la página principal si todo fue correcto
                 $result = 'confirmacionRecetaCreada.php';
