@@ -243,6 +243,10 @@ h1 {
     margin-top: 20px;
 }
 
+h2 {
+    font-size: 1,3em;
+}
+
 p {
     color: #666;
 }
@@ -290,6 +294,96 @@ textarea {
     cursor: pointer;
 }
 
+/* #endregion */
+
+/* #region INGREDIENTES */
+/* Contenedor de ingredientes y pasos */
+#ingredientContainer, #stepsContainer, #tagsContainer {
+    background: #eef2f5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Centrando los botones de ingredientes */
+.ingredientes-container {
+    text-align: center;
+}
+
+/* Estilo de las cajas de ingredientes con cantidad magnitud... NECESARIO */
+.ingrediente-item {
+    display: grid;
+    grid-template-columns: auto 1fr 2fr 1fr; /* Checkbox - Nombre - Cantidad - Magnitud */
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    background-color: #f8f9fa;
+}
+
+.ingrediente-check {
+    width: 20px;
+    height: 20px;
+}
+
+.ingrediente-label {
+    white-space: nowrap; /* Evita que el nombre del ingrediente se divida en varias líneas */
+}
+
+.ingrediente-cantidad {
+    height: 35px; /* Mantiene altura uniforme */
+    width: 100%; /* Se expande dentro del grid */
+    padding: 5px;
+    font-size: 16px;
+}
+
+.ingrediente-magnitud {
+    height: 35px; /* Igual altura que el input de cantidad */
+    width: 100%; /* Se expande dentro del grid */
+    font-size: 16px;
+    padding: 5px;
+}
+
+/* Ajusta el tamaño de la caja de texto para ingredientes NECESARIO */
+#ingredientContainer {
+    max-height: 400px; /* Ajusta según el tamaño deseado */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+    border: 1px solid #ccc; /* Opcional, solo para visualizar los límites */
+    padding: 10px;
+    background: #fff;
+}
+/* #endregion */
+
+/* #region ETIQUETAS */
+
+/* Estilo para las etiquetas de las recetas NECESARIO*/
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid blue;
+    color: blue;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tag:hover {
+    background-color: blue;
+    color: white;
+}
+
+
+.tag.selected {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+}
 /* #endregion */
 
 /* #region PIE */
