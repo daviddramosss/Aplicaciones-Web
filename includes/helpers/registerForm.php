@@ -34,13 +34,27 @@ class registerForm extends formularioBase
 
         // Generación del HTML para el formulario
         $html = <<<EOF
-            <div class="input-container"><input type="text" name="nombreUsuario" placeholder="NOMBRE" value="$nombreUsuario" required/></div>
-            <div class="input-container"><input type="text" name="apellidosUsuario" placeholder="APELLIDOS" value="$apellidosUsuario" required/></div>
-            <div class="input-container"><input type="text" name="email" placeholder="EMAIL" value="$email" required/></div>
-            <div class="input-container"><input type="password" name="password" placeholder="CONTRASEÑA" required/></div>
-            <div class="input-container"><input type="password" name="rePassword" placeholder="REPETIR CONTRASEÑA" required/></div>
+            <div class="input-container">
+                <input type="text" name="nombreUsuario" placeholder="NOMBRE" value="$nombreUsuario" required/>
+            </div>
+            
+            <div class="input-container">
+                <input type="text" name="apellidosUsuario" placeholder="APELLIDOS" value="$apellidosUsuario" required/>
+            </div>
+            
+            <div class="input-container">
+                <input type="text" name="email" placeholder="EMAIL" value="$email" required/>
+            </div>
+            
+            <div class="input-container">
+                <input type="password" name="password" placeholder="CONTRASEÑA" required/>
+            </div>
+            
+            <div class="input-container">
+                <input type="password" name="rePassword" placeholder="REPETIR CONTRASEÑA" required/>
+            </div>
+            
             <button type="submit" class="send-button" name="register">REGISTRARSE</button>
-        </fieldset>
         EOF;
         return $html;
     }

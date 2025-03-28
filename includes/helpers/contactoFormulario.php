@@ -21,13 +21,19 @@ class contactoFormulario extends formularioBase
         <!-- Formulario que se enviará a 'procesarContacto.php' -->
         <form id="contactoFormulario" method="POST" action="procesarContacto.php">
             <!-- Campo para ingresar el nombre -->
-            <div class="input-container"><input type="text" name="nombre" placeholder="NOMBRE" required></div>
+            <div class="input-container">
+                <input type="text" name="nombre" placeholder="NOMBRE" required>
+            </div>
 
             <!-- Campo para ingresar el correo electrónico -->
-            <div class="input-container"><input type="email" name="correo" placeholder="EMAIL" required></div>
+            <div class="input-container">
+                <input type="email" name="correo" placeholder="EMAIL" required>
+            </div>
 
             <!-- Campo para ingresar el teléfono -->
-            <div class="input-container"><input type="tel" name="telefono" placeholder="TELÉFONO" required></div>
+            <div class="input-container">
+                <input type="tel" name="telefono" placeholder="TELÉFONO" required>
+            </div>
 
             <!-- Área de texto para ingresar el mensaje -->
             <div class="input-container">

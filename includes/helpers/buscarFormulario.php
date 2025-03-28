@@ -20,11 +20,11 @@ class buscarFormulario extends formularioBase
         // Generación del HTML para el formulario
         $html = <<<EOF
         <form id="buscarFormulario" method="POST" action="procesarBusqueda.php">
-            <div class="buscar-contenedor">
-
+            
                 <!-- Campo de búsqueda -->
-                <label for="buscarPlato">Buscar:</label>
-                <input type="text" id="buscarPlato" name="buscarPlato" placeholder="Escribe el nombre del plato...">
+                <div class="input-container">
+                    <input type="textarea" id="buscarPlato" name="buscarPlato" placeholder="ESCRIBE EL NOMBRE DEL PLATO" required>
+                </div>
 
                 <!-- Selector para ordenar resultados -->
                 <label for="ordenar">Ordenar por:</label>
