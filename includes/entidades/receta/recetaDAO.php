@@ -45,16 +45,16 @@ class recetaDAO extends baseDAO implements IReceta
         $stmt->execute();
 
         // Declara las variables donde se almacenarán los resultados
-        $Id = $Nombre = $Autor = $Descripcion = $Pasos = $Tiempo = $Precio = $Fecha_Creacion = $Valoracion = null;
+        $Id = $Nombre = $Autor = $Descripcion = $Pasos = $Tiempo = $Precio = $Fecha_Creacion = $Valoracion = $ruta = null ;
 
         // Asocia las columnas de la consulta con las variables PHP
-        $stmt->bind_result($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion);
+        $stmt->bind_result($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion, $ruta);
 
         // Si se encontró la receta
         if ($stmt->fetch())
         {
             // Crea un objeto recetaDTO con los datos obtenidos
-            $receta = new recetaDTO($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion);
+            $receta = new recetaDTO($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion, $ruta);
 
             // Cierra la declaración
             $stmt->close();
@@ -78,7 +78,7 @@ class recetaDAO extends baseDAO implements IReceta
             $conn = application::getInstance()->getConexionBd();
 
             // Prepara la consulta SQL para insertar una receta
-            $query = "INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Fecha_Creacion, Valoracion) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Fecha_Creacion, Valoracion, Ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             // Prepara la declaración SQL
             $stmt = $conn->prepare($query);
@@ -98,9 +98,10 @@ class recetaDAO extends baseDAO implements IReceta
             $precio = $recetaDTO->getPrecio();
             $fechaCreacion = $recetaDTO->getFechaCreacion(); 
             $valoracion = $recetaDTO->getValoracion();
+            $ruta = $recetaDTO->getRuta();
 
             // Asocia los parámetros de la consulta con los valores obtenidos
-            $stmt->bind_param("sissidsd", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
+            $stmt->bind_param("sissidsds", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $ruta);
 
             // Si la consulta se ejecuta correctamente
             if ($stmt->execute())
@@ -109,7 +110,7 @@ class recetaDAO extends baseDAO implements IReceta
                 $id = $conn->insert_id;
 
                 // Crea un DTO de receta con los datos insertados
-                $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion);
+                $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $ruta);
                     
                 // Retorna el DTO de la receta creada
                 return $createdRecetaDTO;
@@ -142,7 +143,7 @@ class recetaDAO extends baseDAO implements IReceta
             $conn = application::getInstance()->getConexionBd();
 
             // Prepara la consulta SQL para actualizar la receta
-            $query = "UPDATE recetas SET Nombre = ?, Autor = ?, Descripcion = ?, Pasos = ?, Tiempo = ?, Precio = ?, Fecha_Creacion = ?, Valoracion = ? WHERE Id = ?";
+            $query = "UPDATE recetas SET Nombre = ?, Autor = ?, Descripcion = ?, Pasos = ?, Tiempo = ?, Precio = ?, Fecha_Creacion = ?, Valoracion = ?, Ruta = ?WHERE Id = ?";
 
             // Prepara la declaración SQL
             $stmt = $conn->prepare($query);
@@ -162,13 +163,14 @@ class recetaDAO extends baseDAO implements IReceta
                 $precio = $recetaDTO->getPrecio();
                 $fechaCreacion = $recetaDTO->getFechaCreacion();
                 $valoracion = $recetaDTO->getValoracion();
+                $ruta = $recetaDTO->getRuta();
 
                 // Asocia los parámetros de la consulta con los valores obtenidos
-                $stmt->bind_param("sissidsdi", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $id);
+                $stmt->bind_param("sissidsdsi", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $ruta, $id);
 
                 // Si la consulta se ejecuta correctamente, crea el DTO de la receta editada
                 if ($stmt->execute()) {
-                    $editedRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, json_decode($pasos, true), $tiempo, $precio, $fechaCreacion, $valoracion);
+                    $editedRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, json_decode($pasos, true), $tiempo, $precio, $fechaCreacion, $valoracion, $ruta);
                 }
             }
 

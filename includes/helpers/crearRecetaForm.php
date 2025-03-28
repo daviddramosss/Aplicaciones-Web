@@ -109,14 +109,8 @@ class crearRecetaForm extends formularioBase
         $tiempo = floatval($datos['tiempo'] ?? 0);
         $ingredientes = $datos['ingredientes'] ?? [];
         $pasos = $datos['steps'] ?? [];
-
-        // Int
         $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', $datos['etiquetas'])) : [];
-
-
-        // String
-        //$etiquetas = isset($datos['etiquetas']) ? explode(',', $datos['etiquetas']) : [];
-
+        $imagenGuardada = $this->procesarImagen();
 
         // Validaciones de datos obligatorios
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
@@ -130,9 +124,6 @@ class crearRecetaForm extends formularioBase
         if (!is_array($pasos) || count($pasos) === 0) {
             $result[] = "Error: La receta debe tener al menos un paso.";
         }
-
-        // Procesar la imagen
-        $imagenGuardada = $this->procesarImagen();
         if ($imagenGuardada === null) {
             $result[] = "Error: La imagen subida no es válida.";
         }
@@ -143,7 +134,7 @@ class crearRecetaForm extends formularioBase
             try
             {
                 // Crear el objeto DTO de receta con los datos ingresados
-                $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, 0);
+                $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, 0, $imagenGuardada);
 
                 // Instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
@@ -172,33 +163,45 @@ class crearRecetaForm extends formularioBase
 
     private function procesarImagen()
     {
-        if (!isset($_FILES['imagenReceta']) || $_FILES['imagenReceta']['error'] !== UPLOAD_ERR_OK) {
-            return null; // No se subió imagen o hubo un error
+        // Si no se ha subido ninguna imagen, asignamos la imagen por defecto
+        if (!isset($_FILES['imagenReceta']) || $_FILES['imagenReceta']['error'] === UPLOAD_ERR_NO_FILE) {
+            return "recetaDefault.jpeg";
         }
-
+    
+        // Comprobar si hubo un error al subir la imagen
+        if ($_FILES['imagenReceta']['error'] !== UPLOAD_ERR_OK) {
+            return null; // Error en la subida
+        }
+    
         $imagenTmp = $_FILES['imagenReceta']['tmp_name'];
         $nombreOriginal = $_FILES['imagenReceta']['name'];
-        
-        // Generar un nombre único para evitar duplicados
+    
+        // Obtener la extensión del archivo
         $extension = strtolower(pathinfo($nombreOriginal, PATHINFO_EXTENSION));
-        $nombreImagen = uniqid("receta_") . "." . $extension;
-        
-        $directorioDestino = dirname(dirname(__DIR__)) . "/img/receta/";
-
+    
         // Validar formato de imagen (solo JPG, PNG, GIF)
         $formatosPermitidos = ['jpg', 'jpeg', 'png', 'gif'];
         if (!in_array($extension, $formatosPermitidos)) {
             return null; // Formato no permitido
         }
-
-        // Guardar la imagen en el servidor
+    
+        // Generar un nombre único para evitar duplicados
+        $nombreImagen = uniqid("receta_") . "." . $extension;
+    
+        // Definir la ruta de destino
+        $directorioDestino = dirname(dirname(__DIR__)) . "/img/receta/";
+    
+        // Ruta completa donde se guardará la imagen
         $rutaFinal = $directorioDestino . $nombreImagen;
+    
+        // Guardar la imagen en el servidor
         if (!move_uploaded_file($imagenTmp, $rutaFinal)) {
             return null; // Error al guardar la imagen
         }
-
+    
         return $nombreImagen; // Devolver el nombre de la imagen guardada
     }
+    
 
 
 }

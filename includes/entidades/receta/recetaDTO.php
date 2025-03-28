@@ -17,9 +17,11 @@ class recetaDTO
     private $precio;
     private $fecha_creacion;
     private $valoracion;
+    private $ruta;
+
 
     //Constructor de la clase recetaDTO
-    public function __construct($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, $valoracion)
+    public function __construct($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, $valoracion, $ruta)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -30,6 +32,7 @@ class recetaDTO
         $this->precio = $precio;
         $this->fecha_creacion = $fecha_creacion;
         $this->valoracion = $valoracion;
+        $this->ruta = $ruta;
     }
 
     // Métodos GET para obtener los valores de las propiedades
@@ -76,6 +79,11 @@ class recetaDTO
     public function getValoracion()
     {
         return $this->valoracion;
+    }
+
+    public function getRuta()
+    {
+        return $this->ruta;
     }
 }
 
