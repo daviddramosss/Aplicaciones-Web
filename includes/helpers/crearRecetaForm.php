@@ -50,8 +50,10 @@ class crearRecetaForm extends formularioBase
                 <div id="stepsContainer">
                     <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
                 </div>
-                <button type="button" class="btn-verde" id="addStep">+ Añadir paso</button>
-                <button type="button" class="btn-rojo" id="removeStep">- Eliminar paso</button>
+                <p>
+                    <button type="button" class="btn-verde" id="addStep">+ Añadir paso</button>
+                    <button type="button" class="btn-rojo" id="removeStep">- Eliminar paso</button>
+                </p>
                 
                 <!-- Sección de etiquetas -->
                 <h2>Etiquetas</h2>
@@ -168,12 +170,6 @@ class crearRecetaForm extends formularioBase
         return $html;
     }
 
-    protected function defineStyle()
-    {
-        $html= '<link rel="stylesheet" href="CSS/crearReceta.css">';
-        return $html;
-    }
-
     private function procesarImagen()
     {
         if (!isset($_FILES['imagenReceta']) || $_FILES['imagenReceta']['error'] !== UPLOAD_ERR_OK) {
@@ -187,7 +183,7 @@ class crearRecetaForm extends formularioBase
         $extension = strtolower(pathinfo($nombreOriginal, PATHINFO_EXTENSION));
         $nombreImagen = uniqid("receta_") . "." . $extension;
         
-        $directorioDestino = __DIR__ . "/img/";
+        $directorioDestino = dirname(dirname(__DIR__)) . "/img/receta/";
 
         // Validar formato de imagen (solo JPG, PNG, GIF)
         $formatosPermitidos = ['jpg', 'jpeg', 'png', 'gif'];
