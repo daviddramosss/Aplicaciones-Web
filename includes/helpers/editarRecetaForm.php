@@ -62,10 +62,24 @@ class editarRecetaForm extends formularioBase
         $descripcion = filter_var(trim($datos['descripcion'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $precio = floatval($datos['precio'] ?? 0);
         $tiempo = intval($datos['tiempo'] ?? 0);
+        $ingredientes = $datos['ingredientes'] ?? [];
+        $pasos = $datos['steps'] ?? [];
+        $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', $datos['etiquetas'])) : [];
+        $imagenGuardada = $this->procesarImagen();
 
         // Validaciones
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
             $result[] = "Error: Todos los campos son obligatorios y deben ser válidos.";
+        }
+        if (!is_array($ingredientes) || count($ingredientes) === 0) {
+            $result[] = "Error: Debes añadir al menos un ingrediente.";
+        }
+
+        if (!is_array($pasos) || count($pasos) === 0) {
+            $result[] = "Error: La receta debe tener al menos un paso.";
+        }
+        if ($imagenGuardada === null) {
+            $result[] = "Error: La imagen subida no es válida.";
         }
 
         // Si no hay errores, actualizar la receta
@@ -76,11 +90,13 @@ class editarRecetaForm extends formularioBase
                 // Crear un objeto DTO con los nuevos valores
                 $recetaDTO = new recetaDTO($this->receta->getId(), $titulo, $usuarioId, $descripcion, [], $tiempo, $precio, $this->receta->getFechaCreacion(), $this->receta->getValoracion(), $this->receta->getImagen());
 
-                // Obtener el servicio y actualizar la receta
+               // Instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
-                $recetaService->actualizarReceta($recetaDTO);
 
-                // Redirigir a la confirmación de actualización
+                // Llamada al servicio para editar la receta
+                $recetaService->editarReceta($recetaDTO);
+
+                // Redirigir a la confirmación de actualización si tuvo exito
                 $result = 'confirmacionRecetaEditada.php';
             }
             catch (Exception $e)
@@ -96,5 +112,10 @@ class editarRecetaForm extends formularioBase
     protected function Heading()
     {
         return '<h1>Editar Receta</h1>';
+    }
+
+    private function procesarImagen()
+    {
+        //A implementar. Comprobar si se ha subido una imagen y de ser asi asegurarse de que se suba bien
     }
 }
