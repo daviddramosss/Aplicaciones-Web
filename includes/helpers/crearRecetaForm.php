@@ -75,9 +75,11 @@ class crearRecetaForm extends formularioBase
 
                 <!-- Sección de imagen -->
                 <h2>Imagen de la receta</h2>
-                <p><label>Sube una imagen de tu receta:</label> 
-                    <input type="file" name="imagenReceta" accept="image/jpeg, image/png, image/gif" required/>
-                </p>
+                <p><label for="imagenReceta">Sube una imagen de tu receta:</label></p>
+                <input type="file" id="imagenReceta" name="imagenReceta" accept="image/jpeg, image/png, image/gif" required/>
+                <div id="previewContainer">
+                    <img id="previewImage" src="" alt="Vista previa de la imagen" style="display: none;"/>
+                </div>
 
                 <!-- Botones de acción -->
                 <p>
