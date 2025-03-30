@@ -35,8 +35,6 @@ class recetaDTO
         $this->ruta = $ruta;
     }
 
-    public 
-
     // Métodos GET para obtener los valores de las propiedades
     public function getId()
     {
