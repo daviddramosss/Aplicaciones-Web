@@ -5,6 +5,7 @@ namespace es\ucm\fdi\aw\helpers;
 use es\ucm\fdi\aw\application;
 use es\ucm\fdi\aw\entidades\usuario\userAppService;
 use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
+use es\ucm\fdi\aw\entidades\chef\{chefAppService, chefDTO};
 
 
 
@@ -45,16 +46,22 @@ class estrellaMichelinHelper {
 
             $recetasHTML = $this->mostrarRecetasChef();
 
+            $chefAppService = chefAppService::GetSingleton();
+            $chefDTO = $chefAppService->informacionChef($this->user);
+
             return <<<HTML
                 <link rel="stylesheet" href="CSS/index.css">
                 <h1> ¡Bienvenido a tu cocina Chef!</h1>
-                <p>Aqui debe ir el saldo:</p>
 
-                {$recetasHTML}
-
+                <p> Es un placer tenerte de vuelta, {$this->user->getNombre()}. Desde MarketChef estamos deseando de ver tus nuevas creaciones, para ello puedes usar la funcionalida de crear recetas.</p>
                 <div class="crear-receta-container">
                     <button type="button" class="send-button" onclick="location.href='crearReceta.php'">CREAR NUEVA RECETA</button>
                 </div>
+
+                <p> Además al hacer clic en cada uno de tus platos podrás editarlos o borrarlos de una manera sencilla.</p>               
+                {$recetasHTML}
+
+                <h2>Saldo acumulado hasta el momento: {$chefDTO->getSaldo()} €</h2>
 
             HTML;
         }
