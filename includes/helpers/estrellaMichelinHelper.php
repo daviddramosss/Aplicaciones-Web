@@ -53,7 +53,7 @@ class estrellaMichelinHelper {
                 {$recetasHTML}
 
                 <div class="crear-receta-container">
-                    <a href="crearReceta.php" class="boton-crear" id="botonCrearReceta">Crear Receta</a>
+                    <button type="button" class="send-button" onclick="location.href='crearReceta.php'">CREAR NUEVA RECETA</button>
                 </div>
 
             HTML;

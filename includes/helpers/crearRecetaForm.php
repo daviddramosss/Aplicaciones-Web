@@ -29,65 +29,64 @@ class crearRecetaForm extends formularioBase
 
         // Generación del HTML para el formulario
         $html = <<<EOF
-                <div class="input-container">
-                    <input type="textarea" name="titulo" placeholder="TITULO" value="$titulo" required/>
-                </div>
-                
-                <div class="input-container">
-                    <input type="textarea" name="descripcion" placeholder="DESCRIPCION" value="$descripcion" required/>
-                </div>
-                
-                <div class="input-container">
-                    <input type="number" step ="0.1" name="precio" placeholder="PRECIO EN €" value="$precio" required/>
-                </div>
-                <p>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</p>
+            <div class="input-container">
+                <input type="textarea" name="titulo" placeholder="TITULO" value="$titulo" required/>
+            </div>
+            
+            <div class="input-container">
+                <input type="textarea" name="descripcion" placeholder="DESCRIPCION" value="$descripcion" required/>
+            </div>
+            
+            <div class="input-container">
+                <input type="number" step ="0.1" name="precio" placeholder="PRECIO EN €" value="$precio" required/>
+            </div>
+            <p>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</p>
 
-                <div class="input-container">
-                    <input type="number" step ="1" name="tiempo" placeholder="TIEMPO DE ELABORACION EN MINUTOS" value="$tiempo" required/>
-                </div>
+            <div class="input-container">
+                <input type="number" step ="1" name="tiempo" placeholder="TIEMPO DE ELABORACION EN MINUTOS" value="$tiempo" required/>
+            </div>
 
-                <!-- Sección de ingredientes -->
-                <h2>Ingredientes</h2> 
-                <div id="ingredientContainer">
-                    <!-- Los ingredientes se insertarán dinámicamente con JavaScript -->
-                </div>
+            <!-- Sección de ingredientes -->
+            <h2>Ingredientes</h2> 
+            <div id="ingredientContainer">
+                <!-- Los ingredientes se insertarán dinámicamente con JavaScript -->
+            </div>
 
-                <!-- Sección de pasos -->
-                <h2>Pasos para elaborar la receta</h2>
-                <div id="stepsContainer">
-                    <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
-                </div>
+            <!-- Sección de pasos -->
+            <h2>Pasos para elaborar la receta</h2>
+            <div id="stepsContainer">
+                <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
+            </div>
 
-                <button type="button" class="send-button" id="addStep">+ AÑADIR PASO</button>
-                <button type="button" class="send-button" id="removeStep">- ELIMINAR PASO</button>
-                
-                
-                <!-- Sección de etiquetas -->
-                <h2>Etiquetas</h2>
-                <p>Añade etiquetas para recomendar tu receta: (Máximo 3)</p>
+            <button type="button" class="send-button" id="addStep">+ AÑADIR PASO</button>
+            <button type="button" class="send-button" id="removeStep">- ELIMINAR PASO</button>
+            
+            
+            <!-- Sección de etiquetas -->
+            <h2>Etiquetas</h2>
+            <p>Añade etiquetas para recomendar tu receta: (Máximo 3)</p>
 
-                <div id="tagsContainer" class="tags-container">
-                    <!-- Aquí se insertarán dinámicamente las etiquetas -->
-                </div>
+            <div id="tagsContainer" class="tags-container">
+                <!-- Aquí se insertarán dinámicamente las etiquetas -->
+            </div>
 
-                <!-- Campo oculto para almacenar las etiquetas seleccionadas -->
-                <input type="hidden" name="etiquetas" id="etiquetasSeleccionadas" value="">
+            <!-- Campo oculto para almacenar las etiquetas seleccionadas -->
+            <input type="hidden" name="etiquetas" id="etiquetasSeleccionadas" value="">
 
-                <!-- Sección de imagen -->
-                <h2>Imagen de la receta</h2>
-                <p><label for="imagenReceta">Sube una imagen de tu receta. Si no sube ninguna imagen, se usara la imagen por defecto.</label></p>
-                <input type="file" id="imagenReceta" name="imagenReceta" accept="image/jpeg, image/png, image/gif"/>
+            <!-- Sección de imagen -->
+            <h2>Imagen de la receta</h2>
+            <p><label for="imagenReceta">Sube una imagen de tu receta. Si no sube ninguna imagen, se usara la imagen por defecto.</label></p>
+            <input type="file" id="imagenReceta" name="imagenReceta" accept="image/jpeg, image/png, image/gif"/>
 
-                <div id="previewContainer">
-                    <img id="previewImage" src="" alt="Vista previa de la imagen" style="display: none;"/>
-                </div>
+            <div id="previewContainer">
+                <img id="previewImage" src="" alt="Vista previa de la imagen" style="display: none;"/>
+            </div>
 
-                <!-- Botones de acción -->
-                <p>
-                    <button type="button" class="send-button" onclick="location.href='index.php'">CANCELAR</button>
-                    <button type="submit" class="send-button" name="guardar">GUARDAR</button>
-                </p>
-            </fieldset>
+            <!-- Botones de acción -->
+            <p>
+                <button type="button" class="send-button" onclick="location.href='index.php'">CANCELAR</button>
+                <button type="submit" class="send-button" name="guardar">GUARDAR</button>
+            </p>
 
             <!-- Importación de scripts JavaScript -->
             <script src="js/crearReceta.js"></script>    
