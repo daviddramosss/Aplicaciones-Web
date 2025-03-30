@@ -5,8 +5,15 @@ use es\ucm\fdi\aw\helpers\editarRecetaForm;
 // Se define el título de la página.
 $tituloPagina = 'Editar Receta';
 
+// Obtener el ID de la receta desde la URL
+$recetaId = $_GET['id'] ?? null;
+
+if (!$recetaId) {
+    die("Error: No se especificó una receta válida.");
+}
+
 // Se instancia un objeto de la clase crearRecetaForm.
-$form = new editarRecetaForm();
+$form = new editarRecetaForm($recetaId);
 
 // Se genera el HTML del formulario llamando al método Manage().
 $htmlFormModReceta = $form->Manage();

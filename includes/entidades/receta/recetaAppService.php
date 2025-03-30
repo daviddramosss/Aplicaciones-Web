@@ -127,6 +127,14 @@ class recetaAppService
         return $deletedRecetaDTO;
     }
 
+    public function mostarRecetasPorAutor($userDTO){
+        $IRecetaDAO = recetaFactory::CreateReceta();
+
+        return $IRecetaDAO->mostarRecetasPorAutor($userDTO);
+        
+    }
+
+
 }
 
 ?>

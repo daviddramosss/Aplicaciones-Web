@@ -15,6 +15,8 @@ interface IReceta
    // Método para borrar una receta
    // Recibe un objeto recetaDTO que representa la receta a eliminar
    public function borrarReceta($recetaDTO);
+
+   public function mostarRecetasPorAutor($userDTO);
 }
 
 ?>
