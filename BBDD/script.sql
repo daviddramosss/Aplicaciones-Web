@@ -561,7 +561,7 @@ CREATE TABLE `magnitudes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
         -- Datos de la tabla magnitudes
-        INSERT INTO magnitudes (Nombre) VALUES
+    INSERT INTO magnitudes (Nombre) VALUES
         ('Gramos (g)'),
         ('Kilogramos (kg)'),
         ('Mililitros (ml)'),
