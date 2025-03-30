@@ -105,7 +105,7 @@ CREATE TABLE `recetas` (
 
 
 -- Recetas Precargadas
-INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Valoracion, Ruta) 
+INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Fecha_Creacion, Valoracion, Ruta) 
 VALUES
     ('Paella Valenciana', 
     3, 
@@ -119,6 +119,7 @@ VALUES
     ]', 
     60, 
     20.0,
+    '2022-07-15 14:25:30',
     4.8, 
     'paella_valenciana.jpg'),
 
@@ -134,6 +135,7 @@ VALUES
     ]', 
     20, 
     10.5, 
+    '2021-05-10 18:45:20',
     4.7, 
     'spaghetti_carbonara.jpg'),
 
@@ -149,6 +151,7 @@ VALUES
     ]', 
     45, 
     15.0, 
+    '2023-11-08 09:30:10',
     4.9, 
     'tacos_al_pastor.jpg'),
 
@@ -164,6 +167,7 @@ VALUES
     ]', 
     40, 
     25.0, 
+    '2020-02-20 12:15:45',
     4.6, 
     'sushi_de_salmon.jpg'),
 
@@ -179,6 +183,7 @@ VALUES
     ]', 
     25, 
     12.0, 
+    '2024-01-05 17:50:55',
     4.5, 
     'hamburguesa_clasica.jpg'),
 
@@ -193,7 +198,8 @@ VALUES
         "Servir con más queso y croutons."
     ]', 
     15, 
-    8.0, 
+    8.0,
+    '2019-09-25 07:10:30', 
     4.4, 
     'ensalada_cesar.jpg'),
 
@@ -210,6 +216,7 @@ VALUES
     ]', 
     50, 
     18.0, 
+    '2024-01-06 17:50:55',
     4.7, 
     'lasagna_bolognesa.jpg'),
 
@@ -225,6 +232,7 @@ VALUES
     ]', 
     35, 
     14.0, 
+    '2024-09-05 17:50:55',
     4.6, 
     'pollo_al_curry.jpg'),
 
@@ -240,6 +248,7 @@ VALUES
     ]', 
     45, 
     16.0, 
+    '2024-12-09 10:50:55',
     4.5, 
     'chili_con_carne.jpg'),
 
@@ -255,6 +264,7 @@ VALUES
     ]', 
     30, 
     13.5, 
+    '2025-01-01 17:50:55',
     4.8, 
     'ceviche_de_pescado.jpg'),
 
@@ -270,6 +280,7 @@ VALUES
     ]', 
     40, 
     17.0, 
+    '2024-01-25 07:50:55',
     4.7, 
     'risotto_de_champinones.jpg'),
 
@@ -285,6 +296,7 @@ VALUES
     ]', 
     25,
     9.5, 
+    '2024-01-05 00:50:55',
     4.6,
     'papas_a_la_huancaina.jpg'),
 
@@ -300,6 +312,7 @@ VALUES
     ]', 
     60, 
     22.0, 
+    '2024-01-05 17:50:55',
     4.8, 
     'goulash_hungaro.jpg'),
 
@@ -315,6 +328,7 @@ VALUES
     ]', 
     30, 
     10.0, 
+    '2024-01-05 17:50:55',
     4.5, 
     'sopa_de_tomate.jpg'),
 
@@ -330,6 +344,7 @@ VALUES
     ]', 
     50, 
     19.0, 
+    '2022-01-05 17:50:55',
     4.7, 
     'moussaka.jpg');
 
