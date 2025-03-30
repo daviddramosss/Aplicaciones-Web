@@ -14,7 +14,6 @@ class IndexHelper
     public function getRecetas()
     {
         $recetaAppService = recetaAppService::GetSingleton();
-        $helper = new estrellaMichelinHelper();
 
         $recetasFecha = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('fecha'), "Recetas más recientes", "swiper-fecha");
         $recetasEtiqueta = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('etiqueta_principal'), "Recetas por tipo de comida", "swiper-etiqueta");
