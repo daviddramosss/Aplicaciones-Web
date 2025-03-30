@@ -9,11 +9,11 @@ $tituloPagina = 'Borrar Receta';
 $form = new borrarRecetaForm();
 
 // Se genera el HTML del formulario llamando al método Manage().
-$htmlFormModReceta = $form->Manage();
+$htmlFormDelReceta = $form->Manage();
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-    $htmlFormModReceta
+    $htmlFormDelReceta
     
 EOS;
 
