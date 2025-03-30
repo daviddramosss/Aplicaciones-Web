@@ -7,6 +7,10 @@
     <title><?= $tituloPagina ?></title>
     <link rel="icon" href="img/Logo.png" type="image/png">
     <link rel="stylesheet" href="CSS/estiloGeneral.css">
+
+     <!-- Swiper CSS -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
 </head>
 <body>
 
@@ -20,6 +24,13 @@
     </main>
 
     <?php include 'pie.php'; ?>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    
+    <!-- Se incluye el archivo JavaScript específico para manejar las interacciones en la página de inicio -->
+    <script src="JS/index.js"></script>
 
 </body>
 </html>

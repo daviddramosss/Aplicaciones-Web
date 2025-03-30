@@ -471,4 +471,33 @@ textarea {
     font-weight: bold;
     margin-top: 10px;
 }
+
+
+
+/* Estilo del index */
+
+.swiper-container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden; /* Oculta los elementos que no deben mostrarse */
+}
+
+.swiper-container-wrapper {
+    position: relative;
+    width: 60%;
+    margin: 40px auto;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-controls {
+    padding-top: 20px;
+}
+
+
+
 /* #endregion */
