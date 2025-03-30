@@ -63,9 +63,11 @@ CREATE TABLE `usuarios` (
 
     -- Datos de la tabla usuarios
     INSERT INTO usuarios (Nombre, Apellidos, Email, Rol, Password) VALUES
-    ('usuario', 'ejemplo', 'usuario@marketchef.com', 'User', '$2y$10$wjhoam2JWbGg4I4NRGoJF.ZUsLITJlV05Vg9Jp6GUBMdOWAlCI7FO'),
-    ('admin', 'ejemplo', 'admin@marketchef.com', 'Admin', '$2y$10$aAfWpoA8/09hASfXru8j6.PUC1kHGzJyGW4KH.sMfVXg8Bs8RcNze'),
-    ('chef', 'ejemplo', 'chef@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu');
+    ('usuario', 'ejemplo', 'usuario@marketchef.com', 'User', '$2y$10$wjhoam2JWbGg4I4NRGoJF.ZUsLITJlV05Vg9Jp6GUBMdOWAlCI7FO'),       -- Contraseña: usuario
+    ('admin', 'ejemplo', 'admin@marketchef.com', 'Admin', '$2y$10$aAfWpoA8/09hASfXru8j6.PUC1kHGzJyGW4KH.sMfVXg8Bs8RcNze'),          -- Contraseña: admin
+    ('chef', 'ejemplo', 'chef@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu'),             -- Contraseña: chef
+    ('chef2', 'ejemplo', 'chef2@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu'),           -- Contraseña: chef
+    ('chef3', 'ejemplo', 'chef3@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu');           -- Contraseña: chef
 
 
 -- Tabla Chefs
@@ -80,22 +82,11 @@ CREATE TABLE `chefs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
     INSERT INTO chefs (Usuario, DNI, Cuenta_bancaria, Saldo) VALUES
-    (3, '12345678A', 'ES1234567890123456789012', 0);
+    (3, '12345678A', 'ES1234567890123456789012', 0),
+    (4, '23456789B', 'ES2345678901234567890123', 0),
+    (5, '34567890C', 'ES3456789012345678901234', 0);
 
 -- Tabla Recetas
-
-/*
-Cabe destacar que para añadir una nueva fila a esta tabla, debemos añadir los pasos en formato JSON, lo que significa que debe seguir este esquema:
-
-{
-    "1": "explicacion paso 1",
-    "2": "explicacion paso 2",
-    "...": "..."
-}
-
-todo dentro de las comillas que delimitan el valor de la columna pasos.
-
-*/
 CREATE TABLE `recetas` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
  `Nombre` varchar(100) NOT NULL,
@@ -113,6 +104,238 @@ CREATE TABLE `recetas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
+-- Recetas Precargadas
+INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Valoracion, Ruta) 
+VALUES
+    ('Paella Valenciana', 
+    3, 
+    'Clásico plato español a base de arroz, pollo, conejo y verduras.', 
+    '[
+        "Calentar el aceite en una paellera.",
+        "Dorar el pollo y el conejo.",
+        "Añadir las verduras y sofreír.",
+        "Incorporar el arroz y el caldo.",
+        "Cocinar a fuego medio hasta que el arroz esté en su punto."
+    ]', 
+    60, 
+    20.0,
+    4.8, 
+    'paella_valenciana.jpg'),
+
+    ('Spaghetti Carbonara', 
+    4,
+    'Pasta italiana con salsa cremosa de huevo, queso y panceta.', 
+    '[
+        "Cocer los spaghetti en agua con sal.",
+        "Saltear la panceta en una sartén.",
+        "Batir los huevos con el queso.",
+        "Mezclar la pasta caliente con la panceta y la salsa.",
+        "Servir con pimienta negra recién molida."
+    ]', 
+    20, 
+    10.5, 
+    4.7, 
+    'spaghetti_carbonara.jpg'),
+
+    ('Tacos al Pastor', 
+    5, 
+    'Tacos de cerdo marinados con achiote y piña.', 
+    '[
+        "Marinar la carne con achiote y especias.",
+        "Asar la carne en un trompo o sartén.",
+        "Cortar en trozos pequeños.",
+        "Servir en tortillas con piña y cebolla.",
+        "Acompañar con cilantro y salsa."
+    ]', 
+    45, 
+    15.0, 
+    4.9, 
+    'tacos_al_pastor.jpg'),
+
+    ('Sushi de Salmón', 
+    3, 
+    'Rollos de sushi rellenos de arroz y salmón fresco.', 
+    '[
+        "Lavar y cocinar el arroz de sushi.",
+        "Extender el arroz sobre una hoja de alga nori.",
+        "Añadir tiras de salmón y aguacate.",
+        "Enrollar y cortar en piezas.",
+        "Servir con salsa de soja y wasabi."
+    ]', 
+    40, 
+    25.0, 
+    4.6, 
+    'sushi_de_salmon.jpg'),
+
+    ('Hamburguesa Clásica', 
+    4, 
+    'Hamburguesa de ternera con queso, lechuga y tomate.', 
+    '[
+        "Formar las hamburguesas con carne molida.",
+        "Cocinar en una sartén o parrilla.",
+        "Tostar el pan de hamburguesa.",
+        "Montar con lechuga, tomate y queso.",
+        "Acompañar con papas fritas."
+    ]', 
+    25, 
+    12.0, 
+    4.5, 
+    'hamburguesa_clasica.jpg'),
+
+    ('Ensalada César', 
+    5, 
+    'Ensalada de lechuga, pollo, croutons y aderezo césar.', 
+    '[
+        "Lavar y cortar la lechuga.",
+        "Preparar el aderezo mezclando mayonesa, ajo y parmesano.",
+        "Saltear el pollo y cortarlo en tiras.",
+        "Mezclar todos los ingredientes en un bol.",
+        "Servir con más queso y croutons."
+    ]', 
+    15, 
+    8.0, 
+    4.4, 
+    'ensalada_cesar.jpg'),
+
+    ('Lasagna Bolognesa', 
+    3, 
+    'Capas de pasta con carne, 
+    tomate y bechamel gratinadas al horno.', 
+    '[
+        "Preparar la salsa bolognesa con carne y tomate.",
+        "Hacer la salsa bechamel.",
+        "Intercalar capas de pasta, salsa y queso.",
+        "Hornear a 180°C por 30 minutos.",
+        "Servir caliente con parmesano."
+    ]', 
+    50, 
+    18.0, 
+    4.7, 
+    'lasagna_bolognesa.jpg'),
+
+    ('Pollo al Curry', 
+    4, 
+    'Pollo en salsa de curry con leche de coco.', 
+    '[
+        "Cortar el pollo en trozos.",
+        "Saltear con cebolla y ajo.",
+        "Añadir la pasta de curry y leche de coco.",
+        "Cocinar a fuego lento hasta espesar.",
+        "Servir con arroz basmati."
+    ]', 
+    35, 
+    14.0, 
+    4.6, 
+    'pollo_al_curry.jpg'),
+
+    ('Chili con Carne', 
+    5, 
+    'Guiso picante de carne con frijoles y tomate.', 
+    '[
+        "Sofreír la carne con cebolla y ajo.",
+        "Añadir los frijoles y el tomate.",
+        "Incorporar el chile y especias.",
+        "Cocinar a fuego bajo por 40 minutos.",
+        "Servir caliente con nachos."
+    ]', 
+    45, 
+    16.0, 
+    4.5, 
+    'chili_con_carne.jpg'),
+
+    ('Ceviche de Pescado', 
+    3, 
+    'Pescado marinado en limón con cebolla y cilantro.', 
+    '[
+        "Cortar el pescado en cubos pequeños.",
+        "Marinar en jugo de limón por 30 minutos.",
+        "Añadir cebolla morada, ají y cilantro.",
+        "Dejar reposar en la nevera.",
+        "Servir frío con maíz tostado."
+    ]', 
+    30, 
+    13.5, 
+    4.8, 
+    'ceviche_de_pescado.jpg'),
+
+    ('Risotto de Champiñones', 
+    4, 
+    'Arroz cremoso cocinado con caldo y champiñones.', 
+    '[
+        "Sofreír cebolla y ajo en mantequilla.",
+        "Añadir el arroz y el vino blanco.",
+        "Incorporar caldo poco a poco.",
+        "Agregar los champiñones y cocinar.",
+        "Servir con queso parmesano."
+    ]', 
+    40, 
+    17.0, 
+    4.7, 
+    'risotto_de_champinones.jpg'),
+
+    ('Papas a la Huancaína', 
+    5, 
+    'Papas cocidas con salsa de ají amarillo y queso.', 
+    '[
+        "Cocer las papas en agua con sal.",
+        "Preparar la salsa licuando ají amarillo, queso y leche.",
+        "Cortar las papas en rodajas.",
+        "Servir con la salsa por encima.",
+        "Acompañar con huevo y aceitunas."
+    ]', 
+    25,
+    9.5, 
+    4.6,
+    'papas_a_la_huancaina.jpg'),
+
+    ('Goulash Húngaro', 
+    3, 
+    'Guiso de carne con pimentón y especias.', 
+    '[
+        "Cortar la carne en cubos.",
+        "Sofreír con cebolla y pimentón.",
+        "Añadir caldo y dejar cocinar lentamente.",
+        "Incorporar especias y papas.",
+        "Servir caliente con pan."
+    ]', 
+    60, 
+    22.0, 
+    4.8, 
+    'goulash_hungaro.jpg'),
+
+    ('Sopa de Tomate', 
+    4, 
+    'Sopa cremosa de tomate con albahaca.', 
+    '[
+        "Sofreír cebolla y ajo en aceite de oliva.",
+        "Añadir los tomates troceados.",
+        "Cocinar con caldo hasta ablandar.",
+        "Licuar y colar para obtener una crema suave.",
+        "Servir con albahaca y croutons."
+    ]', 
+    30, 
+    10.0, 
+    4.5, 
+    'sopa_de_tomate.jpg'),
+
+    ('Moussaka', 
+    5, 
+    'Plato griego de berenjena, carne y bechamel.', 
+    '[
+        "Cortar las berenjenas en rodajas y asarlas.",
+        "Preparar la carne con tomate y especias.",
+        "Montar en capas con bechamel.",
+        "Hornear a 180°C por 40 minutos.",
+        "Servir caliente con queso rallado."
+    ]', 
+    50, 
+    19.0, 
+    4.7, 
+    'moussaka.jpg');
+
+
+
+
 -- Tabla Ingredientes
 
 CREATE TABLE `ingredientes` (
@@ -125,213 +348,148 @@ CREATE TABLE `ingredientes` (
 
     -- Ingredientes precargados
 
-    INSERT INTO `ingredientes` (`Nombre`) VALUES
+    INSERT INTO ingredientes (Nombre) 
+    VALUES
 
-    -- Líquidos y Grasas
-        ("Agua"),
-        ("Aceite de oliva"),
-        ("Aceite de girasol"),
-        -- ("Aceite de coco"),
-        -- ("Aceite de sésamo"),
-        -- ("Aceite de aguacate"),
-        -- ("Aceite de nuez"),
-        ("Vinagre"),
-        -- ("Vinagre balsámico"),
-        ("Salsa de soja"),
+        -- Líquidos y Grasas
+        ("Agua"),               -- 1
+        ("Aceite de oliva"),    -- 2
+        ("Aceite de girasol"),  -- 3
+        ("Vinagre"),           -- 4
+        ("Salsa de soja"),     -- 5
 
-    -- Básicos y Condimentos
-        ("Sal"),
-        ("Azúcar"),
-        ("Azúcar moreno"),
-        ("Azúcar glas"),
-        ("Miel"),
-        ("Mostaza"),
-        -- ("Mostaza Dijon"),
-        ("Cacao en polvo"),
-        ("Chocolate con leche"),
-        ("Chocolate blanco"),
-        ("Chocolate negro"),
-        ("Huevo"),
-        -- ("Jarabe de arce"),
-        -- ("Sirope de agave"),
+        -- Básicos y Condimentos
+        ("Sal"),              -- 6            
+        ("Azúcar"),          -- 7         
+        ("Azúcar moreno"),   -- 8
+        ("Azúcar glas"),     -- 9
+        ("Miel"),           -- 10
+        ("Mostaza"),        -- 11
+        ("Cacao en polvo"), -- 12
+        ("Chocolate con leche"), -- 13
+        ("Chocolate blanco"), -- 14
+        ("Chocolate negro"), -- 15
+        ("Huevo"),         -- 16
 
-    -- Cereales y Harinas
-        ("Harina"),
-        -- ("Harina de trigo"),
-        -- ("Harina de maíz"),
-        -- ("Harina de almendra"),
-        -- ("Harina de arroz"),
-        -- ("Harina de avena"),
-        -- ("Harina integral"),
-        ("Avena"),
-        ("Cuscús"),
-        ("Quinoa"),
-        -- ("Sémola de trigo"),
-        -- ("Trigo sarraceno"),
+        -- Cereales y Harinas
+        ("Harina"),        -- 17
+        ("Avena"),        -- 18
+        ("Cuscús"),       -- 19
+        ("Quinoa"),       -- 20
+        ("Arroz"),        -- 21
+        ("Pasta"),        -- 22
+        ("Pan"),          -- 23
 
-    -- Lácteos y Derivados
-        ("Leche"),
-        ("Leche condensada"),
-        -- ("Leche evaporada"),
-        ("Yogur"),
-        ("Mantequilla"),
-        -- ("Margarina"),
-        ("Nata líquida"),
-        ("Crema agria"),
-        ("Queso"),
-        -- ("Queso azul"),
-        -- ("Queso feta"),
-        -- ("Queso ricotta"),
-        -- ("Queso parmesano"),
-        -- ("Queso gouda"),
-        -- ("Queso mozzarella"),
+        -- Lácteos y Derivados
+        ("Leche"),         -- 24
+        ("Leche condensada"), -- 25
+        ("Yogur"),         -- 26
+        ("Mantequilla"),   -- 27
+        ("Nata líquida"),  -- 28
+        ("Crema agria"),   -- 29
+        ("Queso"),         -- 30
 
-    -- Carnes y Embutidos
-        ("Ternera"),
-        -- ("Buey"),
-        ("Cerdo"),
-        ("Pollo"),
-        ("Cordero"),
-        ("Pavo"),
-        ("Conejo"),
-        -- ("Codorniz"),
-        -- ("Pato"),
-        ("Jamón"),
-        ("Bacon"),
-        ("Chorizo"),
-        ("Salchichón"),
-        ("Morcilla"),
-        -- ("Lomo de cerdo"),
-        -- ("Grasa de cerdo (manteca)"),
+        -- Carnes y Embutidos
+        ("Ternera"),       -- 31
+        ("Cerdo"),         -- 32
+        ("Pollo"),         -- 33
+        ("Cordero"),       -- 34
+        ("Pavo"),          -- 35
+        ("Conejo"),        -- 36
+        ("Jamón"),         -- 37
+        ("Bacon"),         -- 38
+        ("Chorizo"),       -- 39
+        ("Salchichón"),    -- 40
+        ("Morcilla"),      -- 41
+        
+        -- Pescados y Mariscos
+        ("Salmón"),        -- 42
+        ("Atún"),          -- 43
+        ("Gambas"),        -- 44
+        ("Langostinos"),   -- 45
+        ("Calamares"),     -- 46
+        ("Almejas"),       -- 47
+        ("Mejillones"),    -- 48
+        ("Merluza"),       -- 49
+        ("Dorada"),        -- 50
+        ("Lubina"),        -- 51
+        ("Bacalao"),       -- 52
+        ("Pulpo"),         -- 53
+        ("Cangrejo"),      -- 54
 
-    -- Pescados y Mariscos
-        -- ("Pescado blanco"),
-        ("Salmón"),
-        ("Atún"),
-        ("Gambas"),
-        ("Langostinos"),
-        ("Calamares"),
-        ("Almejas"),
-        ("Mejillones"),
-        ("Merluza"),
-        ("Dorada"),
-        ("Lubina"),
-        ("Bacalao"),
-        -- ("Trucha"),
-        ("Pulpo"),
-        ("Cangrejo"),
-        -- ("Erizo de mar"),
-        -- ("Vieiras"),
+        -- Verduras y Hortalizas
+        ("Cebolla"),       -- 55
+        ("Ajo"),           -- 56
+        ("Tomate"),        -- 57
+        ("Zanahoria"),     -- 58
+        ("Patata"),        -- 59
+        ("Pimiento rojo"), -- 60
+        ("Pimiento verde"),-- 61
+        ("Pimiento amarillo"), -- 62
+        ("Champiñones"),   -- 63
+        ("Espinacas"),     -- 64
+        ("Lechuga"),       -- 65
+        ("Pepino"),        -- 66
+        ("Brócoli"),       -- 67
+        ("Coliflor"),      -- 68
+        ("Berenjena"),     -- 69
+        ("Calabacín"),     -- 70
+        ("Maíz"),          -- 71
+        ("Aguacate"),      -- 72
+        ("Alga nori"),     -- 73
 
-    -- Verduras y Hortalizas
-        ("Cebolla"),
-        ("Ajo"),
-        ("Tomate"),
-        ("Zanahoria"),
-        ("Patata"),
-        ("Pimiento rojo"),
-        ("Pimiento verde"),
-        ("Pimiento amarillo"),
-        ("Champiñones"),
-        ("Espinacas"),
-        ("Lechuga"),
-        ("Pepino"),
-        ("Brócoli"),
-        ("Coliflor"),
-        ("Berenjena"),
-        ("Calabacín"),
-        ("Maíz"),
-        -- ("Nabo"),
-        -- ("Rábanos"),
-        -- ("Remolacha"),
-        -- ("Endivias"),
-        -- ("Coles de Bruselas"),
-        -- ("Acelgas"),
-        -- ("Puerro"),
-        -- ("Hinojo"),
+        -- Legumbres
+        ("Lentejas"),      -- 74
+        ("Garbanzos"),     -- 75
+        ("Alubias"),       -- 76
+        ("Soja"),          -- 77
+        ("Guisantes"),     -- 78
 
-    -- Legumbres
-        ("Lentejas"),
-        ("Garbanzos"),
-        ("Alubias"),
-        ("Soja"),
-        ("Guisantes"),
-        -- ("Habas"),
-        -- ("Frijoles negros"),
+        -- Frutas
+        ("Manzana"),       -- 79
+        ("Pera"),          -- 80
+        ("Plátano"),       -- 81
+        ("Naranja"),       -- 82
+        ("Limón"),         -- 83
+        ("Fresas"),        -- 84
+        ("Cereza"),        -- 85
+        ("Mango"),         -- 86
+        ("Piña"),          -- 87
+        ("Uvas"),          -- 88
+        ("Melón"),         -- 89
+        ("Sandía"),        -- 90
 
-    -- Frutas
-        ("Manzana"),
-        ("Pera"),
-        ("Plátano"),
-        ("Naranja"),
-        ("Limón"),
-        ("Fresas"),
-        ("Cereza"),
-        ("Mango"),
-        ("Piña"),
-        ("Uvas"),
-        ("Melón"),
-        ("Sandía"),
-        -- ("Papaya"),
-        -- ("Kiwi"),
-        -- ("Maracuyá"),
-        -- ("Granada"),
-        -- ("Ciruela"),
-        -- ("Higos"),
-        -- ("Coco"),
+        -- Frutos Secos y Semillas
+        ("Nueces"),        -- 91
+        ("Almendras"),     -- 92
+        ("Avellanas"),     -- 93
+        ("Anacardos"),     -- 94
+        ("Pistachos"),     -- 95
+        ("Castañas"),      -- 96
 
-    -- Frutos Secos y Semillas
-        ("Nueces"),
-        ("Almendras"),
-        ("Avellanas"),
-        ("Anacardos"),
-        ("Pistachos"),
-        -- ("Semillas de lino"),
-        -- ("Semillas de chía"),
-        -- ("Semillas de girasol"),
-        -- ("Semillas de calabaza"),
-        ("Castañas"),
+        -- Especias y Condimentos
+        ("Pimienta negra"),-- 97
+        ("Orégano"),       -- 98
+        ("Tomillo"),       -- 99
+        ("Romero"),        -- 100
+        ("Perejil"),       -- 101
+        ("Cilantro"),      -- 102
+        ("Canela"),        -- 103
+        ("Jengibre"),      -- 104
+        ("Curry"),         -- 105
+        ("Pimentón"),      -- 106
+        ("Vainilla"),      -- 107
+        ("Nuez moscada"),  -- 108
 
-    -- Especias y Condimentos
-        ("Pimienta negra"),
-        -- ("Pimienta blanca"),
-        ("Orégano"),
-        ("Tomillo"),
-        ("Romero"),
-        ("Perejil"),
-        ("Cilantro"),
-        ("Canela"),
-        ("Jengibre"),
-        ("Curry"),
-        -- ("Curry rojo"),
-        -- ("Curry verde"),
-        -- ("Comino"),
-        ("Pimentón"),
-        -- ("Pimentón picante"),
-        ("Vainilla"),
-        -- ("Anís estrellado"),
-        ("Nuez moscada"),
-        -- ("Clavo de olor"),
-        -- ("Estragón"),
-        -- ("Albahaca"),
-        -- ("Eneldo"),
+        -- Salsas y Aderezos
+        ("Salsa barbacoa"),-- 109
+        ("Salsa teriyaki"),-- 110
 
-    -- Salsas y Aderezos
-        ("Salsa barbacoa"),
-        ("Salsa teriyaki"),
-        -- ("Salsa de ostras"),
-        -- ("Salsa de pescado"),
-        -- ("Salsa worcestershire"),
+        -- Bebidas y Otros
+        ("Vino blanco"),   -- 111
+        ("Vino tinto"),    -- 112
+        ("Cerveza");       -- 113
 
-    -- Bebidas y Otros
-        -- ("Café"),
-        -- ("Té verde"),
-        -- ("Té negro"),
-        -- ("Té de manzanilla"),
-        -- ("Ron"),
-        ("Vino blanco"),
-        ("Vino tinto"),
-        ("Cerveza");
 
 
 
@@ -346,24 +504,23 @@ CREATE TABLE `alergenos` (
 
     -- Datos de la tabla alérgenos
 
-        -- Aqui incluiremos los principales alérgenos que según la normativa europea deben declararse como mínimo, ordenados alfabéticamente.
-        -- Se pueden incluir muchos más, solo hay que añadirlos.
-        INSERT INTO alergenos (Nombre) VALUES
-        ('Altramuces'),
-        ('Apio'),
-        ('Cacahuetes'),
-        ('Crustáceos'),
-        ('Frutos secos'),
-        ('Gluten'),
-        ('Huevos'),
-        ('Lácteos'),
-        ('Moluscos'),
-        ('Mostaza'),
-        ('Pescado'),
-        ('Sésamo'),
-        ('Soja'),
-        ('Sulfitos');
-
+    -- Aqui incluiremos los principales alérgenos que según la normativa europea deben declararse como mínimo, ordenados alfabéticamente.
+    INSERT INTO alergenos (Nombre) 
+    VALUES
+        ("Altramuces"),     -- 1
+        ("Apio"),           -- 2
+        ("Cacahuetes"),     -- 3
+        ("Crustáceos"),     -- 4
+        ("Frutos secos"),   -- 5
+        ("Gluten"),         -- 6
+        ("Huevos"),         -- 7
+        ("Lácteos"),        -- 8
+        ("Moluscos"),       -- 9
+        ("Mostaza"),        -- 10
+        ("Pescado"),        -- 11
+        ("Sésamo"),         -- 12
+        ("Soja"),           -- 13
+        ("Sulfitos");       -- 14
 
 
 -- Tabla Valoraciones
@@ -409,23 +566,8 @@ CREATE TABLE `magnitudes` (
         ('Kilogramos (kg)'),
         ('Mililitros (ml)'),
         ('Litros (l)'),
-        -- ('Tazas'),
         ('Cucharada'),
-        -- ('Cucharaditas'),
-        -- ('Pizca'),
         ('Unidad');
-        -- ('Rebanada'),
-        -- ('Diente'),
-        -- ('Puñado'),
-        -- ('Chorro'),
-        -- ('Gota'),
-        -- ('Lata'),
-        -- ('Botella'),
-        -- ('Vaso'),
-        -- ('Copa'),
-        -- ('Onza'),
-        -- ('Libra');
-
 
 
 -- Tabla Receta_Ingrediente
@@ -433,7 +575,7 @@ CREATE TABLE `magnitudes` (
 CREATE TABLE `receta_ingrediente` (
  `Receta` int(11) NOT NULL,
  `Ingrediente` int(11) NOT NULL,
- `Cantidad` varchar(100) NOT NULL,
+ `Cantidad` double NOT NULL,
  `Magnitud` int(11) NOT NULL,
  KEY `fk_ri_receta` (`Receta`),
  KEY `fk_ri_ingrediente` (`Ingrediente`),
@@ -443,6 +585,94 @@ CREATE TABLE `receta_ingrediente` (
  CONSTRAINT `fk_ri_magnitud` FOREIGN KEY (`Magnitud`) REFERENCES `magnitudes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Datos de la tabla receta_ingrediente
+
+INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES
+   
+    -- Paella Valenciana (ID Receta: 1)
+    (1, 21, 300.0, 1),  -- Arroz (g)
+    (1, 33, 200.5, 1),  -- Pollo (g)
+    (1, 36, 199.8, 1),  -- Conejo (g)
+    (1, 60, 1.0, 6),    -- Pimiento rojo (unidad)
+    (1, 57, 2.0, 6),    -- Tomate (unidad)
+    (1, 56, 2.0, 6),    -- Ajo (unidad)
+    (1, 2, 3.5, 5),     -- Aceite de oliva (cucharada)
+    (1, 6, 1.0, 5),     -- Sal (cucharada)
+    (1, 106, 1.2, 5),   -- Pimentón (cucharada)
+
+    -- Spaghetti Carbonara (ID Receta: 2)
+    (2, 22, 250.0, 1),  -- Pasta (g)
+    (2, 38, 150.3, 1),  -- Bacon (g)
+    (2, 16, 3.0, 6),    -- Huevo (unidad)
+    (2, 30, 100.7, 1),  -- Queso (g)
+    (2, 97, 1.0, 5),    -- Pimienta negra (cucharada)
+    (2, 6, 1.0, 5),     -- Sal (cucharada)
+
+    -- Tacos al Pastor (ID Receta: 3)
+    (3, 32, 300.2, 1),  -- Cerdo (g)
+    (3, 60, 1.0, 6),    -- Pimiento rojo (unidad)
+    (3, 87, 2.5, 6),    -- Piña (unidad)
+    (3, 56, 2.0, 6),    -- Ajo (unidad)
+    (3, 102, 1.3, 5),   -- Cilantro (cucharada)
+    (3, 2, 2.0, 5),     -- Aceite de oliva (cucharada)
+    (3, 6, 1.0, 5),     -- Sal (cucharada)
+
+    -- Sushi de Salmón (ID Receta: 4)
+    (4, 42, 200.4, 1),  -- Salmón (g)
+    (4, 21, 250.0, 1),  -- Arroz (g)
+    (4, 4, 2.0, 5),     -- Vinagre (cucharada)
+    (4, 7, 1.0, 5),     -- Azúcar (cucharada)
+    (4, 6, 1.0, 5),     -- Sal (cucharada)
+    (4, 72, 1.0, 6),    -- Aguacate (unidad)
+    (4, 73, 5.0, 6),    -- Alga nori (unidad)
+
+    -- Hamburguesa Clásica (ID Receta: 5)
+    (5, 31, 200.8, 1),  -- Ternera (g)
+    (5, 23, 2.0, 6),    -- Pan (unidad)
+    (5, 65, 2.0, 6),    -- Lechuga (unidad)
+    (5, 57, 1.0, 6),    -- Tomate (unidad)
+    (5, 30, 2.0, 6),    -- Queso (unidad)
+    (5, 55, 1.0, 6),    -- Cebolla (unidad)
+    (5, 11, 1.0, 5),    -- Mostaza (cucharada)
+
+    -- Ensalada César (ID Receta: 6)
+    (6, 65, 1.0, 6),    -- Lechuga (unidad)
+    (6, 33, 150.2, 1),  -- Pollo (g)
+    (6, 30, 50.5, 1),   -- Queso (g)
+    (6, 23, 2.0, 6),    -- Pan (unidad)
+    (6, 11, 1.0, 5),    -- Mostaza (cucharada)
+    (6, 6, 1.0, 5),     -- Sal (cucharada)
+
+    -- Lasagna Bolognesa (ID Receta: 7)
+    (7, 31, 200.6, 1),  -- Ternera (g)
+    (7, 22, 6.0, 6),    -- Pasta (unidad)
+    (7, 57, 3.0, 6),    -- Tomate (unidad)
+    (7, 55, 1.0, 6),    -- Cebolla (unidad)
+    (7, 56, 2.0, 6),    -- Ajo (unidad)
+    (7, 30, 100.4, 1),  -- Queso (g)
+    (7, 6, 1.0, 5),     -- Sal (cucharada)
+
+    -- Pollo al Curry (ID Receta: 8)
+    (8, 33, 200.9, 1),  -- Pollo (g)
+    (8, 55, 1.0, 6),    -- Cebolla (unidad)
+    (8, 56, 2.0, 6),    -- Ajo (unidad)
+    (8, 105, 1.4, 5),   -- Curry (cucharada)
+    (8, 24, 100.0, 3),  -- Leche (ml)
+
+    -- Chili con Carne (ID Receta: 9)
+    (9, 31, 250.3, 1),  -- Ternera (g)
+    (9, 60, 1.0, 6),    -- Pimiento rojo (unidad)
+    (9, 61, 1.0, 6),    -- Pimiento verde (unidad)
+    (9, 57, 3.0, 6),    -- Tomate (unidad)
+    (9, 76, 150.7, 1),  -- Alubias (g)
+    (9, 56, 2.0, 6),    -- Ajo (unidad)
+
+    -- Ceviche de Pescado (ID Receta: 10)
+    (10, 49, 200.1, 1), -- Merluza (g)
+    (10, 83, 3.0, 6),   -- Limón (unidad)
+    (10, 55, 1.0, 6),   -- Cebolla (unidad)
+    (10, 102, 1.0, 5),  -- Cilantro (cucharada)
+    (10, 6, 1.0, 5);    -- Sal (cucharada)
 
 -- Tabla Ingrediente_Alérgeno
 
@@ -456,124 +686,67 @@ CREATE TABLE `ingrediente_alergeno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-        INSERT INTO ingrediente_alergeno (ingrediente, alergeno) VALUES
 
+    INSERT INTO ingrediente_alergeno (ingrediente, alergeno) 
+    VALUES
 
-            -- -- Gluten
-            (16, 6),
-            (17, 6),
-            (18, 6),
-            (107, 6),
-            -- ('Harina de trigo', 'Gluten'),
-            -- ('Harina de avena', 'Gluten'),
-            -- ('Harina integral', 'Gluten'),
-            -- ('Avena', 'Gluten'),
-            -- ('Cuscús', 'Gluten'),
-            -- ('Sémola de trigo', 'Gluten'),
-            -- ('Cerveza', 'Gluten'),
+        -- Gluten
+        (16, 6),    -- Huevo, Gluten
+        (17, 6),    -- Harina, Gluten
+        (18, 6),    -- Avena, Gluten
+        (112, 6),   -- Vino Tinto, Gluten
 
-            -- -- Lácteos
-            (13, 8),
-            (14, 8),
-            (20, 8),
-            (21, 8),
-            (22, 8),
-            (23, 8),
-            (24, 8),
-            (25, 8),
-            (26, 8),
-            -- ('Leche', 'Lácteos'),
-            -- ('Leche condensada', 'Lácteos'),
-            -- ('Leche evaporada', 'Lácteos'),
-            -- ('Yogur', 'Lácteos'),
-            -- ('Mantequilla', 'Lácteos'),
-            -- ('Nata líquida', 'Lácteos'),
-            -- ('Crema agria', 'Lácteos'),
-            -- ('Queso', 'Lácteos'),
-            -- ('Queso azul', 'Lácteos'),
-            -- ('Queso feta', 'Lácteos'),
-            -- ('Queso ricotta', 'Lácteos'),
-            -- ('Queso parmesano', 'Lácteos'),
-            -- ('Queso gouda', 'Lácteos'),
-            -- ('Queso mozzarella', 'Lácteos'),
-            -- ('Chocolate con leche', 'Lácteos'),
-            -- ('Chocolate blanco', 'Lácteos'),
+        -- Lácteos
+        (13, 8),    -- Chocolate con leche, Lácteos
+        (14, 8),    -- Chocolate blanco, Lácteos
+        (20, 8),    -- Quinoa, Lácteos
+        (24, 8),    -- Leche, Lácteos
+        (25, 8),    -- Leche condensada, Lácteos
+        (26, 8),    -- Yogur, Lácteos
+        (27, 8),    -- Mantequilla, Lácteos
+        (28, 8),    -- Nata líquida, Lácteos
+        (29, 8),    -- Crema agria, Lácteos
+        (30, 8),    -- Queso, Lácteos
 
-            -- -- Frutos secos
-            (85, 5),
-            (86, 5),
-            (87, 5),
-            (88, 5),
-            (89, 5),
-            (90, 5),
-            -- ('Harina de almendra', 'Frutos secos'),
-            -- ('Nueces', 'Frutos secos'),
-            -- ('Almendras', 'Frutos secos'),
-            -- ('Avellanas', 'Frutos secos'),
-            -- ('Anacardos', 'Frutos secos'),
-            -- ('Pistachos', 'Frutos secos'),
-            -- ('Aceite de nuez', 'Frutos secos'),
+        -- Frutos secos
+        (91, 5),    -- Nueces, Frutos secos
+        (92, 5),    -- Almendras, Frutos secos
+        (93, 5),    -- Avellanas, Frutos secos
+        (94, 5),    -- Anacardos, Frutos secos
+        (95, 5),    -- Pistachos, Frutos secos
+        (96, 5),    -- Castañas, Frutos secos
 
-            -- -- Soja
-            (71, 13),
+        -- Soja
+        (77, 13),   -- Soja, Soja
 
-            -- ('Soja', 'Soja'),
-            -- ('Salsa de soja', 'Soja'),
+        -- Mostaza
+        (11, 10),   -- Mostaza, Mostaza
 
-            -- -- Sésamo
-            -- ('Aceite de sésamo', 'Sesamo'),
+        -- Pescado
+        (42, 11),   -- Salmón, Pescado
+        (43, 11),   -- Atún, Pescado
+        (49, 11),   -- Merluza, Pescado
+        (50, 11),   -- Dorada, Pescado
+        (51, 11),   -- Lubina, Pescado
+        (52, 11),   -- Bacalao, Pescado
 
-            -- -- Mostaza
-            (11, 10),
-            -- ('Mostaza', 'Mostaza'),
-            -- ('Mostaza Dijon', 'Mostaza'),
+        -- Crustáceos
+        (44, 4),    -- Gambas, Crustáceos
+        (47, 4),    -- Almejas, Crustáceos
+        (54, 4),    -- Cangrejo, Crustáceos
 
-            -- -- Pescado
-            (38, 11),
-            (39, 11),
-            (45, 11),
-            (46, 11),
-            (47, 11),
-            (48, 11),
-            -- ('Pescado blanco', 'Pescado'),
-            -- ('Salmón', 'Pescado'),
-            -- ('Atún', 'Pescado'),
-            -- ('Merluza', 'Pescado'),
-            -- ('Dorada', 'Pescado'),
-            -- ('Lubina', 'Pescado'),
-            -- ('Bacalao', 'Pescado'),
-            -- ('Trucha', 'Pescado'),
+        -- Moluscos
+        (45, 9),    -- Langostinos, Moluscos
+        (47, 9),    -- Almejas, Moluscos
+        (48, 9),    -- Mejillones, Moluscos
+        (46, 9),    -- Calamares, Moluscos
 
-            -- -- Crustáceos
-            (40, 4),
-            (41, 4),
-            (50, 4),
-            -- ('Gambas', 'Crustáceos'),
-            -- ('Langostinos', 'Crustáceos'),
-            -- ('Cangrejo', 'Crustáceos'),
+        -- Sulfitos
+        (111, 14),  -- Vino Blanco, Sulfitos
+        (112, 14),  -- Vino Tinto, Sulfitos
+        (113, 14),  -- Cerveza, Sulfitos
+        (4, 14);    -- Vinagre, Sulfitos
 
-            -- -- Moluscos
-            (42, 9),
-            (43, 9),
-            (44, 9),
-            (49, 9),
-            
-            -- ('Calamares', 'Moluscos'),
-            -- ('Almejas', 'Moluscos'),
-            -- ('Mejillones', 'Moluscos'),
-            -- ('Pulpo', 'Moluscos'),
-            -- ('Erizo de mar', 'Moluscos'),
-            -- ('Vieiras', 'Moluscos'),
-
-            -- -- Sulfitos
-            (105, 14),
-            (106, 14),
-            (107, 14),
-            (4, 14);
-            -- ('Vinagre balsámico', 'Sulfitos'),
-            -- ('Vino blanco', 'Sulfitos'),
-            -- ('Vino tinto', 'Sulfitos'),
-            -- ('Cerveza', 'Sulfitos');
 
 
 
@@ -586,82 +759,56 @@ CREATE TABLE `etiquetas` (
  UNIQUE KEY `Nombre` (`Nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+    -- Datos de la tabla etiquetas
+    INSERT INTO etiquetas (Nombre) 
+    VALUES
 
-        -- Datos de la tabla etiquetas
-        INSERT INTO etiquetas (Nombre) VALUES
+        --    Etiquetas por Tipo de Plato
+        ('Entrante'),   --  1
+        ('Principal'),  --  2
+        ('Postre'),     --  3 
+        ('Sopa'),       --  4
+        ('Ensalada'),   --  5
+        ('Tarta'),      --  6
 
-        -- Etiquetas por Tipo de Plato
-        ('Entrante'),
-        ('Principal'),
-        ('Postre'),
-        -- ('Aperitivo'),
-        -- ('Guarnición'),
-        ('Sopa'),
-        ('Ensalada'),
-        -- ('Bocadillo'),
-        ('Tarta'),
-        -- ('Bebida'),
-        -- ('Salsa'),
+        --  Etiquetas por Tipo de Dieta
+        ('Vegano'),     -- 7
+        ('Sin gluten'), -- 8
+        ('Sin lactosa'),    -- 9
+        ('Sin azúcar'), -- 10
 
-        -- Etiquetas por Tipo de Dieta
-        -- ('Vegetariano'),
-        ('Vegano'),
-        ('Sin gluten'),
-        ('Sin lactosa'),
-        ('Sin azúcar'),
-        -- ('Bajo en carbohidratos'),
-        -- ('Alto en proteínas'),
-        -- ('Keto'),
-        -- ('Paleo'),
+        --  Etiquetas por Método de Cocción
+        ('Al horno'),   -- 11
+        ('A la plancha'),   -- 12
+        ('Frito'),  -- 13
+        ('Hervido'),    -- 14
+        ('Al vapor'),   -- 15
+        ('A la parrilla'),  -- 16
+        ('A baja temperatura'), -- 17
 
-        -- Etiquetas por Ingrediente Principal
-        -- ('Con pollo'),
-        -- ('Con ternera'),
-        -- ('Con cerdo'),
-        -- ('Con pescado'),
-        -- ('Con marisco'),
-        -- ('Con verduras'),
-        -- ('Con pasta'),
-        -- ('Con arroz'),
-        -- ('Con legumbres'),
-        -- ('Con huevos'),
-        -- ('Con queso'),
+        --  Etiquetas por Cocina Internacional
+        ('Italiana'),   -- 18
+        ('Mexicana'),   -- 19
+        ('Japonesa'),   -- 20
+        ('China'),      -- 21
+        ('India'),      -- 22
+        ('Mediterránea'),   -- 23
+        ('Árabe'),      -- 24
+        ('Francesa'),   -- 25
+        ('Americana'),   -- 26
 
-        -- Etiquetas por Método de Cocción
-        ('Al horno'),
-        ('A la plancha'),
-        ('Frito'),
-        ('Hervido'),
-        ('Al vapor'),
-        ('A la parrilla'),
-        ('A baja temperatura'),
+        --  Etiquetas por Ocasión
+        ('Navidad'),    -- 27
+        ('Verano'),     -- 28
+        ('Invierno'),   -- 29
+        ('Cumpleaños'),  -- 30  
+        ('Cena rápida'),        -- 31
+        ('Comida saludable'),   -- 32
 
-        -- Etiquetas por Cocina Internacional
-        ('Italiana'),
-        ('Mexicana'),
-        ('Japonesa'),
-        ('China'),
-        ('India'),
-        ('Mediterránea'),
-        ('Árabe'),
-        ('Francesa'),
-        ('Americana'),
-
-        -- Etiquetas por Ocasión
-        ('Navidad'),
-        -- ('Semana Santa'),
-        ('Verano'),
-        ('Invierno'),
-        ('Cumpleaños'),
-        ('Cena rápida'),
-        ('Comida saludable'),
-
-        -- Etiquetas de Dificultad y Tiempo
-        ('Fácil'),
-        ('Media'),
-        ('Difícil');
-        -- ('Rápida'),
-        -- ('Larga');
+        --  Etiquetas de Dificultad y Tiempo
+        ('Fácil'),  -- 33
+        ('Media'),  -- 34
+        ('Difícil');    -- 35
 
 
 -- Tabla Receta_Etiqueta
@@ -675,10 +822,82 @@ CREATE TABLE `receta_etiqueta` (
  CONSTRAINT `fk_re_etiqueta` FOREIGN KEY (`Etiqueta`) REFERENCES `etiquetas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+    -- Datos de la tabla receta_etiqueta
+    INSERT INTO receta_etiqueta (Receta, Etiqueta) VALUES
+        -- Paella Valenciana
+        (1, 2),  -- Principal
+        (1, 23), -- Mediterránea
+        (1, 14), -- Hervido
 
+        -- Spaghetti Carbonara
+        (2, 2),  -- Principal
+        (2, 18), -- Italiana
+        (2, 14), -- Hervido
 
+        -- Tacos al Pastor
+        (3, 2),  -- Principal
+        (3, 19), -- Mexicana
+        (3, 16), -- A la parrilla
 
+        -- Sushi de Salmón
+        (4, 2),  -- Principal
+        (4, 20), -- Japonesa
+        (4, 15), -- Al vapor
 
+        -- Hamburguesa Clásica
+        (5, 2),  -- Principal
+        (5, 26), -- Americana
+        (5, 16), -- A la parrilla
+
+        -- Ensalada César
+        (6, 5),  -- Ensalada
+        (6, 26), -- Americana
+        (6, 32), -- Comida saludable
+
+        -- Lasagna Bolognesa
+        (7, 2),  -- Principal
+        (7, 18), -- Italiana
+        (7, 11), -- Al horno
+
+        -- Pollo al Curry
+        (8, 2),  -- Principal
+        (8, 22), -- India
+        (8, 14), -- Hervido
+
+        -- Chili con Carne
+        (9, 2),  -- Principal
+        (9, 26), -- Americana
+        (9, 29), -- Invierno
+
+        -- Ceviche de Pescado
+        (10, 2),  -- Principal
+        (10, 23), -- Mediterránea
+        (10, 32), -- Comida saludable
+
+        -- Risotto de Champiñones
+        (11, 2),  -- Principal
+        (11, 18), -- Italiana
+        (11, 14), -- Hervido
+
+        -- Papas a la Huancaína
+        (12, 1),  -- Entrante
+        (12, 19), -- Mexicana
+        (12, 13), -- Frito
+
+        -- Goulash Húngaro
+        (13, 2),  -- Principal
+        (13, 25), -- Francesa
+        (13, 29), -- Invierno
+
+        -- Sopa de Tomate
+        (14, 4),  -- Sopa
+        (14, 23), -- Mediterránea
+        (14, 14), -- Hervido
+
+        -- Moussaka
+        (15, 2),  -- Principal
+        (15, 23), -- Mediterránea
+        (15, 11); -- Al horno
 
 -- Eliminar el usuario 'MarketChef' si ya existe
 DROP USER IF EXISTS 'MarketChef'@'%';
@@ -691,20 +910,3 @@ GRANT ALL PRIVILEGES ON MarketChef.* TO 'MarketChef'@'%';
 
 -- Aplicar los cambios
 FLUSH PRIVILEGES;
-
-
--- -- Los triggers que se crearán son:
-
--- -- Trigger que actualiza las valoraciones de las recetas para cada nueva valoración creada:
-
--- DELIMITER $$
-
--- CREATE TRIGGER `actualizar_media_valoracion`
--- AFTER INSERT ON `valoraciones`
--- FOR EACH ROW
--- BEGIN
---     UPDATE recetas
---     SET Valoracion = (SELECT AVG(Puntuacion) FROM valoraciones WHERE Receta = NEW.Receta) WHERE ID = NEW.Receta;
--- END $$
-
--- DELIMITER ;
