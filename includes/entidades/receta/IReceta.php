@@ -17,6 +17,8 @@ interface IReceta
    public function borrarReceta($recetaDTO);
 
    public function mostarRecetasPorAutor($userDTO);
+
+   public function mostrarRecetasIndex($crtierio);
 }
 
 ?>

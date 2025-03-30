@@ -2,17 +2,11 @@
 
 namespace es\ucm\fdi\aw\entidades\receta;
 require_once(__DIR__ . "/../../config.php");
+
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
 use es\ucm\fdi\aw\entidades\ingredienteReceta\ingredienteRecetaAppService;
 use es\ucm\fdi\aw\entidades\etiquetaReceta\etiquetaRecetaAppService;
-// require_once("IReceta.php");
-// require_once("recetaDTO.php");
-// require_once(__DIR__ . "/../../comun/baseDAO.php");
-// require_once("recetaAlreadyExistException.php");
-
-// include __DIR__ . '/../ingredienteReceta/ingredienteRecetaAppService.php';
-// include __DIR__ . '/../etiquetaReceta/etiquetaRecetaAppService.php';
 
 // La clase recetaDAO hereda de baseDAO e implementa la interfaz IReceta
 class recetaDAO extends baseDAO implements IReceta
@@ -20,7 +14,6 @@ class recetaDAO extends baseDAO implements IReceta
     // Constructor vacío
     public function __construct()
     {
-
     }
 
     // Función privada para buscar una receta en la base de datos por su ID
@@ -234,7 +227,8 @@ class recetaDAO extends baseDAO implements IReceta
         return $deletedRecetaDTO;
     }
 
-    public function mostarRecetasPorAutor($userDTO){
+    public function mostarRecetasPorAutor($userDTO)
+    {
         try
         {
             // Obtiene la conexión a la base de datos
@@ -272,6 +266,65 @@ class recetaDAO extends baseDAO implements IReceta
                             $row["Precio"],
                             $row["Fecha_Creacion"],
                             $row["Valoracion"],
+                            $row["Ruta"]
+                        );
+                    }
+                }
+            }
+
+            $stmt->close();
+
+            return $recetas;
+        }
+        catch(Exception $e)
+        {
+            throw $e;
+        }
+    }
+
+    public function mostrarRecetasIndex($criterio)
+    {
+        try
+        {
+            // Obtiene la conexión a la base de datos
+            $conn = application::getInstance()->getConexionBd();
+
+            $ordenamiento = [
+                'fecha' => "SELECT ID, Nombre, Ruta FROM recetas ORDER BY Fecha_Creacion DESC",
+                'etiqueta_principal' => "SELECT r.ID, r.Nombre, r.Ruta FROM recetas r JOIN receta_etiqueta re ON r.ID = re.Receta 
+                                        JOIN etiquetas e ON re.Etiqueta = e.ID WHERE e.Nombre = 'Principal'",
+                'precio' => "SELECT ID, Nombre, Ruta FROM recetas ORDER BY Precio ASC",
+                'ingrediente' => "SELECT r.ID, r.Nombre, r.Ruta, COUNT(ri.Ingrediente) AS num_ingredientes FROM recetas r 
+                                LEFT JOIN receta_ingrediente ri ON r.ID = ri.Receta GROUP BY r.ID ORDER BY num_ingredientes DESC",
+                'default' => "SELECT id, Nombre, Ruta FROM recetas"
+            ];
+
+            // Ordenamos por criterio y sino mostramos todos
+            $query = $ordenamiento[$criterio] ?? $ordenamiento['default'];
+
+            $stmt = $conn->prepare($query);
+
+            if($stmt->execute())
+            {
+                // Obtiene el resultado de la consulta
+                $result = $stmt->get_result();
+                $recetas = [];
+
+                // Si hay resultados, los recorremos y creamos DTOs de recetas
+                if ($result->num_rows > 0)  
+                {
+                    while ($row = $result->fetch_assoc()) 
+                    {
+                        $recetas[] = new recetaDTO(
+                            $row["ID"],
+                            $row["Nombre"],
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
                             $row["Ruta"]
                         );
                     }

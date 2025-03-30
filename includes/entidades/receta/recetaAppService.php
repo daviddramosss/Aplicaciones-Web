@@ -134,6 +134,12 @@ class recetaAppService
         
     }
 
+    public function mostrarRecetasIndex($criterio){
+        $IRecetaDAO = recetaFactory::CreateReceta();
+
+        return $IRecetaDAO->mostrarRecetasIndex($criterio);
+    }
+
 
 }
 

@@ -9,29 +9,13 @@ $tituloPagina = 'Market Chef';
 
 // Crea una instancia de la clase IndexHelper
 $indexHelper = new IndexHelper();
+$htmlIndex = $indexHelper->getRecetas();
 
-// Genera el HTML de las secciones dinámicas llamando a los métodos de IndexHelper
-$htmlRecetasDestacadas = $indexHelper->getRecetasDestacadas();
-$htmlOfertas = $indexHelper->getOfertas();
-$htmlRecetasVeganas = $indexHelper->getRecetasVeganas();
 
 // Define el contenido principal de la página
 $contenidoPrincipal = <<<EOS
 
-    <!-- Se incluye el archivo CSS específico para la página de inicio -->
-    <link rel="stylesheet" href="CSS/index.css">
-    
-    <!-- Título principal de la página -->
-    <h1> Market Chef </h1>
-
-    <!-- Sección para las recetas destacadas generada dinámicamente -->
-    $htmlRecetasDestacadas
-
-    <!-- Sección para las ofertas generada dinámicamente -->
-    $htmlOfertas
-
-    <!-- Sección para recetas veganas generada dinámicamente -->
-    $htmlRecetasVeganas
+    $htmlIndex
 
     <!-- Se incluye el archivo JavaScript específico para manejar las interacciones en la página de inicio -->
     <script src="JS/index.js"></script>
