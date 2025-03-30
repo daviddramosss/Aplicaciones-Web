@@ -441,10 +441,11 @@ textarea {
 
 /* Información para mostrar las recetas todo modificable */
 .recetas-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas por fila */
     justify-content: center;
+    max-width: 900px; /* Ajusta según sea necesario */
+    margin: 0 auto; /* Centrar el contenedor */
 }
 
 .receta-card {
