@@ -26,11 +26,7 @@
     <?php include 'pie.php'; ?>
 
     <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    
-    <!-- Se incluye el archivo JavaScript específico para manejar las interacciones en la página de inicio -->
-    <script src="JS/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>  
 
 </body>
 </html>

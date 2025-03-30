@@ -19,12 +19,16 @@ class IndexHelper
         $recetasEtiqueta = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('etiqueta_principal'), "Recetas por tipo de comida", "swiper-etiqueta");
         $recetasPrecio = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('precio'), "Recetas ordenadas por precio", "swiper-precio");
         $recetasIngredientes = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('ingrediente'), "Recetas con más ingredientes", "swiper-ingredientes");
+        
 
         return <<<HTML
             $recetasFecha
             $recetasEtiqueta
             $recetasPrecio
             $recetasIngredientes
+            
+            <!-- Se incluye el archivo JavaScript específico para manejar las interacciones en la página de inicio -->
+            <script src="JS/index.js"></script>
         HTML;
     }
 
