@@ -124,7 +124,7 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
             throw $e;
         }
     }
-    }
+    
 
     // Método para eliminar un ingrediente de una receta (pendiente de implementación)
     public function borrarIngredienteReceta($ingredienteRecetaDTO)

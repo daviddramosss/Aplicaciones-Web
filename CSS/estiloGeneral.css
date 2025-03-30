@@ -436,3 +436,37 @@ textarea {
 }
 
 /* #endregion */
+
+/* #region PRUEBAS DE ANTONIO */
+
+/* Información para mostrar las recetas todo modificable */
+.recetas-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.receta-card {
+    width: 200px;
+    text-align: center;
+}
+
+.receta-imagen {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.receta-imagen:hover {
+    transform: scale(1.05);
+}
+
+.receta-titulo {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+/* #endregion */
