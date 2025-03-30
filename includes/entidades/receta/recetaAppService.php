@@ -86,9 +86,6 @@ class recetaAppService
         //Guardamos los ingredientes modificados
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
 
-        //Eliminar ingredientes anteriores asociados a la receta
-        $ingredienteRecetaService->borrarIngredienteReceta($editedId);
-
         //Guardamos los nuevos ingredientes
         foreach ($ingredientes as $ingredienteId => $ingredienteData) {
             $ingredienteId = intval($ingredienteId);
