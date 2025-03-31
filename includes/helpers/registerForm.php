@@ -159,7 +159,7 @@ class registerForm extends formularioBase
     {
         // Si no se ha subido ninguna imagen, asignamos la imagen por defecto
         if (!isset($_FILES['imagenUsuario']) || $_FILES['imagenUsuario']['error'] === UPLOAD_ERR_NO_FILE) {
-            return "avatar_ejemplo.jpeg";
+            return "avatar_ejemplo.jpg";
         }
     
         // Comprobar si hubo un error al subir la imagen
