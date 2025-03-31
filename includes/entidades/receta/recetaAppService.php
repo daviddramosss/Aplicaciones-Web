@@ -120,7 +120,41 @@ class recetaAppService
             }
         }
 
-        //FALTA ETIQUETAS
+        //ETIQUETAS
+        $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
+
+        //obtengo la lista de las etiquetas asociadas a dicha receta
+        $etiquetasExistentes = $etiquetaRecetaService->buscarEtiquetaReceta($editedId);
+
+        // Crear un array para almacenar los IDs de las etiquetas existentes
+        $etiquetasExistentesIds = array_map(function($etiqueta) {
+            return $etiqueta['Nombre'];
+        }, $etiquetasExistentes);
+        
+        // Limitar las nuevas etiquetas a un máximo de 3 únicas
+        $nuevasEtiquetas = array_slice(array_unique($nuevasEtiquetas), 0, 3);
+
+        foreach ($nuevasEtiquetas as $nombreEtiqueta) {
+            $nombreEtiqueta = filter_var($nombreEtiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            // Si la etiqueta es válida, la guarda
+            if (!empty($nombreEtiqueta)) {
+                // Si la etiqueta ya existe, no hacemos nada
+                if (!in_array($nombreEtiqueta, $etiquetasExistentesNombres)) {
+                    $etiquetaRecetaDTO = new etiquetaRecetaDTO($editedId, $nombreEtiqueta);
+                    $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
+                }
+            }
+        }
+
+        // Eliminar etiquetas que ya no están en la lista
+        foreach ($etiquetasExistentes as $etiqueta) {
+            if (!in_array($etiqueta['Nombre'], $nuevasEtiquetas)) {
+                $etiquetaRecetaDTO = new etiquetaRecetaDTO($editedId, $etiqueta['Nombre']);
+                $etiquetaRecetaService->borrarEtiquetaReceta($etiquetaRecetaDTO);
+            }
+        }
+
 
         // Devuelve el objeto DTO editado
         return $editedRecetaDTO;

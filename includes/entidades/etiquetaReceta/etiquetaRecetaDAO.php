@@ -73,7 +73,39 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
     // Método para borrar una relación entre una receta y una etiqueta.
     public function borrarEtiquetaReceta($etiquetaRecetaDTO)
     {
-        // Implementar más adelante
+        try 
+        {
+            // Obtener la conexión a la base de datos
+            $conn = application::getInstance()->getConexionBd();
+
+            // Obtener valores del DTO
+            $recetaId = $etiquetaRecetaDTO->getRecetaId();
+            $etiqueta = $etiquetaRecetaDTO->getEtiqueta();
+
+            // Consulta SQL para eliminar la relación receta-etiqueta
+            $query = "DELETE FROM receta_etiqueta WHERE Receta = ? AND Etiqueta = ?";
+            
+            // Preparar la consulta
+            $stmt = $conn->prepare($query);
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
+            // Asociar los parámetros a la consulta
+            $stmt->bind_param("ii", $recetaId, $etiqueta);
+
+            // Ejecutar la consulta
+            if (!$stmt->execute()) {
+                throw new Exception("Error al eliminar la etiqueta: " . $stmt->error);
+            }
+
+            // Cerrar la declaración
+            $stmt->close();
+        }
+        catch (mysqli_sql_exception $e)
+        {
+            throw $e;
+        }
     }
 
     // Método para buscar una etiqueta de receta por su ID de receta.
