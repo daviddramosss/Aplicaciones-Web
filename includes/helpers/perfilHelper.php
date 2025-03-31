@@ -37,7 +37,6 @@ class perfilHelper {
         // Genera el HTML del perfil
         return <<<EOS
         <div class="container">
-            <div class="card mx-auto" style="width: 25rem;">
                 <img src="img/perfiles/{$user->getRuta()}" style="width: 200px" class="card-img-top" alt="Avatar">
                 <div class="card-body">
                     <h2 class="card-title">Hola, {$user->getNombre()} {$user->getApellidos()}</h2>
@@ -46,8 +45,6 @@ class perfilHelper {
                     <form action="logout.php" method="post">
                         <button type="submit" class="send-button">CERRAR SESIÓN</button>
                     </form>
-
-                </div>
             </div>
         </div>
         EOS;
