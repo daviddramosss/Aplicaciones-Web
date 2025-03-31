@@ -5,7 +5,7 @@ use es\ucm\fdi\aw\helpers\editarRecetaForm;
 // Se define el título de la página.
 $tituloPagina = 'Editar Receta';
 
-// Obtener el ID de la receta desde la URL
+// Obtener el ID de la receta desde la URL  
 $recetaId = $_GET['id'] ?? null;
 
 if (!$recetaId) {
