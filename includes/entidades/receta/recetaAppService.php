@@ -146,6 +146,13 @@ class recetaAppService
         return $IRecetaDAO->buscarReceta($id);
     }
 
+    public function mostrarTodasLasRecetas(){
+        $IRecetaDAO = recetaFactory::CreateReceta();
+
+        return $IRecetaDAO->mostrarTodasLasRecetas();
+
+    }
+
 
 }
 

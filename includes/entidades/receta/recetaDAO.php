@@ -340,5 +340,55 @@ class recetaDAO extends baseDAO implements IReceta
         }
     }
 
+    public function mostrarTodasLasRecetas()
+    {
+        try
+        {
+            // Obtiene la conexión a la base de datos
+            $conn = application::getInstance()->getConexionBd();
+
+            // Prepara la consulta SQL para buscar la receta
+            $query = "SELECT * FROM recetas";
+
+            // Prepara la declaración SQL
+            $stmt = $conn->prepare($query);
+
+            // Ejecuta la consulta
+            if($stmt->execute())
+            {
+                // Obtiene el resultado de la consulta
+                $result = $stmt->get_result();
+                $recetas = [];
+
+                // Si hay resultados, los recorremos y creamos DTOs de recetas
+                if ($result->num_rows > 0) 
+                {
+                    while ($row = $result->fetch_assoc()) 
+                    {
+                        $recetas[] = new recetaDTO(
+                            $row["ID"],
+                            $row["Nombre"],
+                            $row["Autor"],
+                            $row["Descripcion"],
+                            json_decode($row["Pasos"], true),
+                            $row["Tiempo"],
+                            $row["Precio"],
+                            $row["Fecha_Creacion"],
+                            $row["Valoracion"],
+                            $row["Ruta"]
+                        );
+                    }
+                }
+            }
+
+            $stmt->close();
+
+            return $recetas;
+        }
+        catch(Exception $e)
+        {
+        throw $e;
+        }
+    }
 }
 ?>
