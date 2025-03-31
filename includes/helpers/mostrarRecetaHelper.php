@@ -24,11 +24,14 @@ class mostrarRecetaHelper
 
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
         $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId);
+    
+        $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
+        $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($recetaId);
     }
 
     public function print()
     {
-        return $this->generarReceta() . $this->generarIngredientes();
+        return $this->generarReceta() . $this->generarEtiquetas() . $this->generarIngredientes() ;
     }
 
     public function generarReceta()
@@ -64,7 +67,7 @@ class mostrarRecetaHelper
                 <p><strong>Autor:</strong> $autor</p>
                 <p><strong>Descripción:</strong> $descripcion</p>
                 <p><strong>Tiempo de preparación:</strong> $tiempo</p>
-                <p><strong>Precio estimado:</strong> $precio</p>
+                <p><strong>Precio:</strong> $precio</p>
                 <p><strong>Valoración:</strong> $valoracion</p>
                 <p><strong>Fecha de creación:</strong> $fechaCreacion</p>
                 <h2>Pasos de la receta</h2>
@@ -73,10 +76,10 @@ class mostrarRecetaHelper
         HTML;
     }
     
-    public function generarIngredientes() {
-        $html = '<div class="receta-ingrediente-container">';
-        $html .= '<h2>Lista de ingredientes</h2>';
-    
+    public function generarIngredientes() {   
+        $html = '<h2>Lista de ingredientes</h2>';  
+        $html .= '<div class="receta-ingrediente-cards">';
+        
         foreach ($this->ingredientes as $ingrediente) {
             $html .= <<<HTML
                 <div class="receta-ingrediente-card">                    
@@ -87,12 +90,28 @@ class mostrarRecetaHelper
                     </p>
                 </div>
             HTML;
-        }
+        }    
     
+        $html .= '</div>';
+        
+        return $html;
+    }
+
+    public function generarEtiquetas() {   
+        $html = '<h2>Etiquetas</h2>';    
+    
+        $html .= '<div class="receta-etiquetas">';
+        foreach ($this->etiquetas as $etiqueta) {
+            $html .= <<<HTML
+                <span class="tag">{$etiqueta}</span>
+            HTML;
+        }    
+
         $html .= '</div>';
     
         return $html;
     }
+    
 
 
 

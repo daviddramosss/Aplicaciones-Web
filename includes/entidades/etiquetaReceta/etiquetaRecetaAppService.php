@@ -58,6 +58,12 @@ class etiquetaRecetaAppService
 
         return $deletedEtiquetaRecetaDTO;
     }
+
+    public function buscarEtiquetaReceta($recetaId)
+    {
+        $IEtiquetaRecetaDAO = etiquetaRecetaFactory::createEtiquetaReceta();
+        return $IEtiquetaRecetaDAO->buscarEtiquetasReceta($recetaId);
+    }
 }
 
 ?>

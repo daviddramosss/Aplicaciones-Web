@@ -62,12 +62,13 @@ CREATE TABLE `usuarios` (
 
 
     -- Datos de la tabla usuarios
-    INSERT INTO usuarios (Nombre, Apellidos, Email, Rol, Password) VALUES
-    ('usuario', 'ejemplo', 'usuario@marketchef.com', 'User', '$2y$10$wjhoam2JWbGg4I4NRGoJF.ZUsLITJlV05Vg9Jp6GUBMdOWAlCI7FO'),       -- Contraseña: usuario
-    ('admin', 'ejemplo', 'admin@marketchef.com', 'Admin', '$2y$10$aAfWpoA8/09hASfXru8j6.PUC1kHGzJyGW4KH.sMfVXg8Bs8RcNze'),          -- Contraseña: admin
-    ('chef', 'ejemplo', 'chef@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu'),             -- Contraseña: chef
-    ('chef2', 'ejemplo', 'chef2@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu'),           -- Contraseña: chef
-    ('chef3', 'ejemplo', 'chef3@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu');           -- Contraseña: chef
+    INSERT INTO usuarios (Nombre, Apellidos, Email, Rol, Password) 
+    VALUES
+        ('usuario', 'ejemplo', 'usuario@marketchef.com', 'User', '$2y$10$wjhoam2JWbGg4I4NRGoJF.ZUsLITJlV05Vg9Jp6GUBMdOWAlCI7FO'),       -- Contraseña: usuario
+        ('admin', 'ejemplo', 'admin@marketchef.com', 'Admin', '$2y$10$aAfWpoA8/09hASfXru8j6.PUC1kHGzJyGW4KH.sMfVXg8Bs8RcNze'),          -- Contraseña: admin
+        ('chef', 'ejemplo', 'chef@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu'),             -- Contraseña: chef
+        ('chef2', 'ejemplo', 'chef2@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu'),           -- Contraseña: chef
+        ('chef3', 'ejemplo', 'chef3@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu');           -- Contraseña: chef
 
 
 -- Tabla Chefs
@@ -81,10 +82,11 @@ CREATE TABLE `chefs` (
  CONSTRAINT `fk_c_usuario` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-    INSERT INTO chefs (Usuario, DNI, Cuenta_bancaria, Saldo) VALUES
-    (3, '12345678A', 'ES1234567890123456789012', 0),
-    (4, '23456789B', 'ES2345678901234567890123', 0),
-    (5, '34567890C', 'ES3456789012345678901234', 0);
+    INSERT INTO chefs (Usuario, DNI, Cuenta_bancaria, Saldo) 
+    VALUES
+        (3, '12345678A', 'ES1234567890123456789012', 0),
+        (4, '23456789B', 'ES2345678901234567890123', 0),
+        (5, '34567890C', 'ES3456789012345678901234', 0);
 
 -- Tabla Recetas
 CREATE TABLE `recetas` (

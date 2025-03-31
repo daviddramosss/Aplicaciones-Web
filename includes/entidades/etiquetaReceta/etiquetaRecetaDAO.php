@@ -75,6 +75,54 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
     {
         // Implementar más adelante
     }
+
+    // Método para buscar una etiqueta de receta por su ID de receta.
+    public function buscarEtiquetasReceta($recetaId)
+    {
+        // Accede a la base de datos
+        $conn = application::getInstance()->getConexionBd();
+    
+        // Prepara la consulta SQL para obtener las etiquetas de la receta
+        $query = "SELECT e.Nombre 
+                    FROM etiquetas e
+                    JOIN receta_etiqueta re ON e.ID = re.Etiqueta
+                    WHERE re.Receta = ?";
+    
+        // Prepara la declaración SQL
+        $stmt = $conn->prepare($query);
+    
+        // Asocia el parámetro de la consulta con el valor del ID de la receta
+        $stmt->bind_param("i", $recetaId);
+    
+        // Ejecuta la consulta
+        if ($stmt->execute()) 
+        {
+            // Declara la variable donde se almacenará el resultado
+            $etiqueta = null;
+    
+            // Asocia la columna de la consulta con la variable PHP
+            $stmt->bind_result($etiqueta);
+    
+            // Array donde se almacenarán las etiquetas
+            $etiquetas = [];
+    
+            // Recorre los resultados y los guarda en el array
+            while ($stmt->fetch()) 
+            {
+                $etiquetas[] = $etiqueta;
+            }
+    
+            // Cierra la declaración
+            $stmt->close();
+    
+            // Retorna el array con las etiquetas
+            return $etiquetas;
+        }
+    
+        // Si no hay etiquetas o hay un error, retorna un array vacío
+        return [];
+    }        
+    
 }
 
 ?>
