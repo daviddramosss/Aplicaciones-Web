@@ -55,13 +55,18 @@ class buscarFormulario extends formularioBase
                         <span class="estrella_buscar" data-value="5">★</span>
                     </div>
 
-                    <!-- Checkboxes -->
-                    <input type="checkbox" id="usarDespensa" name="usarDespensa">
-                    <label for="usarDespensa">Usar Mi Despensa</label>
+                    <!--
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="usarDespensa" name="usarDespensa">
+                        <label for="usarDespensa">Usar Mi Despensa</label>
+                    </div>
 
-                    <input type="checkbox" id="usarAlergenos" name="usarAlergenos">
-                    <label for="usarAlergenos">Usar mis alérgenos</label>
-
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="usarAlergenos" name="usarAlergenos">
+                        <label for="usarAlergenos">Usar mis alérgenos</label>
+                    </div>
+                    -->
+                    
                     <!-- Botón de búsqueda -->
                     <button type="submit">Buscar</button>
                 </form>
