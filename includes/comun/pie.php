@@ -12,6 +12,7 @@
         </div>
 
         <!-- Redes sociales -->
+        <!-- 
         <div class="footer_social">
             <a href="https://facebook.com" target="_blank" style="display:inline-block; text-decoration:none;">
                 <img src="img/facebook_logo.png" alt="Facebook">
@@ -22,7 +23,8 @@
             <a href="https://instagram.com" target="_blank" style="display:inline-block; text-decoration:none;">
                 <img src="img/instagram_logo.png" alt="Instagram">
             </a>
-        </div>
+        </div> 
+        -->
 
         <!-- Derechos de autor -->
         <div class="footer_copy">

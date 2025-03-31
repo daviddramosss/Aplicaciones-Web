@@ -410,6 +410,7 @@ textarea {
     padding: 10px 0;
     font-size: 14px;
     width: 100%;
+    height: auto;
     bottom: 0;
     position: fixed;
     z-index: 1000;
@@ -424,7 +425,7 @@ textarea {
 }
 
 .footer_links {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .footer_links a {
