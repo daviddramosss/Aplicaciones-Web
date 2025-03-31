@@ -74,7 +74,7 @@ class loginForm extends formularioBase
         if (count($result) === 0) 
         {
             // creamos un usuario con el email y la contraseña pasados por el usuario
-            $userDTO = new userDTO(0, '', '', $email, '',$password);
+            $userDTO = new userDTO(0, '', '', $email, '',$password, '');
 
             // creamos la instancia de userAppService y llamamos a la función login
             $userAppService = userAppService::GetSingleton();

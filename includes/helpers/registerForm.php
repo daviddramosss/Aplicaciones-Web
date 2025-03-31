@@ -54,7 +54,21 @@ class registerForm extends formularioBase
                 <input type="password" name="rePassword" placeholder="REPETIR CONTRASEÑA" required/>
             </div>
             
+            <!-- Sección de imagen -->
+            <h2>Foto de perfil</h2>
+            <p><label for="imagenUsuario">Sube una foto de perfil. Si no sube ninguna imagen, se usara la imagen por defecto.</label></p>
+            <input type="file" id="imagenUsuario" name="imagenUsuario" accept="image/jpeg, image/png, image/gif"/>
+
+            <div id="previewContainer">
+                <img id="previewImage" src="" alt="Vista previa de la imagen" style="display: none;"/>
+            </div>
+
+
             <button type="submit" class="send-button" name="register">REGISTRARSE</button>
+
+            <!-- Importación de scripts JavaScript -->
+            <script src="js/register.js"></script>
+            
         EOF;
         return $html;
     }
@@ -71,6 +85,7 @@ class registerForm extends formularioBase
         $email = trim($datos['email'] ?? '');
         $password = trim($datos['password'] ?? '');
         $rePassword = trim($datos['rePassword'] ?? '');
+        $imagenGuardada = $this->procesarImagen();
 
         // las sanitizamos y comprobamos que no hay nada erróneo
         $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -101,6 +116,10 @@ class registerForm extends formularioBase
             $result[] = "Las contraseñas no coinciden.";
         }
 
+        if ($imagenGuardada === null) {
+            $result[] = "Error: La imagen subida no es válida.";
+        }
+
         // si no ha habido errores, intentamos registrar al usuario
         if (count($result) === 0) 
         {
@@ -108,7 +127,7 @@ class registerForm extends formularioBase
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
             // creamos el usuario con los datos introducidos y un id 0 que será insignificante porque la BBDD le asignará el que le corresponde
-            $userDTO = new userDTO(0, $nombreUsuario, $apellidosUsuario, $email, "User", $hashedPassword);
+            $userDTO = new userDTO(0, $nombreUsuario, $apellidosUsuario, $email, "User", $hashedPassword, $imagenGuardada);
             // creamos la instancia de userAppService y llamamos a la función create
             $userAppService = userAppService::GetSingleton();
             $createdUserDTO = $userAppService->create($userDTO);
@@ -134,4 +153,47 @@ class registerForm extends formularioBase
         $html .= '<div> <img src="img/LogoRegistro.png" alt="LogoRegistro" style="width: 150px; height: auto;"> </div>';
         return $html;
     }
+
+    
+    private function procesarImagen()
+    {
+        // Si no se ha subido ninguna imagen, asignamos la imagen por defecto
+        if (!isset($_FILES['imagenUsuario']) || $_FILES['imagenUsuario']['error'] === UPLOAD_ERR_NO_FILE) {
+            return "avatar_ejemplo.jpg";
+        }
+    
+        // Comprobar si hubo un error al subir la imagen
+        if ($_FILES['imagenUsuario']['error'] !== UPLOAD_ERR_OK) {
+            return null; // Error en la subida
+        }
+    
+        $imagenTmp = $_FILES['imagenUsuario']['tmp_name'];
+        $nombreOriginal = $_FILES['imagenUsuario']['name'];
+    
+        // Obtener la extensión del archivo
+        $extension = strtolower(pathinfo($nombreOriginal, PATHINFO_EXTENSION));
+    
+        // Validar formato de imagen (solo JPG, PNG, GIF)
+        $formatosPermitidos = ['jpg', 'jpeg', 'png', 'gif'];
+        if (!in_array($extension, $formatosPermitidos)) {
+            return null; // Formato no permitido
+        }
+    
+        // Generar un nombre único para evitar duplicados
+        $nombreImagen = uniqid("perfil_") . "." . $extension;
+    
+        // Definir la ruta de destino
+        $directorioDestino = dirname(dirname(__DIR__)) . "/img/perfiles/";
+    
+        // Ruta completa donde se guardará la imagen
+        $rutaFinal = $directorioDestino . $nombreImagen;
+    
+        // Guardar la imagen en el servidor
+        if (!move_uploaded_file($imagenTmp, $rutaFinal)) {
+            return null; // Error al guardar la imagen
+        }
+    
+        return $nombreImagen; // Devolver el nombre de la imagen guardada
+    }
+    
 }

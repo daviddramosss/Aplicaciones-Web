@@ -11,17 +11,21 @@ body {
     color: white;
     padding: 15px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Añadir sombra difusa */
-    position: relative; /* Mantener el contexto para el logo */
+    min-width: 100%;
+    top:0%;
+    position: fixed; /* Mantener el contexto para el logo */
     min-height: 35px; /* Altura mínima para la cabecera */
+    z-index: 1000;
+    
 }
 
 .container_cabecera {
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
     align-items: center;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 0px;
+    /* max-width: 100%; */
+    /* margin: 0 auto;
+    padding: 0 0px; */
 }
 
 .logo_cabecera {
@@ -95,7 +99,7 @@ body {
 
 .admin_desplegable_cabecera {
     position: absolute; /* Para moverlo libremente */
-    right: 14%; /* Ajusta según necesites */
+    right: 15%; /* Ajusta según necesites */
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -110,7 +114,7 @@ body {
 
 .estrella_cabecera {
     position: absolute;
-    right: 10%;
+    right: 11%;
     top: 50%;
     display:flex;
     transform: translateY(-50%);
@@ -127,7 +131,7 @@ body {
 
 .carrito_cabecera {
     position: absolute;
-    right: 6%;
+    right: 7%;
     top: 50%;
     display:flex;
     transform: translateY(-50%);
@@ -142,7 +146,7 @@ body {
 
 .usuario_desplegable_cabecera {
     position: absolute;
-    right: 2%;
+    right: 3%;
     top: 50%;
     display:flex;
     transform: translateY(-50%);
@@ -231,6 +235,13 @@ body {
 /* #endregion */
 
 /* #region GENERAL */
+
+.contenido_principal {
+
+    margin-top: 80px;
+    margin-bottom: 150px;
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -293,6 +304,11 @@ textarea {
     padding: 10px;
     cursor: pointer;
 }
+
+#previewImage{
+    max-width: 200px;
+}
+
 
 /* #endregion */
 
@@ -393,6 +409,11 @@ textarea {
     text-align: center;
     padding: 10px 0;
     font-size: 14px;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+    position: fixed;
+    z-index: 1000;
 }
 
 .container_footer {
@@ -404,7 +425,7 @@ textarea {
 }
 
 .footer_links {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .footer_links a {
@@ -513,6 +534,45 @@ textarea {
     height: auto;
     margin: 20px auto;
     border-radius: 10px;
+}
+
+
+/* #endregion */
+
+/* #region PRUEBAS DE JOSE - BUSCAR */
+
+.contenedor_buscar {
+    display: flex;
+    gap: 20px;
+}
+
+.sidebar_buscar {
+    width: 25vh;
+    background: #f6f6ae;
+    padding: 25px;
+    border-radius: 0; /* Quitamos los bordes redondeados */
+    left: 0;
+    overflow-y: auto; /* Permite scroll si hay muchos filtros */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombrado para separación */
+    height: auto; /* Se ajusta al contenido */
+    position: fixed;
+}
+
+.resultados_buscar {
+    flex-grow: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 400px;
+}
+
+.estrella_buscar {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.estrella_buscar:hover, .estrella_buscar.seleccionada {
+    color: gold;
 }
 
 

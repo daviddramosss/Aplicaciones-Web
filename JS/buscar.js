@@ -84,3 +84,66 @@ document.addEventListener("DOMContentLoaded", function() {
         precioMaxInput.min = precioMin + 1; // Ajustamos el mínimo permitido para precio máximo
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("buscarFormulario");
+    const resultadosDiv = document.getElementById("resultados");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Evitar que recargue la página
+
+        let formData = new FormData(form);
+
+        fetch("procesarBusqueda.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(html => {
+            resultadosDiv.innerHTML = html; // Mostrar los resultados en el div
+        })
+        .catch(error => console.error("Error en la búsqueda:", error));
+    });
+});
+
+
+
+// #region SLIDERS
+
+document.addEventListener("DOMContentLoaded", function () {
+    const precioMin = document.getElementById("precioMin");
+    const precioMax = document.getElementById("precioMax");
+    const minOutput = document.getElementById("minValue");
+    const maxOutput = document.getElementById("maxValue");
+
+    // Función para actualizar los valores y asegurarse de que no se crucen
+    function actualizarSliders() {
+        let minVal = parseInt(precioMin.value);
+        let maxVal = parseInt(precioMax.value);
+
+        if (minVal > maxVal) {
+            precioMax.value = minVal; // Ajustar el máximo si el mínimo lo supera
+            maxVal = minVal;
+        }
+
+        // Actualizar los valores visibles en pantalla
+        minOutput.textContent = minVal;
+        maxOutput.textContent = maxVal;
+    }
+
+    // Event listeners para detectar cambios
+    precioMin.addEventListener("input", actualizarSliders);
+    precioMax.addEventListener("input", actualizarSliders);
+
+    // Llamamos una vez la función para que los valores iniciales sean correctos
+    actualizarValor();
+});
+
+
+function actualizarValor(idSlider, idTexto) {
+    document.getElementById(idTexto).textContent = document.getElementById(idSlider).value;
+}
+
+
+// #endregion
