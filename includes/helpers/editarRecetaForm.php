@@ -41,17 +41,17 @@ class editarRecetaForm extends formularioBase
         $descripcion = $this->receta->getDescripcion();
         $rutaImagen = "img/receta/" . htmlspecialchars($this->receta->getRuta());
         //$ingredientes = DAOIngrediente::buscarPorReceta($this->receta->getId());
-        $pasos = $this->receta->getPasos();
+        
         $precio = $this->receta->getPrecio();
         $tiempo = $this->receta->getTiempo();
 
-        $pasos = $this->receta->getPasos();
+        $pasos = json_decode($this->receta->getPasos(), true); // Decodificar JSON
         $pasosJSON = json_encode($pasos); // Convertir a JSON para JavaScript 
         $html = <<<EOF
             <script>
                 let pasosGuardados = $pasosJSON;
             </script>
-             n hh h                       
+                                   
         EOF;
 
         // Generamos el formulario con los valores actuales para edición
@@ -166,7 +166,7 @@ class editarRecetaForm extends formularioBase
             try
             {
                 // Crear un objeto DTO con los nuevos valores
-                $recetaDTO = new recetaDTO($this->receta->getId(), $titulo, $usuarioId, $descripcion, [], $tiempo, $precio, $this->receta->getFechaCreacion(), $this->receta->getValoracion(), $this->receta->getImagen());
+                $recetaDTO = new recetaDTO($this->receta->getId(), $nombre, $usuarioId, $descripcion, [], $tiempo, $precio, $this->receta->getFechaCreacion(), $this->receta->getValoracion(), $this->receta->getImagen());
 
                // Instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
@@ -195,5 +195,42 @@ class editarRecetaForm extends formularioBase
     private function procesarImagen()
     {
         //A implementar. Comprobar si se ha subido una imagen y de ser asi asegurarse de que se suba bien
+         // Si no se ha subido ninguna imagen, asignamos la imagen por defecto
+         if (!isset($_FILES['imagenReceta']) || $_FILES['imagenReceta']['error'] === UPLOAD_ERR_NO_FILE) {
+            return $this->receta->getImagen(); // Retorna la imagen existente   
+        }
+    
+        // Comprobar si hubo un error al subir la imagen
+        if ($_FILES['imagenReceta']['error'] !== UPLOAD_ERR_OK) {
+            return null; // Error en la subida
+        }
+    
+        $imagenTmp = $_FILES['imagenReceta']['tmp_name'];
+        $nombreOriginal = $_FILES['imagenReceta']['name'];
+    
+        // Obtener la extensión del archivo
+        $extension = strtolower(pathinfo($nombreOriginal, PATHINFO_EXTENSION));
+    
+        // Validar formato de imagen (solo JPG, PNG, GIF)
+        $formatosPermitidos = ['jpg', 'jpeg', 'png', 'gif'];
+        if (!in_array($extension, $formatosPermitidos)) {
+            return null; // Formato no permitido
+        }
+    
+        // Generar un nombre único para evitar duplicados
+        $nombreImagen = uniqid("receta_") . "." . $extension;
+    
+        // Definir la ruta de destino
+        $directorioDestino = dirname(dirname(__DIR__)) . "/img/receta/";
+    
+        // Ruta completa donde se guardará la imagen
+        $rutaFinal = $directorioDestino . $nombreImagen;
+    
+        // Guardar la imagen en el servidor
+        if (!move_uploaded_file($imagenTmp, $rutaFinal)) {
+            return null; // Error al guardar la imagen
+        }
+    
+        return $nombreImagen; // Devolver el nombre de la imagen guardada
     }
 }
