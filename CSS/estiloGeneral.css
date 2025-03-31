@@ -550,30 +550,114 @@ textarea {
     width: 25vh;
     background: #f6f6ae;
     padding: 25px;
-    border-radius: 0; /* Quitamos los bordes redondeados */
     left: 0;
-    overflow-y: auto; /* Permite scroll si hay muchos filtros */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombrado para separación */
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     min-height: 100vh;
     position: fixed;
-    margin-top: -10vh;
+    margin-top: -12vh;
+    border-right: 3px solid #ddd;
 }
 
-.resultados_buscar {
-    flex-grow: 1;
+/* Estilos generales */
+.sidebar_buscar h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #444;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.sidebar_buscar label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #333;
+}
+
+/* Inputs de texto y selects */
+.sidebar_buscar input[type="text"],
+.sidebar_buscar select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    min-height: 400px;
+}
+
+/* Sliders */
+.sidebar_buscar input[type="range"] {
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Valor numérico de los sliders */
+.sidebar_buscar label span {
+    font-weight: bold;
+    color: #555;
+}
+
+/* Alineación de las estrellas */
+.valoracion {
+    display: flex;
+    justify-content: center;  /* Centra las estrellas */
+    gap: 5px;
+    margin-top: 10px;
 }
 
 .estrella_buscar {
-    font-size: 20px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.estrella_buscar:hover, 
+.estrella_buscar.seleccionada {
+    color: gold;
+}
+
+/* #region No Implementado */
+
+/* Alineación de los checkboxes con sus labels */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre el checkbox y el texto */
+    margin-top: 10px;
+}
+
+.checkbox-container label{
+    position: relative;
+    top: -0.75vh; /* Sube un poco el label */
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
     cursor: pointer;
 }
 
-.estrella_buscar:hover, .estrella_buscar.seleccionada {
-    color: gold;
+/* #endregion */
+
+/* Botón de búsqueda */
+.sidebar_buscar button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background: #ff9800;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.sidebar_buscar button:hover {
+    background: #e68900;
 }
 
 
