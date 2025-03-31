@@ -554,8 +554,9 @@ textarea {
     left: 0;
     overflow-y: auto; /* Permite scroll si hay muchos filtros */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombrado para separación */
-    height: auto; /* Se ajusta al contenido */
+    min-height: 100vh;
     position: fixed;
+    margin-top: -10vh;
 }
 
 .resultados_buscar {
