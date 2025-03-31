@@ -17,9 +17,11 @@
     <?php include 'cabecera.php'; ?>
 
     <main class="contenido.plantilla">
-        <article>
-            <?= $contenidoPrincipal ?>
-        </article>
+        <div class="contenido_principal">
+            <article>
+                <?= $contenidoPrincipal ?>
+            </article>
+        </div>
     </main>
 
     <?php include 'pie.php'; ?>

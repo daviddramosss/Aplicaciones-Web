@@ -15,6 +15,7 @@ body {
     top:0%;
     position: fixed; /* Mantener el contexto para el logo */
     min-height: 35px; /* Altura mínima para la cabecera */
+    z-index: 1000;
     
 }
 
@@ -234,6 +235,12 @@ body {
 /* #endregion */
 
 /* #region GENERAL */
+
+.contenido_principal {
+
+    margin-top: 80px;
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
