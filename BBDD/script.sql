@@ -56,6 +56,7 @@ CREATE TABLE `usuarios` (
  `Email` varchar(100) NOT NULL,
  `Rol` enum('Admin','User','Chef') NOT NULL DEFAULT 'User',
  `Password` varchar(250) NOT NULL COMMENT 'Se guarda el Hash',
+ `Ruta` varchar(100) NOT NULL,
  PRIMARY KEY (`ID`),
  UNIQUE KEY `Email` (`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

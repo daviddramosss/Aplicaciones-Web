@@ -50,7 +50,7 @@ class userDAO implements IUser
             $fila = $rs->fetch_assoc();
             
             // Creamos un usuario con los datos del usuario encontrado, liberamos la variable usada, y lo retornamos
-            $user = new userDTO($fila['ID'], $fila['Nombre'], $fila['Apellidos'], $fila['Email'], $fila['Rol'], $fila['Password']);
+            $user = new userDTO($fila['ID'], $fila['Nombre'], $fila['Apellidos'], $fila['Email'], $fila['Rol'], $fila['Password'], $fila['Ruta']);
 
             $rs->free();
 
@@ -77,6 +77,7 @@ class userDAO implements IUser
         $emailUsuario = $conn->real_escape_string($userDTO->getEmail());
         $passwordUsuario = $conn->real_escape_string($userDTO->getPassword());
         $rolUsuario = $conn->real_escape_string($userDTO->getRol());
+        $rutaUsuario = $conn->real_escape_string($userDTO->getRuta());
 
         // Buscamos primero si existe un usuario con el email del que queremos crear. Si existe, devolvemos false y no lo creamos
         $foundedUserDTO = $this->buscaUsuario($emailUsuario);
@@ -85,12 +86,13 @@ class userDAO implements IUser
         }
 
         // Si no existe, creamos la sentencia a ejecutar en la BBDD (la query de insert)
-        $query = sprintf("INSERT INTO usuarios(Nombre, Apellidos, Email, Rol, Password) VALUES ('%s', '%s', '%s', '%s', '%s')"
+        $query = sprintf("INSERT INTO usuarios(Nombre, Apellidos, Email, Rol, Password, Ruta) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')"
             , $nombreUsuario
             , $apellidosUsuario
             , $emailUsuario
             , $rolUsuario
             , $passwordUsuario
+            , $rutaUsuario
         );
 
         // Si la ejecución del insert se hizo correctamente, cogeremos el id asignado automáticamente por la BBSDD y crearemos el usuario con los datos para devolverlo
@@ -98,7 +100,7 @@ class userDAO implements IUser
         {
             $idUser = $conn->insert_id;
             
-            $createdUserDTO = new userDTO($idUser, $nombreUsuario, $apellidosUsuario, $emailUsuario, $rolUsuario, $passwordUsuario );
+            $createdUserDTO = new userDTO($idUser, $nombreUsuario, $apellidosUsuario, $emailUsuario, $rolUsuario, $passwordUsuario, $rutaUsuario );
         } 
 
         return $createdUserDTO;
@@ -120,11 +122,11 @@ class userDAO implements IUser
         if($stmt->execute())
         {
             $Id = $Nombre = $Apellidos = $Email = $Rol = $Password = null ;
-            $stmt->bind_result($Id, $Nombre, $Apellidos, $Email, $Rol, $Password);
+            $stmt->bind_result($Id, $Nombre, $Apellidos, $Email, $Rol, $Password, $Ruta);
 
             if($stmt->fetch())
             {
-                $user = new userDTO($Id, $Nombre, $Apellidos, $Email, $Rol, $Password);
+                $user = new userDTO($Id, $Nombre, $Apellidos, $Email, $Rol, $Password, $Ruta);
 
                 $stmt->close();
 

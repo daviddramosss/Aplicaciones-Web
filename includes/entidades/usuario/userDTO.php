@@ -18,7 +18,9 @@ class userDTO
 
     private $password;
 
-    public function __construct($id, $nombre, $apellidos, $email, $rol, $password)
+    private $ruta;
+
+    public function __construct($id, $nombre, $apellidos, $email, $rol, $password, $ruta)
     {
         //Asigna los parametros a los atributos del usuario
         $this->id = $id;
@@ -27,6 +29,7 @@ class userDTO
         $this->email = $email;
         $this->rol = $rol;
         $this->password = $password;
+        $this->ruta = $ruta;
     }
     
 
@@ -61,6 +64,9 @@ class userDTO
         return $this->password;
     }
 
-    
+    public function getRuta()
+    {
+        return $this->ruta;
+    }
 }
 ?>
