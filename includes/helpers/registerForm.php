@@ -54,7 +54,21 @@ class registerForm extends formularioBase
                 <input type="password" name="rePassword" placeholder="REPETIR CONTRASEÑA" required/>
             </div>
             
+            <!-- Sección de imagen -->
+            <h2>Foto de perfil</h2>
+            <p><label for="imagenUsuario">Sube una foto de perfil. Si no sube ninguna imagen, se usara la imagen por defecto.</label></p>
+            <input type="file" id="imagenUsuario" name="imagenUsuario" accept="image/jpeg, image/png, image/gif"/>
+
+            <div id="previewContainer">
+                <img id="previewImage" src="" alt="Vista previa de la imagen" style="display: none;"/>
+            </div>
+
+
             <button type="submit" class="send-button" name="register">REGISTRARSE</button>
+
+            <!-- Importación de scripts JavaScript -->
+            <script src="js/register.js"></script>
+            
         EOF;
         return $html;
     }
