@@ -8,8 +8,7 @@
     <link rel="icon" href="img/Logo.png" type="image/png">
     <link rel="stylesheet" href="CSS/estiloGeneral.css">
 
-     <!-- Swiper CSS -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
 
 </head>
 <body>
@@ -25,8 +24,6 @@
 
     <?php include 'pie.php'; ?>
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>  
 
 </body>
 </html>
