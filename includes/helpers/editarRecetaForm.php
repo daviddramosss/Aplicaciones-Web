@@ -3,6 +3,8 @@
 namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
+use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService, ingredienteRecetaDTO};
+use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRecetaDTO};
 use es\ucm\fdi\aw\comun\formularioBase;
 use es\ucm\fdi\aw\application;
 
@@ -20,30 +22,106 @@ class editarRecetaForm extends formularioBase
         $recetaService = recetaAppService::GetSingleton();
         
         // Obtener la receta desde la base de datos
-        $this->receta = $recetaService->obtenerRecetaPorId($recetaId);
+        $this->receta = $recetaService->buscarRecetaPorId($recetaId); 
+
+        //Hago lo mismo para obtener los ingredientes y las etiquetas
+        $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
+        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId);
+    
+        $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
+        $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($recetaId);
     }
 
     // Método para generar los campos del formulario con los datos actuales
     protected function CreateFields($datos)
     {
-        // Si ya hay datos en el formulario (tras un intento fallido de envío), se usan esos. Si no, se usan los valores actuales de la receta.
-        $titulo = $datos['titulo'] ?? $this->receta->getTitulo();
-        $descripcion = $datos['descripcion'] ?? $this->receta->getDescripcion();
-        $precio = $datos['precio'] ?? $this->receta->getPrecio();
-        $tiempo = $datos['tiempo'] ?? $this->receta->getTiempo();
+
+        //obtengo informacion de la receta
+        $nombre = $this->receta->getNombre();
+        $descripcion = $this->receta->getDescripcion();
+        $rutaImagen = "img/receta/" . htmlspecialchars($this->receta->getRuta());
+        //$ingredientes = DAOIngrediente::buscarPorReceta($this->receta->getId());
+        $pasos = $this->receta->getPasos();
+        $precio = $this->receta->getPrecio();
+        $tiempo = $this->receta->getTiempo();
+
+        $pasos = $this->receta->getPasos();
+        $pasosJSON = json_encode($pasos); // Convertir a JSON para JavaScript 
+        $html = <<<EOF
+            <script>
+                let pasosGuardados = $pasosJSON;
+            </script>
+             n hh h                       
+        EOF;
 
         // Generamos el formulario con los valores actuales para edición
-        $html = <<<EOF
-                <div class="input-container"><input type="text" name="titulo" value="$titulo" required/></div>
-                <div class="input-container"><textarea name="descripcion" required>$descripcion</textarea></div>
-                <div class="input-container"><input type="number" step="0.1" name="precio" value="$precio" required/></div>
-                <div class="input-container"><input type="number" step="1" name="tiempo" value="$tiempo" required/></div>
-                
-                <p>
-                    <button type="button" class="send-button" onclick="location.href='index.php'">CANCELAR</button>
-                    <button type="submit" class="send-button" name="guardar">GUARDAR CAMBIOS</button>
-                </p>
-            EOF;
+       // Generación del HTML para el formulario
+       $html = <<<EOF
+            <div class="input-container">
+                <input type="textarea" name="titulo" placeholder="TITULO" value="$nombre" required/>
+            </div>
+            
+            <div class="input-container">
+                <input type="textarea" name="descripcion" placeholder="DESCRIPCION" value="$descripcion" required/>
+            </div>
+            
+            <div class="input-container">
+                <input type="number" step ="0.1" name="precio" placeholder="PRECIO EN €" value="$precio" required/>
+            </div>
+            <p>Ingreso percibido estimado: <span id="ingresoEstimado">0</span> € (tras comisión MarketChef (15%))</p>
+
+            <div class="input-container">
+                <input type="number" step ="1" name="tiempo" placeholder="TIEMPO DE ELABORACION EN MINUTOS" value="$tiempo" required/>
+            </div>
+
+            <!-- Sección de ingredientes -->
+            <h2>Ingredientes</h2> 
+            <div id="ingredientContainer">
+                <!-- Los ingredientes se insertarán dinámicamente con JavaScript -->
+            </div>
+
+            <!-- Sección de pasos -->
+            <h2>Pasos para elaborar la receta</h2>
+            <div id="stepsContainer">
+                <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
+            </div>
+
+            <button type="button" class="send-button" id="addStep">+ AÑADIR PASO</button>
+            <button type="button" class="send-button" id="removeStep">- ELIMINAR PASO</button>
+            
+            
+            <!-- Sección de etiquetas -->
+            <h2>Etiquetas</h2>
+            <p>Añade etiquetas para recomendar tu receta: (Máximo 3)</p>
+
+            <div id="tagsContainer" class="tags-container">
+                <!-- Aquí se insertarán dinámicamente las etiquetas -->
+            </div>
+
+            <!-- Campo oculto para almacenar las etiquetas seleccionadas -->
+            <input type="hidden" name="etiquetas" id="etiquetasSeleccionadas" value="">
+
+            <!-- Sección de imagen -->
+            <h2>Imagen de la receta</h2>
+           <img src="$rutaImagen" alt="$nombre" class="receta-imagen-detalle">
+            <input type="file" id="imagenReceta" name="imagenReceta" accept="image/jpeg, image/png, image/gif"/>
+
+            <div id="previewContainer">
+                <img id="previewImage" src="" alt="Vista previa de la imagen" style="display: none;"/>
+            </div>
+
+            <!-- Botones de acción -->
+            <p>
+                <button type="button" class="send-button" onclick="location.href='index.php'">CANCELAR</button>
+                <button type="submit" class="send-button" name="guardar">GUARDAR</button>
+                <button type="submit" class="send-button" name="eliminar">BORRAR RECETA</button>
+            </p>
+
+            <!-- Importación de scripts JavaScript -->
+            <script src="js/editarReceta.js"></script>   
+            <script src="js/ingredientesAux.js"></script>
+            <script src="js/etiquetas.js"></script> 
+        EOF;
 
         return $html;
     }

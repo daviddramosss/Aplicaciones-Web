@@ -55,7 +55,7 @@ class crearRecetaForm extends formularioBase
             <!-- Sección de pasos -->
             <h2>Pasos para elaborar la receta</h2>
             <div id="stepsContainer">
-                <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
+                <p class="step-item"><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
             </div>
 
             <button type="button" class="send-button" id="addStep">+ AÑADIR PASO</button>

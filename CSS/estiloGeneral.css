@@ -536,6 +536,24 @@ textarea {
     border-radius: 10px;
 }
 
+.step-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.step-item textarea {
+    width: auto;
+    min-height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+
 
 /* #endregion */
 
