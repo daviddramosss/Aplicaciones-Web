@@ -85,16 +85,38 @@ class recetaAppService
        //-----------------------------------------------------------------------------------
         //Guardamos los ingredientes modificados
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
+        //obtengo la lista de los ingredientes asociados a dicha receta
+        $ingredientesExistentes = $ingredienteRecetaService->buscarIngredienteReceta($editedId);
+
+        // Crear un array para almacenar los IDs de los ingredientes existentes
+        $ingredientesExistentesIds = array_map(function($ingrediente) {
+            return $ingrediente['Ingrediente'];
+        }, $ingredientesExistentes);
 
         //Guardamos los nuevos ingredientes
-        foreach ($ingredientes as $ingredienteId => $ingredienteData) {
+        foreach ($nuevosIngredientes as $ingredienteId => $ingredienteData) {
             $ingredienteId = intval($ingredienteId);
             $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
             $magnitud = filter_var($ingredienteData['magnitud'] ?? 0, FILTER_VALIDATE_INT);
-    
-            if ($ingredienteId > 0 && $cantidad > 0) {
-                $ingredienteRecetaDTO = new ingredienteRecetaDTO($editedId, $ingredienteId, $cantidad, $magnitud);
-                $ingredienteRecetaService->editarIngredienteReceta($ingredienteRecetaDTO);
+            
+            //Si el ingrediente es valido, lo guarda
+            if ($ingredienteId > 0 && $cantidad > 0) {  
+                // Si el ingrediente ya existe, actualiza
+                if (in_array($ingredienteId, $ingredientesExistentesIds)) {
+                    $ingredienteRecetaDTO = new ingredienteRecetaDTO($editedId, $ingredienteId, $cantidad, $magnitud);
+                    $ingredienteRecetaService->editarIngredienteReceta($ingredienteRecetaDTO);
+                } else {
+                    // Si no existe, crea un nuevo ingrediente
+                    $ingredienteRecetaDTO = new ingredienteRecetaDTO($editedId, $ingredienteId, $cantidad, $magnitud);
+                    $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
+                }
+            }
+            // Eliminar ingredientes que ya no están en la lista
+            foreach ($ingredientesExistentes as $ingrediente) {
+                if (!in_array($ingrediente['Ingrediente'], array_keys($nuevosIngredientes))) {
+                    $ingredienteRecetaDTO = new ingredienteRecetaDTO($editedId, $ingrediente['Ingrediente'], 0, 0);
+                    $ingredienteRecetaService->borrarIngredienteReceta($ingredienteRecetaDTO);
+                }
             }
         }
 

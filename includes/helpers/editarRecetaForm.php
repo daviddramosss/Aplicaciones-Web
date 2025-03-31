@@ -136,7 +136,7 @@ class editarRecetaForm extends formularioBase
         $usuarioId = $application->getIdUsuario();
 
         // Sanitizar y validar los datos recibidos
-        $titulo = filter_var(trim($datos['titulo'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $titulo = filter_var(trim($datos['nombre'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $descripcion = filter_var(trim($datos['descripcion'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $precio = floatval($datos['precio'] ?? 0);
         $tiempo = intval($datos['tiempo'] ?? 0);
@@ -166,7 +166,7 @@ class editarRecetaForm extends formularioBase
             try
             {
                 // Crear un objeto DTO con los nuevos valores
-                $recetaDTO = new recetaDTO($this->receta->getId(), $nombre, $usuarioId, $descripcion, [], $tiempo, $precio, $this->receta->getFechaCreacion(), $this->receta->getValoracion(), $this->receta->getImagen());
+                $recetaDTO = new recetaDTO($this->receta->getId(), $titulo, $usuarioId, $descripcion, [], $tiempo, $precio, $this->receta->getFechaCreacion(), $this->receta->getValoracion(), $this->receta->getImagen());
 
                // Instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();

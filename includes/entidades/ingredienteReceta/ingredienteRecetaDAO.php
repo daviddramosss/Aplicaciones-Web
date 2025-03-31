@@ -113,8 +113,9 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
                 $stmtUpdate->bind_param("diii", $cantidad, $magnitud, $recetaId, $ingredienteId);
                 $stmtUpdate->execute();
             } else {
+                //EN PRINCIPIO NO SE HACE AQUI
                 // Si no existe, lo insertamos como nuevo ingrediente
-                return $this->crearIngredienteReceta($ingredienteRecetaDTO);
+                //return $this->crearIngredienteReceta($ingredienteRecetaDTO);
             }
 
             return new ingredienteRecetaDTO($recetaId, $ingredienteId, $cantidad, $magnitud);
@@ -129,7 +130,39 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
     // Método para eliminar un ingrediente de una receta (pendiente de implementación)
     public function borrarIngredienteReceta($ingredienteRecetaDTO)
     {
-        // Implementar más adelante
+        try 
+        {
+            // Obtener la conexión a la base de datos
+            $conn = application::getInstance()->getConexionBd();
+
+            // Obtener los valores desde el DTO
+            $recetaId = $ingredienteRecetaDTO->getRecetaId();
+            $ingredienteId = $ingredienteRecetaDTO->getIngredienteId();
+
+            // Consulta SQL para eliminar el ingrediente
+            $query = "DELETE FROM receta_ingrediente WHERE Receta = ? AND Ingrediente = ?";
+            
+            // Preparar la consulta
+            $stmt = $conn->prepare($query);
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
+            // Enlazar los parámetros
+            $stmt->bind_param("ii", $recetaId, $ingredienteId);
+
+            // Ejecutar la consulta
+            if (!$stmt->execute()) {
+                throw new Exception("Error al eliminar el ingrediente: " . $stmt->error);
+            }
+
+            // Cerrar la declaración
+            $stmt->close();
+        }
+        catch (mysqli_sql_exception $e)
+        {
+            throw $e;
+        }
         
     }
 
