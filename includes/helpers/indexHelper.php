@@ -16,7 +16,7 @@ class IndexHelper
         $recetaAppService = recetaAppService::GetSingleton();
 
         $recetasFecha = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('fecha'), "Recetas más recientes", "swiper-fecha");
-        $recetasEtiqueta = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('etiqueta_principal'), "Recetas por tipo de comida", "swiper-etiqueta");
+        $recetasEtiqueta = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('etiqueta_principal'), "Platos principales", "swiper-etiqueta");
         $recetasPrecio = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('precio'), "Recetas ordenadas por precio", "swiper-precio");
         $recetasIngredientes = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('ingrediente'), "Recetas con más ingredientes", "swiper-ingredientes");
         
@@ -54,7 +54,7 @@ class IndexHelper
             $html .= <<<HTML
             <div class="swiper-slide">
                 <div class="receta-card">
-                    <a href="">
+                    <a href="mostrarReceta.php?id={$receta->getId()}">
                         <img src="img/receta/{$receta->getRuta()}" alt="{$receta->getNombre()}" class="receta-imagen">
                     </a>
                     <p class="receta-titulo">{$receta->getNombre()}</p>

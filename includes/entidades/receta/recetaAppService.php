@@ -140,6 +140,12 @@ class recetaAppService
         return $IRecetaDAO->mostrarRecetasIndex($criterio);
     }
 
+    public function buscarRecetaPorId($id){
+        $IRecetaDAO = recetaFactory::CreateReceta();
+
+        return $IRecetaDAO->buscarReceta($id);
+    }
+
 
 }
 

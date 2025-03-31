@@ -17,43 +17,42 @@ class recetaDAO extends baseDAO implements IReceta
     }
 
     // Función privada para buscar una receta en la base de datos por su ID
-    private function buscarReceta($recetaId)
+    public function buscarReceta($recetaId)
     {
-        // Escapa el ID de la receta para evitar inyección SQL
-        $escRecetaId = $this->realEscapeString($recetaId);
-
         // Accede a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para buscar la receta
-        $query = "SELECT * FROM recetas WHERE recetaId = ?";
+        $query = "SELECT * FROM recetas WHERE ID = ?";
 
         // Prepara la declaración SQL
         $stmt = $conn->prepare($query);
 
         // Asocia el parámetro de la consulta con el valor del ID
-        $stmt->bind_param("i", $escRecetaId);
+        $stmt->bind_param("i", $recetaId);
 
         // Ejecuta la consulta
-        $stmt->execute();
-
-        // Declara las variables donde se almacenarán los resultados
-        $Id = $Nombre = $Autor = $Descripcion = $Pasos = $Tiempo = $Precio = $Fecha_Creacion = $Valoracion = $ruta = null ;
-
-        // Asocia las columnas de la consulta con las variables PHP
-        $stmt->bind_result($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion, $ruta);
-
-        // Si se encontró la receta
-        if ($stmt->fetch())
+        if($stmt->execute())
         {
-            // Crea un objeto recetaDTO con los datos obtenidos
-            $receta = new recetaDTO($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion, $ruta);
 
-            // Cierra la declaración
-            $stmt->close();
+            // Declara las variables donde se almacenarán los resultados
+            $Id = $Nombre = $Autor = $Descripcion = $Pasos = $Tiempo = $Precio = $Fecha_Creacion = $Valoracion = $ruta = null ;
 
-            // Retorna el objeto receta
-            return $receta;
+            // Asocia las columnas de la consulta con las variables PHP
+            $stmt->bind_result($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion, $ruta);
+
+            // Si se encontró la receta
+            if ($stmt->fetch())
+            {
+                // Crea un objeto recetaDTO con los datos obtenidos
+                $receta = new recetaDTO($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion, $ruta);
+
+                // Cierra la declaración
+                $stmt->close();
+
+                // Retorna el objeto receta
+                return $receta;
+            }
         }
 
         // Si no se encuentra la receta, retorna false
