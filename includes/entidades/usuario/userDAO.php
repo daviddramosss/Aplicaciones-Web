@@ -104,5 +104,37 @@ class userDAO implements IUser
         return $createdUserDTO;
     }
 
+    public function buscarUsuarioPorID($userId){
+        $conn = application::getInstance()->getConexionBd();
+        
+        // busca en la base de datos un usuario con el email pasado por parámetro
+        $query = "SELECT * FROM usuarios WHERE ID= ?";
+        
+        // Prepara la declaración SQL
+        $stmt = $conn->prepare($query);
+
+        // Asocia el parámetro de la consulta con el valor del ID
+        $stmt->bind_param("i", $userId); 
+        
+        // Ejecuta la consulta 
+        if($stmt->execute())
+        {
+            $Id = $Nombre = $Apellidos = $Email = $Rol = $Password = null ;
+            $stmt->bind_result($Id, $Nombre, $Apellidos, $Email, $Rol, $Password);
+
+            if($stmt->fetch())
+            {
+                $user = new userDTO($Id, $Nombre, $Apellidos, $Email, $Rol, $Password);
+
+                $stmt->close();
+
+                return $user;
+            }
+        }
+        
+        // Si no se ha encontrado ningún usuario con ese email, se devuelve un false
+        return false;
+    }
+
 }
 ?>

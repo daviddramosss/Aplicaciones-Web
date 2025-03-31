@@ -53,6 +53,11 @@ class userAppService
         }
         return false;
     }
+
+    public function buscarUsuarioPorID($userId){
+        $IUserDAO = userFactory::CreateUser();
+        return $IUserDAO->buscarUsuarioPorID($userId);
+    }
    
 }
 

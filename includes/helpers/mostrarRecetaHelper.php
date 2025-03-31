@@ -3,15 +3,26 @@
 namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
+use es\ucm\fdi\aw\entidades\usuario\{userAppService, userDTO};
+use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService, ingredienteRecetaDTO};
+use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRecetaDTO};
 
 class mostrarRecetaHelper
 {
     private $receta;
+    private $ingredientes;
+    private $autor;
+    private $etiquetas;
 
     public function __construct($recetaId) 
     {
         $recetaService = recetaAppService::GetSingleton();
         $this->receta = $recetaService->buscarRecetaPorId($recetaId);
+        
+        $usuarioService = userAppService::GetSingleton();
+        $this->autor = $usuarioService->buscarUsuarioPorID($this->receta->getAutor());
+
+
     }
 
     public function generarReceta()
@@ -21,7 +32,7 @@ class mostrarRecetaHelper
         }
     
         $nombre = htmlspecialchars($this->receta->getNombre());
-        $autor = htmlspecialchars($this->receta->getAutor());
+        $autor = htmlspecialchars($this->autor->getNombre());
         $descripcion = nl2br(htmlspecialchars($this->receta->getDescripcion()));
         $tiempo = htmlspecialchars($this->receta->getTiempo()) . " minutos";
         $precio = htmlspecialchars($this->receta->getPrecio()) . "€";
