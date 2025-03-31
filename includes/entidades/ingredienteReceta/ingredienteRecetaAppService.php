@@ -54,6 +54,13 @@ class IngredienteRecetaAppService
     
         return $deletedIngredienteRecetaDTO;
     }
+
+    public function buscarIngredienteReceta($recetaId)
+    {
+        $IIngredienteRecetaDAO = IngredienteRecetaFactory::CreateIngredienteReceta();
+
+        return $IIngredienteRecetaDAO->buscarIngredienteReceta($recetaId);
+    }
 }
 
 

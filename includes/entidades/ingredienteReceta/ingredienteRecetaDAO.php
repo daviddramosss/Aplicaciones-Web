@@ -132,6 +132,57 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
         // Implementar más adelante
         
     }
+
+    public function buscarIngredienteReceta($recetaId)
+    {
+        // Accede a la base de datos
+        $conn = application::getInstance()->getConexionBd();
+
+        // Prepara la consulta SQL para obtener los ingredientes de la receta
+        $query = "SELECT i.Nombre, ri.Cantidad, m.Nombre 
+                FROM receta_ingrediente ri
+                JOIN ingredientes i ON ri.Ingrediente = i.ID
+                JOIN magnitudes m ON ri.Magnitud = m.ID
+                WHERE ri.Receta = ?";
+
+        // Prepara la declaración SQL
+        $stmt = $conn->prepare($query);
+
+        // Asocia el parámetro de la consulta con el valor del ID de la receta
+        $stmt->bind_param("i", $recetaId);
+
+        // Ejecuta la consulta
+        if ($stmt->execute()) 
+        {
+            // Declara las variables donde se almacenarán los resultados
+            $ingrediente = $cantidad = $magnitud = null;
+
+            // Asocia las columnas de la consulta con las variables PHP
+            $stmt->bind_result($ingrediente, $cantidad, $magnitud);
+
+            // Array donde se almacenarán los ingredientes
+            $ingredientes = [];
+
+            // Recorre los resultados y los guarda en el array
+            while ($stmt->fetch()) 
+            {
+                $ingredientes[] = [
+                    "Ingrediente" => $ingrediente,
+                    "Cantidad" => $cantidad,
+                    "Magnitud" => $magnitud
+                ];
+            }
+
+            // Cierra la declaración
+            $stmt->close();
+
+            // Retorna el array con los ingredientes
+            return $ingredientes;
+        }
+
+        // Si no hay ingredientes o hay un error, retorna un array vacío
+        return [];
+    }
 }
 
 ?>

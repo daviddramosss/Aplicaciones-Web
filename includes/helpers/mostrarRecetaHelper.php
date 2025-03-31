@@ -22,7 +22,13 @@ class mostrarRecetaHelper
         $usuarioService = userAppService::GetSingleton();
         $this->autor = $usuarioService->buscarUsuarioPorID($this->receta->getAutor());
 
+        $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
+        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId);
+    }
 
+    public function print()
+    {
+        return $this->generarReceta() . $this->generarIngredientes();
     }
 
     public function generarReceta()
@@ -65,6 +71,27 @@ class mostrarRecetaHelper
                 $listaPasos
             </div>
         HTML;
+    }
+    
+    public function generarIngredientes() {
+        $html = '<div class="receta-ingrediente-container">';
+        $html .= '<h2>Lista de ingredientes</h2>';
+    
+        foreach ($this->ingredientes as $ingrediente) {
+            $html .= <<<HTML
+                <div class="receta-ingrediente-card">                    
+                    <p>
+                        {$ingrediente['Ingrediente']}:
+                        {$ingrediente['Cantidad']} 
+                        {$ingrediente['Magnitud']}
+                    </p>
+                </div>
+            HTML;
+        }
+    
+        $html .= '</div>';
+    
+        return $html;
     }
 
 
