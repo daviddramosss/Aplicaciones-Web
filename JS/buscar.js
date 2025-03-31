@@ -84,3 +84,25 @@ document.addEventListener("DOMContentLoaded", function() {
         precioMaxInput.min = precioMin + 1; // Ajustamos el mínimo permitido para precio máximo
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("buscarFormulario");
+    const resultadosDiv = document.getElementById("resultados");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Evitar que recargue la página
+
+        let formData = new FormData(form);
+
+        fetch("procesarBusqueda.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(html => {
+            resultadosDiv.innerHTML = html; // Mostrar los resultados en el div
+        })
+        .catch(error => console.error("Error en la búsqueda:", error));
+    });
+});

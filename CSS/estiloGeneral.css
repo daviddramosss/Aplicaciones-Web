@@ -11,8 +11,11 @@ body {
     color: white;
     padding: 15px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Añadir sombra difusa */
-    position: relative; /* Mantener el contexto para el logo */
+    min-width: 100%;
+    top:0%;
+    position: fixed; /* Mantener el contexto para el logo */
     min-height: 35px; /* Altura mínima para la cabecera */
+    
 }
 
 .container_cabecera {
@@ -513,6 +516,47 @@ textarea {
     height: auto;
     margin: 20px auto;
     border-radius: 10px;
+}
+
+
+/* #endregion */
+
+
+
+/* #region PRUEBAS DE JOSE - BUSCAR */
+
+.contenedor_buscar {
+    display: flex;
+    gap: 20px;
+}
+
+.sidebar_buscar {
+    width: 250px;
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 0; /* Quitamos los bordes redondeados */
+    left: 0;
+    overflow-y: auto; /* Permite scroll si hay muchos filtros */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombrado para separación */
+    height: auto; /* Se ajusta al contenido */
+    position: fixed;
+}
+
+.resultados_buscar {
+    flex-grow: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 400px;
+}
+
+.estrella_buscar {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.estrella_buscar:hover, .estrella_buscar.seleccionada {
+    color: gold;
 }
 
 
