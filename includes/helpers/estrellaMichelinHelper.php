@@ -30,7 +30,7 @@ class estrellaMichelinHelper {
         $rol = $this->user->getRol();
 
         // Si el rol no es chef, se redirige a la página principal y se deja de ejecutar el código de este archivo
-        if($rol != 'Chef'){
+        if($rol == 'User'){
 
             // Mostramos un texto
             return <<<HTML
@@ -41,8 +41,20 @@ class estrellaMichelinHelper {
 
                 <p> ¡Para contactar con nosotros puedes acceder a la sección de contacto o simplemente haz click <a href="contacto.php">aquí</a>!</p>   
             HTML;
-        }
-        else{
+        }else if ($rol == 'Admin'){
+            
+            $recetasHTML = $this->mostrarRecetaAdmin();
+
+            return <<<HTML
+                <link rel="stylesheet" href="CSS/index.css">
+                <h1> ¡Bienvenido a la cocina Admin!</h1>
+
+                <p> Aquí podrás ver y editar las recetas que los chefs han creado.</p>
+                 <p> Al hacer clic en cada uno de tus platos podrás editarlos o borrarlos de una manera sencilla.</p>               
+                {$recetasHTML}
+            HTML;        
+        
+        }else if ($rol == 'Chef'){
 
             $recetasHTML = $this->mostrarRecetasChef();
 
@@ -70,6 +82,32 @@ class estrellaMichelinHelper {
     public function mostrarRecetasChef() {
         $recetaAppService = recetaAppService::GetSingleton();
         $recetas = $recetaAppService->mostarRecetasPorAutor($this->user);
+
+        if (empty($recetas)) {
+            return "<p>No tienes recetas publicadas aún.</p>";
+        }
+
+        $html = '<div class="recetas-container">';
+    
+        foreach ($recetas as $receta) {
+            $html .= <<<HTML
+                <div class="receta-card">
+                    <a href="editarReceta.php?id={$receta->getId()}">
+                        <img src="img/receta/{$receta->getRuta()}" alt="{$receta->getNombre()}" class="receta-imagen">
+                    </a>
+                    <p class="receta-titulo">{$receta->getNombre()}</p>
+                </div>
+            HTML;
+        }
+    
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    public function mostrarRecetaAdmin(){
+        $recetaAppService = recetaAppService::GetSingleton();
+        $recetas = $recetaAppService->mostrarTodasLasRecetas();
 
         if (empty($recetas)) {
             return "<p>No tienes recetas publicadas aún.</p>";
