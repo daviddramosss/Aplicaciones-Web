@@ -410,6 +410,7 @@ textarea {
     padding: 10px 0;
     font-size: 14px;
     width: 100%;
+    height: auto;
     bottom: 0;
     position: fixed;
     z-index: 1000;
@@ -424,7 +425,7 @@ textarea {
 }
 
 .footer_links {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .footer_links a {
@@ -571,8 +572,9 @@ textarea {
     left: 0;
     overflow-y: auto; /* Permite scroll si hay muchos filtros */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombrado para separación */
-    height: auto; /* Se ajusta al contenido */
+    min-height: 100vh;
     position: fixed;
+    margin-top: -10vh;
 }
 
 .resultados_buscar {
