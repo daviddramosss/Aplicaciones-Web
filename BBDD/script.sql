@@ -516,6 +516,7 @@ CREATE TABLE `ingredientes` (
 CREATE TABLE `alergenos` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
  `Nombre` varchar(100) NOT NULL,
+   `Ruta` varchar(100) NOT NULL,
  UNIQUE KEY `Nombre` (`Nombre`),
  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -523,22 +524,22 @@ CREATE TABLE `alergenos` (
     -- Datos de la tabla alérgenos
 
     -- Aqui incluiremos los principales alérgenos que según la normativa europea deben declararse como mínimo, ordenados alfabéticamente.
-    INSERT INTO alergenos (Nombre) 
+    INSERT INTO alergenos (Nombre, Ruta) 
     VALUES
-        ("Altramuces"),     -- 1
-        ("Apio"),           -- 2
-        ("Cacahuetes"),     -- 3
-        ("Crustáceos"),     -- 4
-        ("Frutos secos"),   -- 5
-        ("Gluten"),         -- 6
-        ("Huevos"),         -- 7
-        ("Lácteos"),        -- 8
-        ("Moluscos"),       -- 9
-        ("Mostaza"),        -- 10
-        ("Pescado"),        -- 11
-        ("Sésamo"),         -- 12
-        ("Soja"),           -- 13
-        ("Sulfitos");       -- 14
+        ("Altramuces", "altamuces.jpg"),     -- 1
+        ("Apio", "apio.jpg"),           -- 2
+        ("Cacahuetes", "cacahuetes.jpg" ),     -- 3
+        ("Crustáceos", "crustaceos.jpg"),     -- 4
+        ("Frutos secos", "frutos_secos.jpg"),   -- 5
+        ("Gluten", "gluten.jpg"),         -- 6
+        ("Huevos", "huevos.jpg"),         -- 7
+        ("Lácteos", "lacteos.jpg"),        -- 8
+        ("Moluscos", "moluscos.jpg"),       -- 9
+        ("Mostaza", "mostaza.jpg"),        -- 10
+        ("Pescado", "pescado.jpg"),        -- 11
+        ("Sésamo", "sesamo.jpg"),         -- 12
+        ("Soja", "soja.jpg"),           -- 13
+        ("Sulfitos", "sulfitos.jpg");       -- 14
 
 
 -- Tabla Valoraciones
