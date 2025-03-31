@@ -305,6 +305,11 @@ textarea {
     cursor: pointer;
 }
 
+#previewImage{
+    max-width: 200px;
+}
+
+
 /* #endregion */
 
 /* #region INGREDIENTES */
@@ -533,8 +538,6 @@ textarea {
 
 /* #endregion */
 
-
-
 /* #region PRUEBAS DE JOSE - BUSCAR */
 
 .contenedor_buscar {
@@ -544,8 +547,8 @@ textarea {
 
 .sidebar_buscar {
     width: 25vh;
-    background: #f5f5f5;
-    padding: 20px;
+    background: #f6f6ae;
+    padding: 25px;
     border-radius: 0; /* Quitamos los bordes redondeados */
     left: 0;
     overflow-y: auto; /* Permite scroll si hay muchos filtros */

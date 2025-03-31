@@ -106,3 +106,44 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error en la búsqueda:", error));
     });
 });
+
+
+
+// #region SLIDERS
+
+document.addEventListener("DOMContentLoaded", function () {
+    const precioMin = document.getElementById("precioMin");
+    const precioMax = document.getElementById("precioMax");
+    const minOutput = document.getElementById("minValue");
+    const maxOutput = document.getElementById("maxValue");
+
+    // Función para actualizar los valores y asegurarse de que no se crucen
+    function actualizarSliders() {
+        let minVal = parseInt(precioMin.value);
+        let maxVal = parseInt(precioMax.value);
+
+        if (minVal > maxVal) {
+            precioMax.value = minVal; // Ajustar el máximo si el mínimo lo supera
+            maxVal = minVal;
+        }
+
+        // Actualizar los valores visibles en pantalla
+        minOutput.textContent = minVal;
+        maxOutput.textContent = maxVal;
+    }
+
+    // Event listeners para detectar cambios
+    precioMin.addEventListener("input", actualizarSliders);
+    precioMax.addEventListener("input", actualizarSliders);
+
+    // Llamamos una vez la función para que los valores iniciales sean correctos
+    actualizarValor();
+});
+
+
+function actualizarValor(idSlider, idTexto) {
+    document.getElementById(idTexto).textContent = document.getElementById(idSlider).value;
+}
+
+
+// #endregion

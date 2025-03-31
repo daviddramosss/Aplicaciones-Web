@@ -36,12 +36,13 @@ class buscarFormulario extends formularioBase
                         <option value="valoracion">Valoración</option>
                     </select>
 
-                    <!-- Rango de precios -->
-                    <label for="precioMin">Precio mín:</label>
-                    <input type="number" id="precioMin" name="precioMin" min="0">
+                    <!-- Rango de precios con sliders -->
+                    <label for="precioMin">Precio mín: <span id="minValue">0</span>€</label>
+                    <input type="range" id="precioMin" name="precioMin" min="0" max="100" value="0">
 
-                    <label for="precioMax">Precio máx:</label>
-                    <input type="number" id="precioMax" name="precioMax" min="0">
+                    <label for="precioMax">Precio máx: <span id="maxValue">100</span>€</label>
+                    <input type="range" id="precioMax" name="precioMax" min="0" max="100" value="100">
+
 
                     <!-- Valoración con estrellas -->
                     <label>Valoración:</label>
