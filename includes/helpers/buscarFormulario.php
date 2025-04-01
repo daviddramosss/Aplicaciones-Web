@@ -79,14 +79,14 @@ class buscarFormulario extends formularioBase
                     </div>
                     -->
 
-                    <!--                    
+                                      
                     <label>Etiquetas</label>
 
-                    <div id="tagsContainer" class="tags-container">
+                    <div id="tagsContainer" class="tags_container_buscar">
                     </div>
 
                     <input type="hidden" name="etiquetas" id="etiquetasSeleccionadas" value="">
-                    -->
+                   
 
                     <!-- Botón de búsqueda -->
                     <button type="submit">Buscar</button>

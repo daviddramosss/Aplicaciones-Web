@@ -571,9 +571,11 @@ textarea {
     left: 0;
     overflow-y: auto;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    min-height: 100vh;
+    height: 100%;
+    max-height: 75%;
     position: fixed;
     margin-top: -2vh;
+    /* margin-bottom: 10vh; */
     border-right: 3px solid #ddd;
 }
 
