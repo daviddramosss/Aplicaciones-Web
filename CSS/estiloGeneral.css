@@ -3,6 +3,7 @@
 main.contenido.plantilla{ /*Quiza haya que meterlo en estiloPC.css, ya que en movil se ordena por columna*/
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 }
 
 /* #region CABECERA */
@@ -337,29 +338,30 @@ textarea {
 /* #endregion */
 
 /* #region PIE */
+
+.plantilla_pie{
+    clear: both;
+	color: white;
+	text-align: center;
+}
 .footer {
-    background-color: #222;
-    color: white;
-    text-align: center;
     padding: 10px 0;
-    font-size: 14px;
+	background-color: #222;
     width: 100%;
-    height: auto;
     bottom: 0;
     position: fixed;
     z-index: 1000;
 }
 
 .container_footer {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.footer_links {
-    margin-bottom: 10px;
+.footer_links{
+    display: flex;
+    flex-direction: row;
 }
 
 .footer_links a {
@@ -371,7 +373,7 @@ textarea {
 .footer_links a:hover {
     text-decoration: underline;
 }
-
+/* 
 .footer_social {
     margin-bottom: 15px;
 }
@@ -384,7 +386,7 @@ textarea {
 
 .footer_social a img:hover {
     transform: scale(1.2);
-}
+} */
 
 .footer_copy p {
     font-size: 12px;

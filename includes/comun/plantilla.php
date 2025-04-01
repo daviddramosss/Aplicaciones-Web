@@ -25,8 +25,9 @@
             </article>
         </div>
     
-
-    <?php include 'pie.php'; ?>
+    <div class="plantilla_pie">
+        <?php include 'pie.php'; ?>
+    </div>
     </main> 
 
 </body>
