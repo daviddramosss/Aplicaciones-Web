@@ -9,7 +9,7 @@ $tituloPagina = 'Editar Receta';
 $recetaId = $_GET['id'] ?? null;
 
 if (!$recetaId) {
-    die("Error: No se especificó una receta válida.");
+    //die("Error: No se especificó una receta válida.");
 }
 
 // Se instancia un objeto de la clase crearRecetaForm.
