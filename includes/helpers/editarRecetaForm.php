@@ -12,6 +12,9 @@ use es\ucm\fdi\aw\application;
 class editarRecetaForm extends formularioBase
 {
     private $receta;
+
+    private $ingredientes;
+    private $etiquetas; 
     
     // Constructor: Recibe el ID de la receta a editar y carga sus datos
     public function __construct($recetaId) 
@@ -58,6 +61,7 @@ class editarRecetaForm extends formularioBase
        // Generación del HTML para el formulario
        $html = <<<EOF
             <div class="input-container">
+                <input type="hidden" name="recetaId" value="{$this->receta->getId()}">
                 <input type="textarea" name="titulo" placeholder="TITULO" value="$nombre" required/>
             </div>
             
@@ -131,12 +135,16 @@ class editarRecetaForm extends formularioBase
     {
         $result = array();
 
+         // Obtener el ID de la receta desde el formulario
+         $recetaId = isset($datos['recetaId']) ? intval($datos['recetaId']) : null;
+
+
         // Obtener el usuario actual
         $application = application::getInstance();
         $usuarioId = $application->getIdUsuario();
 
         // Sanitizar y validar los datos recibidos
-        $titulo = filter_var(trim($datos['nombre'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $titulo = filter_var(trim($datos['titulo'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $descripcion = filter_var(trim($datos['descripcion'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $precio = floatval($datos['precio'] ?? 0);
         $tiempo = intval($datos['tiempo'] ?? 0);
@@ -174,8 +182,9 @@ class editarRecetaForm extends formularioBase
                 // Llamada al servicio para editar la receta
                 $recetaService->editarReceta($recetaDTO);
 
-                // Redirigir a la confirmación de actualización si tuvo exito
-                $result = 'confirmacionRecetaEditada.php';
+                // Redirigir a la confirmación de actualización si tuvo éxito
+                header("Location: confirmacionRecetaEditada.php");
+                exit();
             }
             catch (Exception $e)
             {

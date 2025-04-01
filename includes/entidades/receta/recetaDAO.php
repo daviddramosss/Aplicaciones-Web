@@ -135,7 +135,7 @@ class recetaDAO extends baseDAO implements IReceta
             $conn = application::getInstance()->getConexionBd();
 
             // Prepara la consulta SQL para actualizar la receta
-            $query = "UPDATE recetas SET Nombre = ?, Autor = ?, Descripcion = ?, Pasos = ?, Tiempo = ?, Precio = ?, Fecha_Creacion = ?, Valoracion = ?, Ruta = ?WHERE Id = ?";
+            $query = "UPDATE recetas SET Nombre = ?, Autor = ?, Descripcion = ?, Pasos = ?, Tiempo = ?, Precio = ?, Fecha_Creacion = ?, Valoracion = ?, Ruta = ? WHERE Id = ?";
 
             // Prepara la declaración SQL
             $stmt = $conn->prepare($query);
