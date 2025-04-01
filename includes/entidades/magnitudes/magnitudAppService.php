@@ -1,66 +1,41 @@
 <?php
-
 namespace es\ucm\fdi\aw\entidades\magnitudes;
-// require_once("magnitudFactory.php");
 
-class magnitudAppService
-{
-    private static $instance; // Variable estática para almacenar la única instancia de la clase (patrón Singleton)
+require_once(__DIR__ . "/MagnitudDAO.php");
+require_once(__DIR__ . "/MagnitudDTO.php");
 
-    // Método para obtener la única instancia de la clase (Singleton).
-    public static function GetSingleton()
-    {
-        if (!self::$instance instanceof self)
-        {
-            self::$instance = new self;
+class MagnitudAppService {
+    private static $instance = null;
+    private $magnitudDAO;
+
+    private function __construct() {
+        $this->magnitudDAO = new MagnitudDAO();
+    }
+
+    public static function GetSingleton() {
+        if (self::$instance === null) {
+            self::$instance = new MagnitudAppService();
         }
-
         return self::$instance;
     }
-  
-    // Constructor privado para evitar la creación de instancias fuera de la clase (Singleton).
-    private function __construct()
-    {
-    } 
 
-    public function crearMagnitud($etiquetaDTO)
-    {
-        //Implementar luego
+    public function obtenerMagnitudes() {
+        return $this->magnitudDAO->obtenerMagnitudes();
     }
 
-    public function editarMagnitud($etiquetaDTO)
-    {
-        //Implementar luego
+    public function crearMagnitud($nombre) {
+        $magnitudDTO = new MagnitudDTO(null, $nombre);
+        $this->magnitudDAO->crearMagnitud($magnitudDTO);
     }
 
-    public function borrarMagnitud($etiquetaDTO)
-    {
-        //Implementar luego
+    public function editarMagnitud($id, $nombre) {
+        $magnitudDTO = new MagnitudDTO($id, $nombre);
+        $this->magnitudDAO->editarMagnitud($magnitudDTO);
     }
 
-    public function mostrarMagnitudes()
-    {
-        $IMagnitudesDAO = magnitudFactory::CreateMagnitud();
-
-        return $IMagnitudesDAO->mostrarMagnitudes();
-
+    public function eliminarMagnitud($id) {
+        $magnitudDTO = new MagnitudDTO($id, '');
+        $this->magnitudDAO->eliminarMagnitud($magnitudDTO);
     }
-
-
 }
-
-// **Endpoint para obtener los magnitudes en formato JSON**
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'mostrarMagnitudes') {
-    
-    // Se especifica que la respuesta será en formato JSON
-    header('Content-Type: application/json');
-    
-    // Se obtiene la lista de magnitudes desde el servicio
-    $magnitudes = MagnitudAppService::GetSingleton()->mostrarMagnitudes();
-    
-    // Se convierte el resultado a JSON y se envía como respuesta
-    echo json_encode($magnitudes);
-    exit;
-}
-
 ?>

@@ -1,26 +1,29 @@
 <?php
 require_once("includes/config.php");
-use es\ucm\fdi\aw\entidades\magnitudes\MagnitudesDAO;
-use es\ucm\fdi\aw\entidades\magnitudes\MagnitudesDTO;
+require_once("includes/entidades/magnitudes/magnitudDAO.php");
+require_once("includes/entidades/magnitudes/magnitudDTO.php");
+
+use es\ucm\fdi\aw\entidades\magnitudes\magnitudDAO;
+use es\ucm\fdi\aw\entidades\magnitudes\magnitudDTO;
 
 // Instanciar el objeto DAO
-$magnitudesDAO = new MagnitudesDAO();
+$magnitudesDAO = new magnitudDAO();
 
 // Si se solicita eliminar una magnitud
 if (isset($_POST['eliminar_id'])) {
     $idEliminar = $_POST['eliminar_id'];
-    $magnitudesDTO = new MagnitudesDTO($idEliminar, '');
-    $magnitudesDAO->eliminarMagnitud($magnitudesDTO);
-    header('Location: gestionarMagnitudes.php'); // Evitar la reenvío de formulario
+    $magnitudDTO = new magnitudDTO($idEliminar, '');
+    $magnitudesDAO->borrarMagnitud($magnitudDTO);
+    header('Location: gestionarMagnitudes.php');
     exit;
 }
 
 // Si se solicita crear una nueva magnitud
 if (isset($_POST['crear_nombre'])) {
     $nombre = $_POST['crear_nombre'];
-    $magnitudesDTO = new MagnitudesDTO(null, $nombre);
-    $magnitudesDAO->crearMagnitud($magnitudesDTO);
-    header('Location: gestionarMagnitudes.php'); // Redirigir a la misma página
+    $magnitudDTO = new magnitudDTO(null, $nombre);
+    $magnitudesDAO->crearMagnitud($magnitudDTO);
+    header('Location: gestionarMagnitudes.php');
     exit;
 }
 
@@ -28,14 +31,14 @@ if (isset($_POST['crear_nombre'])) {
 if (isset($_POST['editar_id']) && isset($_POST['editar_nombre'])) {
     $idEditar = $_POST['editar_id'];
     $nombre = $_POST['editar_nombre'];
-    $magnitudesDTO = new MagnitudesDTO($idEditar, $nombre);
-    $magnitudesDAO->editarMagnitud($magnitudesDTO);
-    header('Location: gestionarMagnitudes.php'); // Redirigir a la misma página
+    $magnitudDTO = new magnitudDTO($idEditar, $nombre);
+    $magnitudesDAO->editarMagnitud($magnitudDTO);
+    header('Location: gestionarMagnitudes.php');
     exit;
 }
 
 // Obtener magnitudes
-$magnitudes = $magnitudesDAO->obtenerMagnitudes();
+$magnitudes = $magnitudesDAO->mostrarMagnitudes();
 
 // Definir el contenido principal para la plantilla
 $contenidoPrincipal = <<<EOS
