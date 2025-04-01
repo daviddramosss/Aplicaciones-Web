@@ -1,41 +1,40 @@
 /*Estilo General de MarketChef*/
 
+main.contenido.plantilla{ /*Quiza haya que meterlo en estiloPC.css, ya que en movil se ordena por columna*/
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
 /* #region CABECERA */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+.plantilla_cabecera{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
-.header_cabecera {
-    background-color: #f6f6ae;
-    color: white;
-    padding: 15px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Añadir sombra difusa */
-    min-width: 100%;
-    top:0%;
-    position: fixed; /* Mantener el contexto para el logo */
-    min-height: 35px; /* Altura mínima para la cabecera */
-    z-index: 1000;
-    
+.container_infosearch{
+    display: flex;
+    flex-direction: row;
+    gap: 20%;
 }
 
-.container_cabecera {
-    /* display: flex; */
-    justify-content: space-between;
+.container_titulo{
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    /* max-width: 100%; */
-    /* margin: 0 auto;
-    padding: 0 0px; */
+
+}
+
+.container_users{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20%;
 }
 
 .logo_cabecera {
-    position: absolute; /* Cambiado a absolute */
-    left: 50%; /* Centrado horizontalmente */
-    transform: translateX(-50%); /* Ajuste para centrar */
-    top: 15%; /* Centrado verticalmente */
-    display: flex;
-    align-items: center;
-
+ 
 }
 
 .logo_cabecera img {
@@ -43,38 +42,8 @@ body {
     display: block;
 }
 
-.search-form_cabecera {
-    display: flex;
-}
-
-.search-input_cabecera {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-}
-
-.search-button_cabecera {
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-}
-
-.search-button_cabecera:hover {
-    background-color: #0056b3;
-}
-
 .boton_ayuda_cabecera {
-    position: absolute;
-    left: 2%;
-    top: 50%;
-    display:flex;
-    transform: translateY(-50%);
-    align-items: center;
-    gap: 15px;
+
 }
 
 .boton_ayuda_cabecera img{
@@ -83,13 +52,7 @@ body {
 }
 
 .lupa_cabecera {
-    position: absolute;
-    left: 6%;
-    top: 50%;
-    display:flex;
-    transform: translateY(-50%);
-    align-items: center;
-    gap: 15px;
+    
 }
 
 .lupa_cabecera img{
@@ -98,12 +61,6 @@ body {
 }
 
 .admin_desplegable_cabecera {
-    position: absolute; /* Para moverlo libremente */
-    right: 15%; /* Ajusta según necesites */
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
 }
 
 .admin_desplegable_cabecera img {
@@ -113,13 +70,6 @@ body {
 
 
 .estrella_cabecera {
-    position: absolute;
-    right: 11%;
-    top: 50%;
-    display:flex;
-    transform: translateY(-50%);
-    align-items: center;
-    gap: 15px;
 }
 
 .estrella_cabecera img{
@@ -130,13 +80,6 @@ body {
 
 
 .carrito_cabecera {
-    position: absolute;
-    right: 7%;
-    top: 50%;
-    display:flex;
-    transform: translateY(-50%);
-    align-items: center;
-    gap: 15px;
 }
 
 .carrito_cabecera img {
@@ -145,34 +88,11 @@ body {
 }
 
 .usuario_desplegable_cabecera {
-    position: absolute;
-    right: 3%;
-    top: 50%;
-    display:flex;
-    transform: translateY(-50%);
-    align-items: center;
-    gap: 15px;
 }
 
 .usuario_desplegable_cabecera img {
     height: 31px; /* Tamaño reducido */
     display: block;
-}
-
-.market {
-    position: absolute;
-    left: 40%;
-    color:black;
-    font-size: 32px;
-    top: -10%
-}
-
-.chef {
-    position: absolute;
-    left: 52.5%;
-    color:black;
-    font-size: 32px;
-    top:-10%;
 }
 
 
@@ -237,9 +157,10 @@ body {
 /* #region GENERAL */
 
 .contenido_principal {
-
-    margin-top: 80px;
-    margin-bottom: 150px;
+    width: 100%;
+    display: flex;
+    margin-bottom: 80px;
+    flex-direction: column;
 }
 
 body {
@@ -403,29 +324,30 @@ textarea {
 /* #endregion */
 
 /* #region PIE */
+
+.plantilla_pie{
+    clear: both;
+	color: white;
+	text-align: center;
+}
 .footer {
-    background-color: #222;
-    color: white;
-    text-align: center;
     padding: 10px 0;
-    font-size: 14px;
+	background-color: #222;
     width: 100%;
-    height: auto;
     bottom: 0;
     position: fixed;
     z-index: 1000;
 }
 
 .container_footer {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.footer_links {
-    margin-bottom: 10px;
+.footer_links{
+    display: flex;
+    flex-direction: row;
 }
 
 .footer_links a {
@@ -437,7 +359,7 @@ textarea {
 .footer_links a:hover {
     text-decoration: underline;
 }
-
+/* 
 .footer_social {
     margin-bottom: 15px;
 }
@@ -450,7 +372,7 @@ textarea {
 
 .footer_social a img:hover {
     transform: scale(1.2);
-}
+} */
 
 .footer_copy p {
     font-size: 12px;
@@ -501,12 +423,15 @@ textarea {
     width: 80%;
     margin: auto;
     overflow: hidden; /* Oculta los elementos que no deben mostrarse */
+    flex-wrap: wrap;
+
 }
 
 .swiper-container-wrapper {
     position: relative;
-    width: 70%;
-    margin: 40px auto;
+    align-items: center;
+    width: 90%;
+    margin: auto;
 }
 
 .swiper-slide {
@@ -519,6 +444,11 @@ textarea {
     padding-top: 20px;
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+    width: 100%;
+    cursor: pointer;
+}
 
 /* Estilo mostrar receta */
 .receta-detalle {

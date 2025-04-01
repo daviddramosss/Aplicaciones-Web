@@ -1,0 +1,15 @@
+.container_cabecera {
+    background-color: #f6f6ae;
+    /*position: fixed;*/ /*Mantiene fija la cabecera, descomentar para que se vea siempre */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Añadir sombra difusa */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    flex-wrap: wrap;
+}
