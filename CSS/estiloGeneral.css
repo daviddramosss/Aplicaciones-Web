@@ -579,6 +579,11 @@ textarea {
     border-right: 3px solid #ddd;
 }
 
+/* Ocultar la barra de desplazamiento */
+.sidebar_buscar::-webkit-scrollbar {
+    display: none;
+}
+
 /* Estilos generales */
 .sidebar_buscar h2 {
     font-size: 22px;
@@ -680,5 +685,8 @@ textarea {
     background: #e68900;
 }
 
+.tags_container_buscar{
+    background: #f6f6ae !important;
+}
 
 /* #endregion */

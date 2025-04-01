@@ -81,7 +81,6 @@ class buscarFormulario extends formularioBase
 
                                       
                     <label>Etiquetas</label>
-
                     <div id="tagsContainer" class="tags_container_buscar">
                     </div>
 
