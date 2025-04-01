@@ -50,6 +50,20 @@ $logged = $application->isLogged();
             <a href="buscar.php" class="lupa_cabecera">
               <img src="img/busqueda-de-lupa.png" alt="Buscar">
             </a>
+
+            <!-- Si es Admin, mostramos un botón concreto para él -->
+            <?php if ($esAdmin): ?>
+               <!-- Icono de admin con su menú desplegable -->
+              <div class="admin_desplegable_cabecera">
+                  <img src="img/editar.png" alt="Admin">    
+              </div>
+
+               <!-- Opciones dentro del menú desplegable del admin -->
+              <div class="menu_admin">
+                    <a href="gestionarUsuarios.php">Gestionar usuarios</a>
+                    <a href="gestionarIngredientes.php">Gestionar ingredientes</a>    
+              </div>
+            <?php endif; ?>
           </div>
            
           <div class="container_titulo">
@@ -66,20 +80,6 @@ $logged = $application->isLogged();
           </div>
              
           <div class="container_users">
-              <!-- Si es Admin, mostramos un botón concreto para él -->
-            <?php if ($esAdmin): ?>
-               <!-- Icono de admin con su menú desplegable -->
-              <div class="admin_desplegable_cabecera">
-                  <img src="img/editar.png" alt="Admin">    
-              </div>
-
-               <!-- Opciones dentro del menú desplegable del admin -->
-              <div class="menu_admin">
-                    <a href="gestionarUsuarios.php">Gestionar usuarios</a>
-                    <a href="gestionarIngredientes.php">Gestionar ingredientes</a>    
-              </div>
-            <?php endif; ?>
-
             <!-- Comprobamos si el usuario está logueado, sino, el botón de estrella michelin no es accesible y redirige al login -->
 
             <?php if (!$logged): ?>
