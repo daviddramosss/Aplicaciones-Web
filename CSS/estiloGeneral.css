@@ -1,41 +1,59 @@
 /*Estilo General de MarketChef*/
 
+main.contenido.plantilla{
+    display: flex;
+    flex-direction: column;
+}
+
+.plantilla_cabecera{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
 /* #region CABECERA */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
 
-.header_cabecera {
-    background-color: #f6f6ae;
-    color: white;
-    padding: 15px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Añadir sombra difusa */
-    min-width: 100%;
-    top:0%;
-    position: fixed; /* Mantener el contexto para el logo */
-    min-height: 35px; /* Altura mínima para la cabecera */
-    z-index: 1000;
-    
-}
-
 .container_cabecera {
-    /* display: flex; */
+    background-color: #f6f6ae;
+    position: fixed; /* Mantener el contexto para el logo */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Añadir sombra difusa */
+    width: 100%;
+    min-height: 30px; /* Altura mínima para la cabecera */
+    display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: row;
     /* max-width: 100%; */
     /* margin: 0 auto;
     padding: 0 0px; */
 }
 
-.logo_cabecera {
-    position: absolute; /* Cambiado a absolute */
-    left: 50%; /* Centrado horizontalmente */
-    transform: translateX(-50%); /* Ajuste para centrar */
-    top: 15%; /* Centrado verticalmente */
+.container_infosearch{
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    padding-left: 5%;
+}
 
+.container_titulo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.container_users{
+    display: flex;
+    flex-direction: row;
+    padding-right: 5%;
+    align-items: center;
+}
+
+.logo_cabecera {
+ 
 }
 
 .logo_cabecera img {
@@ -43,38 +61,8 @@ body {
     display: block;
 }
 
-.search-form_cabecera {
-    display: flex;
-}
-
-.search-input_cabecera {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-}
-
-.search-button_cabecera {
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-}
-
-.search-button_cabecera:hover {
-    background-color: #0056b3;
-}
-
 .boton_ayuda_cabecera {
-    position: absolute;
-    left: 2%;
-    top: 50%;
-    display:flex;
-    transform: translateY(-50%);
-    align-items: center;
-    gap: 15px;
+
 }
 
 .boton_ayuda_cabecera img{
@@ -83,13 +71,7 @@ body {
 }
 
 .lupa_cabecera {
-    position: absolute;
-    left: 6%;
-    top: 50%;
-    display:flex;
-    transform: translateY(-50%);
-    align-items: center;
-    gap: 15px;
+    padding-left: 30%;
 }
 
 .lupa_cabecera img{
@@ -98,12 +80,7 @@ body {
 }
 
 .admin_desplegable_cabecera {
-    position: absolute; /* Para moverlo libremente */
-    right: 15%; /* Ajusta según necesites */
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
+    padding-left: 10%;
 }
 
 .admin_desplegable_cabecera img {
@@ -113,13 +90,7 @@ body {
 
 
 .estrella_cabecera {
-    position: absolute;
-    right: 11%;
-    top: 50%;
-    display:flex;
-    transform: translateY(-50%);
-    align-items: center;
-    gap: 15px;
+    padding-left: 10%;
 }
 
 .estrella_cabecera img{
@@ -130,13 +101,7 @@ body {
 
 
 .carrito_cabecera {
-    position: absolute;
-    right: 7%;
-    top: 50%;
-    display:flex;
-    transform: translateY(-50%);
-    align-items: center;
-    gap: 15px;
+    padding-left: 10%;
 }
 
 .carrito_cabecera img {
@@ -145,34 +110,12 @@ body {
 }
 
 .usuario_desplegable_cabecera {
-    position: absolute;
-    right: 3%;
-    top: 50%;
-    display:flex;
-    transform: translateY(-50%);
-    align-items: center;
-    gap: 15px;
+    padding-left: 10%;
 }
 
 .usuario_desplegable_cabecera img {
     height: 31px; /* Tamaño reducido */
     display: block;
-}
-
-.market {
-    position: absolute;
-    left: 40%;
-    color:black;
-    font-size: 32px;
-    top: -10%
-}
-
-.chef {
-    position: absolute;
-    left: 52.5%;
-    color:black;
-    font-size: 32px;
-    top:-10%;
 }
 
 
@@ -237,9 +180,11 @@ body {
 /* #region GENERAL */
 
 .contenido_principal {
-
+    width: 100%;
+    display: flex;
     margin-top: 80px;
     margin-bottom: 150px;
+    flex-direction: column;
 }
 
 body {
@@ -501,6 +446,7 @@ textarea {
     width: 80%;
     margin: auto;
     overflow: hidden; /* Oculta los elementos que no deben mostrarse */
+    flex-wrap: wrap;
 }
 
 .swiper-container-wrapper {
