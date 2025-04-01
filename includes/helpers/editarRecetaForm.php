@@ -46,10 +46,11 @@ class editarRecetaForm extends formularioBase
         $descripcion = $this->receta->getDescripcion();
         $rutaImagen = "img/receta/" . htmlspecialchars($this->receta->getRuta());
         //$ingredientes = DAOIngrediente::buscarPorReceta($this->receta->getId());
-        
+     
         $precio = $this->receta->getPrecio();
         $tiempo = $this->receta->getTiempo();
 
+        /*
         $pasos = json_decode($this->receta->getPasos(), true); // Decodificar JSON
         $pasosJSON = json_encode($pasos); // Convertir a JSON para JavaScript 
         $html = <<<EOF
@@ -58,6 +59,22 @@ class editarRecetaForm extends formularioBase
             </script>
                                    
         EOF;
+        */
+
+        //Añadido por Antonio
+        $pasos = $this->receta->getPasos();
+        $pasos = json_decode($pasos, true); // Convertir JSON en array
+
+       
+
+        $stepsHtml = '';
+        foreach ($pasos as $index => $paso) {
+            $pasoSanitizado = htmlspecialchars($paso, ENT_QUOTES, 'UTF-8');
+            var_dump($pasoSanitizado);
+            $stepsHtml .= "<p class='step-item'><label>Paso " . ($index + 1) . ":</label> <textarea name='steps[]' required>$pasoSanitizado</textarea></p>";
+        }    
+
+
 
         // Generamos el formulario con los valores actuales para edición
        // Generación del HTML para el formulario
@@ -90,7 +107,7 @@ class editarRecetaForm extends formularioBase
             <!-- Sección de pasos -->
             <h2>Pasos para elaborar la receta</h2>
             <div id="stepsContainer">
-                <p><label>Paso 1:</label> <textarea name="steps[]" required></textarea></p>
+                $stepsHtml
             </div>
 
             <button type="button" class="send-button" id="addStep">+ AÑADIR PASO</button>
