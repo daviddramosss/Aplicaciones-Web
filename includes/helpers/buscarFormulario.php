@@ -34,7 +34,7 @@ class buscarFormulario extends formularioBase
 
                     <!-- Campo de búsqueda -->
                     <label for="buscarPlato">Nombre del plato:</label>
-                    <input type="text" id="buscarPlato" name="buscarPlato" placeholder="Ej: Pizza" value="$buscarPlato">
+                    <input type="text" id="buscarPlato" name="buscarPlato" placeholder="Ej: Pizza margarita" value="$buscarPlato">
 
                     <!-- Selector para ordenar -->
                     <label for="ordenar">Ordenar por:</label>
