@@ -1,0 +1,227 @@
+/* Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h2, h3 {
+    color: #2C3E50;
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+h3 {
+    margin-top: 30px;
+}
+
+/* Contenedores */
+.container {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.panel-header {
+    background-color: #34495E;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 8px 8px 0 0;
+}
+
+.panel-header p {
+    font-size: 16px;
+}
+
+.panel-body {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Estilo de las tablas */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #34495E;
+    color: #fff;
+}
+
+td {
+    background-color: #fff;
+}
+
+/* Estilo de los botones */
+button, .form-button {
+    background-color: #2980B9;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .form-button:hover {
+    background-color: #1A5987;
+}
+
+/* Formulario y entradas */
+form {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 60%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2C3E50;
+    font-weight: bold;
+}
+
+form input[type="text"], form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+form input[type="text"]:focus, form input[type="number"]:focus {
+    border-color: #2980B9;
+    outline: none;
+}
+
+/* Estilo para los formularios de creación y edición */
+.create-edit-form {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.create-edit-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.create-edit-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+}
+
+.create-edit-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.create-edit-form button {
+    width: 100%;
+    background-color: #2980B9;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.create-edit-form button:hover {
+    background-color: #1A5987;
+}
+
+/* Estilo de los enlaces */
+a {
+    color: #2980B9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para mensajes de error */
+.error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* Estilo de los botones de eliminar */
+.boton-eliminar {
+    background-color: #e74c3c;
+    color: white;
+    font-size: 14px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.boton-eliminar:hover {
+    background-color: #c0392b;
+}
+
+/* Estilo de las flechas */
+.contenedor-flechas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.boton-flecha {
+    font-size: 1.5em;
+    padding: 10px 15px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #ff6600;
+    color: white;
+    border-radius: 5px;
+}
+
+.contenido {
+    width: 300px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1.2em;
+}
+
+.veganas {
+    margin-top: 30px;
+}

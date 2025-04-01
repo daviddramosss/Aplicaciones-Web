@@ -3,6 +3,10 @@ require_once("includes/config.php");
 use es\ucm\fdi\aw\entidades\ingrediente\IngredienteDAO;
 use es\ucm\fdi\aw\entidades\ingrediente\IngredienteDTO;
 
+
+// Añadir el enlace a la hoja de estilos CSS
+echo '<link rel="stylesheet" type="text/css" href="css/gestionesAdmin.css">';
+
 // Instanciar el objeto DAO
 $ingredienteDAO = new IngredienteDAO();
 
@@ -17,20 +21,32 @@ if (isset($_POST['eliminar_id'])) {
 
 // Si se solicita crear un nuevo ingrediente
 if (isset($_POST['crear_nombre'])) {
-    $nombre = $_POST['crear_nombre'];
-    $ingredienteDTO = new IngredienteDTO(null, $nombre);
-    $ingredienteDAO->crearIngrediente($ingredienteDTO);
-    header('Location: gestionarIngredientes.php'); // Redirigir a la misma página
+    $nombre = trim($_POST['crear_nombre']);
+    if (!empty($nombre)) {
+        $ingredienteDTO = new IngredienteDTO(null, $nombre);
+        try {
+            $ingredienteDAO->crearIngrediente($ingredienteDTO);
+        } catch (Exception $e) {
+            echo "<p style='color:red;'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
+        }
+    }
+    header('Location: gestionarIngredientes.php');
     exit;
 }
 
 // Si se solicita editar un ingrediente
 if (isset($_POST['editar_id']) && isset($_POST['editar_nombre'])) {
     $idEditar = $_POST['editar_id'];
-    $nombre = $_POST['editar_nombre'];
-    $ingredienteDTO = new IngredienteDTO($idEditar, $nombre);
-    $ingredienteDAO->editarIngrediente($ingredienteDTO);
-    header('Location: gestionarIngredientes.php'); // Redirigir a la misma página
+    $nombre = trim($_POST['editar_nombre']);
+    if (!empty($nombre)) {
+        $ingredienteDTO = new IngredienteDTO($idEditar, $nombre);
+        try {
+            $ingredienteDAO->editarIngrediente($ingredienteDTO);
+        } catch (Exception $e) {
+            echo "<p style='color:red;'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
+        }
+    }
+    header('Location: gestionarIngredientes.php');
     exit;
 }
 
@@ -41,7 +57,7 @@ $ingredientes = $ingredienteDAO->obtenerIngredientes();
 $contenidoPrincipal = <<<EOS
     <h2>Panel de administración de ingredientes</h2>
     <p>En este panel puedes gestionar los ingredientes de la aplicación.</p>
-    <p>Vas a poder borrar, crear o editar los ingredientes que quieras</p>
+    <p>Vas a poder borrar, crear o editar ingredientes.</p>
 
     <table border="1">
         <tr>
@@ -56,10 +72,9 @@ foreach ($ingredientes as $ingrediente) {
         <td>" . htmlspecialchars($ingrediente['id']) . "</td>
         <td>" . htmlspecialchars($ingrediente['nombre']) . "</td>
         <td>
-            <a href='editarIngrediente.php?id={$ingrediente['id']}'>✏️ Editar</a>
-            <form action='gestionarIngredientes.php' method='POST' style='display:inline;'>
-                <input type='hidden' name='eliminar_id' value='{$ingrediente['id']}'>
-                <button type='submit'>🗑️ Eliminar</button>
+            <form action='gestionarIngredientes.php' method='POST' style='display:inline;' id='form_eliminar_{$ingrediente['id']}'>
+                <input type='hidden' name='eliminar_id' value='" . htmlspecialchars($ingrediente['id']) . "'>
+                <button type='button' onclick='confirmarEliminacion({$ingrediente['id']})'>🗑️ Eliminar</button>
             </form>
         </td>
     </tr>";
@@ -83,6 +98,17 @@ $contenidoPrincipal .= <<<EOS
         <input type="text" id="editar_nombre" name="editar_nombre" required>
         <button type="submit">✏️ Editar Ingrediente</button>
     </form>
+
+    <script>
+        function confirmarEliminacion(id) {
+            // Mostrar una ventana de confirmación
+            var respuesta = confirm("Estás a punto de eliminar un ingrediente. ¿Estás seguro?");
+            if (respuesta) {
+                // Si el usuario confirma, se envía el formulario correspondiente
+                document.getElementById('form_eliminar_' + id).submit();
+            }
+        }
+    </script>
 EOS;
 
 $tituloPagina = 'Gestionar Ingredientes';

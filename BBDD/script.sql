@@ -509,40 +509,7 @@ CREATE TABLE `ingredientes` (
         ("Cerveza");       -- 113
 
 
-
-
--- Tabla Alérgenos
-
-CREATE TABLE `alergenos` (
- `ID` int(11) NOT NULL AUTO_INCREMENT,
- `Nombre` varchar(100) NOT NULL,
- UNIQUE KEY `Nombre` (`Nombre`),
- PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-    -- Datos de la tabla alérgenos
-
-    -- Aqui incluiremos los principales alérgenos que según la normativa europea deben declararse como mínimo, ordenados alfabéticamente.
-    INSERT INTO alergenos (Nombre) 
-    VALUES
-        ("Altramuces"),     -- 1
-        ("Apio"),           -- 2
-        ("Cacahuetes"),     -- 3
-        ("Crustáceos"),     -- 4
-        ("Frutos secos"),   -- 5
-        ("Gluten"),         -- 6
-        ("Huevos"),         -- 7
-        ("Lácteos"),        -- 8
-        ("Moluscos"),       -- 9
-        ("Mostaza"),        -- 10
-        ("Pescado"),        -- 11
-        ("Sésamo"),         -- 12
-        ("Soja"),           -- 13
-        ("Sulfitos");       -- 14
-
-
 -- Tabla Valoraciones
-
 CREATE TABLE `valoraciones` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
  `Usuario` int(11) NOT NULL,
@@ -558,7 +525,6 @@ CREATE TABLE `valoraciones` (
 
 
 -- Tabla Receta_Comprada
-
 CREATE TABLE `receta_comprada` (
  `Usuario` int(11) NOT NULL,
  `Receta` int(11) NOT NULL,
@@ -570,7 +536,6 @@ CREATE TABLE `receta_comprada` (
 
 
 -- Tabla Magnitudes
-
 CREATE TABLE `magnitudes` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
  `Nombre` varchar(100) NOT NULL,
@@ -692,84 +657,8 @@ INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES
     (10, 102, 1.0, 5),  -- Cilantro (cucharada)
     (10, 6, 1.0, 5);    -- Sal (cucharada)
 
--- Tabla Ingrediente_Alérgeno
-
-CREATE TABLE `ingrediente_alergeno` (
- `Ingrediente` int(11) NOT NULL,
- `Alergeno` int(11) NOT NULL,
- KEY `fk_ia_ingrediente` (`Ingrediente`),
- KEY `fk_ia_alergeno` (`Alergeno`),
- CONSTRAINT `fk_ia_alergeno` FOREIGN KEY (`Alergeno`) REFERENCES `alergenos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
- CONSTRAINT `fk_ia_ingrediente` FOREIGN KEY (`Ingrediente`) REFERENCES `ingredientes` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-
-    INSERT INTO ingrediente_alergeno (ingrediente, alergeno) 
-    VALUES
-
-        -- Gluten
-        (16, 6),    -- Huevo, Gluten
-        (17, 6),    -- Harina, Gluten
-        (18, 6),    -- Avena, Gluten
-        (112, 6),   -- Vino Tinto, Gluten
-
-        -- Lácteos
-        (13, 8),    -- Chocolate con leche, Lácteos
-        (14, 8),    -- Chocolate blanco, Lácteos
-        (20, 8),    -- Quinoa, Lácteos
-        (24, 8),    -- Leche, Lácteos
-        (25, 8),    -- Leche condensada, Lácteos
-        (26, 8),    -- Yogur, Lácteos
-        (27, 8),    -- Mantequilla, Lácteos
-        (28, 8),    -- Nata líquida, Lácteos
-        (29, 8),    -- Crema agria, Lácteos
-        (30, 8),    -- Queso, Lácteos
-
-        -- Frutos secos
-        (91, 5),    -- Nueces, Frutos secos
-        (92, 5),    -- Almendras, Frutos secos
-        (93, 5),    -- Avellanas, Frutos secos
-        (94, 5),    -- Anacardos, Frutos secos
-        (95, 5),    -- Pistachos, Frutos secos
-        (96, 5),    -- Castañas, Frutos secos
-
-        -- Soja
-        (77, 13),   -- Soja, Soja
-
-        -- Mostaza
-        (11, 10),   -- Mostaza, Mostaza
-
-        -- Pescado
-        (42, 11),   -- Salmón, Pescado
-        (43, 11),   -- Atún, Pescado
-        (49, 11),   -- Merluza, Pescado
-        (50, 11),   -- Dorada, Pescado
-        (51, 11),   -- Lubina, Pescado
-        (52, 11),   -- Bacalao, Pescado
-
-        -- Crustáceos
-        (44, 4),    -- Gambas, Crustáceos
-        (47, 4),    -- Almejas, Crustáceos
-        (54, 4),    -- Cangrejo, Crustáceos
-
-        -- Moluscos
-        (45, 9),    -- Langostinos, Moluscos
-        (47, 9),    -- Almejas, Moluscos
-        (48, 9),    -- Mejillones, Moluscos
-        (46, 9),    -- Calamares, Moluscos
-
-        -- Sulfitos
-        (111, 14),  -- Vino Blanco, Sulfitos
-        (112, 14),  -- Vino Tinto, Sulfitos
-        (113, 14),  -- Cerveza, Sulfitos
-        (4, 14);    -- Vinagre, Sulfitos
-
-
-
 
 -- Tabla Etiquetas
-
 CREATE TABLE `etiquetas` (
  `ID` int(11) NOT NULL AUTO_INCREMENT,
  `Nombre` varchar(100) NOT NULL,
@@ -830,7 +719,6 @@ CREATE TABLE `etiquetas` (
 
 
 -- Tabla Receta_Etiqueta
-
 CREATE TABLE `receta_etiqueta` (
  `Receta` int(11) NOT NULL,
  `Etiqueta` int(11) NOT NULL,

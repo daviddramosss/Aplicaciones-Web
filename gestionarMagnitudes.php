@@ -1,10 +1,11 @@
 <?php
 require_once("includes/config.php");
-require_once("includes/entidades/magnitudes/magnitudDAO.php");
-require_once("includes/entidades/magnitudes/magnitudDTO.php");
 
 use es\ucm\fdi\aw\entidades\magnitudes\magnitudDAO;
 use es\ucm\fdi\aw\entidades\magnitudes\magnitudDTO;
+
+// Añadir el enlace a la hoja de estilos CSS
+echo '<link rel="stylesheet" type="text/css" href="css/gestionesAdmin.css">';
 
 // Instanciar el objeto DAO
 $magnitudesDAO = new magnitudDAO();
@@ -59,10 +60,9 @@ foreach ($magnitudes as $magnitud) {
         <td>" . htmlspecialchars($magnitud['id']) . "</td>
         <td>" . htmlspecialchars($magnitud['nombre']) . "</td>
         <td>
-            <a href='editarMagnitud.php?id={$magnitud['id']}'>✏️ Editar</a>
-            <form action='gestionarMagnitudes.php' method='POST' style='display:inline;'>
+            <form action='gestionarMagnitudes.php' method='POST' style='display:inline;' id='form_eliminar_{$magnitud['id']}'>
                 <input type='hidden' name='eliminar_id' value='{$magnitud['id']}'>
-                <button type='submit'>🗑️ Eliminar</button>
+                <button type='button' onclick='confirmarEliminacion({$magnitud['id']})'>🗑️ Eliminar</button>
             </form>
         </td>
     </tr>";
@@ -86,6 +86,17 @@ $contenidoPrincipal .= <<<EOS
         <input type="text" id="editar_nombre" name="editar_nombre" required>
         <button type="submit">✏️ Editar Magnitud</button>
     </form>
+
+    <script>
+        function confirmarEliminacion(id) {
+            // Mostrar una ventana de confirmación
+            var respuesta = confirm("Estás a punto de eliminar una magnitud. ¿Estás seguro?");
+            if (respuesta) {
+                // Si el usuario confirma, se envía el formulario correspondiente
+                document.getElementById('form_eliminar_' + id).submit();
+            }
+        }
+    </script>
 EOS;
 
 $tituloPagina = 'Gestionar Magnitudes';
