@@ -23,27 +23,28 @@ main.contenido.plantilla{ /*Quiza haya que meterlo en estiloPC.css, ya que en mo
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    padding-left: 10%;
+    padding-right: 10% ;
 }
 
 .container_infosearch{
     display: flex;
     flex-direction: row;
-    padding-left: 5%;
-    gap: 25%;
+    gap: 20%;
 }
 
 .container_titulo{
     display: flex;
     flex-direction: row;
     align-items: center;
+
 }
 
 .container_users{
     display: flex;
     flex-direction: row;
-    padding-right: 5%;
     align-items: center;
-    gap: 10%
+    gap: 20%;
 }
 
 .logo_cabecera {
@@ -172,8 +173,7 @@ main.contenido.plantilla{ /*Quiza haya que meterlo en estiloPC.css, ya que en mo
 .contenido_principal {
     width: 100%;
     display: flex;
-    margin-top: 80px;
-    margin-bottom: 150px;
+    margin-bottom: 80px;
     flex-direction: column;
 }
 
@@ -438,12 +438,14 @@ textarea {
     margin: auto;
     overflow: hidden; /* Oculta los elementos que no deben mostrarse */
     flex-wrap: wrap;
+
 }
 
 .swiper-container-wrapper {
     position: relative;
-    width: 70%;
-    margin: 40px auto;
+    align-items: center;
+    width: 90%;
+    margin: auto;
 }
 
 .swiper-slide {
@@ -456,6 +458,11 @@ textarea {
     padding-top: 20px;
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+    width: 100%;
+    cursor: pointer;
+}
 
 /* Estilo mostrar receta */
 .receta-detalle {
