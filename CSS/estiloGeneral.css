@@ -573,7 +573,7 @@ textarea {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     min-height: 100vh;
     position: fixed;
-    margin-top: -12vh;
+    margin-top: -2vh;
     border-right: 3px solid #ddd;
 }
 

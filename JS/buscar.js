@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //Esta funcion permite la seleccion de las estrellas
 document.addEventListener("DOMContentLoaded", function() {
 
-    const estrellas = document.querySelectorAll(".estrella");
+    const estrellas = document.querySelectorAll(".estrella_buscar");
     const valoracionInput = document.getElementById("valoracionInput");
 
     estrellas.forEach(estrella => {
@@ -85,28 +85,52 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+/* #region BUSQUEDA */
 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("buscarFormulario");
     const resultadosDiv = document.getElementById("resultados");
 
-    form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Evitar que recargue la página
+    form.addEventListener("submit", function (e) {
+        e.preventDefault(); // Evitar que se recargue la página
 
-        let formData = new FormData(form);
+        const formData = new FormData(form);
 
-        fetch("procesarBusqueda.php", {
+        // el fetch redirige a la misma página donde estamos
+
+        fetch(window.location.href, {
             method: "POST",
-            body: formData
+            body: formData,
+            headers: {
+                "X-Requested-With": "XMLHttpRequest" // Indicar que es una petición AJAX
+            }
         })
-        .then(response => response.text())
-        .then(html => {
-            resultadosDiv.innerHTML = html; // Mostrar los resultados en el div
+        .then(response => response.json()) // Convertir la respuesta a JSON
+        .then(data => {
+            resultadosDiv.innerHTML = ""; // Limpiar resultados previos
+
+            if (data.length === 0) {
+                resultadosDiv.innerHTML = "<p>No se encontraron resultados.</p>";
+                return;
+            }
+
+            data.forEach(receta => {
+                const recetaDiv = document.createElement("div");
+                recetaDiv.classList.add("receta");
+                recetaDiv.innerHTML = `
+                    <h3>${receta.nombre}</h3>
+                    <p>Precio: ${receta.precio}€</p>
+                    <p>Valoración: ${receta.valoracion} ★</p>
+                `;
+                resultadosDiv.appendChild(recetaDiv);
+            });
         })
         .catch(error => console.error("Error en la búsqueda:", error));
     });
 });
 
+
+/* #endregion */
 
 
 // #region SLIDERS
