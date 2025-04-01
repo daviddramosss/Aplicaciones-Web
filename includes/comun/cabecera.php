@@ -38,11 +38,11 @@ $logged = $application->isLogged();
     <!-- <link rel="stylesheet" href="CSS/cabecera.css"> -->
 </head>
 <body>
-    <header class="header_cabecera">
         <div class="container_cabecera">  <!-- Creamos el div en el que estará todo el contenido de la cabecera -->
          
-            <!-- Botón de Ayuda -->
-            <a href="informacion.php" class="boton_ayuda_cabecera">
+          <div class="container_infosearch">
+             <!-- Botón de Ayuda -->
+             <a href="informacion.php" class="boton_ayuda_cabecera">
               <img src="img/informacion.png" alt="Ayuda">
             </a>
             
@@ -50,19 +50,8 @@ $logged = $application->isLogged();
             <a href="buscar.php" class="lupa_cabecera">
               <img src="img/busqueda-de-lupa.png" alt="Buscar">
             </a>
-           
-             <!-- Palabra Market -->
-            <h2 class="market"> Market </h2>
 
-            <!-- Logo -->
-            <a href="index.php" class="logo_cabecera">
-              <img src="img/Logo.png" alt="Home">
-            </a>
-            
-             <!-- Palabra chef -->
-            <h2 class="chef"> Chef </h2>
-
-             <!-- Si es Admin, mostramos un botón concreto para él -->
+            <!-- Si es Admin, mostramos un botón concreto para él -->
             <?php if ($esAdmin): ?>
                <!-- Icono de admin con su menú desplegable -->
               <div class="admin_desplegable_cabecera">
@@ -75,7 +64,22 @@ $logged = $application->isLogged();
                     <a href="gestionarIngredientes.php">Gestionar ingredientes</a>    
               </div>
             <?php endif; ?>
+          </div>
+           
+          <div class="container_titulo">
+              <!-- Palabra Market -->
+              <h1 class="market"> Market </h1>
 
+              <!-- Logo -->
+              <a href="index.php" class="logo_cabecera">
+                <img src="img/Logo.png" alt="Home">
+              </a>
+
+              <!-- Palabra chef -->
+              <h1 class="chef"> Chef </h1>
+          </div>
+             
+          <div class="container_users">
             <!-- Comprobamos si el usuario está logueado, sino, el botón de estrella michelin no es accesible y redirige al login -->
 
             <?php if (!$logged): ?>
@@ -115,8 +119,10 @@ $logged = $application->isLogged();
               <?php endif; ?>
             </div>
 
-
-    </header>
+        </div>
+      </div>
+             
+          
      <!-- Scripts que permiten hacer los desplegables -->
     <script src="JS/desplegable_perfil.js"></script>
     <script src="JS/desplegable_admin.js"></script>

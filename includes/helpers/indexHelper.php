@@ -75,7 +75,7 @@ class IndexHelper
                 <div class="swiper-pagination" id="pagination-$idCarrusel"></div>
             </div>
 
-        </div> <!-- Cierra .swiper-container -->
+        </div> <!-- Cierra .swiper-container-wrapper -->
         HTML;
      
 

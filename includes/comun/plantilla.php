@@ -6,26 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $tituloPagina ?></title>
     <link rel="icon" href="img/Logo.png" type="image/png">
+    <link rel="stylesheet" media="screen and (min-width: 700px)" type="text/css" href="CSS/estiloPC.css" />
+	<link rel="stylesheet" media="screen and (max-width: 699px)" type="text/css" href="CSS/estiloMovil.css" />
+	<link rel="stylesheet" type="text/css" href="css/estilo.css" />
     <link rel="stylesheet" href="CSS/estiloGeneral.css">
 
     
 
 </head>
 <body>
-
+    <main class="contenido.plantilla"></main>
     <!-- La plantilla va a cargar de manera dinámica tanto el título de la pestaña en la que nos encontramos, como el contenido de la misma dejando como contantes la cabecera y el pie -->
-    <?php include 'cabecera.php'; ?>
+    <div class="plantilla_cabecera">
+        <?php include 'cabecera.php'; ?>
+    </div>
 
-    <main class="contenido.plantilla">
+    
         <div class="contenido_principal">
             <article>
                 <?= $contenidoPrincipal ?>
             </article>
         </div>
-    </main>
-
-    <?php include 'pie.php'; ?>
-
+    
+    <div class="plantilla_pie">
+        <?php include 'pie.php'; ?>
+    </div>
+    </main> 
 
 </body>
 </html>
