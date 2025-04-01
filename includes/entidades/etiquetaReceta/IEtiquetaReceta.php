@@ -15,6 +15,8 @@ interface IEtiquetaReceta
 
     // Borra una relación entre una receta y una etiqueta.
     public function borrarEtiquetaReceta($etiquetaRecetaDTO);
+
+    public function buscarEtiquetasReceta($recetaId);
 }
 
 ?>
