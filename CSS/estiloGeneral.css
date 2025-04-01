@@ -1,10 +1,11 @@
 /*Estilo General de MarketChef*/
 
-main.contenido.plantilla{
+main.contenido.plantilla{ /*Quiza haya que meterlo en estiloPC.css, ya que en movil se ordena por columna*/
     display: flex;
     flex-direction: column;
 }
 
+/* #region CABECERA */
 .plantilla_cabecera{
     display: flex;
     flex-direction: row;
@@ -12,31 +13,22 @@ main.contenido.plantilla{
     flex-wrap: wrap;
 }
 
-/* #region CABECERA */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
 .container_cabecera {
     background-color: #f6f6ae;
-    position: fixed; /* Mantener el contexto para el logo */
+    /*position: fixed;*/ /*Mantiene fija la cabecera, descomentar para que se vea siempre */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Añadir sombra difusa */
     width: 100%;
-    min-height: 30px; /* Altura mínima para la cabecera */
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    /* max-width: 100%; */
-    /* margin: 0 auto;
-    padding: 0 0px; */
 }
 
 .container_infosearch{
     display: flex;
     flex-direction: row;
     padding-left: 5%;
+    gap: 25%;
 }
 
 .container_titulo{
@@ -50,6 +42,7 @@ body {
     flex-direction: row;
     padding-right: 5%;
     align-items: center;
+    gap: 10%
 }
 
 .logo_cabecera {
@@ -71,7 +64,7 @@ body {
 }
 
 .lupa_cabecera {
-    padding-left: 30%;
+    
 }
 
 .lupa_cabecera img{
@@ -80,7 +73,6 @@ body {
 }
 
 .admin_desplegable_cabecera {
-    padding-left: 10%;
 }
 
 .admin_desplegable_cabecera img {
@@ -90,7 +82,6 @@ body {
 
 
 .estrella_cabecera {
-    padding-left: 10%;
 }
 
 .estrella_cabecera img{
@@ -101,7 +92,6 @@ body {
 
 
 .carrito_cabecera {
-    padding-left: 10%;
 }
 
 .carrito_cabecera img {
@@ -110,7 +100,6 @@ body {
 }
 
 .usuario_desplegable_cabecera {
-    padding-left: 10%;
 }
 
 .usuario_desplegable_cabecera img {
