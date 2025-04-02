@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     // Verificar el resultado de la operación
     if ($resultado) {
         // Redirigir a una página de éxito o mostrar un mensaje
-        header("Location: index.php?mensaje=Receta borrada con éxito");
+        header("Location: confirmacionRecetaBorrada.php?mensaje=Receta borrada con éxito");
         exit();
     } else {
         // Manejar el error, redirigir o mostrar un mensaje de error
