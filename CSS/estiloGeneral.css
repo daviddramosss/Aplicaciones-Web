@@ -467,29 +467,29 @@ textarea {
 form#buscarFormulario {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 100%; 
+    margin: 0 0;
+
     gap: 10px;
 }
-
-.contenedor_buscar {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-    gap: 10vh;
-    /* margin-left: -50vh; */
-}
-
 
 .sidebar_buscar {
     flex: 0 0 25vh;  /* No crece ni se encoge, tiene un ancho fijo */
     background: #f6f6ae;
     padding: 25px;
     overflow-y: auto;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    max-height: 100%;
+    box-shadow: 2px 0 rgba(0, 0, 0, 0.1);
+    /* max-height: 100vh; */
+    height: 100%;
     border-right: 3px solid #ddd;
     display: flex;
     flex-direction: column; /* Organiza su contenido en columna */
+}
+
+#resultados_buscar_div {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    margin : 20px;
+    flex: wrap;
 }
 
 /* 
