@@ -10,7 +10,6 @@ interface IMagnitud
 
     public function borrarMagnitud($etiquetaDTO);
 
-    public function mostrarMagnitudes();
 }
 
 ?>

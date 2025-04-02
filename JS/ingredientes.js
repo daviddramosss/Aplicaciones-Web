@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let ingredientesData = [];
 
     // Cargar ingredientes automáticamente
-    fetch("includes/entidades/ingrediente/getIngredientes.php")
+    fetch("includes/endpoints/getIngredientes.php")
         .then(response => response.json())
         .then(data => {
             console.log("Ingredientes obtenidos:", data); // <--- Agregar esta línea para depuración
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ingredientContainer.innerHTML = "";
         ingredientContainer.style.display = "block";
 
-        fetch("includes/entidades/magnitudes/getMagnitudes.php")
+        fetch("includes/endpoints/getMagnitudes.php")
             .then(response => response.json())
             .then(magnitudes => {
                 if (ingredientes.length === 0) {

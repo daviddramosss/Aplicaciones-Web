@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("includes/entidades/etiquetas/getEtiquetas.php")
+    fetch("includes/endpoints/getEtiquetas.php")
         .then(response => response.json())
         .then(data => {
             const tagsContainer = document.getElementById("tagsContainer");

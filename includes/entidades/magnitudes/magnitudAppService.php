@@ -37,26 +37,6 @@ class magnitudAppService
         //Implementar luego
     }
 
-    public function mostrarMagnitudes()
-    {
-        $IMagnitudesDAO = magnitudFactory::CreateMagnitud();
-
-        return $IMagnitudesDAO->mostrarMagnitudes();
-    }
-}
-
-// **Endpoint para obtener los magnitudes en formato JSON**
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'mostrarMagnitudes') {
-    
-    // Se especifica que la respuesta será en formato JSON
-    header('Content-Type: application/json');
-    
-    // Se obtiene la lista de magnitudes desde el servicio
-    $magnitudes = MagnitudAppService::GetSingleton()->mostrarMagnitudes();
-    
-    // Se convierte el resultado a JSON y se envía como respuesta
-    echo json_encode($magnitudes);
-    exit;
 }
 
 ?>

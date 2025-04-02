@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let ingredientesData = [];
 
     // Cargar ingredientes automáticamente
-    fetch("includes/entidades/ingrediente/getIngredientes.php")
+    fetch("includes/endpoints/getIngredientes.php")
         .then(response => response.json())
         .then(data => {
             ingredientesData = data;

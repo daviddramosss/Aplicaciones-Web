@@ -1,7 +1,7 @@
 <?php
 
 //Necesario para que carge el JavaScript
-require_once("../../config.php");
+require_once("../config.php");
 
 use es\ucm\fdi\aw\{application};
 
