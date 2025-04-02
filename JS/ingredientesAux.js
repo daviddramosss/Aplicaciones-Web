@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ingredientContainer.innerHTML = "";
         ingredientContainer.style.display = "block";
 
-        fetch("includes/entidades/magnitudes/getMagnitudes.php")
+        fetch("includes/endpoints/getMagnitudes.php")
             .then(response => response.json())
             .then(magnitudes => {
                 if (ingredientes.length === 0) {
