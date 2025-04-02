@@ -60,7 +60,7 @@ use es\ucm\fdi\aw\entidades\receta\recetaAppService;
                 return "<p>No existen recetas que cumplan esos criterios.</p>";
             }
     
-            $html = '<div class="recetas_container_buscar">';
+            $html = '<div class="recetas-container">';
         
             foreach ($recetas as $receta) {
                 $html .= <<<HTML

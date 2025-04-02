@@ -359,11 +359,11 @@ textarea {
 
 /* Información para mostrar las recetas todo modificable */
 .recetas-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columnas por fila */
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    max-width: 900px; /* Ajusta según sea necesario */
-    margin: 0 auto; /* Centrar el contenedor */
+    gap: 20px;
+
 }
 
 .receta-card {
@@ -616,15 +616,6 @@ form#buscarFormulario {
 .tags_container_buscar{
     background: #f6f6ae !important;
 }
-
-
-.recetas_container_buscar{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
 
 
 /* #endregion */
