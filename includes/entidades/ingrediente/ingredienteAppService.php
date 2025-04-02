@@ -1,7 +1,6 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\ingrediente;
-// require_once("ingredienteFactory.php");
 
 // Definimos la clase de servicio para gestionar ingredientes
 class IngredienteAppService {
