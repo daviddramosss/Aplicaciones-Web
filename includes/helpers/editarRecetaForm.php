@@ -185,7 +185,7 @@ class editarRecetaForm extends formularioBase
         // Obtener la receta desde la base de datos
         $recetaID = $recetaService->buscarRecetaPorId($id); 
 
-
+        
         $titulo = filter_var(trim($datos['titulo'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $descripcion = filter_var(trim($datos['descripcion'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $precio = floatval($datos['precio'] ?? 0);

@@ -97,15 +97,17 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
         // Obtener los valores desde el DTO
         $recetaId = $ingredienteRecetaDTO->getRecetaId();
         $ingredienteId = $ingredienteRecetaDTO->getIngredienteId();
+        $magnitud = $ingredienteRecetaDTO->getMagnitud(); // Asegúrate de que esto esté disponible
 
+        
         // Consulta SQL para eliminar el ingrediente
-        $query = "DELETE FROM receta_ingrediente WHERE Receta = ? AND Ingrediente = ?";
+        $query = "DELETE FROM receta_ingrediente WHERE Receta = ?";
         
         // Preparar la consulta
         $stmt = $conn->prepare($query);
 
         // Enlazar los parámetros
-        $stmt->bind_param("ii", $recetaId, $ingredienteId);
+        $stmt->bind_param("i", $recetaId);
 
         // Ejecutar la consulta
         if ($stmt->execute()) {

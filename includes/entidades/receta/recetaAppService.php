@@ -51,18 +51,21 @@ class recetaAppService
 
         //obtengo el id de la receta modificada
         $editedId = $editedRecetaDTO->getID();
+        //echo($editedId);
        //-----------------------------------------------------------------------------------
         //Guardamos los ingredientes modificados
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton(); 
         //obtengo la lista de los ingredientes asociados a dicha receta
+        //Comprobado que esta bien
         $ingredientesExistentes = $ingredienteRecetaService->buscarIngredienteReceta($editedId);
-
+        //var_dump($ingredientesExistentes);
+      
         // Eliminar todos los ingredientes existentes
         foreach ($ingredientesExistentes as $ingredienteId => $ingredienteData) {
-            $ingredienteId = intval($ingredienteId);
-            $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
-            $magnitud = filter_var($ingredienteData['magnitud'] ?? 0, FILTER_VALIDATE_INT);
-
+            $ingredienteId = intval($ingredienteData['ID']);
+            $cantidad = floatval($ingredienteData['Cantidad'] ?? 0);
+            $magnitud = filter_var($ingredienteData['Magnitud'] ?? 0, FILTER_VALIDATE_INT);
+           
             $ingredienteRecetaDTO = new ingredienteRecetaDTO($editedId, $ingredienteId, $cantidad, $magnitud);
             $ingredienteRecetaService->borrarIngredienteReceta($ingredienteRecetaDTO);
         }
@@ -94,12 +97,14 @@ class recetaAppService
         //ETIQUETAS
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
 
-        //obtengo la lista de las etiquetas asociadas a dicha receta
+        //obtengo la lista de las etiquetas asociadas a dicha receta. Verificado ESTA BIEN
         $etiquetasExistentes = $etiquetaRecetaService->buscarEtiquetaReceta($editedId);
 
         // Eliminar todas las etiquetas existentes
         foreach ($etiquetasExistentes as $etiqueta) {
             $etiquetaRecetaDTO = new etiquetaRecetaDTO($editedId, $etiqueta);
+            //var_dump($etiqueta);
+            //die();
             $etiquetaRecetaService->borrarEtiquetaReceta($etiquetaRecetaDTO);
         }
         // Limitar las nuevas etiquetas a un máximo de 3 únicas

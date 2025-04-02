@@ -83,7 +83,7 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
             $etiqueta = $etiquetaRecetaDTO->getEtiqueta();
 
             // Consulta SQL para eliminar la relación receta-etiqueta
-            $query = "DELETE FROM receta_etiqueta WHERE Receta = ? AND Etiqueta = ?";
+            $query = "DELETE FROM receta_etiqueta WHERE Receta = ?";
             
             // Preparar la consulta
             $stmt = $conn->prepare($query);
@@ -92,7 +92,7 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
             }
 
             // Asociar los parámetros a la consulta
-            $stmt->bind_param("ii", $recetaId, $etiqueta);
+            $stmt->bind_param("i", $recetaId);
 
             // Ejecutar la consulta
             if (!$stmt->execute()) {
