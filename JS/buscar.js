@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("buscarFormulario");
-    const resultadosDiv = document.getElementById("resultados");
+    const resultadosDiv = document.getElementById("resultados_buscar_div");
 
     form.addEventListener("submit", function (e) {
         e.preventDefault(); // Evitar que se recargue la página
@@ -44,19 +44,35 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData(form);
 
         // el fetch redirige a la misma página donde estamos
+       /*  fetch("includes/helpers/buscarHelper.php", {
+            method: "POST",
+            body: formData,
+            headers: { "X-Requested-With": "XMLHttpRequest" }
+        })
+        .then(response => response.json()) // En lugar de .json(), usa .text() para ver la respuesta completa
+        .then(data => {
+            console.log("Respuesta del servidor:", data); // Muestra la respuesta en la consola
+        //     try {
+        //         const jsonData = JSON.parse(data); // Intenta convertirla a JSON
+        //         console.log("JSON parseado correctamente:", jsonData);
+        //     } catch (error) {
+        //         console.error("Error al parsear JSON:", error);
+        //     }
+        })
+        .catch(error => console.error("Error en la búsqueda:", error)); */
 
-        fetch(window.location.href, {
+        fetch("includes/helpers/buscarHelper.php", {
             method: "POST",
             body: formData,
             headers: {
-                "X-Requested-With": "XMLHttpRequest" // Indicar que es una petición AJAX
+                "X-Requested-With": "XMLHttpRequest"
             }
         })
         .then(response => response.json()) // Convertir la respuesta a JSON
         .then(data => {
             resultadosDiv.innerHTML = ""; // Limpiar resultados previos
 
-            if (data.length === 0) {
+            if (!Array.isArray(data) || data.length === 0) {
                 resultadosDiv.innerHTML = "<p>No se encontraron resultados.</p>";
                 return;
             }
@@ -73,8 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         })
         .catch(error => console.error("Error en la búsqueda:", error));
+
     });
-});
+}); 
 
 // #endregion
 
