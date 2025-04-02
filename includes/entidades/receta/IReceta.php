@@ -6,7 +6,7 @@ interface IReceta
 {
    // Método para crear una nueva receta
    // Recibe un objeto recetaDTO (que contiene la información de la receta) y los ingredientes y etiquetas asociados
-   public function crearReceta($recetaDTO, $ingredientes, $etiquetas);
+   public function crearReceta($recetaDTO);
 
    // Método para editar una receta existente
    // Recibe un objeto recetaDTO que contiene la nueva información de la receta a actualizar

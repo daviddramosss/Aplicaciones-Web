@@ -60,7 +60,7 @@ class recetaDAO extends baseDAO implements IReceta
     }
 
     // Función pública para crear una receta en la base de datos
-    public function crearReceta($recetaDTO, $ingredientes, $etiquetas)
+    public function crearReceta($recetaDTO)
     {
         $createdRecetaDTO = false;
 
