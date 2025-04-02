@@ -1,8 +1,9 @@
 <?php
 
+//Necesario para que carge el JavaScript
 require_once("../../config.php");
+
 use es\ucm\fdi\aw\entidades\etiquetas\EtiquetasAppService;
-// require_once("etiquetasAppService.php");
 
 // Obtenemos una instancia única (Singleton) del servicio de etiquetas
 $etiquetasService = EtiquetasAppService::GetSingleton();
