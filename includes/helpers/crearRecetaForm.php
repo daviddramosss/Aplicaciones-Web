@@ -3,6 +3,8 @@
 namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
+use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService, ingredienteRecetaDTO};
+use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRecetaDTO};
 use es\ucm\fdi\aw\comun\formularioBase;
 use es\ucm\fdi\aw\application;
 
@@ -140,14 +142,42 @@ class crearRecetaForm extends formularioBase
         {
             try
             {
-                // Crear el objeto DTO de receta con los datos ingresados
+                // Creación de la receta en la tabla recetas
                 $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, 0, $imagenGuardada);
-
-                // Instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
+                $nuevaRecetaDTO = $recetaService->crearReceta($recetaDTO);  
+                
+                // Id de la nueva receta para rellenar el resto de tablas
+                $id = $nuevaRecetaDTO->getId();
 
-                // Llamada al servicio para crear la receta
-                $recetaService->crearReceta($recetaDTO, $ingredientes, $etiquetas);        
+                // Creación de la relació de receta-ingredientes en la tabla receta_ingredientes
+                $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
+
+                foreach ($ingredientes as $ingredienteId => $ingredienteData) {
+                    $ingredienteId = intval($ingredienteId);
+                    $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
+                    $magnitud = filter_var($ingredienteData['magnitud'] ?? 0, FILTER_VALIDATE_INT);
+                
+                    // Si el ingrediente es válido, lo guarda
+                    if ($ingredienteId > 0 && $cantidad > 0) {
+                        $ingredienteRecetaDTO = new ingredienteRecetaDTO($id, $ingredienteId, $cantidad, $magnitud);
+                        $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
+                    }
+                }
+
+                // Creación de la relació de receta-etiquetas en la tabla receta_etiquetas
+                $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
+
+                $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Limita a 3 etiquetas únicas
+                foreach ($etiquetas as $etiqueta) {
+                    $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                    // Si la etiqueta es válida, la guarda
+                    if (!empty($etiqueta)) {
+                        $etiquetaRecetaDTO = new etiquetaRecetaDTO($id, $etiqueta);
+                        $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
+                    }
+                }
 
                 // Redireccionar a la página principal si todo fue correcto
                 $result = 'confirmacionRecetaCreada.php';
