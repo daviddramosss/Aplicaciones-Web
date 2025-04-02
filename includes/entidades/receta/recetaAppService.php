@@ -58,8 +58,12 @@ class recetaAppService
         $ingredientesExistentes = $ingredienteRecetaService->buscarIngredienteReceta($editedId);
 
         // Eliminar todos los ingredientes existentes
-        foreach ($ingredientesExistentes as $ingrediente) {
-            $ingredienteRecetaDTO = new ingredienteRecetaDTO($editedId, $ingrediente['Ingrediente'], 0, $ingrediente['Magnitud']);
+        foreach ($ingredientesExistentes as $ingredienteId => $ingredienteData) {
+            $ingredienteId = intval($ingredienteId);
+            $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
+            $magnitud = filter_var($ingredienteData['magnitud'] ?? 0, FILTER_VALIDATE_INT);
+
+            $ingredienteRecetaDTO = new ingredienteRecetaDTO($editedId, $ingredienteId, $cantidad, $magnitud);
             $ingredienteRecetaService->borrarIngredienteReceta($ingredienteRecetaDTO);
         }
 
@@ -71,8 +75,19 @@ class recetaAppService
             
             // Si el ingrediente es válido, lo guarda
             if ($ingredienteId > 0 && $cantidad > 0) {
-                $ingredienteRecetaDTO = new ingredienteRecetaDTO($editedId, $ingredienteId, $cantidad, $magnitud);
-                $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
+                // Verifica si el ingrediente ya existe
+                $ingredienteExistente = false;
+                foreach ($ingredientesExistentes as $ingredienteExistenteData) {
+                    if ($ingredienteExistenteData['Ingrediente'] == $ingredienteId) {
+                        $ingredienteExistente = true;
+                        break;
+                    }
+                }
+                 // Solo agrega si no existe
+                if (!$ingredienteExistente) {
+                    $ingredienteRecetaDTO = new ingredienteRecetaDTO($editedId, $ingredienteId, $cantidad, $magnitud);
+                    $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
+                }
             }
         }
             
