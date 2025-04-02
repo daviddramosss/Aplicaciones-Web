@@ -393,79 +393,92 @@ class recetaDAO extends baseDAO implements IReceta
     
     // #region BUSQUEDA DINÁMICA
     
-        public function busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas)
-        {
-            try{
-                $conn = application::getInstance()->getConexionBd();
-
-                // si están todos los parámetros vacíos o con los valores predeterminados, se realizará una búsqueda que devuelva todas las recetas
-                if($buscarPlato == "" && $ordenar == "" && $precioMin == 0 && $precioMax == 100 && $valoracion == 0 && $etiquetas == ""){
-                    return $this->mostrarTodasLasRecetas();
+    public function busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas)
+    {
+        try {
+            $conn = application::getInstance()->getConexionBd();
+    
+            // Si no hay filtros, devuelve todas las recetas
+            if ($buscarPlato == "" && $ordenar == "" && $precioMin == 0 && $precioMax == 100 && $valoracion == 0 && $etiquetas == "") {
+                return $this->mostrarTodasLasRecetas();
+            }
+    
+            // Consulta base
+            $query = "SELECT * FROM recetas WHERE Nombre LIKE ? AND Precio BETWEEN ? AND ? AND Valoracion >= ?";
+    
+            $params = [];
+            $types = "siii"; // Nombre (string), PrecioMin (int), PrecioMax (int), Valoración (int)
+    
+            // Ajustar el nombre de búsqueda
+            $buscarPlato = "%$buscarPlato%";
+            $params[] = $buscarPlato;
+            $params[] = $precioMin;
+            $params[] = $precioMax;
+            $params[] = $valoracion;
+    
+            // Filtrado por etiquetas (Si hay etiquetas)
+            if ($etiquetas != "") {
+                // Convertimos la lista de etiquetas a un array
+                $etiquetasArray = explode(',', $etiquetas);
+                $placeholders = implode(',', array_fill(0, count($etiquetasArray), '?'));
+    
+                $query .= " AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($placeholders))";
+    
+                foreach ($etiquetasArray as $etiqueta) {
+                    $params[] = trim($etiqueta);
+                    $types .= "s"; // Cada etiqueta es un string
                 }
-
-                $query = "SELECT * FROM recetas WHERE Nombre LIKE ? AND Precio BETWEEN ? AND ? AND Valoracion >= ?";
-
-               
-                $buscarPlato = "%$buscarPlato%";
-                
-                if($ordenar != "")  
-                {
-                    // partir el criterio de ordenamiento en dos partes: la columna y el orden (ascendente o descendente)
-                    list($columna, $orden) = explode("_", $ordenar);
-
-                    // el orden se pasa a mayúsculas
-                    $orden = strtoupper($orden);
-
-                    // agregar el criterio de ordenamiento a la consulta
+            }
+    
+            // Ordenamiento (Si se ha solicitado)
+            if ($ordenar != "") {
+                list($columna, $orden) = explode("_", $ordenar);
+                $orden = strtoupper($orden); // Asegurar que sea ASC o DESC
+    
+                // Evitar SQL Injection validando columnas permitidas
+                $columnasPermitidas = ["Nombre", "Precio", "Valoracion"];
+                if (in_array($columna, $columnasPermitidas)) {
                     $query .= " ORDER BY $columna $orden";
                 }
-
-                if($etiquetas != "")
-                {
-                    $query .= " AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($etiquetas))";
-                }
-
-                $stmt = $conn->prepare($query);
-                
-                $stmt->bind_param("siii", $buscarPlato, $precioMin, $precioMax, $valoracion);
-                
-                if($etiquetas != "")
-                {
-                    $stmt->bind_param("s", $etiquetas);
-                }
-                $stmt->execute();
-
-                $result = $stmt->get_result();
-
-                $recetas = [];
-
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $recetas[] = new recetaDTO(
-                            $row["ID"],
-                            $row["Nombre"],
-                            $row["Autor"],
-                            $row["Descripcion"],
-                            json_decode($row["Pasos"], true),
-                            $row["Tiempo"],
-                            $row["Precio"],
-                            $row["Fecha_Creacion"],
-                            $row["Valoracion"],
-                            $row["Ruta"]
-                        );
-                    }
-                }
-
-                $stmt->close();
-
-                return $recetas;
             }
-            catch(Exception $e)
-            {
-                throw $e;
+    
+            // Preparar la consulta
+            $stmt = $conn->prepare($query);
+    
+            // Pasar los parámetros dinámicos
+            $stmt->bind_param($types, ...$params);
+    
+            // Ejecutar consulta
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            $recetas = [];
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $recetas[] = new recetaDTO(
+                        $row["ID"],
+                        $row["Nombre"],
+                        $row["Autor"],
+                        $row["Descripcion"],
+                        json_decode($row["Pasos"], true),
+                        $row["Tiempo"],
+                        $row["Precio"],
+                        $row["Fecha_Creacion"],
+                        $row["Valoracion"],
+                        $row["Ruta"]
+                    );
+                }
             }
+    
+            $stmt->close();
+            return $recetas;
+    
+        } catch (Exception $e) {
+            throw $e;
         }
     }
+}
+    
 
     // #endRegion
 
