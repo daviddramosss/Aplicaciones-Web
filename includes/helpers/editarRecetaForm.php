@@ -90,6 +90,11 @@ class editarRecetaForm extends formularioBase
        // Generación del HTML para el formulario
        $html = <<<EOF
             <input type="hidden" name="id" value="{$this->receta->getId()}">
+            <input type="hidden" name="titulo" value="{$this->receta->getNombre()}">
+            <input type="hidden" name="descripcion" value="{$this->receta->getDescripcion()}">
+            <input type="hidden" name="precio" value="{$this->receta->getPrecio()}">
+            <input type="hidden" name="tiempo" value="{$this->receta->getTiempo()}">
+            <input type="hidden" name="imagen" value="{$this->receta->getRuta()}">
 
             <div class="input-container">
                 <input type="textarea" name="titulo" placeholder="TITULO" value="$nombre" required/>
@@ -148,7 +153,7 @@ class editarRecetaForm extends formularioBase
             <p>
                 <button type="button" class="send-button" onclick="location.href='index.php'">CANCELAR</button>
                 <button type="submit" class="send-button" name="guardar">GUARDAR</button>
-                <button type="submit" class="send-button" name="eliminar">BORRAR RECETA</button>
+                <button type="submit" class="send-button" name="eliminar" formaction="borrarReceta.php">BORRAR RECETA</button>
             </p>
 
             <script>
