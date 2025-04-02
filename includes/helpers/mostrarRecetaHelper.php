@@ -103,7 +103,7 @@ class mostrarRecetaHelper
         $html .= '<div class="receta-etiquetas">';
         foreach ($this->etiquetas as $etiqueta) {
             $html .= <<<HTML
-                <span class="tag">{$etiqueta}</span>
+                <span class="tag">{$etiqueta->getNombre()}</span>
             HTML;
         }    
 
