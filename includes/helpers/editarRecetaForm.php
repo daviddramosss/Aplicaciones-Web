@@ -73,6 +73,7 @@ class editarRecetaForm extends formularioBase
         }    
 
 
+        //Rellenamos los ingredientes de la receta
         $ingredientesArray = array_map(function($ingrediente) {
             return [
                 'id' => $ingrediente['ID'],  // Convertimos "ID" a "id"
@@ -81,9 +82,17 @@ class editarRecetaForm extends formularioBase
                 'magnitud' => $ingrediente['Magnitud'], // Ya coincide
                 'id_magnitud' => $ingrediente['ID_Magnitud']
             ];
-        }, $this->ingredientes);
-        
+        }, $this->ingredientes);        
         $ingredientesJSON = json_encode($ingredientesArray);
+
+        //Rellenamos las etiquetas de la receta
+        $etiquetasArray = array_map(function($etiqueta) {
+            return [
+                'id' => $etiqueta->getId(),  // Convertimos "ID" a "id"
+                'nombre' => $etiqueta->getNombre(), // Convertimos "Etiqueta" a "nombre"
+            ];
+        }, $this->etiquetas);        
+        $etiquetasJSON = json_encode($etiquetasArray);
 
 
         // Generamos el formulario con los valores actuales para edición
@@ -153,6 +162,7 @@ class editarRecetaForm extends formularioBase
 
             <script>
                 let ingredientesReceta = $ingredientesJSON;
+                let etiquetasReceta = $etiquetasJSON;
             </script>
 
            
