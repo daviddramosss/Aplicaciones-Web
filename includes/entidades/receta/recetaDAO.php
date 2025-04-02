@@ -405,6 +405,9 @@ class recetaDAO extends baseDAO implements IReceta
 
                 $query = "SELECT * FROM recetas WHERE Nombre LIKE ? AND Precio BETWEEN ? AND ? AND Valoracion >= ?";
 
+               
+                $buscarPlato = "%$buscarPlato%";
+                
                 if($ordenar != "")  
                 {
                     // partir el criterio de ordenamiento en dos partes: la columna y el orden (ascendente o descendente)

@@ -65,7 +65,7 @@ use es\ucm\fdi\aw\entidades\receta\recetaAppService;
             foreach ($recetas as $receta) {
                 $html .= <<<HTML
                     <div class="receta-card">
-                        <a href="editarReceta.php?id={$receta->getId()}">
+                        <a href="mostrarReceta.php?id={$receta->getId()}">
                             <img src="img/receta/{$receta->getRuta()}" alt="{$receta->getNombre()}" class="receta-imagen">
                         </a>
                         <p class="receta-titulo">{$receta->getNombre()}</p>
