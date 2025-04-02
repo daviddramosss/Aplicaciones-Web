@@ -618,6 +618,13 @@ form#buscarFormulario {
 }
 
 
+.recetas_container_buscar{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
 
 
 /* #endregion */
