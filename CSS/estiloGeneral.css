@@ -4,7 +4,6 @@ main.contenido.plantilla{
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    min-height: 100%;
 }
 
 /* #region CABECERA */
@@ -12,7 +11,6 @@ main.contenido.plantilla{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    flex-basis: 10%;
 }
 
 .container_infosearch{
@@ -135,12 +133,8 @@ main.contenido.plantilla{
 /* #region GENERAL */
 
 .contenido_principal {
-    
     display: flex;
-    flex-basis: 80%;
     flex-direction: column;
-    height: 80%;
-    min-height: 80%;
 }
 
 body {
@@ -164,7 +158,6 @@ p {
 }
 
 .container {
-    max-width: 800px;
     margin: 50px auto;
     padding: 20px;
     background: white;
@@ -190,7 +183,8 @@ input, textarea {
     width: 100%;
     border: none;
     background: transparent;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 1em;
 }
 
@@ -309,13 +303,13 @@ textarea {
     clear: both;
 	color: white;
 	text-align: center;
-    flex-basis: 10%;
+    justify-content: flex-end;
 }
 .footer {
     padding: 10px 0;
 	background-color: #222;
     width: 100%;
-    z-index: 1000;
+    bottom: 0;
 }
 
 .container_footer {

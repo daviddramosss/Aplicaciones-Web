@@ -185,7 +185,7 @@ class recetaDAO extends baseDAO implements IReceta
         $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para buscar la receta
-        $query = "SELECT * FROM recetas WHERE Autor = ?";
+        $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE Autor = ?";
 
         // Prepara la declaración SQL
         $stmt = $conn->prepare($query);
@@ -209,13 +209,13 @@ class recetaDAO extends baseDAO implements IReceta
                     $recetas[] = new recetaDTO(
                         $row["ID"],
                         $row["Nombre"],
-                        $row["Autor"],
-                        $row["Descripcion"],
-                        json_decode($row["Pasos"], true),
-                        $row["Tiempo"],
-                        $row["Precio"],
-                        $row["Fecha_Creacion"],
-                        $row["Valoracion"],
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
                         $row["Ruta"]
                     );
                 }
@@ -282,94 +282,88 @@ class recetaDAO extends baseDAO implements IReceta
 
     }
     
-    // #region BUSQUEDA DINÁMICA    
+    // BUSQUEDA DINÁMICA para el buscador   
     public function busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas)
     {
-        try {
-            $conn = application::getInstance()->getConexionBd();
-    
-            // Si no hay filtros, devuelve todas las recetas
-            if ($buscarPlato == "" && $ordenar == "" && $precioMin == 0 && $precioMax == 100 && $valoracion == 0 && $etiquetas == "") {
-                return $this->mostrarRecetas('todas');
-            }
-    
-            // Consulta base
-            $query = "SELECT * FROM recetas WHERE Nombre LIKE ? AND Precio BETWEEN ? AND ? AND Valoracion >= ?";
-    
-            $params = [];
-            $types = "siii"; // Nombre (string), PrecioMin (int), PrecioMax (int), Valoración (int)
-    
-            // Ajustar el nombre de búsqueda
-            $buscarPlato = "%$buscarPlato%";
-            $params[] = $buscarPlato;
-            $params[] = $precioMin;
-            $params[] = $precioMax;
-            $params[] = $valoracion;
-    
-            // Filtrado por etiquetas (Si hay etiquetas)
-            if ($etiquetas != "") {
-                // Convertimos la lista de etiquetas a un array
-                $etiquetasArray = explode(',', $etiquetas);
-                $placeholders = implode(',', array_fill(0, count($etiquetasArray), '?'));
-    
-                $query .= " AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($placeholders))";
-    
-                foreach ($etiquetasArray as $etiqueta) {
-                    $params[] = trim($etiqueta);
-                    $types .= "s"; // Cada etiqueta es un string
-                }
-            }
-    
-            // Ordenamiento (Si se ha solicitado)
-            if ($ordenar != "") {
-                list($columna, $orden) = explode("_", $ordenar);
-                $orden = strtoupper($orden); // Asegurar que sea ASC o DESC
-    
-                // Evitar SQL Injection validando columnas permitidas
-                // $columnasPermitidas = ["Nombre", "Precio", "Valoracion"];
-                // if (in_array($columna, $columnasPermitidas)) {
-                $query .= " ORDER BY $columna $orden";
-                // }
-            }
-    
-            // Preparar la consulta
-            $stmt = $conn->prepare($query);
-    
-            // Pasar los parámetros dinámicos
-            $stmt->bind_param($types, ...$params);
-    
-            // Ejecutar consulta
-            $stmt->execute();
-            $result = $stmt->get_result();
-    
-            $recetas = [];
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $recetas[] = new recetaDTO(
-                        $row["ID"],
-                        $row["Nombre"],
-                        $row["Autor"],
-                        $row["Descripcion"],
-                        json_decode($row["Pasos"], true),
-                        $row["Tiempo"],
-                        $row["Precio"],
-                        $row["Fecha_Creacion"],
-                        $row["Valoracion"],
-                        $row["Ruta"]
-                    );
-                }
-            }
-    
-            $stmt->close();
-            return $recetas;
-    
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-}
-    
+        $conn = application::getInstance()->getConexionBd();
 
-    // #endRegion
+        // Si no hay filtros, devuelve todas las recetas
+        if ($buscarPlato == "" && $ordenar == "" && $precioMin == 0 && $precioMax == 100 && $valoracion == 0 && $etiquetas == "") {
+            return $this->mostrarRecetas('todas');
+        }
+
+        // Consulta base
+        $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE Nombre LIKE ? AND Precio BETWEEN ? AND ? AND Valoracion >= ?";
+
+        $params = [];
+        $types = "siii"; // Nombre (string), PrecioMin (int), PrecioMax (int), Valoración (int)
+
+        // Ajustar el nombre de búsqueda
+        $buscarPlato = "%$buscarPlato%";
+        $params[] = $buscarPlato;
+        $params[] = $precioMin;
+        $params[] = $precioMax;
+        $params[] = $valoracion;
+
+        // Filtrado por etiquetas (Si hay etiquetas)
+        if ($etiquetas != "") {
+            // Convertimos la lista de etiquetas a un array
+            $etiquetasArray = explode(',', $etiquetas);
+            $placeholders = implode(',', array_fill(0, count($etiquetasArray), '?'));
+
+            $query .= " AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($placeholders))";
+
+            foreach ($etiquetasArray as $etiqueta) {
+                $params[] = trim($etiqueta);
+                $types .= "s"; // Cada etiqueta es un string
+            }
+        }
+
+        // Ordenamiento (Si se ha solicitado)
+        if ($ordenar != "") {
+            list($columna, $orden) = explode("_", $ordenar);
+            $orden = strtoupper($orden); // Asegurar que sea ASC o DESC
+
+            // Evitar SQL Injection validando columnas permitidas
+            // $columnasPermitidas = ["Nombre", "Precio", "Valoracion"];
+            // if (in_array($columna, $columnasPermitidas)) {
+            $query .= " ORDER BY $columna $orden";
+            // }
+        }
+
+        // Preparar la consulta
+        $stmt = $conn->prepare($query);
+
+        // Pasar los parámetros dinámicos
+        $stmt->bind_param($types, ...$params);
+
+        // Ejecutar consulta
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $recetas = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $recetas[] = new recetaDTO(
+                    $row["ID"],
+                    $row["Nombre"],
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    $row["Ruta"]
+                );
+            }
+        }
+
+        $stmt->close();
+        return $recetas;
+
+    }
+
+}  
 
 ?>

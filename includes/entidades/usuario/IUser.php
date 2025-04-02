@@ -10,5 +10,7 @@ interface IUser
     public function create($userDTO);
 
     public function buscaUsuario($email);
+
+    public function buscarUsuarioPorID($userId);
 }
 ?>

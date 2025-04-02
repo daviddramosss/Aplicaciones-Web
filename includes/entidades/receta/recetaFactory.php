@@ -1,7 +1,6 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\receta;
-// require("recetaDAO.php");
 
 class recetaFactory
 {
