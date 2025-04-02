@@ -1,11 +1,8 @@
 <?php
 
-
 require_once("includes/config.php");
 
 use es\ucm\fdi\aw\helpers\loginForm;
-
-// require_once("includes/helpers/loginForm.php");
 
 // Se define el título de la página
 $tituloPagina = 'Inicio de sesión';

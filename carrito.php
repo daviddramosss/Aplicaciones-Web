@@ -1,7 +1,5 @@
 <?php
 
-require_once("includes/config.php");
-
 // Se define el título de la página
 $tituloPagina = 'Carrito de Compras';
 

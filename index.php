@@ -2,7 +2,6 @@
 
 require_once("includes/config.php");
 use es\ucm\fdi\aw\helpers\IndexHelper;
-// require_once("includes/helpers/IndexHelper.php");
 
 // Se define el título de la página
 $tituloPagina = 'Market Chef';
@@ -11,10 +10,8 @@ $tituloPagina = 'Market Chef';
 $indexHelper = new IndexHelper();
 $htmlIndex = $indexHelper->getRecetas();
 
-
 // Define el contenido principal de la página
 $contenidoPrincipal = <<<EOS
-
     $htmlIndex
 EOS;
 
