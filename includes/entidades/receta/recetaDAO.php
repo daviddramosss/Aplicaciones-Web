@@ -162,7 +162,7 @@ class recetaDAO extends baseDAO implements IReceta
 
         // Asocia el parámetro de la consulta con el valor del ID
         //$id = $recetaDTO->getId();
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("i", $recetaId);
 
         // Si la consulta se ejecuta correctamente, retorna el DTO de la receta eliminada
         if ($stmt->execute())
