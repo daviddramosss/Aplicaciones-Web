@@ -303,7 +303,6 @@ textarea {
     clear: both;
 	color: white;
 	text-align: center;
-    justify-content: flex-end;
 }
 .footer {
     padding: 10px 0;
