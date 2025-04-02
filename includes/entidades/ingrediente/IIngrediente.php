@@ -13,7 +13,5 @@ interface IIngrediente
     // Método para eliminar un ingrediente, recibe un objeto DTO con la identificación del ingrediente a eliminar
     public function eliminarIngrediente($ingredienteDTO);
 
-    // Método para obtener la lista de ingredientes disponibles
-    public function obtenerIngredientes();
 }
 ?>

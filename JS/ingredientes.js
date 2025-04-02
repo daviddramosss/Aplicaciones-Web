@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("includes/entidades/ingrediente/getIngredientes.php")
         .then(response => response.json())
         .then(data => {
+            console.log("Ingredientes obtenidos:", data); // <--- Agregar esta línea para depuración
+        
             ingredientesData = data;
             mostrarIngredientes(data);
         })

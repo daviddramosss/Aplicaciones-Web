@@ -27,7 +27,6 @@ class buscarFormulario extends formularioBase
         $etiquetas = $datos['etiquetas'] ?? '';
         // Generación del HTML para el formulario
         $html = <<<EOF
-            <div class="contenedor_buscar">
             <!-- Sidebar con los filtros -->
             <aside class="sidebar_buscar">
                     <h2>Filtros de búsqueda</h2>
@@ -92,10 +91,7 @@ class buscarFormulario extends formularioBase
             </aside>
 
             <!-- Zona de resultados -->
-            <main class="resultados_buscar">
-                <div id="resultados_buscar_div"></div>
-            </main>
-        </div>
+            <div id="resultados_buscar_div"></div>
 
         <!-- Enlace al script que maneja interacciones dinámicas -->
         <script src="JS/buscar.js"></script>

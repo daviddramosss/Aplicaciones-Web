@@ -1,9 +1,10 @@
 /*Estilo General de MarketChef*/
 
-main.contenido_plantilla{ 
+.contenido_plantilla{ 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: stretch;
+    min-height: 100vh;
 }
 
 /* #region CABECERA */
@@ -135,6 +136,7 @@ main.contenido_plantilla{
 .contenido_principal {
     display: flex;
     flex-direction: column;
+    flex:1;
 }
 
 body {
@@ -330,6 +332,8 @@ textarea {
 .footer_links a:hover {
     text-decoration: underline;
 }
+
+/*Hemos quitado las redes sociales para minimizar el tamaño del pie de página*/
 /* 
 .footer_social {
     margin-bottom: 15px;
@@ -355,11 +359,11 @@ textarea {
 
 /* Información para mostrar las recetas todo modificable */
 .recetas-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columnas por fila */
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    max-width: 900px; /* Ajusta según sea necesario */
-    margin: 0 auto; /* Centrar el contenedor */
+    gap: 20px;
+
 }
 
 .receta-card {
@@ -463,29 +467,29 @@ textarea {
 form#buscarFormulario {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 100%; 
+    margin: 0 0;
+
     gap: 10px;
 }
-
-.contenedor_buscar {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-    gap: 10vh;
-    /* margin-left: -50vh; */
-}
-
 
 .sidebar_buscar {
     flex: 0 0 25vh;  /* No crece ni se encoge, tiene un ancho fijo */
     background: #f6f6ae;
     padding: 25px;
     overflow-y: auto;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    max-height: 100%;
+    box-shadow: 2px 0 rgba(0, 0, 0, 0.1);
+    /* max-height: 100vh; */
+    height: 100%;
     border-right: 3px solid #ddd;
     display: flex;
     flex-direction: column; /* Organiza su contenido en columna */
+}
+
+#resultados_buscar_div {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    margin : 20px;
+    flex: wrap;
 }
 
 /* 
@@ -612,8 +616,6 @@ form#buscarFormulario {
 .tags_container_buscar{
     background: #f6f6ae !important;
 }
-
-
 
 
 /* #endregion */

@@ -42,28 +42,5 @@ class IngredienteAppService {
     {
         // Implementar luego
     }
-
-    // Método para obtener la lista de ingredientes desde la base de datos
-    public function obtenerIngredientes()
-    {
-        // Se obtiene una instancia de la clase que maneja los ingredientes a través de la fábrica
-        $IIngredienteDAO = ingredienteFactory::CreateIngrediente();
-
-        // Se llama al método que obtiene los ingredientes y se devuelve el resultado
-        return $IIngredienteDAO->obtenerIngredientes();
-    }
 }
 
-// **Endpoint para obtener los ingredientes en formato JSON**
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'obtenerIngredientes') {
-    
-    // Se especifica que la respuesta será en formato JSON
-    header('Content-Type: application/json');
-    
-    // Se obtiene la lista de ingredientes desde el servicio
-    $ingredientes = IngredienteAppService::GetSingleton()->obtenerIngredientes();
-    
-    // Se convierte el resultado a JSON y se envía como respuesta
-    echo json_encode($ingredientes);
-    exit;
-}
