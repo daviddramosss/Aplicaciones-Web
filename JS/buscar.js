@@ -54,7 +54,7 @@ function cargarRecetas(formData = null) {
 
     const resultadosDiv = document.getElementById("resultados_buscar_div");
 
-    fetch("includes/helpers/buscarHelper.php", {
+    fetch("includes/endpoints/busquedaDinamica.php", {
         method: "POST",
         body: formData,
         headers: {

@@ -16,8 +16,6 @@ interface IReceta
    public function mostarRecetasPorAutor($userDTO);
 
    public function mostrarRecetas($crtierio);
-
-   public function busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas);
     
 }
 

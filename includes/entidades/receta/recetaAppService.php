@@ -163,11 +163,6 @@ class recetaAppService
         return $IRecetaDAO->buscarReceta($id);
     }
 
-    public function busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas){
-        $IRecetaDAO = recetaFactory::CreateReceta();
-
-        return $IRecetaDAO->busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas);
-    }
 }
 
 ?>
