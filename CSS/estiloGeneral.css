@@ -135,7 +135,6 @@ main.contenido.plantilla{
 .contenido_principal {
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 body {
@@ -184,7 +183,8 @@ input, textarea {
     width: 100%;
     border: none;
     background: transparent;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 1em;
 }
 
