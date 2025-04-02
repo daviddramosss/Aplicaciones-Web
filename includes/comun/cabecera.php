@@ -71,7 +71,6 @@ $logged = $application->isLogged();
 
                <!-- Opciones dentro del menú desplegable del admin -->
               <div class="menu_admin">
-                    <a href="gestionarUsuarios.php">Gestionar usuarios</a>
                     <a href="gestionarIngredientes.php">Gestionar ingredientes</a>    
                     <a href="gestionarEtiquetas.php">Gestionar etiquetas</a>    
                     <a href="gestionarMagnitudes.php">Gestionar magnitudes</a>    
