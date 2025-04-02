@@ -100,9 +100,13 @@ class editarRecetaForm extends formularioBase
        $html = <<<EOF
             <input type="hidden" name="id" value="{$this->receta->getId()}">
             <input type="hidden" name="titulo" value="{$this->receta->getNombre()}">
+            <input type="hidden" name="autor" value="{$this->receta->getAutor()}">
+            <input type="hidden" name="pasos" value="{$this->receta->getPasos()}">
             <input type="hidden" name="descripcion" value="{$this->receta->getDescripcion()}">
             <input type="hidden" name="precio" value="{$this->receta->getPrecio()}">
             <input type="hidden" name="tiempo" value="{$this->receta->getTiempo()}">
+            <input type="hidden" name="fecha" value="{$this->receta->getFechaCreacion()}">
+            <input type="hidden" name="valoracion" value="{$this->receta->getValoracion()}">
             <input type="hidden" name="imagen" value="{$this->receta->getRuta()}">
 
             <div class="input-container">

@@ -55,12 +55,14 @@ class recetaAppService
        //-----------------------------------------------------------------------------------
         //Guardamos los ingredientes modificados
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton(); 
-        //obtengo la lista de los ingredientes asociados a dicha receta
-        //Comprobado que esta bien
+        //obtengo la lista de los ingredientes asociados a dicha receta. Comprobado que esta bien
         $ingredientesExistentes = $ingredienteRecetaService->buscarIngredienteReceta($editedId);
-        //var_dump($ingredientesExistentes);
-      
+
+        //BORRADOR------------------------------------------------------------------------
+        $ingredienteRecetaService->borrarIngredienteReceta($editedId);
+        //--------------------------------------------------------------------------------
         // Eliminar todos los ingredientes existentes
+        /*
         foreach ($ingredientesExistentes as $ingredienteId => $ingredienteData) {
             $ingredienteId = intval($ingredienteData['ID']);
             $cantidad = floatval($ingredienteData['Cantidad'] ?? 0);
@@ -69,6 +71,7 @@ class recetaAppService
             $ingredienteRecetaDTO = new ingredienteRecetaDTO($editedId, $ingredienteId, $cantidad, $magnitud);
             $ingredienteRecetaService->borrarIngredienteReceta($ingredienteRecetaDTO);
         }
+        */
 
         // Guardamos los nuevos ingredientes
         foreach ($ingredientes as $ingredienteId => $ingredienteData) {
@@ -94,19 +97,22 @@ class recetaAppService
             }
         }
             
-        //ETIQUETAS
+        //ETIQUETAS------------------------------------------------------------------------
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
-
         //obtengo la lista de las etiquetas asociadas a dicha receta. Verificado ESTA BIEN
         $etiquetasExistentes = $etiquetaRecetaService->buscarEtiquetaReceta($editedId);
-
+        //BORRADOR------------------------------------------------------------------------
+        $etiquetaRecetaService->borrarEtiquetaReceta($editedId);
+        //--------------------------------------------------------------------------------
         // Eliminar todas las etiquetas existentes
+        /*
         foreach ($etiquetasExistentes as $etiqueta) {
             $etiquetaRecetaDTO = new etiquetaRecetaDTO($editedId, $etiqueta);
             //var_dump($etiqueta);
             //die();
             $etiquetaRecetaService->borrarEtiquetaReceta($etiquetaRecetaDTO);
         }
+        */
         // Limitar las nuevas etiquetas a un máximo de 3 únicas
         $nuevasEtiquetas = array_slice(array_unique($etiquetas), 0, 3);
 
@@ -125,23 +131,13 @@ class recetaAppService
     }
 
     // Método para borrar una receta
-    public function borrarReceta($recetaDTO)
+    public function borrarReceta($recetaId)
     {
         // Crea el objeto IRecetaDAO utilizando la fábrica (factory)
         $IRecetaDAO = recetaFactory::CreateReceta();
 
         // Llama al método 'borrarReceta' del DAO para eliminar la receta de la base de datos
-        $deletedRecetaDTO = $IRecetaDAO->borrarReceta($recetaDTO);
-
-        //obtengo el ID de la receta a borrar
-        $deletedId = $deletedRecetaDTO->getID();
-
-        //Servicio para la gestión de ingredientes de la receta
-        $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-
-        $ingredienteRecetaService->borrarIngredienteReceta($deletedId);
-
-
+        $deletedRecetaDTO = $IRecetaDAO->borrarReceta($recetaId); 
 
         // Devuelve el objeto DTO borrado
         return $deletedRecetaDTO;

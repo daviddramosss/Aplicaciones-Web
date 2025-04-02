@@ -11,7 +11,7 @@ interface IReceta
 
    public function editarReceta($recetaDTO);
 
-   public function borrarReceta($recetaDTO);
+   public function borrarReceta($recetaId);
 
    public function mostarRecetasPorAutor($userDTO);
 

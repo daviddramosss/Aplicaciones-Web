@@ -147,7 +147,7 @@ class recetaDAO extends baseDAO implements IReceta
     }
 
     // Función pública para eliminar una receta de la base de datos
-    public function borrarReceta($recetaDTO)
+    public function borrarReceta($recetaId)
     {
         $deletedRecetaDTO = false;
 
@@ -161,7 +161,7 @@ class recetaDAO extends baseDAO implements IReceta
         $stmt = $conn->prepare($query);
 
         // Asocia el parámetro de la consulta con el valor del ID
-        $id = $recetaDTO->getId();
+        //$id = $recetaDTO->getId();
         $stmt->bind_param("i", $id);
 
         // Si la consulta se ejecuta correctamente, retorna el DTO de la receta eliminada

@@ -48,13 +48,13 @@ class etiquetaRecetaAppService
     }
 
     // Método para borrar una etiqueta de receta.
-    public function borrarEtiquetaReceta($etiquetaRecetaDTO)
+    public function borrarEtiquetaReceta($recetaId)
     {
         // Se obtiene una instancia de la interfaz de acceso a datos (DAO) mediante la fábrica
         $IEtiquetaRecetaDAO = etiquetaRecetaFactory::createEtiquetaReceta();
 
         // Se delega la creación de la etiqueta al DAO
-        $deletedEtiquetaRecetaDTO = $IEtiquetaRecetaDAO->borrarEtiquetaReceta($etiquetaRecetaDTO);
+        $deletedEtiquetaRecetaDTO = $IEtiquetaRecetaDAO->borrarEtiquetaReceta($recetaId);
 
         return $deletedEtiquetaRecetaDTO;
     }

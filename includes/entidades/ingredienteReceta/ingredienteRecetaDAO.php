@@ -88,16 +88,16 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
     }
 
     // Método para eliminar un ingrediente de una receta (pendiente de implementación)
-    public function borrarIngredienteReceta($ingredienteRecetaDTO)
+    public function borrarIngredienteReceta($recetaId)
     {
         $borrado = false;
         // Obtener la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
         // Obtener los valores desde el DTO
-        $recetaId = $ingredienteRecetaDTO->getRecetaId();
-        $ingredienteId = $ingredienteRecetaDTO->getIngredienteId();
-        $magnitud = $ingredienteRecetaDTO->getMagnitud(); // Asegúrate de que esto esté disponible
+        //$recetaId = $ingredienteRecetaDTO->getRecetaId();
+        //$ingredienteId = $ingredienteRecetaDTO->getIngredienteId();
+        //$magnitud = $ingredienteRecetaDTO->getMagnitud(); // Asegúrate de que esto esté disponible
 
         
         // Consulta SQL para eliminar el ingrediente

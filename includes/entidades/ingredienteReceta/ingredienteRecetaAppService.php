@@ -46,14 +46,15 @@ class IngredienteRecetaAppService
     }
 
     // Método para eliminar un ingrediente de una receta
-    public function borrarIngredienteReceta($ingredienteRecetaDTO)
+    public function borrarIngredienteReceta($recetaId)
     {
         $IIngredienteRecetaDAO = IngredienteRecetaFactory::CreateIngredienteReceta();
 
-        $deletedIngredienteRecetaDTO = $IIngredienteRecetaDAO->borrarIngredienteReceta($ingredienteRecetaDTO);
+        $deletedIngredienteRecetaDTO = $IIngredienteRecetaDAO->borrarIngredienteReceta($recetaId);
     
         return $deletedIngredienteRecetaDTO;
     }
+
 
     public function buscarIngredienteReceta($recetaId)
     {
