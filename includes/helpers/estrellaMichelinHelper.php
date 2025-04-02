@@ -60,7 +60,6 @@ class estrellaMichelinHelper {
             $chefDTO = $chefAppService->informacionChef($this->user);
 
             return <<<HTML
-                <link rel="stylesheet" href="CSS/index.css">
                 <h1> ¡Bienvenido a tu cocina Chef!</h1>
 
                 <p> Es un placer tenerte de vuelta, {$this->user->getNombre()}. Desde MarketChef estamos deseando de ver tus nuevas creaciones, para ello puedes usar la funcionalida de crear recetas.</p>

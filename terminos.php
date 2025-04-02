@@ -5,8 +5,7 @@ $tituloPagina = 'Términos y Condiciones';
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-    <link rel="stylesheet" href="CSS/terminos.css">
-    <h1 class="titulo-centrado">Términos y Condiciones</h1>
+    <h1>Términos y Condiciones</h1>
     
     <section>
         <h2>1. Introducción</h2>

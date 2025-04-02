@@ -6,10 +6,9 @@ $tituloPagina = 'Sobre Nosotros';
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <!-- Enlace a la hoja de estilos específica para esta página -->
-    <link rel="stylesheet" href="CSS/terminos.css">
 
     <!-- Título principal centrado de la página -->
-    <h1 class="titulo-centrado">Sobre Nosotros</h1>
+    <h1>Sobre Nosotros</h1>
     
     <!-- Sección de miembros del proyecto -->
     <section>
