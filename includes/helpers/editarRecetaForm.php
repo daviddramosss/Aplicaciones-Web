@@ -20,7 +20,7 @@ class editarRecetaForm extends formularioBase
     // Constructor: Recibe el ID de la receta a editar y carga sus datos
     public function __construct($recetaId) 
     {
-        parent::__construct('editarRecetaForm');
+       // parent::__construct('editarRecetaForm');
 
         
         // Obtener instancia del servicio de recetas
@@ -40,8 +40,7 @@ class editarRecetaForm extends formularioBase
     // Método para generar los campos del formulario con los datos actuales
     protected function CreateFields($datos)
     {
-        //obtengo informacion de la receta
-        
+     
         $nombre = $this->receta->getNombre();
         $descripcion = $this->receta->getDescripcion();
         $rutaImagen = "img/receta/" . htmlspecialchars($this->receta->getRuta());
@@ -90,7 +89,7 @@ class editarRecetaForm extends formularioBase
         // Generamos el formulario con los valores actuales para edición
        // Generación del HTML para el formulario
        $html = <<<EOF
-             <input type="hidden" name="id" value="{$this->receta->getId()}">
+            <input type="hidden" name="id" value="{$this->receta->getId()}">
 
             <div class="input-container">
                 <input type="textarea" name="titulo" placeholder="TITULO" value="$nombre" required/>
@@ -184,7 +183,7 @@ class editarRecetaForm extends formularioBase
         $recetaService = recetaAppService::GetSingleton();
         // Obtener la receta desde la base de datos
         $recetaID = $recetaService->buscarRecetaPorId($id); 
-
+ 
         
         $titulo = filter_var(trim($datos['titulo'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $descripcion = filter_var(trim($datos['descripcion'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -194,6 +193,8 @@ class editarRecetaForm extends formularioBase
         $pasos = $datos['steps'] ?? [];
         $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', $datos['etiquetas'])) : [];
         $imagenGuardada = $this->procesarImagen($recetaID); 
+
+
 
         // Validaciones
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
@@ -213,11 +214,9 @@ class editarRecetaForm extends formularioBase
 
         // Si no hay errores, actualizar la receta
         if (count($result) === 0)
-        { 
-            try
-            {
+        {      
                 // Crear un objeto DTO con los nuevos valores
-                $recetaDTO = new recetaDTO($recetaID->getId(), $titulo, $usuarioId, $descripcion, [], $tiempo, $precio, $recetaID->getFechaCreacion(), $recetaID->getValoracion(), $imagenGuardada);
+                $recetaDTO = new recetaDTO($recetaID->getId(), $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $recetaID->getFechaCreacion(), $recetaID->getValoracion(), $imagenGuardada);
 
                // Instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
@@ -228,11 +227,6 @@ class editarRecetaForm extends formularioBase
                 // Redirigir a la confirmación de actualización si tuvo éxito
                 header("Location: confirmacionRecetaEditada.php");
                 exit();
-            }
-            catch (Exception $e)
-            {
-                $result[] = "Error al actualizar la receta: " . $e->getMessage();
-            }
         }
 
         return $result;
