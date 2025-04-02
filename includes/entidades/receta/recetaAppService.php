@@ -134,23 +134,17 @@ class recetaAppService
         
     }
 
-    public function mostrarRecetasIndex($criterio){
+
+    public function mostrarRecetas($criterio){
         $IRecetaDAO = recetaFactory::CreateReceta();
 
-        return $IRecetaDAO->mostrarRecetasIndex($criterio);
+        return $IRecetaDAO->mostrarRecetas($criterio);
     }
 
     public function buscarRecetaPorId($id){
         $IRecetaDAO = recetaFactory::CreateReceta();
 
         return $IRecetaDAO->buscarReceta($id);
-    }
-
-    public function mostrarTodasLasRecetas(){
-        $IRecetaDAO = recetaFactory::CreateReceta();
-
-        return $IRecetaDAO->mostrarTodasLasRecetas();
-
     }
 
     public function busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas){

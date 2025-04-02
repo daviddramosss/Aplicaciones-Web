@@ -229,118 +229,60 @@ class recetaDAO extends baseDAO implements IReceta
         return $recetas;
     }
 
-    public function mostrarRecetasIndex($criterio)
+    public function mostrarRecetas($criterio)
     {
-        try
+        // Obtiene la conexión a la base de datos
+        $conn = application::getInstance()->getConexionBd();
+
+        $ordenamiento = [
+            'fecha' => "SELECT ID, Nombre, Ruta FROM recetas ORDER BY Fecha_Creacion DESC",
+            'etiqueta_principal' => "SELECT r.ID, r.Nombre, r.Ruta FROM recetas r JOIN receta_etiqueta re ON r.ID = re.Receta 
+                                    JOIN etiquetas e ON re.Etiqueta = e.ID WHERE e.Nombre = 'Principal'",
+            'precio' => "SELECT ID, Nombre, Ruta FROM recetas ORDER BY Precio ASC",
+            'ingrediente' => "SELECT r.ID, r.Nombre, r.Ruta, COUNT(ri.Ingrediente) AS num_ingredientes FROM recetas r 
+                            LEFT JOIN receta_ingrediente ri ON r.ID = ri.Receta GROUP BY r.ID ORDER BY num_ingredientes DESC",
+            'todas' => "SELECT ID, Nombre, Ruta FROM recetas"
+        ];
+        // Ordenamos por criterio y sino mostramos todos
+        $query = $ordenamiento[$criterio] ?? $ordenamiento['todas'];
+
+        $stmt = $conn->prepare($query);
+
+        if($stmt->execute())
         {
-            // Obtiene la conexión a la base de datos
-            $conn = application::getInstance()->getConexionBd();
+            // Obtiene el resultado de la consulta
+            $result = $stmt->get_result();
+            $recetas = [];
 
-            $ordenamiento = [
-                'fecha' => "SELECT ID, Nombre, Ruta FROM recetas ORDER BY Fecha_Creacion DESC",
-                'etiqueta_principal' => "SELECT r.ID, r.Nombre, r.Ruta FROM recetas r JOIN receta_etiqueta re ON r.ID = re.Receta 
-                                        JOIN etiquetas e ON re.Etiqueta = e.ID WHERE e.Nombre = 'Principal'",
-                'precio' => "SELECT ID, Nombre, Ruta FROM recetas ORDER BY Precio ASC",
-                'ingrediente' => "SELECT r.ID, r.Nombre, r.Ruta, COUNT(ri.Ingrediente) AS num_ingredientes FROM recetas r 
-                                LEFT JOIN receta_ingrediente ri ON r.ID = ri.Receta GROUP BY r.ID ORDER BY num_ingredientes DESC",
-                'default' => "SELECT id, Nombre, Ruta FROM recetas"
-            ];
-
-            // Ordenamos por criterio y sino mostramos todos
-            $query = $ordenamiento[$criterio] ?? $ordenamiento['default'];
-
-            $stmt = $conn->prepare($query);
-
-            if($stmt->execute())
+            // Si hay resultados, los recorremos y creamos DTOs de recetas
+            if ($result->num_rows > 0)  
             {
-                // Obtiene el resultado de la consulta
-                $result = $stmt->get_result();
-                $recetas = [];
-
-                // Si hay resultados, los recorremos y creamos DTOs de recetas
-                if ($result->num_rows > 0)  
-                {
-                    while ($row = $result->fetch_assoc()) 
-                    {
-                        $recetas[] = new recetaDTO(
-                            $row["ID"],
-                            $row["Nombre"],
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            $row["Ruta"]
-                        );
-                    }
+                while ($row = $result->fetch_assoc()) {
+                    $recetas[] = new recetaDTO(
+                        $row["ID"],
+                        $row["Nombre"],
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        $row["Ruta"]
+                    );
                 }
             }
-
-            $stmt->close();
-
-            return $recetas;
         }
-        catch(Exception $e)
-        {
-            throw $e;
-        }
-    }
 
-    public function mostrarTodasLasRecetas()
-    {
-        try
-        {
-            // Obtiene la conexión a la base de datos
-            $conn = application::getInstance()->getConexionBd();
+        // Cierra la declaración
+        // Usamos solo close, debido a que: Cierra el statement y libera todos los recursos asociados, por lo que usar un free sería innecesario.
+        $stmt->close();
 
-            // Prepara la consulta SQL para buscar la receta
-            $query = "SELECT * FROM recetas";
+        return $recetas;
 
-            // Prepara la declaración SQL
-            $stmt = $conn->prepare($query);
-
-            // Ejecuta la consulta
-            if($stmt->execute())
-            {
-                // Obtiene el resultado de la consulta
-                $result = $stmt->get_result();
-                $recetas = [];
-
-                // Si hay resultados, los recorremos y creamos DTOs de recetas
-                if ($result->num_rows > 0) 
-                {
-                    while ($row = $result->fetch_assoc()) 
-                    {
-                        $recetas[] = new recetaDTO(
-                            $row["ID"],
-                            $row["Nombre"],
-                            $row["Autor"],
-                            $row["Descripcion"],
-                            json_decode($row["Pasos"], true),
-                            $row["Tiempo"],
-                            $row["Precio"],
-                            $row["Fecha_Creacion"],
-                            $row["Valoracion"],
-                            $row["Ruta"]
-                        );
-                    }
-                }
-            }
-
-            $stmt->close();
-
-            return $recetas;
-        }
-        catch(Exception $e)
-        {
-        throw $e;
-        }
     }
     
-    // #region BUSQUEDA DINÁMICA
-    
+    // #region BUSQUEDA DINÁMICA    
     public function busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas)
     {
         try {
@@ -348,7 +290,7 @@ class recetaDAO extends baseDAO implements IReceta
     
             // Si no hay filtros, devuelve todas las recetas
             if ($buscarPlato == "" && $ordenar == "" && $precioMin == 0 && $precioMax == 100 && $valoracion == 0 && $etiquetas == "") {
-                return $this->mostrarTodasLasRecetas();
+                return $this->mostrarRecetas('todas');
             }
     
             // Consulta base
