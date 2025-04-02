@@ -1,9 +1,10 @@
 /*Estilo General de MarketChef*/
 
-main.contenido_plantilla{ 
+.contenido_plantilla{ 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: stretch;
+    min-height: 100vh;
 }
 
 /* #region CABECERA */
@@ -135,6 +136,7 @@ main.contenido_plantilla{
 .contenido_principal {
     display: flex;
     flex-direction: column;
+    flex:1;
 }
 
 body {
@@ -330,6 +332,8 @@ textarea {
 .footer_links a:hover {
     text-decoration: underline;
 }
+
+/*Hemos quitado las redes sociales para minimizar el tamaño del pie de página*/
 /* 
 .footer_social {
     margin-bottom: 15px;
