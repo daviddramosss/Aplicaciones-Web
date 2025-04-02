@@ -35,6 +35,8 @@ class editarRecetaForm extends formularioBase
     
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
         $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($recetaId);
+
+        parent::__construct('editarRecetaForm');
     }
 
     // Método para generar los campos del formulario con los datos actuales
@@ -204,14 +206,15 @@ class editarRecetaForm extends formularioBase
         $recetaID = $recetaService->buscarRecetaPorId($id); 
  
         
-        $titulo = filter_var(trim($datos['titulo'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $descripcion = filter_var(trim($datos['descripcion'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $precio = floatval($datos['precio'] ?? 0);
-        $tiempo = intval($datos['tiempo'] ?? 0);
+        // Saneamiento de datos de entrada
+        $titulo = trim($datos['titulo'] ?? '');
+        $descripcion = trim($datos['descripcion'] ?? '');
+        $precio = isset($datos['precio']) ? floatval(trim($datos['precio'])) : 0;
+        $tiempo = isset($datos['tiempo']) ? intval(trim($datos['tiempo'])) : 0;
         $ingredientes = $datos['ingredientes'] ?? [];
-        $pasos = $datos['steps'] ?? [];
-        $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', $datos['etiquetas'])) : [];
-        $imagenGuardada = $this->procesarImagen($recetaID); 
+        $pasos = isset($datos['steps']) ? array_map('trim', $datos['steps']) : [];
+        $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', trim($datos['etiquetas']))) : [];
+        $imagenGuardada = $this->procesarImagen($recetaID);
 
 
 
