@@ -2,10 +2,10 @@
 
 namespace es\ucm\fdi\aw\helpers;
 
-use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
-use es\ucm\fdi\aw\entidades\usuario\{userAppService, userDTO};
-use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService, ingredienteRecetaDTO};
-use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRecetaDTO};
+use es\ucm\fdi\aw\entidades\receta\{recetaAppService};
+use es\ucm\fdi\aw\entidades\usuario\{userAppService};
+use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService};
+use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService};
 
 class mostrarRecetaHelper
 {

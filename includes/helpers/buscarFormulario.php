@@ -2,9 +2,7 @@
 
 namespace es\ucm\fdi\aw\helpers;
 
-//include __DIR__ . '/../comun/formularioBase.php';
 use es\ucm\fdi\aw\comun\formularioBase;
-use es\ucm\fdi\aw\entidades\receta\recetaDAO;
 
 // Clase buscarFormulario que extiende de formularioBase
 class buscarFormulario extends formularioBase
