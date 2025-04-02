@@ -15,10 +15,10 @@ class IndexHelper
     {
         $recetaAppService = recetaAppService::GetSingleton();
 
-        $recetasFecha = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('fecha'), "Recetas más recientes", "swiper-fecha");
-        $recetasEtiqueta = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('etiqueta_principal'), "Platos principales", "swiper-etiqueta");
-        $recetasPrecio = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('precio'), "Recetas ordenadas por precio", "swiper-precio");
-        $recetasIngredientes = $this->mostrarRecetas($recetaAppService->mostrarRecetasIndex('ingrediente'), "Recetas con más ingredientes", "swiper-ingredientes");
+        $recetasFecha = $this->mostrarRecetas($recetaAppService->mostrarRecetas('fecha'), "Recetas más recientes", "swiper-fecha");
+        $recetasEtiqueta = $this->mostrarRecetas($recetaAppService->mostrarRecetas('etiqueta_principal'), "Platos principales", "swiper-etiqueta");
+        $recetasPrecio = $this->mostrarRecetas($recetaAppService->mostrarRecetas('precio'), "Recetas ordenadas por precio", "swiper-precio");
+        $recetasIngredientes = $this->mostrarRecetas($recetaAppService->mostrarRecetas('ingrediente'), "Recetas con más ingredientes", "swiper-ingredientes");
         
 
         return <<<HTML

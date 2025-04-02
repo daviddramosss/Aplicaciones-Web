@@ -105,7 +105,8 @@ class estrellaMichelinHelper {
 
     public function mostrarRecetaAdmin(){
         $recetaAppService = recetaAppService::GetSingleton();
-        $recetas = $recetaAppService->mostrarTodasLasRecetas();
+        $recetas = $recetaAppService->mostrarRecetas('todas');
+        //$recetas = $recetaAppService->mostrarTodasLasRecetas();
 
         if (empty($recetas)) {
             return "<p>No tienes recetas publicadas aún.</p>";
