@@ -436,10 +436,10 @@ class recetaDAO extends baseDAO implements IReceta
                 $orden = strtoupper($orden); // Asegurar que sea ASC o DESC
     
                 // Evitar SQL Injection validando columnas permitidas
-                $columnasPermitidas = ["Nombre", "Precio", "Valoracion"];
-                if (in_array($columna, $columnasPermitidas)) {
-                    $query .= " ORDER BY $columna $orden";
-                }
+                // $columnasPermitidas = ["Nombre", "Precio", "Valoracion"];
+                // if (in_array($columna, $columnasPermitidas)) {
+                $query .= " ORDER BY $columna $orden";
+                // }
             }
     
             // Preparar la consulta
