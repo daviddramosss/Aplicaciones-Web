@@ -38,6 +38,8 @@ use es\ucm\fdi\aw\entidades\receta\recetaAppService;
         public function print(){
 
             $html = $this->htmlFormBuscar;
+
+/* 
             $html.= $this->busquedaDinamica(
                 $this->buscarPlato, 
                 $this->ordenar, 
@@ -45,7 +47,9 @@ use es\ucm\fdi\aw\entidades\receta\recetaAppService;
                 $this->precioMax, 
                 $this->valoracion, 
                 $this->etiquetas
-            );
+            ); 
+*/
+
             return $html;
         }
 
@@ -83,7 +87,7 @@ use es\ucm\fdi\aw\entidades\receta\recetaAppService;
             $this->valoracion = $postData['valoracion'] ?? 0;
             $this->etiquetas = $postData['etiquetas'] ?? '';
             
-            return $this->print();
+            return $this->busquedaDinamica($this->buscarPlato, $this->ordenar, $this->precioMin, $this->precioMax, $this->valoracion, $this->etiquetas);
         }
 
 
@@ -93,7 +97,7 @@ use es\ucm\fdi\aw\entidades\receta\recetaAppService;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $buscarHelper = new buscarHelper();
         $resultado = $buscarHelper->procesarBusqueda($_POST); // Recibimos los datos del formulario();
-        echo json_encode(['html' => $resultado]);
+        echo json_encode($resultado);
         exit;
     }
 

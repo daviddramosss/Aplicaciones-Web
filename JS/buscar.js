@@ -36,13 +36,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("buscarFormulario");
-    const resultadosDiv = document.getElementById("resultados_buscar_div");
+    
+
+    cargarRecetas();
 
     form.addEventListener("submit", function (e) {
         e.preventDefault(); // Evitar que se recargue la página
 
         const formData = new FormData(form);
 
+        cargarRecetas(formData);
+    });
         // el fetch redirige a la misma página donde estamos
        /*  fetch("includes/helpers/buscarHelper.php", {
             method: "POST",
@@ -61,37 +65,35 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error en la búsqueda:", error)); */
 
-        fetch("includes/helpers/buscarHelper.php", {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
-            }
-        })
-        .then(response => response.json()) // Convertir la respuesta a JSON
-        .then(data => {
-            resultadosDiv.innerHTML = ""; // Limpiar resultados previos
-
-            if (!Array.isArray(data) || data.length === 0) {
-                resultadosDiv.innerHTML = "<p>No se encontraron resultados.</p>";
-                return;
-            }
-
-            data.forEach(receta => {
-                const recetaDiv = document.createElement("div");
-                recetaDiv.classList.add("receta");
-                recetaDiv.innerHTML = `
-                    <h3>${receta.nombre}</h3>
-                    <p>Precio: ${receta.precio}€</p>
-                    <p>Valoración: ${receta.valoracion} ★</p>
-                `;
-                resultadosDiv.appendChild(recetaDiv);
-            });
-        })
-        .catch(error => console.error("Error en la búsqueda:", error));
-
-    });
+        
 }); 
+
+function cargarRecetas(formData = null) {
+
+    const resultadosDiv = document.getElementById("resultados_buscar_div");
+
+    fetch("includes/helpers/buscarHelper.php", {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest"
+        }
+    })
+    .then(response => response.json()) // Convertir a JSON
+    .then(data => {
+        console.log("Respuesta del servidor:", data);
+        resultadosDiv.innerHTML = ""; // Limpiar resultados previos
+
+        if (data.length === 0) {
+            resultadosDiv.innerHTML = "<p>No se encontraron resultados.</p>";
+            return;
+        }
+
+        resultadosDiv.innerHTML = data;
+    })
+    .catch(error => console.error("Error en la búsqueda:", error));
+}
+
 
 // #endregion
 

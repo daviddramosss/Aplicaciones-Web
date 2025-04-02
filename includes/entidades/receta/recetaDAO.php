@@ -403,7 +403,7 @@ class recetaDAO extends baseDAO implements IReceta
                     return $this->mostrarTodasLasRecetas();
                 }
 
-                $query = "SELECT * FROM recetas WHERE nombre LIKE ? AND Precio BETWEEN ? AND ? AND Valoracion >= ?";
+                $query = "SELECT * FROM recetas WHERE Nombre LIKE ? AND Precio BETWEEN ? AND ? AND Valoracion >= ?";
 
                 if($ordenar != "")  
                 {
@@ -463,32 +463,6 @@ class recetaDAO extends baseDAO implements IReceta
             }
         }
     }
-
-/* 
-                $stmt = $conn->prepare("CALL buscar_receta_dinamica(?, ?, ?, ?, ?, ?);");
-                $stmt->bind_param("ssssss", $buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                $recetas = [];
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $recetas[] = new recetaDTO(
-                            $row["ID"],
-                            $row["Nombre"],
-                            $row["Autor"],
-                            $row["Descripcion"],
-                            json_decode($row["Pasos"], true),
-                            $row["Tiempo"],
-                            $row["Precio"],
-                            $row["Fecha_Creacion"],
-                            $row["Valoracion"],
-                            $row["Ruta"]
-                        );
-                    }
-                }
-                $stmt->close();
-                return $recetas;
- */
 
     // #endRegion
 
