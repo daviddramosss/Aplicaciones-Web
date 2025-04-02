@@ -172,7 +172,7 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
         $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para obtener los ingredientes de la receta
-        $query = "SELECT i.Nombre, ri.Cantidad, m.Nombre 
+        $query = "SELECT i.Nombre, ri.Cantidad, m.Nombre, i.ID, ri.Magnitud
                 FROM receta_ingrediente ri
                 JOIN ingredientes i ON ri.Ingrediente = i.ID
                 JOIN magnitudes m ON ri.Magnitud = m.ID
@@ -188,10 +188,10 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
         if ($stmt->execute()) 
         {
             // Declara las variables donde se almacenarán los resultados
-            $ingrediente = $cantidad = $magnitud = null;
+            $ingrediente = $cantidad = $magnitud = $id = $id_Magnitud = null;
 
             // Asocia las columnas de la consulta con las variables PHP
-            $stmt->bind_result($ingrediente, $cantidad, $magnitud);
+            $stmt->bind_result($ingrediente, $cantidad, $magnitud, $id, $id_Magnitud);
 
             // Array donde se almacenarán los ingredientes
             $ingredientes = [];
@@ -202,7 +202,9 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
                 $ingredientes[] = [
                     "Ingrediente" => $ingrediente,
                     "Cantidad" => $cantidad,
-                    "Magnitud" => $magnitud
+                    "Magnitud" => $magnitud,
+                    "ID" => $id,
+                    "ID_Magnitud" => $id_Magnitud
                 ];
             }
 

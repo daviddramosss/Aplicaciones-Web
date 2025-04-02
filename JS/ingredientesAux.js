@@ -81,6 +81,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     div.appendChild(cantidadInput);
                     div.appendChild(magnitudSelect);
                     ingredientContainer.appendChild(div);
+
+                    
                 });
             })
             .catch(error => console.error("Error cargando las magnitudes:", error));
@@ -93,3 +95,32 @@ document.addEventListener("DOMContentLoaded", function () {
         mostrarIngredientes(filteredIngredients);
     });
 });
+
+//Añadido por antonio:
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(() => {
+        ingredientesReceta.forEach(ingrediente => {
+            
+            let checkbox = document.querySelector(`input[data-id="${ingrediente.id}"]`);
+            if (checkbox) {
+                checkbox.checked = true;
+                
+                let inputCantidad = checkbox.closest("div").querySelector('.ingrediente-cantidad');
+                if (inputCantidad) {
+                    inputCantidad.value = ingrediente.cantidad;                    
+                    inputCantidad.disabled = false;  // Asegurar que es editable
+                }
+    
+                let selectMagnitud = checkbox.closest("div").querySelector('.ingrediente-magnitud');
+                if (selectMagnitud) {
+                    let option = selectMagnitud.querySelector(`option[value="${ingrediente.id_magnitud}"]`);
+                    if (option) {
+                        selectMagnitud.value = ingrediente.id_magnitud;
+                        selectMagnitud.disabled = false;  // Asegurar que siga siendo editable
+                    }
+                }
+            }
+        });
+    }, 100);
+});    
+

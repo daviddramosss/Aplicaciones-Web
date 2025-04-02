@@ -70,10 +70,21 @@ class editarRecetaForm extends formularioBase
         $stepsHtml = '';
         foreach ($pasos as $index => $paso) {
             $pasoSanitizado = htmlspecialchars($paso, ENT_QUOTES, 'UTF-8');
-            var_dump($pasoSanitizado);
             $stepsHtml .= "<p class='step-item'><label>Paso " . ($index + 1) . ":</label> <textarea name='steps[]' required>$pasoSanitizado</textarea></p>";
         }    
 
+
+        $ingredientesArray = array_map(function($ingrediente) {
+            return [
+                'id' => $ingrediente['ID'],  // Convertimos "ID" a "id"
+                'nombre' => $ingrediente['Ingrediente'], // Convertimos "Ingrediente" a "nombre"
+                'cantidad' => $ingrediente['Cantidad'], // Ya coincide
+                'magnitud' => $ingrediente['Magnitud'], // Ya coincide
+                'id_magnitud' => $ingrediente['ID_Magnitud']
+            ];
+        }, $this->ingredientes);
+        
+        $ingredientesJSON = json_encode($ingredientesArray);
 
 
         // Generamos el formulario con los valores actuales para edición
@@ -140,6 +151,12 @@ class editarRecetaForm extends formularioBase
                 <button type="submit" class="send-button" name="guardar">GUARDAR</button>
                 <button type="submit" class="send-button" name="eliminar">BORRAR RECETA</button>
             </p>
+
+            <script>
+                let ingredientesReceta = $ingredientesJSON;
+            </script>
+
+           
 
             <!-- Importación de scripts JavaScript -->
             <script src="js/editarReceta.js"></script>   
