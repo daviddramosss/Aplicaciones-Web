@@ -5,8 +5,7 @@ $tituloPagina = 'Política de Privacidad';
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-    <link rel="stylesheet" href="CSS/privacidad.css">
-    <h1 class="titulo-centrado">Política de Privacidad</h1>
+    <h1>Política de Privacidad</h1>
 
     <section>
         <h2>1. Introducción</h2>

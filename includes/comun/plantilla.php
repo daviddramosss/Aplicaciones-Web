@@ -22,9 +22,7 @@
         </div>
 
         <div class="contenido_principal">
-            <article>
                 <?= $contenidoPrincipal ?>
-            </article>
         </div>
     
         <div class="plantilla_pie">
