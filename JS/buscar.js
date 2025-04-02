@@ -36,45 +36,64 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("buscarFormulario");
-    const resultadosDiv = document.getElementById("resultados");
+    
+
+    cargarRecetas();
 
     form.addEventListener("submit", function (e) {
         e.preventDefault(); // Evitar que se recargue la página
 
         const formData = new FormData(form);
 
+        cargarRecetas(formData);
+    });
         // el fetch redirige a la misma página donde estamos
-
-        fetch(window.location.href, {
+       /*  fetch("includes/helpers/buscarHelper.php", {
             method: "POST",
             body: formData,
-            headers: {
-                "X-Requested-With": "XMLHttpRequest" // Indicar que es una petición AJAX
-            }
+            headers: { "X-Requested-With": "XMLHttpRequest" }
         })
-        .then(response => response.json()) // Convertir la respuesta a JSON
+        .then(response => response.json()) // En lugar de .json(), usa .text() para ver la respuesta completa
         .then(data => {
-            resultadosDiv.innerHTML = ""; // Limpiar resultados previos
-
-            if (data.length === 0) {
-                resultadosDiv.innerHTML = "<p>No se encontraron resultados.</p>";
-                return;
-            }
-
-            data.forEach(receta => {
-                const recetaDiv = document.createElement("div");
-                recetaDiv.classList.add("receta");
-                recetaDiv.innerHTML = `
-                    <h3>${receta.nombre}</h3>
-                    <p>Precio: ${receta.precio}€</p>
-                    <p>Valoración: ${receta.valoracion} ★</p>
-                `;
-                resultadosDiv.appendChild(recetaDiv);
-            });
+            console.log("Respuesta del servidor:", data); // Muestra la respuesta en la consola
+        //     try {
+        //         const jsonData = JSON.parse(data); // Intenta convertirla a JSON
+        //         console.log("JSON parseado correctamente:", jsonData);
+        //     } catch (error) {
+        //         console.error("Error al parsear JSON:", error);
+        //     }
         })
-        .catch(error => console.error("Error en la búsqueda:", error));
-    });
-});
+        .catch(error => console.error("Error en la búsqueda:", error)); */
+
+        
+}); 
+
+function cargarRecetas(formData = null) {
+
+    const resultadosDiv = document.getElementById("resultados_buscar_div");
+
+    fetch("includes/helpers/buscarHelper.php", {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest"
+        }
+    })
+    .then(response => response.json()) // Convertir a JSON
+    .then(data => {
+        console.log("Respuesta del servidor:", data);
+        resultadosDiv.innerHTML = ""; // Limpiar resultados previos
+
+        if (data.length === 0) {
+            resultadosDiv.innerHTML = "<p>No se encontraron resultados.</p>";
+            return;
+        }
+
+        resultadosDiv.innerHTML = data;
+    })
+    .catch(error => console.error("Error en la búsqueda:", error));
+}
+
 
 // #endregion
 

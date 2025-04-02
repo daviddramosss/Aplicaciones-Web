@@ -24,6 +24,7 @@ class buscarFormulario extends formularioBase
         $precioMin = $datos['precioMin'] ?? 0;
         $precioMax = $datos['precioMax'] ?? 100;
         $valoracion = $datos['valoracion'] ?? 0;
+        $etiquetas = $datos['etiquetas'] ?? '';
         // Generación del HTML para el formulario
         $html = <<<EOF
             <div class="contenedor_buscar">
@@ -34,7 +35,7 @@ class buscarFormulario extends formularioBase
 
                     <!-- Campo de búsqueda -->
                     <label for="buscarPlato">Nombre del plato:</label>
-                    <input type="text" id="buscarPlato" name="buscarPlato" placeholder="Ej: Pizza" value="$buscarPlato">
+                    <input type="text" id="buscarPlato" name="buscarPlato" placeholder="Ej: Pizza margarita" value="$buscarPlato">
 
                     <!-- Selector para ordenar -->
                     <label for="ordenar">Ordenar por:</label>

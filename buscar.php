@@ -1,6 +1,6 @@
 <?php
 
-use es\ucm\fdi\aw\helpers\buscarFormulario; //para instanciar clases
+use es\ucm\fdi\aw\helpers\buscarHelper; //para instanciar clases
 
 require_once("includes/config.php");                        
 
@@ -8,15 +8,15 @@ require_once("includes/config.php");
 $tituloPagina = 'Buscar Recetas';
 
 // Crea una instancia de la clase buscarFormulario
-$form = new buscarFormulario();
+$helper = new buscarHelper();
 
 // Genera el HTML del formulario llamando al método Manage(), que devuelve un formulario listo para ser mostrado
-$htmlFormBuscar = $form->Manage();
+$htmlBuscarHelper = $helper->print();
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <!-- Formulario de búsqueda generado dinámicamente -->
-    $htmlFormBuscar
+    $htmlBuscarHelper
 
 EOS;
 

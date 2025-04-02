@@ -390,5 +390,83 @@ class recetaDAO extends baseDAO implements IReceta
         throw $e;
         }
     }
-}
+    
+    // #region BUSQUEDA DINÁMICA
+    
+        public function busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas)
+        {
+            try{
+                $conn = application::getInstance()->getConexionBd();
+
+                // si están todos los parámetros vacíos o con los valores predeterminados, se realizará una búsqueda que devuelva todas las recetas
+                if($buscarPlato == "" && $ordenar == "" && $precioMin == 0 && $precioMax == 100 && $valoracion == 0 && $etiquetas == ""){
+                    return $this->mostrarTodasLasRecetas();
+                }
+
+                $query = "SELECT * FROM recetas WHERE Nombre LIKE ? AND Precio BETWEEN ? AND ? AND Valoracion >= ?";
+
+               
+                $buscarPlato = "%$buscarPlato%";
+                
+                if($ordenar != "")  
+                {
+                    // partir el criterio de ordenamiento en dos partes: la columna y el orden (ascendente o descendente)
+                    list($columna, $orden) = explode("_", $ordenar);
+
+                    // el orden se pasa a mayúsculas
+                    $orden = strtoupper($orden);
+
+                    // agregar el criterio de ordenamiento a la consulta
+                    $query .= " ORDER BY $columna $orden";
+                }
+
+                if($etiquetas != "")
+                {
+                    $query .= " AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($etiquetas))";
+                }
+
+                $stmt = $conn->prepare($query);
+                
+                $stmt->bind_param("siii", $buscarPlato, $precioMin, $precioMax, $valoracion);
+                
+                if($etiquetas != "")
+                {
+                    $stmt->bind_param("s", $etiquetas);
+                }
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+
+                $recetas = [];
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $recetas[] = new recetaDTO(
+                            $row["ID"],
+                            $row["Nombre"],
+                            $row["Autor"],
+                            $row["Descripcion"],
+                            json_decode($row["Pasos"], true),
+                            $row["Tiempo"],
+                            $row["Precio"],
+                            $row["Fecha_Creacion"],
+                            $row["Valoracion"],
+                            $row["Ruta"]
+                        );
+                    }
+                }
+
+                $stmt->close();
+
+                return $recetas;
+            }
+            catch(Exception $e)
+            {
+                throw $e;
+            }
+        }
+    }
+
+    // #endRegion
+
 ?>
