@@ -1,12 +1,10 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\magnitudes;
-require_once("../../config.php");
+
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
-// require_once("IMagnitud.php"); 
-// require_once("magnitudDTO.php"); 
-// require_once(__DIR__ . "/../../comun/baseDAO.php"); 
+
 
 class magnitudDAO extends baseDAO implements IMagnitud 
 {
@@ -39,28 +37,30 @@ class magnitudDAO extends baseDAO implements IMagnitud
 
         // Se prepara la consulta
         $stmt = $conn->prepare($query);
-        $stmt->execute();
-
-        // Array donde se almacenarán las magnitudes
-        $magnitudes = [];
-
-        $result = $stmt->get_result();
-        // Si hay resultados, los recorremos
-        if ($result->num_rows > 0) 
+        
+        if($stmt->execute())
         {
-            while ($fila = $result->fetch_assoc()) 
-            {
-                // Crea un objeto magnitudDTO con los datos obtenidos y lo añade al array
-                $magnitudes[] = [
-                    "id" => $fila['ID'], 
-                    "nombre" => $fila['Nombre']
-                ];
-            }
+            // Array donde se almacenarán las magnitudes
+            $magnitudes = [];
 
-            $stmt->close();
-            // Liberamos la memoria del resultado
-            $result->free();
+            $result = $stmt->get_result();
+            // Si hay resultados, los recorremos
+            if ($result->num_rows > 0) 
+            {
+                while ($fila = $result->fetch_assoc()) 
+                {
+                    // No lo pasasos como un DTO, debido a que se llama desde JavaScript y es mas fácil usar un array
+                    $magnitudes[] = [
+                        "id" => $fila['ID'], 
+                        "nombre" => $fila['Nombre']
+                    ];
+                }
+            }
         }
+        
+        // Cierra la declaración
+        // Usamos solo close, debido a que: Cierra el statement y libera todos los recursos asociados, por lo que usar un free sería innecesario.
+        $stmt->close();
         // Retorna el array con las magnitudes (puede estar vacío si no hay magnitudes en la BD)
         return $magnitudes;
     }
