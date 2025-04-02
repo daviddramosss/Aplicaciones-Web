@@ -140,53 +140,45 @@ class crearRecetaForm extends formularioBase
         // Si no hay errores, proceder con la creación de la receta
         if (count($result) === 0)
         {
-            try
-            {
-                // Creación de la receta en la tabla recetas
-                $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, 0, $imagenGuardada);
-                $recetaService = recetaAppService::GetSingleton();
-                $nuevaRecetaDTO = $recetaService->crearReceta($recetaDTO);  
-                
-                // Id de la nueva receta para rellenar el resto de tablas
-                $id = $nuevaRecetaDTO->getId();
+             // Creación de la receta en la tabla recetas
+            $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, 0, $imagenGuardada);
+            $recetaService = recetaAppService::GetSingleton();
+            $nuevaRecetaDTO = $recetaService->crearReceta($recetaDTO);  
+            
+            // Id de la nueva receta para rellenar el resto de tablas
+            $id = $nuevaRecetaDTO->getId();
 
-                // Creación de la relació de receta-ingredientes en la tabla receta_ingredientes
-                $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
+            // Creación de la relació de receta-ingredientes en la tabla receta_ingredientes
+            $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
 
-                foreach ($ingredientes as $ingredienteId => $ingredienteData) {
-                    $ingredienteId = intval($ingredienteId);
-                    $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
-                    $magnitud = filter_var($ingredienteData['magnitud'] ?? 0, FILTER_VALIDATE_INT);
-                
-                    // Si el ingrediente es válido, lo guarda
-                    if ($ingredienteId > 0 && $cantidad > 0) {
-                        $ingredienteRecetaDTO = new ingredienteRecetaDTO($id, $ingredienteId, $cantidad, $magnitud);
-                        $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
-                    }
+            foreach ($ingredientes as $ingredienteId => $ingredienteData) {
+                $ingredienteId = intval($ingredienteId);
+                $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
+                $magnitud = filter_var($ingredienteData['magnitud'] ?? 0, FILTER_VALIDATE_INT);
+            
+                // Si el ingrediente es válido, lo guarda
+                if ($ingredienteId > 0 && $cantidad > 0) {
+                    $ingredienteRecetaDTO = new ingredienteRecetaDTO($id, $ingredienteId, $cantidad, $magnitud);
+                    $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
                 }
+            }
 
-                // Creación de la relació de receta-etiquetas en la tabla receta_etiquetas
-                $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
+            // Creación de la relació de receta-etiquetas en la tabla receta_etiquetas
+            $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
 
-                $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Limita a 3 etiquetas únicas
-                foreach ($etiquetas as $etiqueta) {
-                    $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Limita a 3 etiquetas únicas
+            foreach ($etiquetas as $etiqueta) {
+                $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                    // Si la etiqueta es válida, la guarda
-                    if (!empty($etiqueta)) {
-                        $etiquetaRecetaDTO = new etiquetaRecetaDTO($id, $etiqueta);
-                        $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
-                    }
+                // Si la etiqueta es válida, la guarda
+                if (!empty($etiqueta)) {
+                    $etiquetaRecetaDTO = new etiquetaRecetaDTO($id, $etiqueta);
+                    $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
                 }
+            }
 
-                // Redireccionar a la página principal si todo fue correcto
-                $result = 'confirmacionRecetaCreada.php';
-            }
-            catch (recetaAlreadyExistException $e)
-            {
-                // Captura de excepción en caso de que la receta ya exista
-                $result[] = $e->getMessage();
-            }
+            // Redireccionar a la página principal si todo fue correcto
+            $result = 'confirmacionRecetaCreada.php';
         }
 
         return $result;
