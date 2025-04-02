@@ -1,12 +1,10 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\ingredienteReceta;
+
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
-use Exception;
-// require_once("IIngredienteReceta.php");
-// require_once("ingredienteRecetaDTO.php");
-// require_once(__DIR__ . "/../../comun/baseDAO.php");
+
 
 // Clase que maneja la persistencia de los ingredientes de una receta
 class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
@@ -16,97 +14,64 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
     {
     }
 
-    // Método privado para buscar ingredientes por su ID
-    private function buscarPorIngrediente($ingredienteId)
-    {
-        // Implementar más adelante
-    }
-
-    // Método privado para buscar recetas por su ID
-    private function buscarPorRecetaId($recetaId)
-    {
-        // Implementar más adelante
-    }
-
     // Método para crear un nuevo ingrediente en una receta
     public function crearIngredienteReceta($ingredienteRecetaDTO)
     {
         $createdIngredienteReceta = false;
 
-        try
-        {
-            // Obtener la conexión a la base de datos
-            $conn = application::getInstance()->getConexionBd();
+        // Obtener la conexión a la base de datos
+        $conn = application::getInstance()->getConexionBd();
 
-            // Consulta SQL para insertar un nuevo ingrediente en la receta
-            $query = "INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES (?, ?, ?, ?)";
-            
-            // Preparar la consulta
-            $stmt = $conn->prepare($query);
-
-            if (!$stmt)
-            {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
-            // Obtener los valores desde el DTO
-            $recetaId = $ingredienteRecetaDTO->getRecetaId();
-            $ingredienteId = $ingredienteRecetaDTO->getIngredienteId(); // Posible error tipográfico en el método "gerIngredienteId()"
-            $cantidad = $ingredienteRecetaDTO->getCantidad();
-            $magnitud = $ingredienteRecetaDTO->getMagnitud();
-
-            // Definir los tipos de parámetros y enlazarlos a la consulta preparada
-            $stmt->bind_param("iidi", $recetaId, $ingredienteId, $cantidad, $magnitud);
-
-            // Ejecutar la consulta y verificar si se insertó correctamente
-            if ($stmt->execute())
-            {
-                // Crear y devolver un nuevo objeto DTO con los datos insertados
-                $createdRecetaDTO = new ingredienteRecetaDTO($recetaId, $ingredienteId, $cantidad, $magnitud);
-                return $createdRecetaDTO;
-            }
-        }
-        catch(mysqli_sql_exception $e)
-        {
-            // Manejo de excepciones SQL
-            throw $e;
-        }
+        // Consulta SQL para insertar un nuevo ingrediente en la receta
+        $query = "INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES (?, ?, ?, ?)";
         
+        // Preparar la consulta
+        $stmt = $conn->prepare($query);
+
+        // Obtener los valores desde el DTO
+        $recetaId = $ingredienteRecetaDTO->getRecetaId();
+        $ingredienteId = $ingredienteRecetaDTO->getIngredienteId(); // Posible error tipográfico en el método "gerIngredienteId()"
+        $cantidad = $ingredienteRecetaDTO->getCantidad();
+        $magnitud = $ingredienteRecetaDTO->getMagnitud();
+
+        // Definir los tipos de parámetros y enlazarlos a la consulta preparada
+        $stmt->bind_param("iidi", $recetaId, $ingredienteId, $cantidad, $magnitud);
+
+        // Ejecutar la consulta y verificar si se insertó correctamente
+        if ($stmt->execute())
+        {
+            // Crear y devolver un nuevo objeto DTO con los datos insertados
+            $createdRecetaDTO = new ingredienteRecetaDTO($recetaId, $ingredienteId, $cantidad, $magnitud);
+            return $createdRecetaDTO;
+        }
+
         return $createdIngredienteReceta;
     }
 
     // Método para editar un ingrediente en una receta (pendiente de implementación)
     public function editarIngredienteReceta($ingredienteRecetaDTO)
     {
-        try 
+        // Obtener la conexión a la base de datos
+        $conn = application::getInstance()->getConexionBd();
+
+        // Primero, verificamos si el ingrediente ya está en la receta
+        $query = "SELECT * FROM receta_ingrediente WHERE Receta = ? AND Ingrediente = ?";
+        // Preparar la consulta
+        $stmt = $conn->prepare($query);
+
+        // Obtener los valores desde el DTO
+        $recetaId = $ingredienteRecetaDTO->getRecetaId();
+        $ingredienteId = $ingredienteRecetaDTO->getIngredienteId();
+        $stmt->bind_param("ii", $recetaId, $ingredienteId);
+        
+        if($stmt->execute())
         {
-             // Obtener la conexión a la base de datos
-            $conn = application::getInstance()->getConexionBd();
-
-            // Primero, verificamos si el ingrediente ya está en la receta
-            $queryCheck = "SELECT * FROM receta_ingrediente WHERE Receta = ? AND Ingrediente = ?";
-            // Preparar la consulta
-            $stmtCheck = $conn->prepare($queryCheck);
-
-            if (!$stmtCheck) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
-            // Obtener los valores desde el DTO
-            $recetaId = $ingredienteRecetaDTO->getRecetaId();
-            $ingredienteId = $ingredienteRecetaDTO->getIngredienteId();
-            $stmtCheck->bind_param("ii", $recetaId, $ingredienteId);
-            $stmtCheck->execute();
-            $resultCheck = $stmtCheck->get_result();
+            $resultCheck = $stmt->get_result();
 
             if ($resultCheck->num_rows > 0) {
                 // Si el ingrediente ya está en la receta, actualizamos la cantidad y magnitud
                 $queryUpdate = "UPDATE receta_ingrediente SET Cantidad = ?, Magnitud = ? WHERE Receta = ? AND Ingrediente = ?";
                 $stmtUpdate = $conn->prepare($queryUpdate);
-
-                if (!$stmtUpdate) {
-                    throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-                }
 
                 $cantidad = $ingredienteRecetaDTO->getCantidad();
                 $magnitud = $ingredienteRecetaDTO->getMagnitud();
@@ -117,53 +82,40 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
                 // Si no existe, lo insertamos como nuevo ingrediente
                 //return $this->crearIngredienteReceta($ingredienteRecetaDTO);
             }
+        }
 
-            return new ingredienteRecetaDTO($recetaId, $ingredienteId, $cantidad, $magnitud);
-        }
-        catch (mysqli_sql_exception $e)
-        {
-            throw $e;
-        }
+        return new ingredienteRecetaDTO($recetaId, $ingredienteId, $cantidad, $magnitud);
     }
-    
 
     // Método para eliminar un ingrediente de una receta (pendiente de implementación)
     public function borrarIngredienteReceta($ingredienteRecetaDTO)
     {
-        try 
-        {
-            // Obtener la conexión a la base de datos
-            $conn = application::getInstance()->getConexionBd();
+        $borrado = false;
+        // Obtener la conexión a la base de datos
+        $conn = application::getInstance()->getConexionBd();
 
-            // Obtener los valores desde el DTO
-            $recetaId = $ingredienteRecetaDTO->getRecetaId();
-            $ingredienteId = $ingredienteRecetaDTO->getIngredienteId();
+        // Obtener los valores desde el DTO
+        $recetaId = $ingredienteRecetaDTO->getRecetaId();
+        $ingredienteId = $ingredienteRecetaDTO->getIngredienteId();
 
-            // Consulta SQL para eliminar el ingrediente
-            $query = "DELETE FROM receta_ingrediente WHERE Receta = ? AND Ingrediente = ?";
-            
-            // Preparar la consulta
-            $stmt = $conn->prepare($query);
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
-            // Enlazar los parámetros
-            $stmt->bind_param("ii", $recetaId, $ingredienteId);
-
-            // Ejecutar la consulta
-            if (!$stmt->execute()) {
-                throw new Exception("Error al eliminar el ingrediente: " . $stmt->error);
-            }
-
-            // Cerrar la declaración
-            $stmt->close();
-        }
-        catch (mysqli_sql_exception $e)
-        {
-            throw $e;
-        }
+        // Consulta SQL para eliminar el ingrediente
+        $query = "DELETE FROM receta_ingrediente WHERE Receta = ? AND Ingrediente = ?";
         
+        // Preparar la consulta
+        $stmt = $conn->prepare($query);
+
+        // Enlazar los parámetros
+        $stmt->bind_param("ii", $recetaId, $ingredienteId);
+
+        // Ejecutar la consulta
+        if ($stmt->execute()) {
+            $borrado = true;
+        }
+
+        // Cerrar la declaración
+        $stmt->close();
+
+        return $borrado;     
     }
 
     public function buscarIngredienteReceta($recetaId)
