@@ -10,9 +10,6 @@
 	<link rel="stylesheet" media="screen and (max-width: 699px)" type="text/css" href="CSS/estiloMovil.css" />
 	<link rel="stylesheet" type="text/css" href="css/estilo.css" />
     <link rel="stylesheet" href="CSS/estiloGeneral.css">
-
-    
-
 </head>
 <body>
     <div class="contenido_plantilla">

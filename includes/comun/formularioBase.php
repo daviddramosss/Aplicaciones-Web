@@ -57,8 +57,6 @@ abstract class formularioBase
     {
         $html= $this->CreateErrors($errores);
 
-        $html .= $this->defineStyle();
-
         $html .= $this->Heading();
 
         $html .= '<form method="POST" action="'.$this->action.'" id="'.$this->formId.'" enctype="multipart/form-data">';
@@ -104,8 +102,4 @@ abstract class formularioBase
         return $htmlHeading = '';
     }
 
-    protected function defineStyle()
-    {
-        return $htmlStyle = '';
-    }
 }

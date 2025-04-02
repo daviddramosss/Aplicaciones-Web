@@ -3,7 +3,6 @@
 namespace es\ucm\fdi\aw\entidades\etiquetas;
 
 use es\ucm\fdi\aw\comun\baseDAO;
-use es\ucm\fdi\aw\application;
 
 class etiquetasDAO extends baseDAO implements IEtiquetas 
 {
