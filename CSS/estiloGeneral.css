@@ -181,7 +181,7 @@ form {
     text-align: left;
 }
 
-input, textarea {
+input, textarea, select {
     width: 100%;
     border: none;
     background: transparent;
@@ -478,10 +478,7 @@ form#buscarFormulario {
     background: #f6f6ae;
     padding: 25px;
     overflow-y: auto;
-    box-shadow: 2px 0 rgba(0, 0, 0, 0.1);
-    /* max-height: 100vh; */
     height: 100%;
-    border-right: 3px solid #ddd;
     display: flex;
     flex-direction: column; /* Organiza su contenido en columna */
 }
@@ -492,21 +489,6 @@ form#buscarFormulario {
     flex: wrap;
 }
 
-/* 
-.sidebar_buscar {
-    width: 25vh;
-    background: #f6f6ae;
-    padding: 25px;
-    left: 0;
-    overflow-y: auto;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    height: 100%;
-    max-height: 75%;
-    position: fixed;
-    margin-top: -2vh;
-    border-right: 3px solid #ddd;
-} 
- */
 /* Ocultar la barra de desplazamiento */
 .sidebar_buscar::-webkit-scrollbar {
     display: none;
@@ -544,6 +526,7 @@ form#buscarFormulario {
 .sidebar_buscar input[type="range"] {
     width: 100%;
     margin-top: 5px;
+    
 }
 
 /* Valor numérico de los sliders */
