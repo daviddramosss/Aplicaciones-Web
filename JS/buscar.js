@@ -47,25 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         cargarRecetas(formData);
     });
-        // el fetch redirige a la misma página donde estamos
-       /*  fetch("includes/helpers/buscarHelper.php", {
-            method: "POST",
-            body: formData,
-            headers: { "X-Requested-With": "XMLHttpRequest" }
-        })
-        .then(response => response.json()) // En lugar de .json(), usa .text() para ver la respuesta completa
-        .then(data => {
-            console.log("Respuesta del servidor:", data); // Muestra la respuesta en la consola
-        //     try {
-        //         const jsonData = JSON.parse(data); // Intenta convertirla a JSON
-        //         console.log("JSON parseado correctamente:", jsonData);
-        //     } catch (error) {
-        //         console.error("Error al parsear JSON:", error);
-        //     }
-        })
-        .catch(error => console.error("Error en la búsqueda:", error)); */
-
-        
+       
 }); 
 
 function cargarRecetas(formData = null) {
