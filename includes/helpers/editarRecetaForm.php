@@ -216,7 +216,6 @@ class editarRecetaForm extends formularioBase
         { 
             try
             {
-                
                 // Crear un objeto DTO con los nuevos valores
                 $recetaDTO = new recetaDTO($recetaID->getId(), $titulo, $usuarioId, $descripcion, [], $tiempo, $precio, $recetaID->getFechaCreacion(), $recetaID->getValoracion(), $imagenGuardada);
 
@@ -224,7 +223,7 @@ class editarRecetaForm extends formularioBase
                 $recetaService = recetaAppService::GetSingleton();
 
                 // Llamada al servicio para editar la receta
-                $recetaService->editarReceta($recetaDTO);
+                $recetaService->editarReceta($recetaDTO, $ingredientes, $etiquetas);  
 
                 // Redirigir a la confirmación de actualización si tuvo éxito
                 header("Location: confirmacionRecetaEditada.php");
