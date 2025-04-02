@@ -30,45 +30,5 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
     {
         // Implementar después
     }
-
-    // Método para obtener la lista de ingredientes desde la base de datos
-    public function obtenerIngredientes()
-    {
-        // Se obtiene la conexión a la base de datos a través de la aplicación
-        $conn = application::getInstance()->getConexionBd();
-
-        // Consulta SQL para obtener los ingredientes
-        $query = "SELECT id, Nombre FROM ingredientes"; // Asegurar que 'id' también se obtiene
-
-        // Se prepara la consulta
-        $stmt = $conn->prepare($query);
-        
-        if($stmt->execute())
-        {
-            $ingredientes = [];
-
-            // Se obtiene el resultado de la consulta
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0)   
-            {
-                // Se recorren los resultados y se almacenan en un array
-                while ($row = $result->fetch_assoc())
-                {
-                    // No lo pasasos como un DTO, debido a que se llama desde JavaScript y es mas fácil usar un array
-                    $ingredientes[] = [
-                        "id" => $row['id'],
-                        "nombre" => $row['Nombre']
-                    ];
-                }
-            }
-        }
-
-        // Se cierra la consulta preparada
-        $stmt->close();
-
-        // Se devuelve el array con los ingredientes
-        return $ingredientes;
-    }
-    
 }
 ?>
