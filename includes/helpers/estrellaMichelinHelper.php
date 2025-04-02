@@ -34,7 +34,6 @@ class estrellaMichelinHelper {
 
             // Mostramos un texto
             return <<<HTML
-                <link rel="stylesheet" href="CSS/index.css">
                 <h1>¡Conviertete en un Chef Estrella Michelin!</h1>
                 <p> Si quieres ser un chef, debes ponerte en contacto con nosotros y comentarnos porqué quieres ser chef, tu experiencia y tus habilidades</p>
                 <p> No te olvides de adjuntar tu DNI y tu cuenta bancaria para que podamos comprobar tu identidad y gestionar los pagos</p>
@@ -46,7 +45,6 @@ class estrellaMichelinHelper {
             $recetasHTML = $this->mostrarRecetaAdmin();
 
             return <<<HTML
-                <link rel="stylesheet" href="CSS/index.css">
                 <h1> ¡Bienvenido a la cocina Admin!</h1>
 
                 <p> Aquí podrás ver y editar las recetas que los chefs han creado.</p>
@@ -62,7 +60,6 @@ class estrellaMichelinHelper {
             $chefDTO = $chefAppService->informacionChef($this->user);
 
             return <<<HTML
-                <link rel="stylesheet" href="CSS/index.css">
                 <h1> ¡Bienvenido a tu cocina Chef!</h1>
 
                 <p> Es un placer tenerte de vuelta, {$this->user->getNombre()}. Desde MarketChef estamos deseando de ver tus nuevas creaciones, para ello puedes usar la funcionalida de crear recetas.</p>
@@ -107,7 +104,8 @@ class estrellaMichelinHelper {
 
     public function mostrarRecetaAdmin(){
         $recetaAppService = recetaAppService::GetSingleton();
-        $recetas = $recetaAppService->mostrarTodasLasRecetas();
+        $recetas = $recetaAppService->mostrarRecetas('todas');
+        //$recetas = $recetaAppService->mostrarTodasLasRecetas();
 
         if (empty($recetas)) {
             return "<p>No tienes recetas publicadas aún.</p>";

@@ -1,9 +1,9 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\receta;
+
 use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService, ingredienteRecetaDTO};
 use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRecetaDTO};
-// require_once("recetaFactory.php"); 
 
 class recetaAppService
 {
@@ -149,10 +149,11 @@ class recetaAppService
         
     }
 
-    public function mostrarRecetasIndex($criterio){
+
+    public function mostrarRecetas($criterio){
         $IRecetaDAO = recetaFactory::CreateReceta();
 
-        return $IRecetaDAO->mostrarRecetasIndex($criterio);
+        return $IRecetaDAO->mostrarRecetas($criterio);
     }
 
     public function buscarRecetaPorId($id){
@@ -161,20 +162,11 @@ class recetaAppService
         return $IRecetaDAO->buscarReceta($id);
     }
 
-    public function mostrarTodasLasRecetas(){
-        $IRecetaDAO = recetaFactory::CreateReceta();
-
-        return $IRecetaDAO->mostrarTodasLasRecetas();
-
-    }
-
     public function busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas){
         $IRecetaDAO = recetaFactory::CreateReceta();
 
         return $IRecetaDAO->busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas);
     }
-
-
 }
 
 ?>

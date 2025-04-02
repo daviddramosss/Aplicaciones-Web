@@ -1,10 +1,9 @@
 /*Estilo General de MarketChef*/
 
-main.contenido.plantilla{ 
+main.contenido_plantilla{ 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
-    min-height: 100%;
 }
 
 /* #region CABECERA */
@@ -12,7 +11,6 @@ main.contenido.plantilla{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    flex-basis: 10%;
 }
 
 .container_infosearch{
@@ -135,12 +133,8 @@ main.contenido.plantilla{
 /* #region GENERAL */
 
 .contenido_principal {
-    
     display: flex;
-    flex-basis: 80%;
     flex-direction: column;
-    height: 80%;
-    min-height: 80%;
 }
 
 body {
@@ -164,7 +158,6 @@ p {
 }
 
 .container {
-    max-width: 800px;
     margin: 50px auto;
     padding: 20px;
     background: white;
@@ -190,7 +183,8 @@ input, textarea {
     width: 100%;
     border: none;
     background: transparent;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 1em;
 }
 
@@ -309,13 +303,11 @@ textarea {
     clear: both;
 	color: white;
 	text-align: center;
-    flex-basis: 10%;
 }
 .footer {
     padding: 10px 0;
 	background-color: #222;
     width: 100%;
-    z-index: 1000;
 }
 
 .container_footer {
@@ -468,11 +460,35 @@ textarea {
 
 /* #region PRUEBAS DE JOSE - BUSCAR */
 
-.contenedor_buscar {
+form#buscarFormulario {
     display: flex;
-    gap: 20px;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
 }
 
+.contenedor_buscar {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    gap: 10vh;
+    /* margin-left: -50vh; */
+}
+
+
+.sidebar_buscar {
+    flex: 0 0 25vh;  /* No crece ni se encoge, tiene un ancho fijo */
+    background: #f6f6ae;
+    padding: 25px;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    max-height: 100%;
+    border-right: 3px solid #ddd;
+    display: flex;
+    flex-direction: column; /* Organiza su contenido en columna */
+}
+
+/* 
 .sidebar_buscar {
     width: 25vh;
     background: #f6f6ae;
@@ -484,10 +500,9 @@ textarea {
     max-height: 75%;
     position: fixed;
     margin-top: -2vh;
-    /* margin-bottom: 10vh; */
     border-right: 3px solid #ddd;
-}
-
+} 
+ */
 /* Ocultar la barra de desplazamiento */
 .sidebar_buscar::-webkit-scrollbar {
     display: none;
@@ -579,7 +594,7 @@ textarea {
 .sidebar_buscar button {
     width: 100%;
     padding: 10px;
-    margin-top: 20px;
+    margin-top: auto;
     background: #ff9800;
     color: white;
     font-size: 16px;
@@ -597,5 +612,8 @@ textarea {
 .tags_container_buscar{
     background: #f6f6ae !important;
 }
+
+
+
 
 /* #endregion */

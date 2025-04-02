@@ -14,69 +14,60 @@ class chefDAO extends baseDAO implements IChef
     
     public function crearChef($chefDTO)
     {
-
+        //Implementar luego
     }
 
     public function editarChef($chefDTO)
     {
-
+        //Implementar luego
     }
 
     public function borrarChef($chefDTO)
     {
-
+        //Implementar luego
     }
 
     public function informacionChef($userDTO)
     {
-        try
+
+        // Obtiene la conexión a la base de datos
+        $conn = application::getInstance()->getConexionBd();
+
+        $query = "SELECT * FROM chefs WHERE Usuario = ?";
+
+        // Prepara la declaración SQL
+        $stmt = $conn->prepare($query);
+
+        $id = $userDTO->getId();
+        // Asocia el parámetro de la consulta con el ID de la receta
+        $stmt->bind_param("i", $id);
+
+        // Ejecuta la consulta
+        if($stmt->execute())
         {
-            // Obtiene la conexión a la base de datos
-            $conn = application::getInstance()->getConexionBd();
+            // Obtiene el resultado de la consulta
+            $result = $stmt->get_result();
+            $chef = null;
 
-            $query = "SELECT * FROM chefs WHERE Usuario = ?";
-
-            // Prepara la declaración SQL
-            $stmt = $conn->prepare($query);
-
-            $id = $userDTO->getId();
-            // Asocia el parámetro de la consulta con el ID de la receta
-            $stmt->bind_param("i", $id);
-
-            // Ejecuta la consulta
-            if($stmt->execute())
+            // Si hay resultados, los recorremos y creamos DTOs de recetas
+            if ($result->num_rows > 0) 
             {
-                // Obtiene el resultado de la consulta
-                $result = $stmt->get_result();
-                $chef = null;
-
-                // Si hay resultados, los recorremos y creamos DTOs de recetas
-                if ($result->num_rows > 0) 
+                while ($row = $result->fetch_assoc()) 
                 {
-                    while ($row = $result->fetch_assoc()) 
-                    {
-                        $chef = new chefDTO(
-                            $row["Usuario"],
-                            $row["DNI"],
-                            $row["Cuenta_bancaria"],
-                            $row["Saldo"]
-                        );
-                    }
+                    $chef = new chefDTO(
+                        $row["Usuario"],
+                        $row["DNI"],
+                        $row["Cuenta_bancaria"],
+                        $row["Saldo"]
+                    );
                 }
             }
-
-                $stmt->close();
-
-                return $chef;
         }
-        catch(Exception $e)
-        {
-            throw $e;
-        }
+
+            $stmt->close();
+
+            return $chef;
     }
-
-
-
 }
 
 ?>

@@ -30,7 +30,6 @@ class buscarFormulario extends formularioBase
             <div class="contenedor_buscar">
             <!-- Sidebar con los filtros -->
             <aside class="sidebar_buscar">
-                <form id="buscarFormulario" method="POST">
                     <h2>Filtros de búsqueda</h2>
 
                     <!-- Campo de búsqueda -->
@@ -90,13 +89,13 @@ class buscarFormulario extends formularioBase
 
                     <!-- Botón de búsqueda -->
                     <button type="submit">Buscar</button>
-                </form>
             </aside>
 
             <!-- Zona de resultados -->
             <main class="resultados_buscar">
                 <div id="resultados_buscar_div"></div>
             </main>
+        </div>
 
         <!-- Enlace al script que maneja interacciones dinámicas -->
         <script src="JS/buscar.js"></script>

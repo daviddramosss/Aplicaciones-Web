@@ -1,11 +1,9 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\etiquetas;
-// require_once("IEtiquetas.php"); 
-// require_once("etiquetasDTO.php"); 
+
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
-// require_once(__DIR__ . "/../../comun/baseDAO.php"); 
 
 class etiquetasDAO extends baseDAO implements IEtiquetas 
 {
@@ -38,29 +36,28 @@ class etiquetasDAO extends baseDAO implements IEtiquetas
 
         // Ejecuta la consulta
         $stmt = $conn->prepare($query);
-        $stmt->execute();
-
-        // Array donde se almacenarán las etiquetas
-        $etiquetas = [];
-
-        $result = $stmt->get_result();
-        // Si hay resultados, los recorremos
-        if ($result->num_rows > 0) 
+        
+        if($stmt->execute())
         {
-            while ($fila = $result->fetch_assoc()) 
+            // Array donde se almacenarán las etiquetas
+            $etiquetas = [];
+
+            $result = $stmt->get_result();
+            // Si hay resultados, los recorremos
+            if ($result->num_rows > 0) 
             {
-                // Crea un objeto etiquetaDTO con los datos obtenidos y lo añade al array
-                $etiquetas[] = [
-                    "id" => $fila['ID'], 
-                    "nombre" => $fila['Nombre']
-                ];
+                while ($fila = $result->fetch_assoc()) 
+                {
+                    // No lo pasasos como un DTO, debido a que se llama desde JavaScript y es mas fácil usar un array
+                    $etiquetas[] = [
+                        "id" => $fila['ID'], 
+                        "nombre" => $fila['Nombre']
+                    ];
+                }
             }
-
-            $stmt->close();
-            // Liberamos la memoria del resultado
-            $result->free();
         }
-
+        
+        $stmt->close();
 
         // Retorna el array con las etiquetas (puede estar vacío si no hay etiquetas en la BD)
         return $etiquetas;

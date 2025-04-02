@@ -1,7 +1,7 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\usuario; 
-include_once __DIR__ . "/../../config.php";
+
 use es\ucm\fdi\aw\application;
 
 // Clase en la que se implementa la lógica y las funciones que se van a usar en relación con los usuarios
@@ -95,13 +95,20 @@ class userDAO implements IUser
             , $rutaUsuario
         );
 
+        $rs = $conn->query($query);
+
         // Si la ejecución del insert se hizo correctamente, cogeremos el id asignado automáticamente por la BBSDD y crearemos el usuario con los datos para devolverlo
-        if ( $conn->query($query) ) 
+        if ($rs) 
         {
             $idUser = $conn->insert_id;
             
             $createdUserDTO = new userDTO($idUser, $nombreUsuario, $apellidosUsuario, $emailUsuario, $rolUsuario, $passwordUsuario, $rutaUsuario );
         } 
+
+
+        // Cierra la declaración 
+        // Usamos solo close, debido a que: Cierra el statement y libera todos los recursos asociados, por lo que usar un free sería innecesario.
+        $rs->close();
 
         return $createdUserDTO;
     }
@@ -121,18 +128,20 @@ class userDAO implements IUser
         // Ejecuta la consulta 
         if($stmt->execute())
         {
-            $Id = $Nombre = $Apellidos = $Email = $Rol = $Password = null ;
+            $Id = $Nombre = $Apellidos = $Email = $Rol = $Password = $Ruta = null ;
             $stmt->bind_result($Id, $Nombre, $Apellidos, $Email, $Rol, $Password, $Ruta);
 
             if($stmt->fetch())
             {
                 $user = new userDTO($Id, $Nombre, $Apellidos, $Email, $Rol, $Password, $Ruta);
 
-                $stmt->close();
-
                 return $user;
             }
         }
+
+        // Cierra la declaración
+        // Usamos solo close, debido a que: Cierra el statement y libera todos los recursos asociados, por lo que usar un free sería innecesario.
+        $stmt->close();
         
         // Si no se ha encontrado ningún usuario con ese email, se devuelve un false
         return false;

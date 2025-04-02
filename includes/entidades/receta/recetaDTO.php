@@ -19,7 +19,6 @@ class recetaDTO
     private $valoracion;
     private $ruta;
 
-
     //Constructor de la clase recetaDTO
     public function __construct($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, $valoracion, $ruta)
     {
