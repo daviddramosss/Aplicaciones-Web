@@ -1,7 +1,6 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\magnitudes;
-// require_once("magnitudFactory.php");
 
 class magnitudAppService
 {
@@ -43,10 +42,7 @@ class magnitudAppService
         $IMagnitudesDAO = magnitudFactory::CreateMagnitud();
 
         return $IMagnitudesDAO->mostrarMagnitudes();
-
     }
-
-
 }
 
 // **Endpoint para obtener los magnitudes en formato JSON**

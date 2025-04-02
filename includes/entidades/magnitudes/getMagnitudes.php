@@ -1,8 +1,9 @@
 <?php
 
+//Necesario para que carge el JavaScript
 require_once("../../config.php");
+
 use es\ucm\fdi\aw\entidades\magnitudes\MagnitudAppService;
-// require_once("magnitudAppService.php");
 
 // Obtenemos una instancia única (Singleton) del servicio de magnitudes
 $magnitudService = MagnitudAppService::GetSingleton();
