@@ -1,12 +1,15 @@
 <?php
+// Incluir el archivo de configuración
 require_once("includes/config.php");
+
+// Importar las clases necesarias para la gestión de etiquetas
 use es\ucm\fdi\aw\entidades\etiquetas\etiquetasDAO;
 use es\ucm\fdi\aw\entidades\etiquetas\etiquetasDTO;
 
-// Añadir el enlace a la hoja de estilos CSS
+// Añadir el enlace a la hoja de estilos CSS para mejorar la apariencia
 echo '<link rel="stylesheet" type="text/css" href="css/gestionesAdmin.css">';
 
-// Instanciar el objeto DAO
+// Instanciar el objeto DAO para manejar las etiquetas en la base de datos
 $etiquetasDAO = new etiquetasDAO();
 
 // Si se solicita eliminar una etiqueta
@@ -14,7 +17,7 @@ if (isset($_POST['eliminar_id'])) {
     $idEliminar = $_POST['eliminar_id'];
     $etiquetasDTO = new etiquetasDTO($idEliminar, '');
     $etiquetasDAO->borrarEtiqueta($etiquetasDTO);
-    header('Location: gestionarEtiquetas.php'); // Evitar la reenvío de formulario
+    header('Location: gestionarEtiquetas.php'); // Evitar el reenvío del formulario
     exit;
 }
 
@@ -49,7 +52,7 @@ if (isset($_POST['editar_id']) && isset($_POST['editar_nombre'])) {
     exit;
 }
 
-// Obtener etiquetas
+// Obtener la lista de etiquetas desde la base de datos
 $etiquetas = $etiquetasDAO->obtenerEtiquetas();
 
 // Definir el contenido principal para la plantilla
@@ -66,6 +69,7 @@ $contenidoPrincipal = <<<EOS
         </tr>
 EOS;
 
+// Generar filas de la tabla con los datos de las etiquetas
 foreach ($etiquetas as $etiqueta) {
     $contenidoPrincipal .= "<tr>
         <td>" . htmlspecialchars($etiqueta['id']) . "</td>
@@ -81,6 +85,7 @@ foreach ($etiquetas as $etiqueta) {
 
 $contenidoPrincipal .= "</table>";
 
+// Formulario para crear una nueva etiqueta
 $contenidoPrincipal .= <<<EOS
     <h3>Crear Etiqueta</h3>
     <form method="POST" action="gestionarEtiquetas.php">
@@ -110,8 +115,9 @@ $contenidoPrincipal .= <<<EOS
     </script>
 EOS;
 
+// Definir el título de la página
 $tituloPagina = 'Gestionar Etiquetas';
 
-// Se incluye la plantilla principal
+// Incluir la plantilla principal
 require("includes/comun/plantilla.php");
 ?>

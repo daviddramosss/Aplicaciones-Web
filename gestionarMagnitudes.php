@@ -1,51 +1,53 @@
 <?php
+// Incluir la configuración de la aplicación
 require_once("includes/config.php");
 
+// Importar las clases necesarias para manejar magnitudes
 use es\ucm\fdi\aw\entidades\magnitudes\magnitudDAO;
 use es\ucm\fdi\aw\entidades\magnitudes\magnitudDTO;
 
 // Añadir el enlace a la hoja de estilos CSS
 echo '<link rel="stylesheet" type="text/css" href="css/gestionesAdmin.css">';
 
-// Instanciar el objeto DAO
+// Instanciar el objeto DAO para manejar magnitudes
 $magnitudesDAO = new magnitudDAO();
 
-// Si se solicita eliminar una magnitud
+// Procesar solicitud de eliminación de una magnitud
 if (isset($_POST['eliminar_id'])) {
     $idEliminar = $_POST['eliminar_id'];
-    $magnitudDTO = new magnitudDTO($idEliminar, '');
-    $magnitudesDAO->borrarMagnitud($magnitudDTO);
-    header('Location: gestionarMagnitudes.php');
+    $magnitudDTO = new magnitudDTO($idEliminar, ''); // Crear un DTO con el ID de la magnitud a eliminar
+    $magnitudesDAO->borrarMagnitud($magnitudDTO); // Llamar a la función de eliminación
+    header('Location: gestionarMagnitudes.php'); // Redirigir para evitar reenvíos
     exit;
 }
 
-// Si se solicita crear una nueva magnitud
+// Procesar solicitud de creación de una nueva magnitud
 if (isset($_POST['crear_nombre'])) {
     $nombre = $_POST['crear_nombre'];
-    $magnitudDTO = new magnitudDTO(null, $nombre);
-    $magnitudesDAO->crearMagnitud($magnitudDTO);
-    header('Location: gestionarMagnitudes.php');
+    $magnitudDTO = new magnitudDTO(null, $nombre); // Crear DTO sin ID, ya que se generará en la BD
+    $magnitudesDAO->crearMagnitud($magnitudDTO); // Llamar a la función para crear la magnitud
+    header('Location: gestionarMagnitudes.php'); // Redirigir para actualizar la vista
     exit;
 }
 
-// Si se solicita editar una magnitud
+// Procesar solicitud de edición de una magnitud existente
 if (isset($_POST['editar_id']) && isset($_POST['editar_nombre'])) {
     $idEditar = $_POST['editar_id'];
     $nombre = $_POST['editar_nombre'];
-    $magnitudDTO = new magnitudDTO($idEditar, $nombre);
-    $magnitudesDAO->editarMagnitud($magnitudDTO);
-    header('Location: gestionarMagnitudes.php');
+    $magnitudDTO = new magnitudDTO($idEditar, $nombre); // Crear DTO con la nueva información
+    $magnitudesDAO->editarMagnitud($magnitudDTO); // Actualizar la magnitud en la BD
+    header('Location: gestionarMagnitudes.php'); // Redirigir para reflejar cambios
     exit;
 }
 
-// Obtener magnitudes
+// Obtener la lista de magnitudes desde la base de datos
 $magnitudes = $magnitudesDAO->mostrarMagnitudes();
 
-// Definir el contenido principal para la plantilla
+// Definir el contenido principal de la página
 $contenidoPrincipal = <<<EOS
     <h2>Panel de administración de magnitudes</h2>
     <p>En este panel puedes gestionar las magnitudes de la aplicación.</p>
-    <p>Vas a poder borrar, crear o editar las magnitudes que quieras</p>
+    <p>Vas a poder borrar, crear o editar las magnitudes que quieras.</p>
 
     <table border="1">
         <tr>
@@ -55,6 +57,7 @@ $contenidoPrincipal = <<<EOS
         </tr>
 EOS;
 
+// Generar filas de la tabla con las magnitudes existentes
 foreach ($magnitudes as $magnitud) {
     $contenidoPrincipal .= "<tr>
         <td>" . htmlspecialchars($magnitud['id']) . "</td>
@@ -70,6 +73,7 @@ foreach ($magnitudes as $magnitud) {
 
 $contenidoPrincipal .= "</table>";
 
+// Formulario para crear una nueva magnitud
 $contenidoPrincipal .= <<<EOS
     <h3>Crear Magnitud</h3>
     <form method="POST" action="gestionarMagnitudes.php">
@@ -99,8 +103,9 @@ $contenidoPrincipal .= <<<EOS
     </script>
 EOS;
 
+// Definir el título de la página
 $tituloPagina = 'Gestionar Magnitudes';
 
-// Se incluye la plantilla principal
+// Incluir la plantilla principal para mostrar el contenido
 require("includes/comun/plantilla.php");
 ?>
