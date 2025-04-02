@@ -185,7 +185,7 @@ class recetaDAO extends baseDAO implements IReceta
         $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para buscar la receta
-        $query = "SELECT * FROM recetas WHERE Autor = ?";
+        $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE Autor = ?";
 
         // Prepara la declaración SQL
         $stmt = $conn->prepare($query);
@@ -209,13 +209,13 @@ class recetaDAO extends baseDAO implements IReceta
                     $recetas[] = new recetaDTO(
                         $row["ID"],
                         $row["Nombre"],
-                        $row["Autor"],
-                        $row["Descripcion"],
-                        json_decode($row["Pasos"], true),
-                        $row["Tiempo"],
-                        $row["Precio"],
-                        $row["Fecha_Creacion"],
-                        $row["Valoracion"],
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
                         $row["Ruta"]
                     );
                 }
@@ -282,7 +282,7 @@ class recetaDAO extends baseDAO implements IReceta
 
     }
     
-    // #region BUSQUEDA DINÁMICA    
+    // BUSQUEDA DINÁMICA para el buscador   
     public function busquedaDinamica($buscarPlato, $ordenar, $precioMin, $precioMax, $valoracion, $etiquetas)
     {
         $conn = application::getInstance()->getConexionBd();
@@ -363,9 +363,7 @@ class recetaDAO extends baseDAO implements IReceta
         return $recetas;
 
     }
-}
-    
 
-    // #endRegion
+}  
 
 ?>
