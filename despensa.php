@@ -1,21 +1,18 @@
 <?php
 
-require_once("includes/config.php");     
-use es\ucm\fdi\aw\helpers\despensaFormulario;                   
-// require_once("includes/helpers/despensaFormulario.php");   
+require_once("includes/config.php");
+
+use es\ucm\fdi\aw\helpers\despensaFormulario;    
 
 // Se define el título de la página
 $tituloPagina = 'Mi despensa';
 
 // Crea una nueva instancia de la clase despensaFormulario
 $form = new despensaFormulario();
-
-// Se genera el HTML del formulario llamando al método Manage()
 $htmlFormDespensa = $form->Manage();
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-    <!-- Inserta el formulario generado dinámicamente por la clase 'despensaFormulario' -->
     $htmlFormDespensa
 EOS;
 

@@ -8,9 +8,6 @@ use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRe
 use es\ucm\fdi\aw\comun\formularioBase;
 use es\ucm\fdi\aw\application;
 
-// include_once __DIR__ . '/../comun/formularioBase.php';
-// include_once __DIR__ . '/../entidades/receta/recetaAppService.php';
-
 // Clase crearRecetaForm
 class crearRecetaForm extends formularioBase
 {
@@ -112,14 +109,15 @@ class crearRecetaForm extends formularioBase
         $fecha_creacion = date('Y-m-d H:i:s');
 
         // Saneamiento de datos de entrada
-        $titulo = filter_var(trim($datos['titulo'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $descripcion = filter_var(trim($datos['descripcion'] ?? ''), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $precio = floatval($datos['precio'] ?? 0);
-        $tiempo = floatval($datos['tiempo'] ?? 0);
+        $titulo = trim($datos['titulo'] ?? '');
+        $descripcion = trim($datos['descripcion'] ?? '');
+        $precio = isset($datos['precio']) ? floatval(trim($datos['precio'])) : 0;
+        $tiempo = isset($datos['tiempo']) ? intval(trim($datos['tiempo'])) : 0;
         $ingredientes = $datos['ingredientes'] ?? [];
-        $pasos = $datos['steps'] ?? [];
-        $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', $datos['etiquetas'])) : [];
+        $pasos = isset($datos['steps']) ? array_map('trim', $datos['steps']) : [];
+        $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', trim($datos['etiquetas']))) : [];
         $imagenGuardada = $this->procesarImagen();
+        
 
         // Validaciones de datos obligatorios
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {

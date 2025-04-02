@@ -1,20 +1,18 @@
 <?php
 
-use es\ucm\fdi\aw\helpers\contactoFormulario;
 require_once("includes/config.php");
+
+use es\ucm\fdi\aw\helpers\contactoFormulario;
 
 // Se define el título de la página
 $tituloPagina = 'Contacto';
 
 // Crea una instancia de la clase contactoFormulario
 $form = new contactoFormulario();
-
-// Se genera el HTML del formulario llamando al método Manage()
 $htmlFormContacto = $form->Manage();
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
-    <!-- Se inserta el formulario generado dinámicamente por la clase contactoFormulario -->
     $htmlFormContacto
 EOS;
 
