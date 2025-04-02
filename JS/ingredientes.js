@@ -14,8 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("includes/endpoints/getIngredientes.php")
         .then(response => response.json())
         .then(data => {
-            console.log("Ingredientes obtenidos:", data); // <--- Agregar esta línea para depuración
-        
             ingredientesData = data;
             mostrarIngredientes(data);
         })
@@ -83,6 +81,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     div.appendChild(cantidadInput);
                     div.appendChild(magnitudSelect);
                     ingredientContainer.appendChild(div);
+
+                    
                 });
             })
             .catch(error => console.error("Error cargando las magnitudes:", error));
@@ -94,4 +94,44 @@ document.addEventListener("DOMContentLoaded", function () {
         const filteredIngredients = ingredientesData.filter(ing => ing.nombre.toLowerCase().startsWith(searchTerm));
         mostrarIngredientes(filteredIngredients);
     });
+
+    //Rellena los ingredientes de la receta
+    const observer = new MutationObserver(() => {
+        let checkboxesEncontrados = 0;
+
+        ingredientesReceta.forEach(ingrediente => {
+            let checkbox = document.querySelector(`input[data-id="${ingrediente.id}"]`);
+
+            if (checkbox) {
+                checkbox.checked = true;
+
+                let inputCantidad = checkbox.closest("div").querySelector('.ingrediente-cantidad');
+                if (inputCantidad) {
+                    inputCantidad.value = ingrediente.cantidad;
+                    inputCantidad.disabled = false;  // Asegurar que es editable
+                }
+
+                let selectMagnitud = checkbox.closest("div").querySelector('.ingrediente-magnitud');
+                if (selectMagnitud) {
+                    let option = selectMagnitud.querySelector(`option[value="${ingrediente.id_magnitud}"]`);
+                    if (option) {
+                        selectMagnitud.value = ingrediente.id_magnitud;
+                        selectMagnitud.disabled = false;  // Asegurar que siga siendo editable
+                    }
+                }
+
+                checkboxesEncontrados++;
+            }
+        });
+
+        // Si todos los ingredientes fueron marcados, deja de observar
+        if (checkboxesEncontrados === ingredientesReceta.length) {
+            observer.disconnect();
+        }
+    });
+
+    // Iniciar observación en el contenedor donde se insertan los ingredientes
+    if (ingredientContainer) {
+        observer.observe(ingredientContainer, { childList: true, subtree: true });
+    }
 });

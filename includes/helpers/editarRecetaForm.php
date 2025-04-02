@@ -159,7 +159,7 @@ class editarRecetaForm extends formularioBase
 
             <!-- Importación de scripts JavaScript -->
             <script src="js/editarReceta.js"></script>   
-            <script src="js/ingredientesAux.js"></script>
+            <script src="js/ingredientes.js"></script>
             <script src="js/etiquetas.js"></script> 
         EOF;
 
