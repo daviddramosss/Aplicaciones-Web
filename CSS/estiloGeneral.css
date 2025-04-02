@@ -1,8 +1,8 @@
 /*Estilo General de MarketChef*/
 
-main.contenido.plantilla{ 
+main.contenido_plantilla{ 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
 }
 
@@ -308,7 +308,6 @@ textarea {
     padding: 10px 0;
 	background-color: #222;
     width: 100%;
-    bottom: 0;
 }
 
 .container_footer {
