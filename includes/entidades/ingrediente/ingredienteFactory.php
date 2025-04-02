@@ -1,7 +1,6 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\ingrediente;
-// require("ingredienteDAO.php");
 
 // Definición de la clase IngredienteFactory
 // Se encarga de la creación de instancias de la clase IngredienteDAO
