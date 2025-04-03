@@ -507,13 +507,10 @@ form#buscarFormulario {
 }
 
 /* Estilos generales */
-.sidebar_buscar h2 {
-    font-size: 22px;
-    margin-bottom: 15px;
-    color: #444;
-    text-align: center;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
+
+hr {
+    border-top: 1px solid black;
+    margin: 1vh 0;
 }
 
 .sidebar_buscar label {
@@ -640,3 +637,4 @@ form#buscarFormulario {
     }   
     
 /* #endregion */
+
