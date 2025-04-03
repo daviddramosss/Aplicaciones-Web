@@ -107,7 +107,7 @@ class recetaDAO extends baseDAO implements IReceta
         $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para actualizar la receta
-        $query = "UPDATE recetas SET Nombre = ?, Autor = ?, Descripcion = ?, Pasos = ?, Tiempo = ?, Precio = ?, Fecha_Creacion = ?, Valoracion = ?, Ruta = ? WHERE Id = ?";
+        $query = "UPDATE recetas SET Nombre = ?, Descripcion = ?, Pasos = ?, Tiempo = ?, Precio = ?, Ruta = ? WHERE Id = ?";
 
         // Prepara la declaración SQL
         $stmt = $conn->prepare($query);
@@ -120,21 +120,21 @@ class recetaDAO extends baseDAO implements IReceta
             // Obtiene los datos de la receta del DTO
             $id = $recetaDTO->getId();
             $nombre = $recetaDTO->getNombre();
-            $autor = $recetaDTO->getAutor();
+            //$autor = $recetaDTO->getAutor();
             $descripcion = $recetaDTO->getDescripcion();
             $pasos = json_encode($recetaDTO->getPasos());
             $tiempo = $recetaDTO->getTiempo();
             $precio = $recetaDTO->getPrecio();
-            $fechaCreacion = $recetaDTO->getFechaCreacion();
-            $valoracion = $recetaDTO->getValoracion();
+            //$fechaCreacion = $recetaDTO->getFechaCreacion();
+            //$valoracion = $recetaDTO->getValoracion();
             $ruta = $recetaDTO->getRuta();
 
             // Asocia los parámetros de la consulta con los valores obtenidos
-            $stmt->bind_param("sissidsdsi", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $ruta, $id);
+            $stmt->bind_param("sssidsi", $nombre, $descripcion, $pasos, $tiempo, $precio, $ruta, $id);
 
             // Si la consulta se ejecuta correctamente, crea el DTO de la receta editada
             if ($stmt->execute()) {
-                $editedRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, json_decode($pasos, true), $tiempo, $precio, $fechaCreacion, $valoracion, $ruta);
+                $editedRecetaDTO = new recetaDTO($id, $nombre, null, $descripcion, json_decode($pasos, true), $tiempo, $precio, null, null, $ruta);
             }
 
             // Cierra la declaración
