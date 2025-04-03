@@ -51,13 +51,13 @@ class recetaAppService
     }
 
     // Método para borrar una receta
-    public function borrarReceta($recetaId)
+    public function borrarReceta($recetaDTO)
     {
         // Crea el objeto IRecetaDAO utilizando la fábrica (factory)
         $IRecetaDAO = recetaFactory::CreateReceta();
 
         // Llama al método 'borrarReceta' del DAO para eliminar la receta de la base de datos
-        $deletedRecetaDTO = $IRecetaDAO->borrarReceta($recetaId); 
+        $deletedRecetaDTO = $IRecetaDAO->borrarReceta($recetaDTO); 
 
         // Devuelve el objeto DTO borrado
         return $deletedRecetaDTO;
@@ -77,10 +77,10 @@ class recetaAppService
         return $IRecetaDAO->mostrarRecetas($criterio);
     }
 
-    public function buscarRecetaPorId($id){
+    public function buscarRecetaPorId($recetaDTO){
         $IRecetaDAO = recetaFactory::CreateReceta();
 
-        return $IRecetaDAO->buscarReceta($id);
+        return $IRecetaDAO->buscarReceta($recetaDTO);
     }
 
     public function buscarRecetasConEtiquetas($etiquetas, $idRecetaActual) {

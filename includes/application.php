@@ -1,7 +1,7 @@
 <?php
 
 namespace es\ucm\fdi\aw;
-use es\ucm\fdi\aw\entidades\usuario\userAppService;
+use es\ucm\fdi\aw\entidades\usuario\{userDTO, userAppService};
 use mysqli; // Importamos la clase mysqli que no está en nuestro namespace
 
 class application
@@ -140,7 +140,7 @@ class application
 
 			$ususarioService = userAppService::GetSingleton();
 
-			$foundedUser = $ususarioService->buscarUsuario($_SESSION['usuario']);
+			$foundedUser = $ususarioService->buscarUsuario(new userDTO(null, null, null, $_SESSION['usuario'], null, null, null));
 
 			if($foundedUser)
 				return $foundedUser->getId();

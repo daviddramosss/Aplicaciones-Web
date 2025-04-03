@@ -2,14 +2,14 @@
 
 namespace es\ucm\fdi\aw\helpers;
 
-use es\ucm\fdi\aw\entidades\receta\{recetaAppService};
-use es\ucm\fdi\aw\entidades\usuario\{userAppService};
+use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
+use es\ucm\fdi\aw\entidades\usuario\{userAppService, userDTO};
 use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService};
 use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService};
 
 class mostrarRecetaHelper
 {
-    private $receta;
+    private $recetaDTO;
     private $ingredientes;
     private $autor;
     private $etiquetas;
@@ -18,13 +18,13 @@ class mostrarRecetaHelper
     public function __construct($recetaId) 
     {
         $recetaService = recetaAppService::GetSingleton();
-        $this->receta = $recetaService->buscarRecetaPorId($recetaId);
+        $this->recetaDTO = $recetaService->buscarRecetaPorId(new RecetaDTO($recetaId, null, null, null, null, null, null, null, null, null));
         
         $usuarioService = userAppService::GetSingleton();
-        $this->autor = $usuarioService->buscarUsuarioPorID($this->receta->getAutor());
+        $this->autor = $usuarioService->buscarUsuarioPorID(new userDTO($this->recetaDTO->getAutor(), null, null, null, null, null, null));
 
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId, 'nombres');
+        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($this->recetaDTO, 'nombres');
     
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
         $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($recetaId);
@@ -39,23 +39,23 @@ class mostrarRecetaHelper
 
     public function generarReceta()
     {
-        if (!$this->receta) {
+        if (!$this->recetaDTO) {
             return "<p>Error: La receta no existe.</p>";
         }
     
-        $nombre = htmlspecialchars($this->receta->getNombre());
+        $nombre = htmlspecialchars($this->recetaDTO->getNombre());
         $autor = htmlspecialchars($this->autor->getNombre());
-        $descripcion = nl2br(htmlspecialchars($this->receta->getDescripcion()));
-        $tiempo = htmlspecialchars($this->receta->getTiempo()) . " minutos";
-        $precio = htmlspecialchars($this->receta->getPrecio()) . "€";
-        $valoracion = htmlspecialchars($this->receta->getValoracion()) ?: "Sin valoración";
-        $rutaImagen = "img/receta/" . htmlspecialchars($this->receta->getRuta());
+        $descripcion = nl2br(htmlspecialchars($this->recetaDTO->getDescripcion()));
+        $tiempo = htmlspecialchars($this->recetaDTO->getTiempo()) . " minutos";
+        $precio = htmlspecialchars($this->recetaDTO->getPrecio()) . "€";
+        $valoracion = htmlspecialchars($this->recetaDTO->getValoracion()) ?: "Sin valoración";
+        $rutaImagen = "img/receta/" . htmlspecialchars($this->recetaDTO->getRuta());
     
         // Formatear fecha (solo día/mes/año)
-        $fechaCreacion = date("d/m/Y", strtotime($this->receta->getFechaCreacion()));
+        $fechaCreacion = date("d/m/Y", strtotime($this->recetaDTO->getFechaCreacion()));
     
         // Convertir los pasos de JSON a array
-        $pasosArray = json_decode($this->receta->getPasos(), true);
+        $pasosArray = json_decode($this->recetaDTO->getPasos(), true);
         $listaPasos = "<div class='receta-pasos'>";
         foreach ($pasosArray as $indice => $paso) {
             $numPaso = $indice + 1;

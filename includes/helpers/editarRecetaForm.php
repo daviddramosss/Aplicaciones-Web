@@ -10,7 +10,7 @@ use es\ucm\fdi\aw\comun\formularioBase;
 // Clase editarRecetaForm para editar recetas existentes
 class editarRecetaForm extends formularioBase
 {
-    private $receta;
+    private $recetaDTO;
     private $ingredientes;
     private $etiquetas; 
     
@@ -21,14 +21,14 @@ class editarRecetaForm extends formularioBase
         $recetaService = recetaAppService::GetSingleton();
         
         // Obtener la receta desde la base de datos
-        $this->receta = $recetaService->buscarRecetaPorId($recetaId); 
+        $this->recetaDTO = $recetaService->buscarRecetaPorId(new recetaDTO($recetaId, null, null, null, null, null, null, null, null, null)); 
 
         //Hago lo mismo para obtener los ingredientes y las etiquetas
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId, 'ids');
+        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($this->recetaDTO, 'ids');
     
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
-        $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($recetaId);
+        $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($this->recetaDTO);
 
         parent::__construct('editarRecetaForm');
     }
@@ -37,14 +37,14 @@ class editarRecetaForm extends formularioBase
     protected function CreateFields($datos)
     {
      
-        $nombre = $this->receta->getNombre();
-        $descripcion = $this->receta->getDescripcion();
-        $rutaImagen = "img/receta/" . htmlspecialchars($this->receta->getRuta());     
-        $precio = $this->receta->getPrecio();
-        $tiempo = $this->receta->getTiempo();
+        $nombre = $this->recetaDTO->getNombre();
+        $descripcion = $this->recetaDTO->getDescripcion();
+        $rutaImagen = "img/receta/" . htmlspecialchars($this->recetaDTO->getRuta());     
+        $precio = $this->recetaDTO->getPrecio();
+        $tiempo = $this->recetaDTO->getTiempo();
 
         //Rellenamos los pasos de la receta
-        $pasos = $this->receta->getPasos();
+        $pasos = $this->recetaDTO->getPasos();
         $pasos = json_decode($pasos, true); // Convertir JSON en array       
 
         $stepsHtml = '';
@@ -76,16 +76,16 @@ class editarRecetaForm extends formularioBase
         // Generamos el formulario con los valores actuales para edición
         // Generación del HTML para el formulario
         $html = <<<EOF
-            <input type="hidden" name="id" value="{$this->receta->getId()}">
-            <input type="hidden" name="titulo" value="{$this->receta->getNombre()}">
-            <input type="hidden" name="autor" value="{$this->receta->getAutor()}">
-            <input type="hidden" name="pasos" value="{$this->receta->getPasos()}">
-            <input type="hidden" name="descripcion" value="{$this->receta->getDescripcion()}">
-            <input type="hidden" name="precio" value="{$this->receta->getPrecio()}">
-            <input type="hidden" name="tiempo" value="{$this->receta->getTiempo()}">
-            <input type="hidden" name="fecha" value="{$this->receta->getFechaCreacion()}">
-            <input type="hidden" name="valoracion" value="{$this->receta->getValoracion()}">
-            <input type="hidden" name="imagen" value="{$this->receta->getRuta()}">
+            <input type="hidden" name="id" value="{$this->recetaDTO->getId()}">
+            <input type="hidden" name="titulo" value="{$this->recetaDTO->getNombre()}">
+            <input type="hidden" name="autor" value="{$this->recetaDTO->getAutor()}">
+            <input type="hidden" name="pasos" value="{$this->recetaDTO->getPasos()}">
+            <input type="hidden" name="descripcion" value="{$this->recetaDTO->getDescripcion()}">
+            <input type="hidden" name="precio" value="{$this->recetaDTO->getPrecio()}">
+            <input type="hidden" name="tiempo" value="{$this->recetaDTO->getTiempo()}">
+            <input type="hidden" name="fecha" value="{$this->recetaDTO->getFechaCreacion()}">
+            <input type="hidden" name="valoracion" value="{$this->recetaDTO->getValoracion()}">
+            <input type="hidden" name="imagen" value="{$this->recetaDTO->getRuta()}">
 
             <div class="input-container">
                 <input type="textarea" name="titulo" placeholder="TITULO" value="$nombre" required/>
@@ -166,19 +166,19 @@ class editarRecetaForm extends formularioBase
     // Método que maneja el procesamiento de la edición al enviar el formulario
     protected function Process($datos)
     {
-        if (isset($datos['borrar'])) { // Si el formulario se envió con el botón "borrar"
-            $id = intval($datos['id'] ?? 0);
-            return $this->borrar($id);
-        }
 
-        $result = array();
-    
         // Obtener instancia del servicio de recetas
         $recetaService = recetaAppService::GetSingleton();
         $id = intval($datos['id'] ?? 0);
         // Obtener la receta desde la base de datos, para ver la ruta antigua
-        $recetaDTO = $recetaService->buscarRecetaPorId($id); 
-         
+        $recetaDTO = $recetaService->buscarRecetaPorId(new RecetaDTO($id, null, null, null, null, null, null, null, null, null));
+
+        if (isset($datos['borrar'])) { // Si el formulario se envió con el botón "borrar"
+            return $this->borrar($recetaDTO);
+        }
+
+        $result = array();
+             
         // Saneamiento de datos de entrada
         $titulo = trim($datos['titulo'] ?? '');
         $descripcion = trim($datos['descripcion'] ?? '');
@@ -217,7 +217,7 @@ class editarRecetaForm extends formularioBase
                 
                 // Editamos los ingredientes, borrando los antiguos y creando los nuevos
                 $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton(); 
-                $ingredienteRecetaService->borrarIngredienteReceta($id);
+                $ingredienteRecetaService->borrarIngredienteReceta($recetaDTO);
 
                 foreach ($ingredientes as $ingredienteId => $ingredienteData) {
                     $ingredienteId = intval($ingredienteId);
@@ -233,7 +233,7 @@ class editarRecetaForm extends formularioBase
 
                 // Editamos las recetas, borrando las antiguas y creando las nuevas
                 $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
-                $etiquetaRecetaService->borrarEtiquetaReceta($id);
+                $etiquetaRecetaService->borrarEtiquetaReceta($recetaDTO);
 
                 $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Limita a 3 etiquetas únicas
                 foreach ($etiquetas as $etiqueta) {
@@ -302,19 +302,19 @@ class editarRecetaForm extends formularioBase
         return $nombreImagen; // Devolver el nombre de la imagen guardada
     }
 
-    public function borrar($id) 
+    public function borrar($recetaDTO) 
     {   
         //Borramos entrada de receta-ingrediente asociada a dicha receta
         $recetaIngredienteService = ingredienteRecetaAppService::GetSingleton();
-        $recetaIngredienteService->borrarIngredienteReceta($id);
+        $recetaIngredienteService->borrarIngredienteReceta($recetaDTO);
 
         //Borramos entrada de receta-etiqueta asociada a dicha receta
         $recetaEtiquetaService = etiquetaRecetaAppService::GetSingleton();
-        $recetaEtiquetaService->borrarEtiquetaReceta($id);
+        $recetaEtiquetaService->borrarEtiquetaReceta($recetaDTO);
 
         // Lógica para borrar la receta
         $recetaService = recetaAppService::GetSingleton(); // Asegúrate de instanciar tu servicio de recetas
-        $resultado = $recetaService->borrarReceta($id); // Llama al método para borrar la receta
+        $resultado = $recetaService->borrarReceta($recetaDTO); // Llama al método para borrar la receta
 
         // Redirigir tras borrar
         header("Location: confirmacionRecetaBorrada.php");

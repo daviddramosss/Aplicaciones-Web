@@ -65,11 +65,5 @@ class despensaFormulario extends formularioBase
         return $html;
     }
 
-    protected function defineStyle()
-    {
-        $html = '<!-- Enlace al archivo CSS específico para el formulario de la despensa -->
-    <link rel="stylesheet" href="CSS/despensa.css">';
-    return $html;
-    }
 }
 ?>

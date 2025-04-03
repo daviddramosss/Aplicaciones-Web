@@ -48,7 +48,7 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
     }
 
     // Método para eliminar un ingrediente de una receta (pendiente de implementación)
-    public function borrarIngredienteReceta($recetaId)
+    public function borrarIngredienteReceta($recetaDTO)
     {
         $borrado = false;
 
@@ -62,7 +62,7 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
         $stmt = $conn->prepare($query);
 
         // Enlazar los parámetros
-        $stmt->bind_param("i", $recetaId);
+        $stmt->bind_param("i", $recetaDTO->getId());
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
@@ -75,7 +75,7 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
         return $borrado;     
     }
 
-    public function buscarIngredienteReceta($recetaId, $criterio)
+    public function buscarIngredienteReceta($recetaDTO, $criterio)
     {
         // Accede a la base de datos
         $conn = application::getInstance()->getConexionBd();
@@ -95,7 +95,8 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
         $stmt = $conn->prepare($query);
 
         // Asocia el parámetro de la consulta con el valor del ID de la receta
-        $stmt->bind_param("i", $recetaId);
+        $id = $recetaDTO->getId();
+        $stmt->bind_param("i", $id);
 
         // Ejecuta la consulta
         if ($stmt->execute()) 

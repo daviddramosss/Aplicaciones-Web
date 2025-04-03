@@ -9,8 +9,8 @@ interface IUser
 
     public function create($userDTO);
 
-    public function buscaUsuario($email);
+    public function buscaUsuario($userDTO);
 
-    public function buscarUsuarioPorID($userId);
+    public function buscarUsuarioPorID($userDTO);
 }
 ?>

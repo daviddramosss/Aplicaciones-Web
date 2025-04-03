@@ -2,7 +2,7 @@
 
 // Este es el script de Cabecera, en el que está el código usado para mostrar la cabecera y sus elementos
 require_once(__DIR__ . "/../config.php");
-use es\ucm\fdi\aw\entidades\usuario\userAppService;
+use es\ucm\fdi\aw\entidades\usuario\{UserDTO, userAppService};
 use es\ucm\fdi\aw\application;
 
 // Comprobamos si el usuario está logueado, y qué tipo de rol tiene
@@ -16,7 +16,7 @@ $logged = $application->isLogged();
 
   if ($logged) {
     $userAppService = userAppService::GetSingleton(); // llamamos a la Singleton de userAppService y la guardamos en una variable para hacerla accesible
-    $foundedUserDTO = $userAppService->buscarUsuario($application->getEmail()); // Buscamos el usuario que está logueado mediante su email
+    $foundedUserDTO = $userAppService->buscarUsuario(new UserDTO(null, null, null, $application->getEmail(), null, null, null)); // Buscamos el usuario que está logueado mediante su email ($application->getEmail()); // Buscamos el usuario que está logueado mediante su email
 
     if($foundedUserDTO){  // Si existe, vemos su rol
         if ($foundedUserDTO->getRol() == "Admin") {

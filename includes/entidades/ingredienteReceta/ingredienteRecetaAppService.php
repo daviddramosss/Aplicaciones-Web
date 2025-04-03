@@ -35,21 +35,21 @@ class IngredienteRecetaAppService
     }
 
     // Método para eliminar un ingrediente de una receta
-    public function borrarIngredienteReceta($recetaId)
+    public function borrarIngredienteReceta($recetaDTO)
     {
         $IIngredienteRecetaDAO = IngredienteRecetaFactory::CreateIngredienteReceta();
 
-        $deletedIngredienteRecetaDTO = $IIngredienteRecetaDAO->borrarIngredienteReceta($recetaId);
+        $deletedIngredienteRecetaDTO = $IIngredienteRecetaDAO->borrarIngredienteReceta($recetaDTO);
     
         return $deletedIngredienteRecetaDTO;
     }
 
 
-    public function buscarIngredienteReceta($recetaId, $criterio)
+    public function buscarIngredienteReceta($recetaDTO, $criterio)
     {
         $IIngredienteRecetaDAO = IngredienteRecetaFactory::CreateIngredienteReceta();
 
-        return $IIngredienteRecetaDAO->buscarIngredienteReceta($recetaId, $criterio);
+        return $IIngredienteRecetaDAO->buscarIngredienteReceta($recetaDTO, $criterio);
     }
 }
 
