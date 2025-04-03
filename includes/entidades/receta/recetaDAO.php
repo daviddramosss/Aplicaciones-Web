@@ -120,13 +120,10 @@ class recetaDAO extends baseDAO implements IReceta
             // Obtiene los datos de la receta del DTO
             $id = $recetaDTO->getId();
             $nombre = $recetaDTO->getNombre();
-            //$autor = $recetaDTO->getAutor();
             $descripcion = $recetaDTO->getDescripcion();
             $pasos = json_encode($recetaDTO->getPasos());
             $tiempo = $recetaDTO->getTiempo();
             $precio = $recetaDTO->getPrecio();
-            //$fechaCreacion = $recetaDTO->getFechaCreacion();
-            //$valoracion = $recetaDTO->getValoracion();
             $ruta = $recetaDTO->getRuta();
 
             // Asocia los parámetros de la consulta con los valores obtenidos

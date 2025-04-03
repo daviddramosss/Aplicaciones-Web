@@ -52,8 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (selectedTags.length < 3) {
                         selectedTags.push(etiqueta.id);
                         tagElement.classList.add("selected");
-                    } else {
-                        alert("Solo puedes seleccionar hasta 3 etiquetas.");
                     }
                 }
                 actualizarCampoOculto();
