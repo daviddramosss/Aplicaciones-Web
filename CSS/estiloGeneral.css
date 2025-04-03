@@ -601,3 +601,46 @@ form#buscarFormulario {
 
 
 /* #endregion */
+
+
+/* #region SOBRE NOSOTROS*/
+
+.sobre_nosotros{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; /* Hace que los hijos tengan la misma altura */
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 15%;
+}
+
+.sobre_nosotros_equipo{
+
+    display: flex;
+    align-items: center; /* Centra el texto verticalmente */
+    justify-content: center;
+    background: rgb(192, 190, 190);
+    padding: 10px;
+}
+
+.sobre_nosotros_enlaces{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgb(231, 229, 229);
+}
+
+.sobre_nosotros_enlaces a{
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    flex: 1;    
+}
+
+
+/* #endregion */
