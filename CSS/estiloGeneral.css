@@ -610,7 +610,7 @@ form#buscarFormulario {
         flex-direction: row;
         align-items: stretch; /* Hace que los hijos tengan la misma altura */
         justify-content: center;
-        margin: 10px auto;
+        margin: 0 auto;
         flex-wrap: wrap;
         overflow: hidden;
     }
