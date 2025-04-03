@@ -31,7 +31,7 @@ class mostrarRecetaHelper
 
     public function print()
     {
-        return $this->generarReceta() . $this->generarEtiquetas() . $this->generarIngredientes() ;
+        return $this->generarReceta();
     }
 
     public function generarReceta()
@@ -59,20 +59,28 @@ class mostrarRecetaHelper
             $listaPasos .= "<p><strong>Paso $numPaso:</strong> " . htmlspecialchars($paso) . "</p>";
         }
         $listaPasos .= "</div>";
-    
+
+        $etiquetas = $this->generarEtiquetas();
+        $ingredientes = $this->generarIngredientes();
         return <<<HTML
-            <div class="receta-detalle">
-                <h1>$nombre</h1>
-                <img src="$rutaImagen" alt="$nombre" class="receta-imagen-detalle">
-                <p><strong>Autor:</strong> $autor</p>
-                <p><strong>Descripción:</strong> $descripcion</p>
-                <p><strong>Tiempo de preparación:</strong> $tiempo</p>
-                <p><strong>Precio:</strong> $precio</p>
-                <p><strong>Valoración:</strong> $valoracion</p>
-                <p><strong>Fecha de creación:</strong> $fechaCreacion</p>
-                <h2>Pasos de la receta</h2>
-                $listaPasos
-            </div>
+            <section>
+                <div class="receta-detalle">
+                    <h1>$nombre</h1>
+                    <img src="$rutaImagen" alt="$nombre" class="receta-imagen-detalle">
+                    <p><strong>Autor:</strong> $autor</p>
+                    <p><strong>Descripción:</strong> $descripcion</p>
+                    <p><strong>Tiempo de preparación:</strong> $tiempo</p>
+                    <p><strong>Precio:</strong> $precio</p>
+                    <p><strong>Valoración:</strong> $valoracion</p>
+                    <p><strong>Fecha de creación:</strong> $fechaCreacion</p>
+                    $etiquetas
+                </div>
+                <div>
+                    <h2>Pasos de la receta</h2>
+                    $listaPasos
+                    $ingredientes
+                </div>
+            </section>
         HTML;
     }
     
