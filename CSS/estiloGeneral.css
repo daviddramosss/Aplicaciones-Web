@@ -7,6 +7,11 @@
     min-height: 100vh;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
+
 /* #region CABECERA */
 .plantilla_cabecera{
     display: flex;
@@ -137,6 +142,14 @@
     display: flex;
     flex-direction: column;
     flex:1;
+}
+
+video{
+        width: 100vw; /* Ocupa todo el ancho de la ventana */
+        height: 40vh; /* Ajusta la altura según necesites */
+        object-fit: cover; /* Recorta y ajusta la imagen sin deformarla */
+        object-position: center; /* Centra la imagen */
+        display: block; /* Evita espacios extra */
 }
 
 body {
