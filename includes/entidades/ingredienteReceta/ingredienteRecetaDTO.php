@@ -6,15 +6,15 @@ class ingredienteRecetaDTO
 {
     // Propiedades privadas para almacenar los datos de la receta, ingrediente, cantidad y magnitud
     private $recetaId;
-    private $ingredienteId;
+    private $ingrediente;
     private $cantidad;
     private $magnitud;
 
     // Constructor que inicializa las propiedades de la clase
-    public function __construct($recetaId, $ingredienteId, $cantidad, $magnitud)
+    public function __construct($recetaId, $ingrediente, $cantidad, $magnitud)
     {
         $this->recetaId = $recetaId;          // Id de la receta
-        $this->ingredienteId = $ingredienteId; // Id del ingrediente
+        $this->ingrediente = $ingrediente; // Id del ingrediente
         $this->cantidad = $cantidad;           // Cantidad del ingrediente
         $this->magnitud = $magnitud;           // Magnitud de la cantidad (por ejemplo, 'gramos', 'litros', etc.)
     }
@@ -26,9 +26,9 @@ class ingredienteRecetaDTO
         return $this->recetaId;
     }
 
-    public function getIngredienteId()
+    public function getIngrediente()
     {
-        return $this->ingredienteId;
+        return $this->ingrediente;
     }
 
     public function getCantidad()

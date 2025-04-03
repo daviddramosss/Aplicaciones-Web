@@ -1,7 +1,6 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\ingredienteReceta;
-// require_once("ingredienteRecetaFactory.php");
 
 // Clase que actúa como servicio de aplicación para gestionar la relación entre ingredientes y recetas
 class IngredienteRecetaAppService
@@ -33,16 +32,6 @@ class IngredienteRecetaAppService
         $createdIngredienteRecetaDTO = $IIngredienteRecetaDAO->crearIngredienteReceta($ingredienteRecetaDTO);
     
         return $createdIngredienteRecetaDTO;
-    }
-
-    // Método para editar un ingrediente en una receta
-    public function editarIngredienteReceta($ingredienteRecetaDTO)
-    {
-        $IIngredienteRecetaDAO = IngredienteRecetaFactory::CreateIngredienteReceta();
-
-        $editedIngredienteRecetaDTO = $IIngredienteRecetaDAO->editarIngredienteReceta($ingredienteRecetaDTO);
-    
-        return $editedIngredienteRecetaDTO;
     }
 
     // Método para eliminar un ingrediente de una receta

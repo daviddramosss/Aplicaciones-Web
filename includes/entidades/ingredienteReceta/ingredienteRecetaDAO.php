@@ -48,58 +48,14 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
         return $createdIngredienteReceta;
     }
 
-    // Método para editar un ingrediente en una receta (pendiente de implementación)
-    public function editarIngredienteReceta($ingredienteRecetaDTO)
-    {
-        // Obtener la conexión a la base de datos
-        $conn = application::getInstance()->getConexionBd();
-
-        // Primero, verificamos si el ingrediente ya está en la receta
-        $query = "SELECT * FROM receta_ingrediente WHERE Receta = ? AND Ingrediente = ?";
-        // Preparar la consulta
-        $stmt = $conn->prepare($query);
-
-        // Obtener los valores desde el DTO
-        $recetaId = $ingredienteRecetaDTO->getRecetaId();
-        $ingredienteId = $ingredienteRecetaDTO->getIngredienteId();
-        $stmt->bind_param("ii", $recetaId, $ingredienteId);
-        
-        if($stmt->execute())
-        {
-            $resultCheck = $stmt->get_result();
-
-            if ($resultCheck->num_rows > 0) {
-                // Si el ingrediente ya está en la receta, actualizamos la cantidad y magnitud
-                $queryUpdate = "UPDATE receta_ingrediente SET Cantidad = ?, Magnitud = ? WHERE Receta = ? AND Ingrediente = ?";
-                $stmtUpdate = $conn->prepare($queryUpdate);
-
-                $cantidad = $ingredienteRecetaDTO->getCantidad();
-                $magnitud = $ingredienteRecetaDTO->getMagnitud();
-                $stmtUpdate->bind_param("diii", $cantidad, $magnitud, $recetaId, $ingredienteId);
-                $stmtUpdate->execute();
-            } else {
-                //EN PRINCIPIO NO SE HACE AQUI
-                // Si no existe, lo insertamos como nuevo ingrediente
-                //return $this->crearIngredienteReceta($ingredienteRecetaDTO);
-            }
-        }
-
-        return new ingredienteRecetaDTO($recetaId, $ingredienteId, $cantidad, $magnitud);
-    }
-
     // Método para eliminar un ingrediente de una receta (pendiente de implementación)
     public function borrarIngredienteReceta($recetaId)
     {
         $borrado = false;
+        
         // Obtener la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
-        // Obtener los valores desde el DTO
-        //$recetaId = $ingredienteRecetaDTO->getRecetaId();
-        //$ingredienteId = $ingredienteRecetaDTO->getIngredienteId();
-        //$magnitud = $ingredienteRecetaDTO->getMagnitud(); // Asegúrate de que esto esté disponible
-
-        
         // Consulta SQL para eliminar el ingrediente
         $query = "DELETE FROM receta_ingrediente WHERE Receta = ?";
         

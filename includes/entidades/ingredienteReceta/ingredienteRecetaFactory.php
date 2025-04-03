@@ -1,7 +1,6 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\ingredienteReceta;
-// require("ingredienteRecetaDAO.php");
 
 // Clase Factory para crear instancias de IIngredienteReceta (en este caso, ingredienteRecetaDAO)
 class ingredienteRecetaFactory
