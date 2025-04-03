@@ -319,7 +319,7 @@ textarea {
 	color: white;
 	text-align: center;
 }
-.footer {
+footer {
     padding: 10px 0;
 	background-color: #222;
     width: 100%;
@@ -346,23 +346,7 @@ textarea {
     text-decoration: underline;
 }
 
-/*Hemos quitado las redes sociales para minimizar el tamaño del pie de página*/
-/* 
-.footer_social {
-    margin-bottom: 15px;
-}
-
-.footer_social a img {
-    width: 24px;
-    margin: 0 10px;
-    transition: transform 0.3s ease;
-}
-
-.footer_social a img:hover {
-    transform: scale(1.2);
-} */
-
-.footer_copy p {
+p#copy {
     font-size: 12px;
 }
 
