@@ -1,7 +1,6 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\etiquetaReceta;
-// require("etiquetaRecetaDAO.php"); 
 
 /**
  * Fábrica para la creación de objetos que implementan la interfaz IEtiquetaReceta.

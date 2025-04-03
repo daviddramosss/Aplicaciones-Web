@@ -7,7 +7,7 @@ namespace es\ucm\fdi\aw\entidades\etiquetaReceta;
  */
 class etiquetaRecetaDTO
 {
-    private $etiquetaId;  // Nombre de la etiqueta asociada a la receta
+    private $etiquetaId;  // ID de la etiqueta asociada a la receta
     private $recetaId;  // ID de la receta asociada a la etiqueta
 
     // Constructor de la clase.

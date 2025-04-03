@@ -2,18 +2,10 @@
 
 namespace es\ucm\fdi\aw\entidades\etiquetaReceta;
 
-
-// require_once("IEtiquetaReceta.php"); 
-// require_once("etiquetaRecetaDTO.php"); 
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
 use es\ucm\fdi\aw\entidades\etiquetas\{etiquetasDTO};
-// require_once(__DIR__ . "/../../comun/baseDAO.php"); 
 
-/**
- * Clase que implementa la interfaz IEtiquetaReceta para gestionar etiquetas de recetas en la base de datos.
- * Extiende baseDAO para reutilizar funcionalidades comunes de acceso a datos.
- */
 class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
 {
     // Constructor vacio
@@ -39,7 +31,7 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
         $recetaId = $etiquetaRecetaDTO->getRecetaId();
         $etiqueta = $etiquetaRecetaDTO->getEtiqueta();
 
-        // Asociar los parámetros a la consulta, especificando tipos ("i" para entero, "s" para string)
+        // Asociar los parámetros a la consulta, especificando tipos
         $stmt->bind_param("ii", $recetaId, $etiqueta);
 
         // Ejecutar la consulta y verificar si fue exitosa
@@ -53,22 +45,13 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
         return $crearEtiquetaReceta; // Devolver false en caso de fallo
     }
 
-    // Método para editar una relación entre una receta y una etiqueta.
-    public function editarEtiquetaReceta($etiquetaRecetaDTO)
-    {
-        // Implementar más adelante
-    }
-
     // Método para borrar una relación entre una receta y una etiqueta.
     public function borrarEtiquetaReceta($recetaId)
     {
+        $borrado = false;
 
         // Obtener la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
-
-        // Obtener valores del DTO
-        //$recetaId = $etiquetaRecetaDTO->getRecetaId();
-        //$etiqueta = $etiquetaRecetaDTO->getEtiqueta();
 
         // Consulta SQL para eliminar la relación receta-etiqueta
         $query = "DELETE FROM receta_etiqueta WHERE Receta = ?";
@@ -80,12 +63,14 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
         $stmt->bind_param("i", $recetaId);
 
         // Ejecutar la consulta
-        if (!$stmt->execute()) {
-            //throw new Exception("Error al eliminar la etiqueta: " . $stmt->error);
+        if ($stmt->execute()) {
+            $borrado = true;
         }
 
         // Cerrar la declaración
         $stmt->close();
+
+        return $borrado;
  
     }
 
@@ -130,9 +115,6 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
             // Retorna el array con las etiquetas
             return $etiqueta;
         }
-    
-        // Si no hay etiquetas o hay un error, retorna un array vacío
-        return [];
     }        
     
 }

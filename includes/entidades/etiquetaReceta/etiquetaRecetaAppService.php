@@ -1,7 +1,6 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\etiquetaReceta;
-// require_once("etiquetaRecetaFactory.php");
 
 class etiquetaRecetaAppService
 {
@@ -33,18 +32,6 @@ class etiquetaRecetaAppService
         $createdEtiquetaRecetaDTO = $IEtiquetaRecetaDAO->crearEtiquetaReceta($etiquetaRecetaDTO);
 
         return $createdEtiquetaRecetaDTO;
-    }
-
-    // Método para editar una etiqueta de receta existente.
-    public function editarEtiquetaReceta($etiquetaRecetaDTO)
-    {
-        // Se obtiene una instancia de la interfaz de acceso a datos (DAO) mediante la fábrica
-        $IEtiquetaRecetaDAO = etiquetaRecetaFactory::createEtiquetaReceta();
-
-        // Se delega la creación de la etiqueta al DAO
-        $editarEtiquetaRecetaDTO = $IEtiquetaRecetaDAO->editarEtiquetaReceta($etiquetaRecetaDTO);
-
-        return $editarEtiquetaRecetaDTO;
     }
 
     // Método para borrar una etiqueta de receta.

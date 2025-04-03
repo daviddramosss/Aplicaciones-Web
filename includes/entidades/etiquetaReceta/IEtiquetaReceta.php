@@ -10,9 +10,6 @@ interface IEtiquetaReceta
     // Crea una nueva relación entre una receta y una etiqueta.
     public function crearEtiquetaReceta($etiquetaRecetaDTO);
 
-    // Edita una relación existente entre una receta y una etiqueta.
-    public function editarEtiquetaReceta($etiquetaRecetaDTO);
-
     // Borra una relación entre una receta y una etiqueta.
     public function borrarEtiquetaReceta($recetaId);
 
