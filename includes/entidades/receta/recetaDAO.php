@@ -280,6 +280,86 @@ class recetaDAO extends baseDAO implements IReceta
     }
     
 
+    public function buscarRecetasConEtiquetas($etiquetas, $idRecetaActual) // Recibimos un array de etiquetas
+    {
+        $recetas = [];
+        $params = [];
+        $types = "";
+        $query = "";
+        $html = "";
+
+        // Obtiene la conexión a la base de datos
+        $conn = application::getInstance()->getConexionBd();
+
+        if (!empty($etiquetas)) {
+         
+            // Convertimos la lista de etiquetas a un array
+            $placeholders = implode(',', array_fill(0, count($etiquetas), '?'));
+            
+            // Añadimos la condición de etiquetas a la consulta
+            $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE 1 AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($placeholders)) AND ID != $idRecetaActual LIMIT 4";
+            
+            foreach ($etiquetas as $etiqueta) {
+                $params[] = $etiqueta->getId();
+                $types .= "i"; // Comparando por número (Correcto si Etiqueta es un número)
+            }
+
+
+            // Preparar la consulta
+            $stmt = $conn->prepare($query);
+    
+            // Pasar los parámetros dinámicos
+            $stmt->bind_param($types, ...$params);
+         
+            // Ejecutar consulta
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $recetas[] = new recetaDTO(
+                        $row["ID"],
+                        $row["Nombre"],
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        $row["Ruta"]
+                    );
+                }        
+            }
+    
+            $stmt->close();
+        }
+
+        if (empty($recetas)) {
+            $html ="<p>No existen recetas que cumplan esos criterios.</p>";
+        }
+        else{
+
+            $html = '<div class="recetas-container">';
+            
+                foreach ($recetas as $receta) {
+                    $html .= <<<HTML
+                        <div class="receta-card">
+                            <a href="mostrarReceta.php?id={$receta->getId()}">
+                                <img src="img/receta/{$receta->getRuta()}" alt="{$receta->getNombre()}" class="receta-imagen">
+                            </a>
+                            <p class="receta-titulo">{$receta->getNombre()}</p>
+                        </div>
+                    HTML;
+                }
+            
+            $html .= '</div>';
+        }
+
+          // Devuelve todas las recetas
+        return $html;
+    }
 }  
+
 
 ?>

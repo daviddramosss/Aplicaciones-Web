@@ -83,6 +83,11 @@ class recetaAppService
         return $IRecetaDAO->buscarReceta($id);
     }
 
+    public function buscarRecetasConEtiquetas($etiquetas, $idRecetaActual) {
+        $IRecetaDAO = recetaFactory::CreateReceta();
+
+        return $IRecetaDAO->buscarRecetasConEtiquetas($etiquetas, $idRecetaActual);
+    }
 }
 
 ?>

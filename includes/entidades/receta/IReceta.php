@@ -16,7 +16,8 @@ interface IReceta
    public function mostarRecetasPorAutor($userDTO);
 
    public function mostrarRecetas($crtierio);
-    
+   
+   public function buscarRecetasConEtiquetas($etiquetas, $idRecetaActual);
 }
 
 ?>

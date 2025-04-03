@@ -13,6 +13,7 @@ class mostrarRecetaHelper
     private $ingredientes;
     private $autor;
     private $etiquetas;
+    private $similares;
 
     public function __construct($recetaId) 
     {
@@ -27,6 +28,8 @@ class mostrarRecetaHelper
     
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
         $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($recetaId);
+
+        $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, $recetaId);        
     }
 
     public function print()
@@ -62,6 +65,7 @@ class mostrarRecetaHelper
 
         $etiquetas = $this->generarEtiquetas();
         $ingredientes = $this->generarIngredientes();
+        $recetas_aux = $this->similares;
         return <<<HTML
             <section>
                 <div class="receta-detalle">
@@ -81,6 +85,9 @@ class mostrarRecetaHelper
                     $ingredientes
                 </div>
             </section>
+            <br>
+            <h2> Recetas similares </h2>
+            $recetas_aux
         HTML;
     }
     
