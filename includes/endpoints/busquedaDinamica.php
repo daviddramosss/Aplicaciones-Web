@@ -38,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Consulta base
+    // Preparamos la sentencia para buscar las recetas con los filtros propuestos
     $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE Nombre LIKE ? AND Precio BETWEEN ? AND ? AND Valoracion >= ?";
 
     $params = [];
     $types = "siii"; // Nombre (string), PrecioMin (int), PrecioMax (int), Valoración (int)
 
-    // Ajustar el nombre de búsqueda
+    // Ajustar el nombre de búsqueda por si viene de manera incompleta
     $buscarPlato = "%$buscarPlato%";
     $params[] = $buscarPlato;
     $params[] = $precioMin;
@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $etiquetasArray = explode(',', $etiquetas);
         $placeholders = implode(',', array_fill(0, count($etiquetasArray), '?'));
 
+        // Añadimos la condición de etiquetas a la consulta
         $query .= " AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($placeholders))";
 
         foreach ($etiquetasArray as $etiqueta) {

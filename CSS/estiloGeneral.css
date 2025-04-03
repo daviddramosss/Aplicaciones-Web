@@ -469,7 +469,6 @@ form#buscarFormulario {
     flex-direction: row;
     width: 100%; 
     margin: 0 0;
-
     gap: 10px;
 }
 
@@ -554,7 +553,7 @@ form#buscarFormulario {
     color: gold;
 }
 
-/* #region No Implementado */
+/* #region NO IMPLEMENTADO - SIGUIENTES ACTUALIZACIONES */
 
 /* Alineación de los checkboxes con sus labels */
 .checkbox-container {

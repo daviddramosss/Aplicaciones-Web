@@ -64,7 +64,7 @@ class buscarFormulario extends formularioBase
                         <span class="estrella_buscar" data-value="5">★</span>
                     </div>
 
-                    <!--
+                    <!-- NO IMPLEMENTADO TODAVIA - SIGUIENTES ACTUALIZACIONES
                     <div class="checkbox-container">
                         <input type="checkbox" id="usarDespensa" name="usarDespensa">
                         <label for="usarDespensa">Usar Mi Despensa</label>
@@ -75,14 +75,11 @@ class buscarFormulario extends formularioBase
                         <label for="usarAlergenos">Usar mis alérgenos</label>
                     </div>
                     -->
-
                                       
                     <label>Etiquetas</label>
-                    <div id="tagsContainer" class="tags_container_buscar">
-                    </div>
+                    <div id="tagsContainer" class="tags_container_buscar"></div>
 
                     <input type="hidden" name="etiquetas" id="etiquetasSeleccionadas" value="">
-                   
 
                     <!-- Botón de búsqueda -->
                     <button type="submit">Buscar</button>
