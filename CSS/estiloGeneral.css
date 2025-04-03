@@ -140,7 +140,7 @@
     flex:1;
 }
 
-video{
+video#videoPrincipal{
         width: 100vw; /* Ocupa todo el ancho de la ventana */
         height: 40vh; /* Ajusta la altura según necesites */
         object-fit: cover; /* Recorta y ajusta la imagen sin deformarla */
