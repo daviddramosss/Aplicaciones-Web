@@ -69,11 +69,6 @@ class buscarFormulario extends formularioBase
                         <input type="checkbox" id="usarDespensa" name="usarDespensa">
                         <label for="usarDespensa">Usar Mi Despensa</label>
                     </div>
-
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="usarAlergenos" name="usarAlergenos">
-                        <label for="usarAlergenos">Usar mis alérgenos</label>
-                    </div>
                     -->
                                       
                     <label>Etiquetas</label>
