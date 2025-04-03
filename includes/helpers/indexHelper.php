@@ -22,6 +22,13 @@ class IndexHelper
         
 
         return <<<HTML
+            <section>
+                <video autoplay loop muted>
+                <source src="img/video/videochef.mp4" type="video/mp4">
+                Tu navegador no puede mostrar el vídeo.
+                </video>
+            </section>
+            
             $recetasFecha
             $recetasEtiqueta
             $recetasPrecio

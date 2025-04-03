@@ -1,10 +1,10 @@
 <?php
-//ESQUELETO E IMPLEMENTACION INICIAL. TIENE FALLOS
+
 namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
-use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService, ingredienteRecetaDTO};
-use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRecetaDTO};
+use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService};
+use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService};
 use es\ucm\fdi\aw\comun\formularioBase;
 use es\ucm\fdi\aw\application;
 
@@ -12,17 +12,12 @@ use es\ucm\fdi\aw\application;
 class editarRecetaForm extends formularioBase
 {
     private $receta;
-
     private $ingredientes;
     private $etiquetas; 
-    private $id; 
     
     // Constructor: Recibe el ID de la receta a editar y carga sus datos
     public function __construct($recetaId) 
     {
-       // parent::__construct('editarRecetaForm');
-
-        
         // Obtener instancia del servicio de recetas
         $recetaService = recetaAppService::GetSingleton();
         
@@ -31,7 +26,7 @@ class editarRecetaForm extends formularioBase
 
         //Hago lo mismo para obtener los ingredientes y las etiquetas
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId);
+        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId, 'ids');
     
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
         $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($recetaId);
@@ -45,28 +40,13 @@ class editarRecetaForm extends formularioBase
      
         $nombre = $this->receta->getNombre();
         $descripcion = $this->receta->getDescripcion();
-        $rutaImagen = "img/receta/" . htmlspecialchars($this->receta->getRuta());
-        //$ingredientes = DAOIngrediente::buscarPorReceta($this->receta->getId());
-     
+        $rutaImagen = "img/receta/" . htmlspecialchars($this->receta->getRuta());     
         $precio = $this->receta->getPrecio();
         $tiempo = $this->receta->getTiempo();
 
-        /*
-        $pasos = json_decode($this->receta->getPasos(), true); // Decodificar JSON
-        $pasosJSON = json_encode($pasos); // Convertir a JSON para JavaScript 
-        $html = <<<EOF
-            <script>
-                let pasosGuardados = $pasosJSON;
-            </script>
-                                   
-        EOF;
-        */
-
-        //Añadido por Antonio
+        //Rellenamos los pasos de la receta
         $pasos = $this->receta->getPasos();
-        $pasos = json_decode($pasos, true); // Convertir JSON en array
-
-       
+        $pasos = json_decode($pasos, true); // Convertir JSON en array       
 
         $stepsHtml = '';
         foreach ($pasos as $index => $paso) {
@@ -74,15 +54,12 @@ class editarRecetaForm extends formularioBase
             $stepsHtml .= "<p class='step-item'><label>Paso " . ($index + 1) . ":</label> <textarea name='steps[]' required>$pasoSanitizado</textarea></p>";
         }    
 
-
         //Rellenamos los ingredientes de la receta
         $ingredientesArray = array_map(function($ingrediente) {
             return [
-                'id' => $ingrediente['ID'],  // Convertimos "ID" a "id"
-                'nombre' => $ingrediente['Ingrediente'], // Convertimos "Ingrediente" a "nombre"
-                'cantidad' => $ingrediente['Cantidad'], // Ya coincide
-                'magnitud' => $ingrediente['Magnitud'], // Ya coincide
-                'id_magnitud' => $ingrediente['ID_Magnitud']
+                'id' => $ingrediente->getIngrediente(),  // Convertimos "ID" a "id"
+                'cantidad' => $ingrediente->getCantidad(), // Ya coincide
+                'id_magnitud' => $ingrediente->getMagnitud()
             ];
         }, $this->ingredientes);        
         $ingredientesJSON = json_encode($ingredientesArray);
@@ -98,8 +75,8 @@ class editarRecetaForm extends formularioBase
 
 
         // Generamos el formulario con los valores actuales para edición
-       // Generación del HTML para el formulario
-       $html = <<<EOF
+        // Generación del HTML para el formulario
+        $html = <<<EOF
             <input type="hidden" name="id" value="{$this->receta->getId()}">
             <input type="hidden" name="titulo" value="{$this->receta->getNombre()}">
             <input type="hidden" name="autor" value="{$this->receta->getAutor()}">
@@ -171,12 +148,11 @@ class editarRecetaForm extends formularioBase
                 <button type="submit" class="send-button" name="eliminar" formaction="borrarReceta.php">BORRAR RECETA</button>
             </p>
 
+            <!-- Mandamos los ingredientes y las etiquetas al JavaScript para que lo rellene -->
             <script>
                 let ingredientesReceta = $ingredientesJSON;
                 let etiquetasReceta = $etiquetasJSON;
-            </script>
-
-           
+            </script>           
 
             <!-- Importación de scripts JavaScript -->
             <script src="js/editarReceta.js"></script>   
@@ -191,21 +167,13 @@ class editarRecetaForm extends formularioBase
     protected function Process($datos)
     {
         $result = array();
-
-        // Obtener el usuario actual
-        $application = application::getInstance();
-        $usuarioId = $application->getIdUsuario();
-
-       
-        // Sanitizar y validar los datos recibidos
-        $id = intval($datos['id'] ?? 0);
-
+    
         // Obtener instancia del servicio de recetas
         $recetaService = recetaAppService::GetSingleton();
-        // Obtener la receta desde la base de datos
-        $recetaID = $recetaService->buscarRecetaPorId($id); 
- 
-        
+        $id = intval($datos['id'] ?? 0);
+        // Obtener la receta desde la base de datos, para ver la ruta antigua
+        $recetaDTO = $recetaService->buscarRecetaPorId($id); 
+         
         // Saneamiento de datos de entrada
         $titulo = trim($datos['titulo'] ?? '');
         $descripcion = trim($datos['descripcion'] ?? '');
@@ -214,9 +182,7 @@ class editarRecetaForm extends formularioBase
         $ingredientes = $datos['ingredientes'] ?? [];
         $pasos = isset($datos['steps']) ? array_map('trim', $datos['steps']) : [];
         $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', trim($datos['etiquetas']))) : [];
-        $imagenGuardada = $this->procesarImagen($recetaID);
-
-
+        $imagenGuardada = $this->procesarImagen($recetaDTO);
 
         // Validaciones
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
@@ -238,7 +204,7 @@ class editarRecetaForm extends formularioBase
         if (count($result) === 0)
         {      
                 // Crear un objeto DTO con los nuevos valores
-                $recetaDTO = new recetaDTO($recetaID->getId(), $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $recetaID->getFechaCreacion(), $recetaID->getValoracion(), $imagenGuardada);
+                $recetaDTO = new recetaDTO($id, $titulo, null, $descripcion, $pasos, $tiempo, $precio, null, null, $imagenGuardada);
 
                // Instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
@@ -260,12 +226,12 @@ class editarRecetaForm extends formularioBase
         return '<h1>Editar Receta</h1>';
     }
 
-    private function procesarImagen($recetaID)
+    private function procesarImagen($recetaDTO)
     {
         //A implementar. Comprobar si se ha subido una imagen y de ser asi asegurarse de que se suba bien
-         // Si no se ha subido ninguna imagen, asignamos la imagen por defecto
-         if (!isset($_FILES['imagenReceta']) || $_FILES['imagenReceta']['error'] === UPLOAD_ERR_NO_FILE) {
-            return $recetaID->getRuta(); // Retorna la imagen existente   
+        // Si no se ha subido ninguna imagen, asignamos la imagen por defecto
+        if (!isset($_FILES['imagenReceta']) || $_FILES['imagenReceta']['error'] === UPLOAD_ERR_NO_FILE) {
+            return $recetaDTO->getRuta(); // Retorna la imagen existente   
         }
     
         // Comprobar si hubo un error al subir la imagen
