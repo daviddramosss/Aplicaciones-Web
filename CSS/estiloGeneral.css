@@ -412,7 +412,7 @@ textarea {
     margin: auto;
     overflow: hidden; /* Oculta los elementos que no deben mostrarse */
     flex-wrap: wrap;
-
+    
 }
 
 .swiper-container-wrapper {
@@ -420,6 +420,7 @@ textarea {
     align-items: center;
     width: 90%;
     margin: auto;
+    margin-bottom: 5vh;
 }
 
 .swiper-slide {
