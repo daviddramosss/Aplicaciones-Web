@@ -24,10 +24,10 @@ class mostrarRecetaHelper
         $this->autor = $usuarioService->buscarUsuarioPorID(new userDTO($this->recetaDTO->getAutor(), null, null, null, null, null, null));
 
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($this->recetaDTO, 'nombres');
+        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null, null), 'nombres');
     
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
-        $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($recetaId);
+        $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null, null));
 
         $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, $recetaId);        
     }
