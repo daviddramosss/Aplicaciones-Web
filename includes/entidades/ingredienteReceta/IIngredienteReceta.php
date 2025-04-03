@@ -10,7 +10,7 @@ interface IIngredienteReceta
     // Método para eliminar una relación entre un ingrediente y una receta
     public function borrarIngredienteReceta($recetaId);
 
-    public function buscarIngredienteReceta($recetaId);
+    public function buscarIngredienteReceta($recetaId, $criterio);
 
 }
 

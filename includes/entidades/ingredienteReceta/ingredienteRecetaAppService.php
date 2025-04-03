@@ -45,11 +45,11 @@ class IngredienteRecetaAppService
     }
 
 
-    public function buscarIngredienteReceta($recetaId)
+    public function buscarIngredienteReceta($recetaId, $criterio)
     {
         $IIngredienteRecetaDAO = IngredienteRecetaFactory::CreateIngredienteReceta();
 
-        return $IIngredienteRecetaDAO->buscarIngredienteReceta($recetaId);
+        return $IIngredienteRecetaDAO->buscarIngredienteReceta($recetaId, $criterio);
     }
 }
 
