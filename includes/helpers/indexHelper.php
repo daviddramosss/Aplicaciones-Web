@@ -22,6 +22,10 @@ class IndexHelper
         
 
         return <<<HTML
+            <video width=100% height="240" controls>
+            <source src="img/video/videochef.mp4" type="video/mp4">
+            Tu navegador no puede mostrar el vídeo.
+            </video>
             $recetasFecha
             $recetasEtiqueta
             $recetasPrecio
