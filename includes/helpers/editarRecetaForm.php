@@ -3,10 +3,9 @@
 namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
-use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService};
-use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService};
+use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService, ingredienteRecetaDTO};
+use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRecetaDTO};
 use es\ucm\fdi\aw\comun\formularioBase;
-use es\ucm\fdi\aw\application;
 
 // Clase editarRecetaForm para editar recetas existentes
 class editarRecetaForm extends formularioBase
@@ -57,8 +56,8 @@ class editarRecetaForm extends formularioBase
         //Rellenamos los ingredientes de la receta
         $ingredientesArray = array_map(function($ingrediente) {
             return [
-                'id' => $ingrediente->getIngrediente(),  // Convertimos "ID" a "id"
-                'cantidad' => $ingrediente->getCantidad(), // Ya coincide
+                'id' => $ingrediente->getIngrediente(), 
+                'cantidad' => $ingrediente->getCantidad(), 
                 'id_magnitud' => $ingrediente->getMagnitud()
             ];
         }, $this->ingredientes);        
@@ -67,8 +66,8 @@ class editarRecetaForm extends formularioBase
         //Rellenamos las etiquetas de la receta
         $etiquetasArray = array_map(function($etiqueta) {
             return [
-                'id' => $etiqueta->getId(),  // Convertimos "ID" a "id"
-                'nombre' => $etiqueta->getNombre(), // Convertimos "Etiqueta" a "nombre"
+                'id' => $etiqueta->getId(), 
+                'nombre' => $etiqueta->getNombre(), 
             ];
         }, $this->etiquetas);        
         $etiquetasJSON = json_encode($etiquetasArray);
@@ -206,11 +205,40 @@ class editarRecetaForm extends formularioBase
                 // Crear un objeto DTO con los nuevos valores
                 $recetaDTO = new recetaDTO($id, $titulo, null, $descripcion, $pasos, $tiempo, $precio, null, null, $imagenGuardada);
 
-               // Instancia del servicio de recetas
+                // Instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
+                $recetaService->editarReceta($recetaDTO);
+                
+                // Editamos los ingredientes, borrando los antiguos y creando los nuevos
+                $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton(); 
+                $ingredienteRecetaService->borrarIngredienteReceta($id);
 
-                // Llamada al servicio para editar la receta
-                $recetaService->editarReceta($recetaDTO, $ingredientes, $etiquetas);  
+                foreach ($ingredientes as $ingredienteId => $ingredienteData) {
+                    $ingredienteId = intval($ingredienteId);
+                    $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
+                    $magnitud = filter_var($ingredienteData['magnitud'] ?? 0, FILTER_VALIDATE_INT);
+                
+                    // Si el ingrediente es válido, lo guarda
+                    if ($ingredienteId > 0 && $cantidad > 0) {
+                        $ingredienteRecetaDTO = new ingredienteRecetaDTO($id, $ingredienteId, $cantidad, $magnitud);
+                        $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
+                    }
+                }
+
+                // Editamos las recetas, borrando las antiguas y creando las nuevas
+                $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
+                $etiquetaRecetaService->borrarEtiquetaReceta($id);
+
+                $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Limita a 3 etiquetas únicas
+                foreach ($etiquetas as $etiqueta) {
+                    $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                    // Si la etiqueta es válida, la guarda
+                    if (!empty($etiqueta)) {
+                        $etiquetaRecetaDTO = new etiquetaRecetaDTO($id, $etiqueta);
+                        $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
+                    }
+                }       
 
                 // Redirigir a la confirmación de actualización si tuvo éxito
                 header("Location: confirmacionRecetaEditada.php");

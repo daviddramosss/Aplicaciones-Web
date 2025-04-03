@@ -29,7 +29,7 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
 
         // Obtener los valores desde el DTO
         $recetaId = $ingredienteRecetaDTO->getRecetaId();
-        $ingredienteId = $ingredienteRecetaDTO->getIngredienteId(); // Posible error tipográfico en el método "gerIngredienteId()"
+        $ingredienteId = $ingredienteRecetaDTO->getIngrediente();
         $cantidad = $ingredienteRecetaDTO->getCantidad();
         $magnitud = $ingredienteRecetaDTO->getMagnitud();
 
