@@ -11,3 +11,22 @@
     padding-right: 10%;
     flex-wrap: wrap;
 }
+
+section{
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Hace que los hijos tengan la misma altura */
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.sobre_nosotros_imagen{
+    max-width: 20%;
+    min-width: fit-content;
+}
+
+.sobre_nosotros_info{
+    flex-direction: column;
+    max-width: 30%;
+}
