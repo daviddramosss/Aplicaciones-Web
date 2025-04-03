@@ -3,12 +3,9 @@
 namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\application;
-use es\ucm\fdi\aw\entidades\usuario\userAppService;
+use es\ucm\fdi\aw\entidades\usuario\{userDTO, userAppService};
 use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
 use es\ucm\fdi\aw\entidades\chef\{chefAppService, chefDTO};
-
-
-
 
 class estrellaMichelinHelper {
 
@@ -19,7 +16,7 @@ class estrellaMichelinHelper {
 
         $userAppService = userAppService::GetSingleton();
 
-        $this->user = $userAppService->buscarUsuario($app->getEmail());
+        $this->user = $userAppService->buscarUsuario(new userDTO(null, null, null, $app->getEmail(), null, null, null)); // Buscamos al usuario mediante su email ($app->getEmail());
 
     }
 

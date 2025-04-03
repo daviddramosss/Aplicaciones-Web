@@ -1,7 +1,7 @@
 <?php
 
 namespace es\ucm\fdi\aw\helpers;
-use es\ucm\fdi\aw\entidades\usuario\userAppService;
+use es\ucm\fdi\aw\entidades\usuario\{userAppService, userDTO};
 
 class perfilHelper {
 
@@ -21,7 +21,7 @@ class perfilHelper {
 
         // Obtiene los datos del usuario
         $userAppService = userAppService::GetSingleton();
-        $user = $userAppService->buscarUsuario($email_usuario);
+        $user = $userAppService->buscarUsuario(new userDTO(null, null, null, $email_usuario, null, null, null)); // Buscamos al usuario mediante su email ($email_usuario);
 
         // Verifica si el usuario existe en la base de datos
         if (!$user) {

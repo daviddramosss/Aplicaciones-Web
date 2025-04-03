@@ -14,7 +14,7 @@ class recetaDAO extends baseDAO implements IReceta
     }
 
     // Función privada para buscar una receta en la base de datos por su ID
-    public function buscarReceta($recetaId)
+    public function buscarReceta($recetaDTO)
     {
         // Accede a la base de datos
         $conn = application::getInstance()->getConexionBd();
@@ -26,7 +26,7 @@ class recetaDAO extends baseDAO implements IReceta
         $stmt = $conn->prepare($query);
 
         // Asocia el parámetro de la consulta con el valor del ID
-        $stmt->bind_param("i", $recetaId);
+        $stmt->bind_param("i", $recetaDTO->getId());
 
         // Ejecuta la consulta
         if($stmt->execute())
@@ -144,7 +144,7 @@ class recetaDAO extends baseDAO implements IReceta
     }
 
     // Función pública para eliminar una receta de la base de datos
-    public function borrarReceta($recetaId)
+    public function borrarReceta($recetaDTO)
     {
         $deletedRecetaDTO = false;
 
@@ -159,7 +159,7 @@ class recetaDAO extends baseDAO implements IReceta
 
         // Asocia el parámetro de la consulta con el valor del ID
         //$id = $recetaDTO->getId();
-        $stmt->bind_param("i", $recetaId);
+        $stmt->bind_param("i", $recetaDTO->getId());
 
         // Si la consulta se ejecuta correctamente, retorna el DTO de la receta eliminada
         if ($stmt->execute())

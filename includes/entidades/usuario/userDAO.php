@@ -33,13 +33,13 @@ class userDAO implements IUser
     // Función buscarUsuario
     // Se encarga de buscar un usuario en la base de datos en función de su email
     // Si existe, devuelve el usuario encontrado, en caso contrario, devuelve falso
-    public function buscaUsuario($email)
+    public function buscaUsuario($userDTO)
     {
         // Accede a la base de datos
         $conn = application::getInstance()->getConexionBd();
         
         // busca en la base de datos un usuario con el email pasado por parámetro
-        $query = sprintf("SELECT * FROM usuarios WHERE Email='%s'", $conn->real_escape_string($email));
+        $query = sprintf("SELECT * FROM usuarios WHERE Email='%s'", $conn->real_escape_string($userDTO->getEmail()));
         
         // obtenemos el resultado de la búsqueda
         $rs = $conn->query($query);
@@ -113,7 +113,7 @@ class userDAO implements IUser
         return $createdUserDTO;
     }
 
-    public function buscarUsuarioPorID($userId){
+    public function buscarUsuarioPorID($userDTO){
         $conn = application::getInstance()->getConexionBd();
         
         // busca en la base de datos un usuario con el email pasado por parámetro
@@ -123,7 +123,7 @@ class userDAO implements IUser
         $stmt = $conn->prepare($query);
 
         // Asocia el parámetro de la consulta con el valor del ID
-        $stmt->bind_param("i", $userId); 
+        $stmt->bind_param("i", $userDTO->getId()); 
         
         // Ejecuta la consulta 
         if($stmt->execute())

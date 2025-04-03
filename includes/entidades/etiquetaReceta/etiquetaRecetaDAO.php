@@ -46,7 +46,7 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
     }
 
     // Método para borrar una relación entre una receta y una etiqueta.
-    public function borrarEtiquetaReceta($recetaId)
+    public function borrarEtiquetaReceta($recetaDTO)
     {
         $borrado = false;
 
@@ -60,7 +60,7 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
         $stmt = $conn->prepare($query);
 
         // Asociar los parámetros a la consulta
-        $stmt->bind_param("i", $recetaId);
+        $stmt->bind_param("i", $recetaDTO->getId());
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
@@ -75,7 +75,7 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
     }
 
     // Método para buscar una etiqueta de receta por su ID de receta.
-    public function buscarEtiquetasReceta($recetaId)
+    public function buscarEtiquetasReceta($recetaDTO)
     {
         // Accede a la base de datos
         $conn = application::getInstance()->getConexionBd();
@@ -90,7 +90,7 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
         $stmt = $conn->prepare($query);
     
         // Asocia el parámetro de la consulta con el valor del ID de la receta
-        $stmt->bind_param("i", $recetaId);
+        $stmt->bind_param("i", $recetaDTO->getId());
     
         // Ejecuta la consulta
         if ($stmt->execute()) 

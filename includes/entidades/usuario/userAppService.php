@@ -44,19 +44,19 @@ class userAppService
     }
 
     // función mediante la cual accedemos a la lógica detrás de la función que busca al usuario en la base de datos por su email
-    public function buscarUsuario($email)
+    public function buscarUsuario($userDTO)
     {
         $IUserDAO = userFactory::CreateUser();
-        $foundedUserDTO = $IUserDAO->buscaUsuario($email);
+        $foundedUserDTO = $IUserDAO->buscaUsuario($userDTO);
         if($foundedUserDTO){
             return $foundedUserDTO;
         }
         return false;
     }
 
-    public function buscarUsuarioPorID($userId){
+    public function buscarUsuarioPorID($userDTO){
         $IUserDAO = userFactory::CreateUser();
-        return $IUserDAO->buscarUsuarioPorID($userId);
+        return $IUserDAO->buscarUsuarioPorID($userDTO);
     }
    
 }

@@ -22,7 +22,6 @@ class buscarFormulario extends formularioBase
         $precioMin = $datos['precioMin'] ?? 0;
         $precioMax = $datos['precioMax'] ?? 100;
         $valoracion = $datos['valoracion'] ?? 0;
-        $etiquetas = $datos['etiquetas'] ?? '';
         // Generación del HTML para el formulario
         $html = <<<EOF
             <!-- Sidebar con los filtros -->
