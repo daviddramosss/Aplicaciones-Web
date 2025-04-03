@@ -3,7 +3,7 @@
 namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
-use es\ucm\fdi\aw\entidades\usuario\{userAppService};
+use es\ucm\fdi\aw\entidades\usuario\{userAppService, userDTO};
 use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService};
 use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService};
 
@@ -20,7 +20,7 @@ class mostrarRecetaHelper
         $this->recetaDTO = $recetaService->buscarRecetaPorId(new RecetaDTO($recetaId, null, null, null, null, null, null, null, null, null));
         
         $usuarioService = userAppService::GetSingleton();
-        $this->autor = $usuarioService->buscarUsuarioPorID($this->recetaDTO->getAutor());
+        $this->autor = $usuarioService->buscarUsuarioPorID(new userDTO($this->recetaDTO->getAutor(), null, null, null, null, null, null));
 
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
         $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($this->recetaDTO, 'nombres');

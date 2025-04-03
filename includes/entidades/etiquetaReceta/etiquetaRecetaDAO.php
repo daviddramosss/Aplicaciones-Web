@@ -90,7 +90,8 @@ class etiquetaRecetaDAO extends baseDAO implements IEtiquetaReceta
         $stmt = $conn->prepare($query);
     
         // Asocia el parámetro de la consulta con el valor del ID de la receta
-        $stmt->bind_param("i", $recetaDTO->getId());
+        $id = $recetaDTO->getId();
+        $stmt->bind_param("i", $id);
     
         // Ejecuta la consulta
         if ($stmt->execute()) 

@@ -123,7 +123,8 @@ class userDAO implements IUser
         $stmt = $conn->prepare($query);
 
         // Asocia el parámetro de la consulta con el valor del ID
-        $stmt->bind_param("i", $userDTO->getId()); 
+        $id = $userDTO->getId();
+        $stmt->bind_param("i", $id); 
         
         // Ejecuta la consulta 
         if($stmt->execute())
