@@ -7,10 +7,6 @@
     min-height: 100vh;
 }
 
-body::-webkit-scrollbar {
-    display: none;
-}
-
 
 /* #region CABECERA */
 .plantilla_cabecera{
@@ -157,6 +153,10 @@ body {
     text-align: center;
     color: #333;
     margin: 0;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 h1 {
@@ -507,13 +507,10 @@ form#buscarFormulario {
 }
 
 /* Estilos generales */
-.sidebar_buscar h2 {
-    font-size: 22px;
-    margin-bottom: 15px;
-    color: #444;
-    text-align: center;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
+
+hr {
+    border-top: 1px solid black;
+    margin: 1vh 0;
 }
 
 .sidebar_buscar label {
@@ -618,33 +615,18 @@ form#buscarFormulario {
 
 /* #region SOBRE NOSOTROS*/
 
-    section{
-        display: flex;
-        flex-direction: row;
-        align-items: stretch; /* Hace que los hijos tengan la misma altura */
-        justify-content: center;
-        margin: 0 auto;
-        flex-wrap: wrap;
-        overflow: hidden;
-    }
-
     .sobre_nosotros_equipo, .sobre_nosotros_enlaces, .sobre_nosotros_imagen, .sobre_nosotros_info{
         flex: 1; /* Los hijos se expanden para ocupar el espacio disponible */
         display: flex;
         align-items: center; /* Centra el texto verticalmente */
         padding: 20px;
-        justify-content: center;
-    }
-
-    .sobre_nosotros_equipo{
-        background: rgb(192, 190, 190);
+        justify-content: space-between;
     }
 
     .sobre_nosotros_enlaces{
         flex-direction: column;
         flex-wrap: wrap;
         gap: 10px;
-        background: rgb(231, 229, 229);
         min-width: fit-content;
     }
 
@@ -653,14 +635,6 @@ form#buscarFormulario {
         color: #333;
         font-weight: bold;
     }   
-
-    .sobre_nosotros_imagen{
-        max-width: 20%;
-        min-width: fit-content;
-    }
-
-    .sobre_nosotros_info{
-        flex-direction: column;
-        max-width: 30%;
-    }
+    
 /* #endregion */
+

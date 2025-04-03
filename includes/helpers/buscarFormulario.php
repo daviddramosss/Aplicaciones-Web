@@ -28,7 +28,7 @@ class buscarFormulario extends formularioBase
             <!-- Sidebar con los filtros -->
             <aside class="sidebar_buscar">
                     <h2>Filtros de búsqueda</h2>
-
+                    <hr>
                     <!-- Campo de búsqueda -->
                     <label for="buscarPlato">Nombre del plato:</label>
                     <input type="text" id="buscarPlato" name="buscarPlato" placeholder="Ej: Pizza margarita" value="$buscarPlato">
