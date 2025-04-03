@@ -605,42 +605,43 @@ form#buscarFormulario {
 
 /* #region SOBRE NOSOTROS*/
 
-.sobre_nosotros{
+section{
     display: flex;
     flex-direction: row;
     align-items: stretch; /* Hace que los hijos tengan la misma altura */
-    width: 100%;
-    flex-wrap: wrap;
     justify-content: center;
-    border-radius: 15%;
+    margin: 10px auto;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+.sobre_nosotros_equipo, .sobre_nosotros_enlaces, .sobre_nosotros_imagen{
+    flex: 1; /* Los hijos se expanden para ocupar el espacio disponible */
+    display: flex;
+    align-items: center; /* Centra el texto verticalmente */
+    padding: 10px;
+    justify-content: center;
 }
 
 .sobre_nosotros_equipo{
-
-    display: flex;
-    align-items: center; /* Centra el texto verticalmente */
-    justify-content: center;
     background: rgb(192, 190, 190);
-    padding: 10px;
 }
 
 .sobre_nosotros_enlaces{
-    display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
     gap: 10px;
-    padding: 10px;
     background: rgb(231, 229, 229);
+    min-width: 50%;
 }
 
 .sobre_nosotros_enlaces a{
     text-decoration: none;
     color: #333;
     font-weight: bold;
-    flex: 1;    
 }
 
+.sobre_nosotros_imagen{
 
+}
 /* #endregion */
