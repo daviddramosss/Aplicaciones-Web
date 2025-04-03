@@ -19,6 +19,7 @@ section{
     justify-content: center;
     margin: 0 auto;
     overflow: hidden;
+    gap: 5vh;
 }
 
 .sobre_nosotros_imagen{
