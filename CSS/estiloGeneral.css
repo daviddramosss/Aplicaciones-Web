@@ -605,43 +605,49 @@ form#buscarFormulario {
 
 /* #region SOBRE NOSOTROS*/
 
-section{
-    display: flex;
-    flex-direction: row;
-    align-items: stretch; /* Hace que los hijos tengan la misma altura */
-    justify-content: center;
-    margin: 10px auto;
-    flex-wrap: wrap;
-    overflow: hidden;
-}
+    section{
+        display: flex;
+        flex-direction: row;
+        align-items: stretch; /* Hace que los hijos tengan la misma altura */
+        justify-content: center;
+        margin: 10px auto;
+        flex-wrap: wrap;
+        overflow: hidden;
+    }
 
-.sobre_nosotros_equipo, .sobre_nosotros_enlaces, .sobre_nosotros_imagen{
-    flex: 1; /* Los hijos se expanden para ocupar el espacio disponible */
-    display: flex;
-    align-items: center; /* Centra el texto verticalmente */
-    padding: 10px;
-    justify-content: center;
-}
+    .sobre_nosotros_equipo, .sobre_nosotros_enlaces, .sobre_nosotros_imagen, .sobre_nosotros_info{
+        flex: 1; /* Los hijos se expanden para ocupar el espacio disponible */
+        display: flex;
+        align-items: center; /* Centra el texto verticalmente */
+        padding: 20px;
+        justify-content: center;
+    }
 
-.sobre_nosotros_equipo{
-    background: rgb(192, 190, 190);
-}
+    .sobre_nosotros_equipo{
+        background: rgb(192, 190, 190);
+    }
 
-.sobre_nosotros_enlaces{
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 10px;
-    background: rgb(231, 229, 229);
-    min-width: 50%;
-}
+    .sobre_nosotros_enlaces{
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 10px;
+        background: rgb(231, 229, 229);
+        min-width: fit-content;
+    }
 
-.sobre_nosotros_enlaces a{
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
+    .sobre_nosotros_enlaces a{
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }   
 
-.sobre_nosotros_imagen{
+    .sobre_nosotros_imagen{
+        max-width: 20%;
+        min-width: fit-content;
+    }
 
-}
+    .sobre_nosotros_info{
+        flex-direction: column;
+        max-width: 30%;
+    }
 /* #endregion */
