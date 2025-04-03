@@ -5,7 +5,6 @@ namespace es\ucm\fdi\aw\entidades\ingredienteReceta;
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
 
-
 // Clase que maneja la persistencia de los ingredientes de una receta
 class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
 {
@@ -52,7 +51,7 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
     public function borrarIngredienteReceta($recetaId)
     {
         $borrado = false;
-        
+
         // Obtener la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
@@ -76,17 +75,21 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
         return $borrado;     
     }
 
-    public function buscarIngredienteReceta($recetaId)
+    public function buscarIngredienteReceta($recetaId, $criterio)
     {
         // Accede a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
-        // Prepara la consulta SQL para obtener los ingredientes de la receta
-        $query = "SELECT i.Nombre, ri.Cantidad, m.Nombre, i.ID, ri.Magnitud
+        $ordenamiento = [
+            'ids' => "SELECT Ingrediente, Cantidad, Magnitud FROM receta_ingrediente WHERE Receta = ?",
+            'nombres' => "SELECT i.Nombre AS Ingrediente, ri.Cantidad AS Cantidad, m.Nombre AS Magnitud
                 FROM receta_ingrediente ri
                 JOIN ingredientes i ON ri.Ingrediente = i.ID
                 JOIN magnitudes m ON ri.Magnitud = m.ID
-                WHERE ri.Receta = ?";
+                WHERE ri.Receta = ?"
+        ];
+
+        $query = $ordenamiento[$criterio] ?? $ordenamiento['ids'];
 
         // Prepara la declaración SQL
         $stmt = $conn->prepare($query);
@@ -97,25 +100,21 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
         // Ejecuta la consulta
         if ($stmt->execute()) 
         {
-            // Declara las variables donde se almacenarán los resultados
-            $ingrediente = $cantidad = $magnitud = $id = $id_Magnitud = null;
-
-            // Asocia las columnas de la consulta con las variables PHP
-            $stmt->bind_result($ingrediente, $cantidad, $magnitud, $id, $id_Magnitud);
-
             // Array donde se almacenarán los ingredientes
+            $result = $stmt->get_result();
             $ingredientes = [];
 
             // Recorre los resultados y los guarda en el array
-            while ($stmt->fetch()) 
+            if ($result->num_rows > 0)  
             {
-                $ingredientes[] = [
-                    "Ingrediente" => $ingrediente,
-                    "Cantidad" => $cantidad,
-                    "Magnitud" => $magnitud,
-                    "ID" => $id,
-                    "ID_Magnitud" => $id_Magnitud
-                ];
+                while ($row = $result->fetch_assoc()) {
+                    $ingredientes[] = new ingredienteRecetaDTO(
+                        null,
+                        $row["Ingrediente"],
+                        $row["Cantidad"],
+                        $row["Magnitud"]
+                    );
+                }
             }
 
             // Cierra la declaración

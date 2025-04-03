@@ -1,10 +1,10 @@
 <?php
-//ESQUELETO E IMPLEMENTACION INICIAL. TIENE FALLOS
+
 namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
-use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService, ingredienteRecetaDTO};
-use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRecetaDTO};
+use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService};
+use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService};
 use es\ucm\fdi\aw\comun\formularioBase;
 use es\ucm\fdi\aw\application;
 
@@ -20,9 +20,6 @@ class editarRecetaForm extends formularioBase
     // Constructor: Recibe el ID de la receta a editar y carga sus datos
     public function __construct($recetaId) 
     {
-       // parent::__construct('editarRecetaForm');
-
-        
         // Obtener instancia del servicio de recetas
         $recetaService = recetaAppService::GetSingleton();
         
@@ -31,7 +28,7 @@ class editarRecetaForm extends formularioBase
 
         //Hago lo mismo para obtener los ingredientes y las etiquetas
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId);
+        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId, 'ids');
     
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
         $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($recetaId);
@@ -45,28 +42,13 @@ class editarRecetaForm extends formularioBase
      
         $nombre = $this->receta->getNombre();
         $descripcion = $this->receta->getDescripcion();
-        $rutaImagen = "img/receta/" . htmlspecialchars($this->receta->getRuta());
-        //$ingredientes = DAOIngrediente::buscarPorReceta($this->receta->getId());
-     
+        $rutaImagen = "img/receta/" . htmlspecialchars($this->receta->getRuta());     
         $precio = $this->receta->getPrecio();
         $tiempo = $this->receta->getTiempo();
 
-        /*
-        $pasos = json_decode($this->receta->getPasos(), true); // Decodificar JSON
-        $pasosJSON = json_encode($pasos); // Convertir a JSON para JavaScript 
-        $html = <<<EOF
-            <script>
-                let pasosGuardados = $pasosJSON;
-            </script>
-                                   
-        EOF;
-        */
-
-        //Añadido por Antonio
+        //Rellenamos los pasos de la receta
         $pasos = $this->receta->getPasos();
-        $pasos = json_decode($pasos, true); // Convertir JSON en array
-
-       
+        $pasos = json_decode($pasos, true); // Convertir JSON en array       
 
         $stepsHtml = '';
         foreach ($pasos as $index => $paso) {
@@ -74,15 +56,14 @@ class editarRecetaForm extends formularioBase
             $stepsHtml .= "<p class='step-item'><label>Paso " . ($index + 1) . ":</label> <textarea name='steps[]' required>$pasoSanitizado</textarea></p>";
         }    
 
-
         //Rellenamos los ingredientes de la receta
         $ingredientesArray = array_map(function($ingrediente) {
             return [
-                'id' => $ingrediente['ID'],  // Convertimos "ID" a "id"
-                'nombre' => $ingrediente['Ingrediente'], // Convertimos "Ingrediente" a "nombre"
-                'cantidad' => $ingrediente['Cantidad'], // Ya coincide
-                'magnitud' => $ingrediente['Magnitud'], // Ya coincide
-                'id_magnitud' => $ingrediente['ID_Magnitud']
+                'id' => $ingrediente->getIngrediente(),  // Convertimos "ID" a "id"
+                //'nombre' => $ingrediente['Ingrediente'], // Convertimos "Ingrediente" a "nombre"
+                'cantidad' => $ingrediente->getCantidad(), // Ya coincide
+                //'magnitud' => $ingrediente['Magnitud'], // Ya coincide
+                'id_magnitud' => $ingrediente->getMagnitud()
             ];
         }, $this->ingredientes);        
         $ingredientesJSON = json_encode($ingredientesArray);

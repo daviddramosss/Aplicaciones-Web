@@ -56,7 +56,7 @@ class recetaAppService
         //Guardamos los ingredientes modificados
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton(); 
         //obtengo la lista de los ingredientes asociados a dicha receta. Comprobado que esta bien
-        $ingredientesExistentes = $ingredienteRecetaService->buscarIngredienteReceta($editedId);
+        $ingredientesExistentes = $ingredienteRecetaService->buscarIngredienteReceta($editedId, 'ids');
 
         //BORRADOR------------------------------------------------------------------------
         $ingredienteRecetaService->borrarIngredienteReceta($editedId);
@@ -84,7 +84,7 @@ class recetaAppService
                 // Verifica si el ingrediente ya existe
                 $ingredienteExistente = false;
                 foreach ($ingredientesExistentes as $ingredienteExistenteData) {
-                    if ($ingredienteExistenteData['Ingrediente'] == $ingredienteId) {
+                    if ($ingredienteExistenteData->getIngrediente() == $ingredienteId) {
                         $ingredienteExistente = true;
                         break;
                     }

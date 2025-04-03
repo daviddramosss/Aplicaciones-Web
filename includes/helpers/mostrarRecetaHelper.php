@@ -23,7 +23,7 @@ class mostrarRecetaHelper
         $this->autor = $usuarioService->buscarUsuarioPorID($this->receta->getAutor());
 
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId);
+        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta($recetaId, 'nombres');
     
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
         $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($recetaId);
@@ -84,9 +84,9 @@ class mostrarRecetaHelper
             $html .= <<<HTML
                 <div class="receta-ingrediente-card">                    
                     <p>
-                        {$ingrediente['Ingrediente']}:
-                        {$ingrediente['Cantidad']} 
-                        {$ingrediente['Magnitud']}
+                        {$ingrediente->getIngrediente()}:
+                        {$ingrediente->getCantidad()} 
+                        {$ingrediente->getMagnitud()}
                     </p>
                 </div>
             HTML;
