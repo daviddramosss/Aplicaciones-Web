@@ -144,7 +144,8 @@ class editarRecetaForm extends formularioBase
             <p>
                 <button type="button" class="send-button" onclick="location.href='index.php'">CANCELAR</button>
                 <button type="submit" class="send-button" name="guardar">GUARDAR</button>
-                <button type="submit" class="send-button" name="eliminar" formaction="borrarReceta.php">BORRAR RECETA</button>
+                <button type="submit" class="send-button" name="borrar">BORRAR RECETA</button>
+
             </p>
 
             <!-- Mandamos los ingredientes y las etiquetas al JavaScript para que lo rellene -->
@@ -165,6 +166,11 @@ class editarRecetaForm extends formularioBase
     // Método que maneja el procesamiento de la edición al enviar el formulario
     protected function Process($datos)
     {
+        if (isset($datos['borrar'])) { // Si el formulario se envió con el botón "borrar"
+            $id = intval($datos['id'] ?? 0);
+            return $this->borrar($id);
+        }
+
         $result = array();
     
         // Obtener instancia del servicio de recetas
@@ -294,5 +300,24 @@ class editarRecetaForm extends formularioBase
         }
     
         return $nombreImagen; // Devolver el nombre de la imagen guardada
+    }
+
+    public function borrar($id) 
+    {   
+        //Borramos entrada de receta-ingrediente asociada a dicha receta
+        $recetaIngredienteService = ingredienteRecetaAppService::GetSingleton();
+        $recetaIngredienteService->borrarIngredienteReceta($id);
+
+        //Borramos entrada de receta-etiqueta asociada a dicha receta
+        $recetaEtiquetaService = etiquetaRecetaAppService::GetSingleton();
+        $recetaEtiquetaService->borrarEtiquetaReceta($id);
+
+        // Lógica para borrar la receta
+        $recetaService = recetaAppService::GetSingleton(); // Asegúrate de instanciar tu servicio de recetas
+        $resultado = $recetaService->borrarReceta($id); // Llama al método para borrar la receta
+
+        // Redirigir tras borrar
+        header("Location: confirmacionRecetaBorrada.php");
+        exit();
     }
 }
