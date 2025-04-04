@@ -584,7 +584,10 @@ CREATE TABLE `ingredientes` (
         -- Bebidas y Otros
         ("Vino blanco"),   -- 111
         ("Vino tinto"),    -- 112
-        ("Cerveza");       -- 113
+        ("Cerveza"),       -- 113
+
+        -- Otros
+        ("Calabaza");      -- 114
 
 
 -- Tabla Valoraciones
@@ -769,7 +772,7 @@ INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES
     (15, 6, 1.0, 5),     -- Sal (cucharada)
 
     -- Crema de Calabaza (ID Receta: 16)
-    (16, 69, 500.0, 1),  -- Calabaza (g)
+    (16, 114, 500.0, 1),  -- Calabaza (g)
     (16, 55, 1.0, 6),    -- Cebolla (unidad)
     (16, 56, 2.0, 6),    -- Ajo (unidad)
     (16, 24, 250.0, 3),  -- Caldo (ml)
