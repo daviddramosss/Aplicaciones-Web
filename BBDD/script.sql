@@ -349,7 +349,85 @@ VALUES
     19.0, 
     '2022-01-05 17:50:55',
     4.7, 
-    'moussaka.jpg');
+    'moussaka.jpg'),
+
+     ('Crema de Calabaza', 
+    3, 
+    'Sopa cremosa de calabaza con especias.', 
+    '[
+        "Pelar y cortar la calabaza en trozos.",
+        "Sofreír cebolla y ajo en una olla.",
+        "Añadir la calabaza y cubrir con caldo.",
+        "Cocinar hasta que la calabaza esté tierna.",
+        "Licuar y servir caliente con crema."
+    ]', 
+    30, 
+    12.0, 
+    '2023-10-15 12:00:00',  
+    85,  
+    'crema_de_calabaza.jpg'),
+
+    
+    ('Pasta al Pesto', 
+    4,
+    'Pasta con salsa de albahaca y piñones.', 
+    '[
+        "Cocer la pasta en agua con sal.",
+        "Mezclar albahaca, piñones, ajo y aceite en un procesador.",
+        "Escurrir la pasta y mezclar con el pesto.",
+        "Servir con queso parmesano rallado."
+    ]', 
+    20, 
+    10.0, 
+    '2023-10-16 12:00:00',  
+    90,  
+    'pasta_al_pesto.jpeg'),
+
+     ('Tarta de Manzana', 
+    5, 
+    'Tarta dulce de manzana con canela.', 
+    '[
+        "Preparar la masa y forrar un molde.",
+        "Mezclar manzanas con azúcar y canela.",
+        "Rellenar la masa con las manzanas.",
+        "Hornear hasta que esté dorada.",
+        "Dejar enfriar y servir."
+    ]', 
+    60, 
+    15.0, 
+    '2023-10-17 12:00:00',  
+    88,  
+    'tarta_de_manzana.jpg'),
+
+    ('Curry de Garbanzos', 
+    3, 
+    'Garbanzos en salsa de curry con espinacas.', 
+    '[
+        "Sofreír cebolla y ajo en una olla.",
+        "Añadir garbanzos, espinacas y curry.",
+        "Cocinar a fuego lento con leche de coco.",
+        "Servir caliente con arroz."
+    ]', 
+    40, 
+    14.0, 
+    '2023-10-18 12:00:00', 
+    92,  
+    'curry_garbanzos.jpg'),
+
+    ('Salmon a la Plancha', 
+    4, 
+    'Salmon fresco a la plancha con limón.', 
+    '[
+        "Sazonar el salmon con sal y limón.",
+        "Calentar la plancha y cocinar el pescado.",
+        "Servir con ensalada y rodajas de limón."
+    ]', 
+    25, 
+    18.0, 
+    '2023-10-19 12:00:00',  
+    87, 
+    'salmon_plancha.jpg');
+
 
 
 
@@ -688,7 +766,41 @@ INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES
     (15, 69, 300.0, 1),  -- Berenjena (g)
     (15, 31, 200.0, 1),  -- Ternera (g)
     (15, 30, 100.0, 1),  -- Queso (g)
-    (15, 6, 1.0, 5);     -- Sal (cucharada)
+    (15, 6, 1.0, 5),     -- Sal (cucharada)
+
+    -- Crema de Calabaza (ID Receta: 16)
+    (16, 69, 500.0, 1),  -- Calabaza (g)
+    (16, 55, 1.0, 6),    -- Cebolla (unidad)
+    (16, 56, 2.0, 6),    -- Ajo (unidad)
+    (16, 24, 250.0, 3),  -- Caldo (ml)
+    (16, 6, 1.0, 5),     -- Sal (cucharada)
+
+    -- Pasta al Pesto (ID Receta: 17)
+    (17, 22, 250.0, 1),  -- Pasta (g)
+    (17, 18, 50.0, 1),   -- Albahaca (g)
+    (17, 11, 1.0, 5),    -- Aceite de oliva (cucharada)
+    (17, 30, 50.0, 1),   -- Queso (g)
+    (17, 16, 1.0, 6),    -- Ajo (unidad)
+
+    -- Tarta de Manzana (ID Receta: 18)
+    (18, 79, 3.0, 6),    -- Manzana (unidad)
+    (18, 17, 200.0, 1),  -- Harina (g)
+    (18, 10, 100.0, 3),  -- Azúcar (ml)
+    (18, 11, 1.0, 5),    -- Mantequilla (cucharada)
+    (18, 6, 1.0, 5),     -- Sal (cucharada)
+
+    -- Curry de Garbanzos (ID Receta: 19)
+    (19, 75, 300.0, 1),  -- Garbanzos (g)
+    (19, 55, 1.0, 6),    -- Cebolla (unidad)
+    (19, 56, 2.0, 6),    -- Ajo (unidad)
+    (19, 64, 100.0, 1),  -- Espinacas (g)
+    (19, 105, 1.0, 5),   -- Curry (cucharada)
+
+    -- Pescado a la Plancha (ID Receta: 20)
+    (20, 42, 200.0, 1),  -- Pescado (g)
+    (20, 6, 1.0, 5),     -- Sal (cucharada)
+    (20, 60, 1.0, 6),    -- Pimiento rojo (unidad)
+    (20, 65, 1.0, 6);    -- Lechuga (unidad)
 
 
     
@@ -839,7 +951,32 @@ CREATE TABLE `receta_etiqueta` (
         -- Moussaka
         (15, 2),  -- Principal
         (15, 23), -- Mediterránea
-        (15, 11); -- Al horno
+        (15, 11), -- Al horno
+
+        -- Crema de Calabaza (ID Receta: 16)
+        (16, 4),  -- Sopa
+        (16, 2),  -- Principal
+        (16, 32), -- Comida saludable
+
+        -- Pasta al Pesto (ID Receta: 17)
+        (17, 2),  -- Principal
+        (17, 18), -- Italiana
+        (17, 33), -- Fácil
+
+        -- Tarta de Manzana (ID Receta: 18)
+        (18, 3),  -- Postre
+        (18, 6),  -- Tarta
+        (18, 32), -- Comida saludable
+
+        -- Curry de Garbanzos (ID Receta: 19)
+        (19, 2),  -- Principal
+        (19, 7),  -- Vegano
+        (19, 34), -- Media
+
+        -- Pescado a la Plancha (ID Receta: 20)
+        (20, 2),  -- Principal
+        (20, 12), -- A la plancha
+        (20, 34); -- Media
 
 -- Eliminar el usuario 'MarketChef' si ya existe
 DROP USER IF EXISTS 'MarketChef'@'%';
