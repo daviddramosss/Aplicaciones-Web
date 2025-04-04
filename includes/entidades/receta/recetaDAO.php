@@ -298,7 +298,7 @@ class recetaDAO extends baseDAO implements IReceta
             $placeholders = implode(',', array_fill(0, count($etiquetas), '?'));
             
             // Añadimos la condición de etiquetas a la consulta
-            $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE 1 AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($placeholders)) AND ID != $idRecetaActual LIMIT 4";
+            $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE 1 AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($placeholders)) AND ID != $idRecetaActual ORDER BY RAND() LIMIT 4";
             
             foreach ($etiquetas as $etiqueta) {
                 $params[] = $etiqueta->getId();
