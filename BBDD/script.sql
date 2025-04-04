@@ -655,7 +655,43 @@ INSERT INTO receta_ingrediente (Receta, Ingrediente, Cantidad, Magnitud) VALUES
     (10, 83, 3.0, 6),   -- Limón (unidad)
     (10, 55, 1.0, 6),   -- Cebolla (unidad)
     (10, 102, 1.0, 5),  -- Cilantro (cucharada)
-    (10, 6, 1.0, 5);    -- Sal (cucharada)
+    (10, 6, 1.0, 5),    -- Sal (cucharada)
+
+    -- Risotto de Champiñones (ID Receta: 11)
+    (11, 63, 200.0, 1),  -- Champiñones (g)
+    (11, 24, 500.0, 3),  -- Caldo (ml)
+    (11, 27, 50.0, 1),   -- Mantequilla (g)
+    (11, 30, 100.0, 1),  -- Queso (g)
+    (11, 56, 1.0, 6),    -- Ajo (unidad)
+    (11, 6, 1.0, 5),     -- Sal (cucharada)
+
+    -- Papas a la Huancaína (ID Receta: 12)
+    (12, 59, 500.0, 1),  -- Patata (g)
+    (12, 10, 100.0, 3),  -- Miel (ml)
+    (12, 72, 1.0, 6),    -- Aguacate (unidad)
+    (12, 11, 1.0, 5),    -- Mostaza (cucharada)
+
+    -- Goulash Húngaro (ID Receta: 13)
+    (13, 31, 300.0, 1),  -- Ternera (g)
+    (13, 55, 1.0, 6),    -- Cebolla (unidad)
+    (13, 56, 2.0, 6),    -- Ajo (unidad)
+    (13, 57, 3.0, 6),    -- Tomate (unidad)
+    (13, 6, 1.0, 5),     -- Sal (cucharada)
+
+     -- Sopa de Tomate (ID Receta: 14)
+    (14, 57, 500.0, 3),  -- Tomate (ml)
+    (14, 55, 1.0, 6),    -- Cebolla (unidad)
+    (14, 24, 250.0, 3),  -- Leche (ml)
+    (14, 6, 1.0, 5),     -- Sal (cucharada)
+
+       -- Moussaka (ID Receta: 15)
+    (15, 69, 300.0, 1),  -- Berenjena (g)
+    (15, 31, 200.0, 1),  -- Ternera (g)
+    (15, 30, 100.0, 1),  -- Queso (g)
+    (15, 6, 1.0, 5);     -- Sal (cucharada)
+
+
+    
 
 
 -- Tabla Etiquetas
