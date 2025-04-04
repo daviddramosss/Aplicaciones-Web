@@ -1,5 +1,5 @@
 /*Estilo General de MarketChef*/
-
+/*Agrupa todo el contenido de la plantilla; cabecera, contenidoPrincipal, pie*/
 .contenido_plantilla{ 
     display: flex;
     flex-direction: column;
@@ -9,18 +9,21 @@
 
 
 /* #region CABECERA */
+/*Contenedor de la cabecera en plantilla*/
 .plantilla_cabecera{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
 }
 
+/*Contiene los primeros tres iconos; Info, Buscar, Admin*/
 .container_infosearch{
     display: flex;
     flex-direction: row;
     gap: 20%;
 }
 
+/*Contiene el titulo de la cabecera con el logo*/
 .container_titulo{
     display: flex;
     flex-direction: row;
@@ -28,54 +31,56 @@
 
 }
 
+/*Contiene los ultimos tres iconos; EstrellaMichelin, Carrito, Usuario*/
 .container_users{
     display: flex;
     flex-direction: row;
     gap: 20%;
 }
 
+/*Imagen del logo*/
 .logo_cabecera img {
     height: 50px; /* Tamaño reducido */
     display: block;
 }
 
+/*Imagen del boton de info*/
 .boton_ayuda_cabecera img{
     height: 30px; /* Tamaño reducido */
     display: block;
 }
 
-
+/*Imagen del boton de buscar*/
 .lupa_cabecera img{
     height: 30px; /* Tamaño reducido */
     display: block;
 }
 
-
+/*Desplegable del contenido administrativo - NO IMPLEMENTADO (parte de Nicolas)*/
 .admin_desplegable_cabecera img {
     height: 30px;
     display: block;
 }
 
-
+/*Imagen del boton de Estrella Michelin*/
 .estrella_cabecera img{
     height: 30px; /* Tamaño reducido */
     display: block;
 }
 
-
+/*Imagen del boton de carrito - NO IMPLEMENTADO EN ESTA ENTREGA*/
 .carrito_cabecera img {
     height: 31px; /* Tamaño reducido */
     display: block;
 }
 
+/*Desplegable de usuario; Mi perfil, Cerrar Sesión, etc*/
 .usuario_desplegable_cabecera img {
     height: 31px; /* Tamaño reducido */
     display: block;
 }
 
-
-/* Estilos del menú desplegable */
-
+/* Estilos del menú desplegable de usuario */
 .menu_usuario {
     position: fixed;
     right: 0.5%;
@@ -90,7 +95,7 @@
     z-index: 100;
 }
 
-/* Estilo para los enlaces dentro del menú */
+/* Estilo para los enlaces dentro del menú de usuario */
 .menu_usuario a {
     padding: 10px;
     text-decoration: none;
@@ -103,6 +108,7 @@
     background-color: #f6f6ae;
 }
 
+/*Estilo para el despleagable del admin*/
 .menu_admin {
     position: fixed;
     left: 8%;
@@ -117,7 +123,7 @@
     z-index: 100;
 }
 
-/* Estilo para los enlaces dentro del menú */
+/* Estilo para los enlaces dentro del menú de admin*/
 .menu_admin a {
     padding: 10px;
     text-decoration: none;
