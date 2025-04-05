@@ -27,7 +27,7 @@ class IngredienteRecetaAppService
     // Método para crear un ingrediente en una receta
     public function crearIngredienteReceta($ingredienteRecetaDTO)
     {
-        $IIngredienteRecetaDAO = IngredienteRecetaFactory::CreateIngredienteReceta();
+        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
 
         $createdIngredienteRecetaDTO = $IIngredienteRecetaDAO->crearIngredienteReceta($ingredienteRecetaDTO);
     
@@ -37,7 +37,7 @@ class IngredienteRecetaAppService
     // Método para eliminar un ingrediente de una receta
     public function borrarIngredienteReceta($recetaDTO)
     {
-        $IIngredienteRecetaDAO = IngredienteRecetaFactory::CreateIngredienteReceta();
+        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
 
         $deletedIngredienteRecetaDTO = $IIngredienteRecetaDAO->borrarIngredienteReceta($recetaDTO);
     
@@ -47,7 +47,7 @@ class IngredienteRecetaAppService
 
     public function buscarIngredienteReceta($recetaDTO, $criterio)
     {
-        $IIngredienteRecetaDAO = IngredienteRecetaFactory::CreateIngredienteReceta();
+        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
 
         return $IIngredienteRecetaDAO->buscarIngredienteReceta($recetaDTO, $criterio);
     }
