@@ -1,4 +1,5 @@
 /*Estilo General de MarketChef*/
+
 /*Agrupa todo el contenido de la plantilla; cabecera, contenidoPrincipal, pie*/
 .contenido_plantilla{ 
     display: flex;
@@ -138,7 +139,7 @@
 
 /* #endregion */
 
-/* #region GENERAL */
+/* #region CONTENIDOPRINCIPAL */
 
 .contenido_principal {
     display: flex;
@@ -146,52 +147,42 @@
     flex:1;
 }
 
+/* #region INDEX */
+
 /*Video que aparece en el index*/
 video#videoPrincipal{
-        width: 100vw; /* Ocupa todo el ancho de la ventana */
-        height: 40vh; 
-        object-fit: cover; /* Recorta y ajusta la imagen sin deformarla */
-        object-position: center; /* Centra la imagen */
-        display: block; /* Evita espacios extra */
+    width: 100vw; /* Ocupa todo el ancho de la ventana */
+    height: 40vh; 
+    object-fit: cover; /* Recorta y ajusta la imagen sin deformarla */
+    object-position: center; /* Centra la imagen */
+    display: block; /* Evita espacios extra */
 }
 
-/*Principal*/
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    color: #333;
-    margin: 0;
+/* Contenedor de la libreria Swiper */
+.swiper-container-wrapper {
+    position: relative;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 5vh;
 }
 
-/*Elimina el visual de la barra de scroll*/
-body::-webkit-scrollbar {
-    display: none;
+/* Contiene el carrusel que muestra las recetas */
+.swiper-container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden; /* Oculta los elementos que no deben mostrarse */
+    flex-wrap: wrap;
+    
+}
+ /*Añade una separacion de los controles (puntos bajo el carrusel)*/
+.swiper-controls {
+    padding-top: 20px;
 }
 
-/*Encabezados h1*/
-h1 {
-    font-size: 2em; /*Unidad relativa; 200% del tamaño de fuente del padre*/
-    margin-top: 20px;
-}
+/* #endregion */
 
-/*Encabezados h2*/
-h2 {
-    font-size: 1,3em;
-}
-
-/*Estilo de parrafo comun*/
-p {
-    color: #666;
-}
-
-
-.container {
-    margin: 50px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+/* #region FORMULARIOS */
 
 /*Estilo comun para formularios*/
 form {
@@ -237,8 +228,6 @@ textarea {
 #previewImage{
     max-width: 200px;
 }
-
-
 /* #endregion */
 
 /* #region INGREDIENTES */
@@ -273,17 +262,16 @@ textarea {
     height: 20px;
 }
 
+/*Estilos unicos para mostrar el apartado de ingredientes*/
 .ingrediente-label {
     white-space: nowrap; /* Evita que el nombre del ingrediente se divida en varias líneas */
 }
-
 .ingrediente-cantidad {
     height: 35px; /* Mantiene altura uniforme */
     width: 100%; /* Se expande dentro del grid */
     padding: 5px;
     font-size: 16px;
 }
-
 .ingrediente-magnitud {
     height: 35px; /* Igual altura que el input de cantidad */
     width: 100%; /* Se expande dentro del grid */
@@ -309,7 +297,8 @@ textarea {
     flex-wrap: wrap;
     gap: 10px;
 }
-
+/*Estilos unicos para mostrar las etiquetas*/
+/*Sus ids son empleados en javaScript*/
 .tag {
     display: inline-block;
     padding: 8px 12px;
@@ -333,51 +322,11 @@ textarea {
 }
 /* #endregion */
 
-/* #region PIE */
+/* #region RECETAS */
 
-/*Contenedor del pie en plantilla*/
-.plantilla_pie{
-    clear: both;
-	color: white;
-	text-align: center;
-}
-/*Contenedor principal del pie*/
-footer {
-    padding: 10px 0;
-	background-color: #222;
-    width: 100%;
-}
-
-.container_footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.footer_links{
-    display: flex;
-    flex-direction: row;
-}
-
-.footer_links a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-}
-
-.footer_links a:hover {
-    text-decoration: underline;
-}
-
-p#copy {
-    font-size: 12px;
-}
-
-/* #endregion */
-
-/* #region PRUEBAS DE ANTONIO */
-
-/* Información para mostrar las recetas todo modificable */
+/* Contenedor de recetas */
+/* A diferencia del .container, este muestra las recetas y las ajusta
+a la pantalla (wrap). Tampoco tiene un borde ni sombra; ver Buscar como ejemplo */
 .recetas-container {
     display: flex;
     flex-wrap: wrap;
@@ -386,11 +335,16 @@ p#copy {
 
 }
 
+/* Delimita el espacio que ocupara la imagen de la receta que contiene */
+/* Tamaño fijo establecido en pixeles, para que el tamaño de la pantalla no afecte
+al tamaño de la imagen, sino que se modifique el numero de recetas que se muestran por fila */
 .receta-card {
     width: 200px;
     text-align: center;
 }
 
+
+/* Estilo de la imagen que se muestra */
 .receta-imagen {
     width: 100%; /* Para que ocupe todo el ancho de la tarjeta */
     height: 150px; /* Altura fija para todas las imágenes */
@@ -400,50 +354,17 @@ p#copy {
     transition: transform 0.3s ease;
 }
 
+/* Animacion cuando se pasa el cursor por encima de la imagen */
 .receta-imagen:hover {
     transform: scale(1.05);
 }
 
+/* <p> modificado para mostrar el titulo de las recetas */
+/* Se usan valore fijos para que sea en concordancia con el tamaño de la imagen,
+que tambien es fija */
 .receta-titulo {
     font-size: 16px;
     font-weight: bold;
-    margin-top: 10px;
-}
-
-
-
-/* Estilo del index */
-
-.swiper-container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden; /* Oculta los elementos que no deben mostrarse */
-    flex-wrap: wrap;
-    
-}
-
-.swiper-container-wrapper {
-    position: relative;
-    align-items: center;
-    width: 90%;
-    margin: auto;
-    margin-bottom: 5vh;
-}
-
-.swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.swiper-controls {
-    padding-top: 20px;
-}
-
-.swiper-button-prev,
-.swiper-button-next {
-    width: 100%;
-    cursor: pointer;
 }
 
 /* Estilo mostrar receta */
@@ -479,9 +400,125 @@ p#copy {
     font-size: 14px;
 }
 
+/* #endregion */
 
+/* #region SOBRE NOSOTROS*/
+
+.sobre_nosotros_equipo, .sobre_nosotros_enlaces, .sobre_nosotros_imagen, .sobre_nosotros_info{
+    flex: 1; /* Los hijos se expanden para ocupar el espacio disponible */
+    display: flex;
+    align-items: center; /* Centra el texto verticalmente */
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.sobre_nosotros_enlaces{
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-width: fit-content;
+}
+
+.sobre_nosotros_enlaces a{
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}   
 
 /* #endregion */
+
+/* #region COMUN */
+/*Principal*/
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #333;
+    margin: 0;
+}
+
+/*Elimina el visual de la barra de scroll*/
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/*Encabezados h1*/
+h1 {
+    font-size: 2em; /*Unidad relativa; 200% del tamaño de fuente del padre*/
+    margin-top: 20px;
+}
+
+/*Encabezados h2*/
+h2 {
+    font-size: 1,3em;
+}
+
+/*Estilo de parrafo comun*/
+p {
+    color: #666;
+}
+
+/*Contenedor comun; tiene una sombra*/
+.container {
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* #endregion
+
+/* #endregion */
+
+/* #endregion */
+
+/* #region PIE */
+
+/*Contenedor del pie en plantilla*/
+.plantilla_pie{
+    clear: both;
+	color: white;
+	text-align: center;
+}
+/*Contenedor principal del pie*/
+footer {
+    padding: 10px 0;
+	background-color: #222;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Contenedor de los links; Sobre nosotros, Contacto, etc*/
+.footer_links{
+    display: flex;
+    flex-direction: row;
+}
+
+/*Estilo del texto de los links*/
+.footer_links a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+/*Efecto subrayado al pasar el cursor*/
+.footer_links a:hover {
+    text-decoration: underline;
+}
+
+/*Texto de copyright*/
+p#copy {
+    font-size: 12px;
+}
+
+/* #endregion */
+
+
+
+
+
 
 /* #region PRUEBAS DE JOSE - BUSCAR */
 
@@ -621,28 +658,4 @@ hr {
 /* #endregion */
 
 
-/* #region SOBRE NOSOTROS*/
-
-    .sobre_nosotros_equipo, .sobre_nosotros_enlaces, .sobre_nosotros_imagen, .sobre_nosotros_info{
-        flex: 1; /* Los hijos se expanden para ocupar el espacio disponible */
-        display: flex;
-        align-items: center; /* Centra el texto verticalmente */
-        padding: 20px;
-        justify-content: space-between;
-    }
-
-    .sobre_nosotros_enlaces{
-        flex-direction: column;
-        flex-wrap: wrap;
-        gap: 10px;
-        min-width: fit-content;
-    }
-
-    .sobre_nosotros_enlaces a{
-        text-decoration: none;
-        color: #333;
-        font-weight: bold;
-    }   
-    
-/* #endregion */
 
