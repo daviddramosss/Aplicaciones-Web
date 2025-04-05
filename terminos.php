@@ -6,7 +6,7 @@ $tituloPagina = 'Términos y Condiciones';
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <h1>Términos y Condiciones</h1>
-    
+    <div class="container">
     <section>
         <h2>1. Introducción</h2>
         <p>Bienvenido a Market Chef. Al utilizar nuestra plataforma, aceptas cumplir con los siguientes términos y condiciones. 
@@ -60,6 +60,7 @@ $contenidoPrincipal = <<<EOS
         Es responsabilidad del usuario revisar periódicamente los términos actualizados. 
         El uso continuado de la plataforma implica la aceptación de los cambios.</p>
     </section>
+    </div>
 EOS;
 
 // Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
