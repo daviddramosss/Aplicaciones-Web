@@ -80,7 +80,7 @@ class userDAO implements IUser
         $rutaUsuario = $conn->real_escape_string($userDTO->getRuta());
 
         // Buscamos primero si existe un usuario con el email del que queremos crear. Si existe, devolvemos false y no lo creamos
-        $foundedUserDTO = $this->buscaUsuario($emailUsuario);
+        $foundedUserDTO = $this->buscaUsuario($userDTO);
         if($foundedUserDTO){
             return false;
         }
@@ -95,10 +95,10 @@ class userDAO implements IUser
             , $rutaUsuario
         );
 
-        $rs = $conn->query($query);
+        $stmt = $conn->prepare($query);
 
         // Si la ejecución del insert se hizo correctamente, cogeremos el id asignado automáticamente por la BBSDD y crearemos el usuario con los datos para devolverlo
-        if ($rs) 
+        if ($stmt->execute()) 
         {
             $idUser = $conn->insert_id;
             
@@ -108,7 +108,7 @@ class userDAO implements IUser
 
         // Cierra la declaración 
         // Usamos solo close, debido a que: Cierra el statement y libera todos los recursos asociados, por lo que usar un free sería innecesario.
-        $rs->close();
+        $stmt->close();
 
         return $createdUserDTO;
     }
