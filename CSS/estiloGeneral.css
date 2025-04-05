@@ -616,19 +616,11 @@ p#copy {
 
 /* #endregion */
 
-
-
-/* #region PRUEBAS DE JOSE - BUSCAR */
-
-
-
-/* Estilos generales */
-
-
-
-
-
 /* #region NO IMPLEMENTADO - SIGUIENTES ACTUALIZACIONES */
+
+/* Contiene el CSS listo para implementarse en la proxima entrega. 
+Es el checkbox para usar la utilidad Mi Despensa a la hora de buscar.
+Se debatira la inclusion de esta funcionalidad dada la complejidad de la practica */ 
 
 /* Alineación de los checkboxes con sus labels */
 .checkbox-container {
@@ -652,9 +644,6 @@ p#copy {
 /* #endregion */
 
 
-
-
-/* #endregion */
 
 
 
