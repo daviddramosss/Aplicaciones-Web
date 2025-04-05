@@ -26,7 +26,7 @@ $contenidoPrincipal = <<<EOS
     </section>
 
     <!-- Información de cada miembro con su imagen, email, rol y aficiones -->
-    
+    <div class="container">
     <section id="miembro1" class="sobre_nosotros_miembro">
         <div class="sobre_nosotros_imagen">
             <p><img src="img/FotoFran.jpg" alt="Foto de Francisco" width="150"></p>
@@ -92,6 +92,7 @@ $contenidoPrincipal = <<<EOS
                 Valoro mucho pasar tiempo con mi familia y amigos, ya que para mí es importante equilibrar el deporte con buenos momentos en compañía.</p>
         </div>
     </section>
+    </div>
 EOS;
 
 // Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
