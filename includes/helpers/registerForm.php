@@ -64,7 +64,7 @@ class registerForm extends formularioBase
             <button type="submit" class="send-button" name="register">REGISTRARSE</button>
 
             <!-- Importación de scripts JavaScript -->
-            <script src="js/register.js"></script>
+            <script src="JS/register.js"></script>
             
         EOF;
         return $html;
