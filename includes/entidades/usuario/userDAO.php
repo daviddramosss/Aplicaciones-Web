@@ -19,7 +19,7 @@ class userDAO implements IUser
     // devuelve al usuario encontrado, en caso contrario, devuelve falso
     public function login($userDTO)
     {
-        $foundedUserDTO = $this->buscaUsuario($userDTO->getEmail());
+        $foundedUserDTO = $this->buscaUsuario($userDTO);
         
         // Comparamos los hashes de las contraseñas
         if ($foundedUserDTO && password_verify($userDTO->getPassword(), $foundedUserDTO->getPassword()))
