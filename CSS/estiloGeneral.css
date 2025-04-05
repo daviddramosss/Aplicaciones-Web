@@ -184,7 +184,6 @@ p {
     color: #666;
 }
 
-
 .container {
     margin: 50px auto;
     padding: 20px;
@@ -273,17 +272,16 @@ textarea {
     height: 20px;
 }
 
+/*Estilos unicos para mostrar el apartado de ingredientes*/
 .ingrediente-label {
     white-space: nowrap; /* Evita que el nombre del ingrediente se divida en varias líneas */
 }
-
 .ingrediente-cantidad {
     height: 35px; /* Mantiene altura uniforme */
     width: 100%; /* Se expande dentro del grid */
     padding: 5px;
     font-size: 16px;
 }
-
 .ingrediente-magnitud {
     height: 35px; /* Igual altura que el input de cantidad */
     width: 100%; /* Se expande dentro del grid */
@@ -309,7 +307,8 @@ textarea {
     flex-wrap: wrap;
     gap: 10px;
 }
-
+/*Estilos unicos para mostrar las etiquetas*/
+/*Sus ids son empleados en javaScript*/
 .tag {
     display: inline-block;
     padding: 8px 12px;
@@ -346,29 +345,30 @@ footer {
     padding: 10px 0;
 	background-color: #222;
     width: 100%;
-}
-
-.container_footer {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/*Contenedor de los links; Sobre nosotros, Contacto, etc*/
 .footer_links{
     display: flex;
     flex-direction: row;
 }
 
+/*Estilo del texto de los links*/
 .footer_links a {
     color: white;
     margin: 0 15px;
     text-decoration: none;
 }
 
+/*Efecto subrayado al pasar el cursor*/
 .footer_links a:hover {
     text-decoration: underline;
 }
 
+/*Texto de copyright*/
 p#copy {
     font-size: 12px;
 }
