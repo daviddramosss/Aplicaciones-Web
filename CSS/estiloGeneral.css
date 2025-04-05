@@ -146,14 +146,16 @@
     flex:1;
 }
 
+/*Video que aparece en el index*/
 video#videoPrincipal{
         width: 100vw; /* Ocupa todo el ancho de la ventana */
-        height: 40vh; /* Ajusta la altura según necesites */
+        height: 40vh; 
         object-fit: cover; /* Recorta y ajusta la imagen sin deformarla */
         object-position: center; /* Centra la imagen */
         display: block; /* Evita espacios extra */
 }
 
+/*Principal*/
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -161,22 +163,27 @@ body {
     margin: 0;
 }
 
+/*Elimina el visual de la barra de scroll*/
 body::-webkit-scrollbar {
     display: none;
 }
 
+/*Encabezados h1*/
 h1 {
-    font-size: 2em;
+    font-size: 2em; /*Unidad relativa; 200% del tamaño de fuente del padre*/
     margin-top: 20px;
 }
 
+/*Encabezados h2*/
 h2 {
     font-size: 1,3em;
 }
 
+/*Estilo de parrafo comun*/
 p {
     color: #666;
 }
+
 
 .container {
     margin: 50px auto;
@@ -186,6 +193,7 @@ p {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/*Estilo comun para formularios*/
 form {
     width: 50%;
     margin: 20px auto;
@@ -194,12 +202,14 @@ form {
     gap: 10px;
 }
 
+/*Estilo comun para contendores de input en formularios*/
 .input-container {
     background: #f5f5f5;
     padding: 10px;
     text-align: left;
 }
 
+/*Estilo comun para formularios*/
 input, textarea, select {
     width: 100%;
     border: none;
@@ -209,11 +219,13 @@ input, textarea, select {
     font-size: 1em;
 }
 
+/*Definicion de textarea */
 textarea {
-    height: 100px;
-    resize: none;
+    min-height: 100px; /*Debe ser de al menos esos pixeles, ver por ejemplo la pagina de Contacto*/
+    resize: none; /*Cuestion estetica*/
 }
 
+/*Estilo comun para botones minimalista*/
 .send-button {
     background: #fff;
     border: 1px solid black;
@@ -221,6 +233,7 @@ textarea {
     cursor: pointer;
 }
 
+/*Imagen de previsualizacion; comun para crearReceta y registerForm*/
 #previewImage{
     max-width: 200px;
 }
@@ -230,6 +243,7 @@ textarea {
 
 /* #region INGREDIENTES */
 /* Contenedor de ingredientes y pasos */
+/*Muy similar a .container, pero estos ids se usan especificamente para su javaScript*/
 #ingredientContainer, #stepsContainer, #tagsContainer {
     background: #eef2f5;
     padding: 10px;
@@ -253,6 +267,7 @@ textarea {
     background-color: #f8f9fa;
 }
 
+/*Seleccionable*/
 .ingrediente-check {
     width: 20px;
     height: 20px;
@@ -320,11 +335,13 @@ textarea {
 
 /* #region PIE */
 
+/*Contenedor del pie en plantilla*/
 .plantilla_pie{
     clear: both;
 	color: white;
 	text-align: center;
 }
+/*Contenedor principal del pie*/
 footer {
     padding: 10px 0;
 	background-color: #222;
