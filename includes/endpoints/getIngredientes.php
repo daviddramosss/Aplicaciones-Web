@@ -8,7 +8,7 @@ use es\ucm\fdi\aw\{application};
     $conn = application::getInstance()->getConexionBd();
 
     // Consulta SQL para obtener los ingredientes
-    $query = "SELECT id, Nombre FROM ingredientes"; // Asegurar que 'id' también se obtiene
+    $query = "SELECT ID, Nombre FROM ingredientes"; // Asegurar que 'id' también se obtiene
 
     // Se prepara la consulta
     $stmt = $conn->prepare($query);
