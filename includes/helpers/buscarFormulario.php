@@ -76,7 +76,7 @@ class buscarFormulario extends formularioBase
                     <input type="hidden" name="etiquetas" id="etiquetasSeleccionadas" value="">
 
                     <!-- Botón de búsqueda -->
-                    <button type="submit">Buscar</button>
+                    <button class="send-button" type="submit">BUSCAR</button>
             </aside>
 
             <!-- Zona de resultados -->

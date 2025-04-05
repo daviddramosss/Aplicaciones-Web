@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    min-height: 100vh;
+    min-height: 100vh; /* Permite ajustar todas las páginas al alto de la pantalla*/
 }
 
 
@@ -184,6 +184,10 @@ video#videoPrincipal{
 
 /* #region FORMULARIOS */
 
+/* #region Formulario COMUN */
+/*Este tipo de formularios es el mas comun en la pagina. Se usa en Contacto, Login,
+Register... */
+
 /*Estilo comun para formularios*/
 form {
     width: 50%;
@@ -228,6 +232,103 @@ textarea {
 #previewImage{
     max-width: 200px;
 }
+
+/* #endregion */
+
+/* #region Formulario BUSCAR */
+/*Estilo de formulario especifico para el Buscar */
+form#buscarFormulario {
+    display: flex;
+    flex-direction: row;
+    width: 100%; 
+    margin: 0 0;
+    gap: 10px;
+}
+
+.sidebar_buscar {
+    flex: 0 0 25vh;  /* No crece ni se encoge, tiene un ancho fijo */
+    background: #f6f6ae;
+    padding: 25px;
+    overflow-y: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* Organiza su contenido en columna */
+}
+
+/* Muestra las recetas resultantes de aplicar la busqueda */
+#resultados_buscar_div {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    margin : 20px;
+    flex: wrap;
+}
+
+/* Ocultar la barra de desplazamiento */
+.sidebar_buscar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Barra negra separadora */
+hr {
+    border-top: 1px solid black;
+    margin: 1vh 0;
+}
+
+.sidebar_buscar label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #333;
+}
+
+/* Inputs de texto y selects */
+.sidebar_buscar input[type="text"],
+.sidebar_buscar select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+}
+
+/* Sliders */
+.sidebar_buscar input[type="range"] {
+    width: 100%;
+    margin-top: 5px;
+    
+}
+
+/* Valor numérico de los sliders */
+.sidebar_buscar label span {
+    font-weight: bold;
+    color: #555;
+}
+
+/* Alineación de las estrellas */
+.valoracion {
+    display: flex;
+    justify-content: center;  /* Centra las estrellas */
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.estrella_buscar {
+    font-size: 22px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.estrella_buscar:hover, 
+.estrella_buscar.seleccionada {
+    color: gold;
+}
+
+.tags_container_buscar{
+    background: #f6f6ae !important;
+}
+
+/* #endregion */
+
 /* #endregion */
 
 /* #region INGREDIENTES */
@@ -519,91 +620,13 @@ p#copy {
 
 /* #region PRUEBAS DE JOSE - BUSCAR */
 
-form#buscarFormulario {
-    display: flex;
-    flex-direction: row;
-    width: 100%; 
-    margin: 0 0;
-    gap: 10px;
-}
 
-.sidebar_buscar {
-    flex: 0 0 25vh;  /* No crece ni se encoge, tiene un ancho fijo */
-    background: #f6f6ae;
-    padding: 25px;
-    overflow-y: auto;
-    height: 100%;
-    display: flex;
-    flex-direction: column; /* Organiza su contenido en columna */
-}
-
-#resultados_buscar_div {
-    flex: 1; /* Ocupa todo el espacio disponible */
-    margin : 20px;
-    flex: wrap;
-}
-
-/* Ocultar la barra de desplazamiento */
-.sidebar_buscar::-webkit-scrollbar {
-    display: none;
-}
 
 /* Estilos generales */
 
-hr {
-    border-top: 1px solid black;
-    margin: 1vh 0;
-}
 
-.sidebar_buscar label {
-    display: block;
-    font-weight: bold;
-    margin-top: 15px;
-    color: #333;
-}
 
-/* Inputs de texto y selects */
-.sidebar_buscar input[type="text"],
-.sidebar_buscar select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #fff;
-}
 
-/* Sliders */
-.sidebar_buscar input[type="range"] {
-    width: 100%;
-    margin-top: 5px;
-    
-}
-
-/* Valor numérico de los sliders */
-.sidebar_buscar label span {
-    font-weight: bold;
-    color: #555;
-}
-
-/* Alineación de las estrellas */
-.valoracion {
-    display: flex;
-    justify-content: center;  /* Centra las estrellas */
-    gap: 5px;
-    margin-top: 10px;
-}
-
-.estrella_buscar {
-    font-size: 22px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.estrella_buscar:hover, 
-.estrella_buscar.seleccionada {
-    color: gold;
-}
 
 /* #region NO IMPLEMENTADO - SIGUIENTES ACTUALIZACIONES */
 
@@ -628,28 +651,7 @@ hr {
 
 /* #endregion */
 
-/* Botón de búsqueda */
-.sidebar_buscar button {
-    width: 100%;
-    padding: 10px;
-    margin-top: auto;
-    background: #ff9800;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
 
-.sidebar_buscar button:hover {
-    background: #e68900;
-}
-
-.tags_container_buscar{
-    background: #f6f6ae !important;
-}
 
 
 /* #endregion */
