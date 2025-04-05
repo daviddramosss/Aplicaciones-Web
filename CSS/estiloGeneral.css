@@ -560,7 +560,7 @@ p {
 
 /*Contenedor comun; tiene una sombra*/
 .container {
-    margin: 50px auto;
+    margin: 25px auto;
     padding: 20px;
     background: white;
     border-radius: 8px;

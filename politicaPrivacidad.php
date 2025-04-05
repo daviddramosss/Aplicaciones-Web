@@ -6,7 +6,7 @@ $tituloPagina = 'Política de Privacidad';
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <h1>Política de Privacidad</h1>
-
+    <div class="container">
     <section>
         <h2>1. Introducción</h2>
         <p>En Market Chef, nos tomamos muy en serio la privacidad de nuestros usuarios. 
@@ -60,6 +60,7 @@ $contenidoPrincipal = <<<EOS
         Te recomendamos leer esta política regularmente para estar informado sobre cualquier cambio. 
         Gracias por confiar en nosotros y ser parte de nuestra comunidad.</p>
     </section>
+    </div>
 EOS;
 
 // Se incluye la plantilla principal, que estructura la página con cabecera, pie y contenido principal
