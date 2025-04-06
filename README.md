@@ -25,7 +25,7 @@ Para más información sobre el contenido, cómo introducir algunas filas y otra
 # VPS
 ## Información
 
-Esta aplicación además de poder usarse en local como esta explicado más arriba, ha sido desplegada en el servidor VPS proporcionado por la universidad, concretamente podemos encontrarla en este enlace: https://vm016-beta.containers.fdi.ucm.es/Marketchef 
+Esta aplicación además de poder usarse en local como esta explicado más arriba, ha sido desplegada en el servidor VPS proporcionado por la universidad, concretamente podemos encontrarla en este enlace: https://vm016.containers.fdi.ucm.es/Marketchef 
 
 ### Guía de despliegue (UCM)
 
