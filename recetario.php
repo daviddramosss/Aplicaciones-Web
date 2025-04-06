@@ -8,7 +8,7 @@ $tituloPagina = 'Market Chef';
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal = <<<EOS
     <!-- Enlace a la hoja de estilos específica para esta página -->
-    <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="CSS/recetario.css">
     
     <h1> Mi recetario </h1>
 
