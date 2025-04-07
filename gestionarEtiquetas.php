@@ -1,61 +1,19 @@
 <?php
-// Incluir el archivo de configuración
 require_once("includes/config.php");
 
-// Importar las clases necesarias para la gestión de etiquetas
-use es\ucm\fdi\aw\entidades\etiquetas\etiquetasDAO;
-use es\ucm\fdi\aw\entidades\etiquetas\etiquetasDTO;
+use es\ucm\fdi\aw\helpers\GestorEtiquetas;
 
-// Añadir el enlace a la hoja de estilos CSS para mejorar la apariencia
+// Cargar estilos y scripts
 echo '<link rel="stylesheet" type="text/css" href="css/gestionesAdmin.css">';
+echo '<script src="JS/gestiones.js"></script>';
 
-// Instanciar el objeto DAO para manejar las etiquetas en la base de datos
-$etiquetasDAO = new etiquetasDAO();
+// Crear instancia del helper y procesar formulario
+$gestor = new GestorEtiquetas();
+$gestor->procesarFormulario();
 
-// Si se solicita eliminar una etiqueta
-if (isset($_POST['eliminar_id'])) {
-    $idEliminar = $_POST['eliminar_id'];
-    $etiquetasDTO = new etiquetasDTO($idEliminar, '');
-    $etiquetasDAO->borrarEtiqueta($etiquetasDTO);
-    header('Location: gestionarEtiquetas.php'); // Evitar el reenvío del formulario
-    exit;
-}
+// Obtener etiquetas para mostrar
+$etiquetas = $gestor->obtenerEtiquetas();
 
-// Si se solicita crear una nueva etiqueta
-if (isset($_POST['crear_nombre'])) {
-    $nombre = trim($_POST['crear_nombre']);
-    if (!empty($nombre)) {
-        $etiquetasDTO = new etiquetasDTO(null, $nombre);
-        try {
-            $etiquetasDAO->crearEtiqueta($etiquetasDTO);
-        } catch (Exception $e) {
-            echo "<p style='color:red;'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
-        }
-    }
-    header('Location: gestionarEtiquetas.php');
-    exit;
-}
-
-// Si se solicita editar una etiqueta
-if (isset($_POST['editar_id']) && isset($_POST['editar_nombre'])) {
-    $idEditar = $_POST['editar_id'];
-    $nombre = trim($_POST['editar_nombre']);
-    if (!empty($nombre)) {
-        $etiquetasDTO = new etiquetasDTO($idEditar, $nombre);
-        try {
-            $etiquetasDAO->editarEtiqueta($etiquetasDTO);
-        } catch (Exception $e) {
-            echo "<p style='color:red;'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
-        }
-    }
-    header('Location: gestionarEtiquetas.php');
-    exit;
-}
-
-// Obtener la lista de etiquetas desde la base de datos
-$etiquetas = $etiquetasDAO->obtenerEtiquetas();
-
-// Definir el contenido principal para la plantilla
 $contenidoPrincipal = <<<EOS
     <h2>Panel de administración de etiquetas</h2>
     <p>En este panel puedes gestionar las etiquetas de la aplicación.</p>
@@ -69,7 +27,6 @@ $contenidoPrincipal = <<<EOS
         </tr>
 EOS;
 
-// Generar filas de la tabla con los datos de las etiquetas
 foreach ($etiquetas as $etiqueta) {
     $contenidoPrincipal .= "<tr>
         <td>" . htmlspecialchars($etiqueta['id']) . "</td>
@@ -85,7 +42,6 @@ foreach ($etiquetas as $etiqueta) {
 
 $contenidoPrincipal .= "</table>";
 
-// Formulario para crear una nueva etiqueta
 $contenidoPrincipal .= <<<EOS
     <h3>Crear Etiqueta</h3>
     <form method="POST" action="gestionarEtiquetas.php">
@@ -102,22 +58,9 @@ $contenidoPrincipal .= <<<EOS
         <input type="text" id="editar_nombre" name="editar_nombre" required>
         <button type="submit">✏️ Editar Etiqueta</button>
     </form>
-
-    <script>
-        function confirmarEliminacion(id) {
-            // Mostrar una ventana de confirmación
-            var respuesta = confirm("Estás a punto de eliminar una etiqueta. ¿Estás seguro?");
-            if (respuesta) {
-                // Si el usuario confirma, se envía el formulario correspondiente
-                document.getElementById('form_eliminar_' + id).submit();
-            }
-        }
-    </script>
 EOS;
 
-// Definir el título de la página
 $tituloPagina = 'Gestionar Etiquetas';
 
-// Incluir la plantilla principal
 require("includes/comun/plantilla.php");
 ?>
