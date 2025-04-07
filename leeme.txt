@@ -37,7 +37,6 @@ un proceso similar al de editar receta, mostrandonos un mensaje de éxito y se n
 Esta funcionalidad permite borrar la entrada de la receta seleccionada de la tabla de "recetas", 
 "receta_ingrediente" y "receta_etiqueta".
 
-
 Como ya se ha mencionado previamente, el uso de buscar receta permite el desarrollo de otras páginas del proyecto
 como son el index y Estrella Michelin, ya que ahora podemos ver las recetas que existen en la base de datos, 
 no solo mejorando el apartado visual de la página sino haciendo posible la funcionalidad de edición y borrado 
@@ -47,7 +46,6 @@ Cabe recalcar de esta entrega el gran uso de css aplicado a los archivos del pro
 el aspecto visual, otorgando un estilo común a todo el proyecto (estiloGeneral.css) y permitiendo la redimension 
 de la página para más tipo de dispositivos distintos al ordenador (estiloMovil.css, estiloPc.css). 
 Todo ello viene explicado con mayor detalle en la memoria de la práctica.
-
 
 Dadas las circunstancias del proyecto, las funcionalidades administrativas se realizan por separado por el alumno
 Nicolás López-Chaves Pérez, y se evalúan individualmente, como se comenta más en detalle en la memoria del proyecto.
