@@ -31,3 +31,15 @@ section{
     flex-direction: column;
     max-width: 30%;
 }
+
+
+.sidebar_buscar {
+    flex: 0 0 25vh;  /* No crece ni se encoge, tiene un ancho fijo */
+    background: #f6f6ae;
+    padding: 25px;
+    overflow-y: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* Organiza su contenido en columna */
+
+}

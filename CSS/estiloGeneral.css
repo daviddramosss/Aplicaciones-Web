@@ -246,16 +246,6 @@ form#buscarFormulario {
     flex-wrap: wrap;
 }
 
-.sidebar_buscar {
-    flex: 0 0 25vh;  /* No crece ni se encoge, tiene un ancho fijo */
-    background: #f6f6ae;
-    padding: 25px;
-    overflow-y: auto;
-    height: 100%;
-    display: flex;
-    flex-direction: column; /* Organiza su contenido en columna */
-
-}
 
 /* Muestra las recetas resultantes de aplicar la busqueda */
 #resultados_buscar_div {

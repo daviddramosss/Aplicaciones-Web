@@ -31,3 +31,15 @@ section{
 .sobre_nosotros_info{
     flex-direction: column;
 }
+
+
+.sidebar_buscar {
+    width: 100%;  /* No crece ni se encoge, tiene un ancho fijo */
+    background: #f6f6ae;
+    padding: 25px;
+    overflow-y: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* Organiza su contenido en columna */
+
+}
