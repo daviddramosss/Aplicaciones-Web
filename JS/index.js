@@ -21,8 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
              breakpoints: {
                 1024: { slidesPerView: 4 }, // Pantallas grandes (escritorio)
                 768: { slidesPerView: 3 },  // Tablets
-                480: { slidesPerView: 2 },  // Teléfonos medianos
-                320: { slidesPerView: 1 }   // Teléfonos pequeños
+                480: { slidesPerView: 1 }   // Teléfonos medianos
             }
         });
     });

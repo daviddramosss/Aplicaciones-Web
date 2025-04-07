@@ -67,10 +67,11 @@ CREATE TABLE `usuarios` (
     VALUES
         ('usuario', 'ejemplo', 'usuario@marketchef.com', 'User', '$2y$10$wjhoam2JWbGg4I4NRGoJF.ZUsLITJlV05Vg9Jp6GUBMdOWAlCI7FO', 'avatar_ejemplo.jpg'),       -- Contraseña: usuario
         ('admin', 'ejemplo', 'admin@marketchef.com', 'Admin', '$2y$10$aAfWpoA8/09hASfXru8j6.PUC1kHGzJyGW4KH.sMfVXg8Bs8RcNze', 'avatar_ejemplo.jpg'),          -- Contraseña: admin
-        ('chef', 'ejemplo', 'chef@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu', 'avatar_ejemplo.jpg'),             -- Contraseña: chef
-        ('chef2', 'ejemplo', 'chef2@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu', 'avatar_ejemplo.jpg'),           -- Contraseña: chef
-        ('chef3', 'ejemplo', 'chef3@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu', 'avatar_ejemplo.jpg');           -- Contraseña: chef
-
+        ('Chef', '1', 'chef@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu', 'cocinero.jpg'),             -- Contraseña: chef
+        ('chef2', 'ejemplo', 'chef2@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu', 'cocinero.jpg'),           -- Contraseña: chef
+        ('chef3', 'ejemplo', 'chef3@marketchef.com', 'Chef', '$2y$10$c0GHSBjm7uYQN8fbczpQp.ccKIsKKqsIeegLTZa5pflAtbOvMrSiu', 'cocinero.jpg'),           -- Contraseña: chef
+        ('Laura', 'Martinez', 'laura@marketchef.com', 'User', '$2y$10$wjhoam2JWbGg4I4NRGoJF.ZUsLITJlV05Vg9Jp6GUBMdOWAlCI7FO', 'laura.jpg'),             -- Contraseña: usuario
+        ('Juan', 'Garcia', 'juan@marketchef.com', 'Admin', '$2y$10$aAfWpoA8/09hASfXru8j6.PUC1kHGzJyGW4KH.sMfVXg8Bs8RcNze', 'juan.jpg');               -- Contraseña: admin
 
 -- Tabla Chefs
 CREATE TABLE `chefs` (
