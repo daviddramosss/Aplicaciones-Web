@@ -43,6 +43,12 @@ como son el index y Estrella Michelin, ya que ahora podemos ver las recetas que 
 no solo mejorando el apartado visual de la página sino haciendo posible la funcionalidad de edición y borrado 
 de recetas. 
 
+Cabe recalcar de esta entrega el gran uso de css aplicado a los archivos del proyecto, mejorando considerablemente
+el aspecto visual, otorgando un estilo común a todo el proyecto (estiloGeneral.css) y permitiendo la redimension 
+de la página para más tipo de dispositivos distintos al ordenador (estiloMovil.css, estiloPc.css). 
+Todo ello viene explicado con mayor detalle en la memoria de la práctica.
+
+
 Dadas las circunstancias del proyecto, las funcionalidades administrativas se realizan por separado por el alumno
 Nicolás López-Chaves Pérez, y se evalúan individualmente, como se comenta más en detalle en la memoria del proyecto.
 Dichas funcionalidades administrativas son la gestion de ingredientes, etiquetas y magnitudes, permitiendo a los
