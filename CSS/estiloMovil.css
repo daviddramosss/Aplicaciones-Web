@@ -34,7 +34,7 @@ section{
 
 
 .sidebar_buscar {
-    width: 100%;  /* No crece ni se encoge, tiene un ancho fijo */
+    width: 100%;  /* Se amplia al 100% de la anchura, dada una pantalla de movil */
     background: #f6f6ae;
     padding: 25px;
     overflow-y: auto;
