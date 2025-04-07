@@ -81,21 +81,6 @@
     display: block;
 }
 
-/* Estilos del menú desplegable de usuario */
-.menu_usuario {
-    position: fixed;
-    right: 0.5%;
-    top: 10.5%; /* Ajusta la distancia desde el icono */
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: none; /* Oculto por defecto */
-    flex-direction: column;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    min-width: 150px;
-    z-index: 100;
-}
-
 /* Estilo para los enlaces dentro del menú de usuario */
 .menu_usuario a {
     padding: 10px;
@@ -107,21 +92,6 @@
 
 .menu_usuario a:hover {
     background-color: #f6f6ae;
-}
-
-/*Estilo para el despleagable del admin*/
-.menu_admin {
-    position: fixed;
-    left: 8%;
-    top: 10.5%; /* Ajusta la distancia desde el icono */
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: none; /* Oculto por defecto */
-    flex-direction: column;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    min-width: 150px;
-    z-index: 100;
 }
 
 /* Estilo para los enlaces dentro del menú de admin*/

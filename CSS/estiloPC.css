@@ -1,3 +1,8 @@
+
+/* #region CABECERA */
+
+/*Contenedor principal de la cabecera. Define color, sombras, tamaño, etc */
+
 .container_cabecera {
     background-color: #f6f6ae;
     /*position: fixed;*/ /*Mantiene fija la cabecera, descomentar para que se vea siempre */
@@ -12,6 +17,42 @@
     flex-wrap: wrap;
 }
 
+/* Estilos del menú desplegable de usuario */
+.menu_usuario {
+    position: absolute;
+    right: 0.5%;
+    top: 10.5%; /* Ajusta la distancia desde el icono */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    min-width: 150px;
+    z-index: 100;
+}
+
+/*Estilo para el despleagable del admin*/
+.menu_admin {
+    position: absolute;
+    left: 8%;
+    top: 10.5%; /* Ajusta la distancia desde el icono */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    min-width: 150px;
+    z-index: 100;
+}
+
+/* #endregion */
+
+/* #region CONTENIDO PRINCIPAL */
+
+/* #region COMUN */
+
 section{
     display: flex;
     flex-direction: row;
@@ -22,6 +63,9 @@ section{
     gap: 5vh;
 }
 
+/* #endregion */
+
+/* #region SOBRE NOSOTROS */
 .sobre_nosotros_imagen{
     max-width: 20%;
     min-width: fit-content;
@@ -32,7 +76,9 @@ section{
     max-width: 30%;
 }
 
+/* #endregion */
 
+/* #region BUSCAR */
 .sidebar_buscar {
     flex: 0 0 25vh;  /* No crece ni se encoge, tiene un ancho fijo */
     background: #f6f6ae;
@@ -43,3 +89,11 @@ section{
     flex-direction: column; /* Organiza su contenido en columna */
 
 }
+
+/* #endregion */
+
+/* #endregion */
+
+/* #region PIE */
+
+/* #endregion */
