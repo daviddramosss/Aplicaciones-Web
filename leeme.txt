@@ -1,5 +1,5 @@
 A diferencia de README.md, este archivo de texto incluye, de forma clara, qué funcionalidades se han implementado
-para esta primera práctica, indicando el grado de completitud.
+para esta tercera práctica, indicando el grado de completitud.
 ------
 Para llevar a cabo el proyecto de MarketChef hemos estructurado las funcionalidades que requerimos, las cuales son;
 
