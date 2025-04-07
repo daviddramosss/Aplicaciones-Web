@@ -243,6 +243,7 @@ form#buscarFormulario {
     width: 100%; 
     margin: 0 0;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .sidebar_buscar {
@@ -253,6 +254,7 @@ form#buscarFormulario {
     height: 100%;
     display: flex;
     flex-direction: column; /* Organiza su contenido en columna */
+
 }
 
 /* Muestra las recetas resultantes de aplicar la busqueda */
