@@ -114,7 +114,7 @@ class recetaDAO extends baseDAO implements IReceta
         $stmt = $conn->prepare($query);
 
         // Verifica si la receta existe antes de intentar editarla
-        $recetaExiste = $this->buscarReceta($recetaDTO->getId());
+        $recetaExiste = $this->buscarReceta($recetaDTO);
 
         if($recetaExiste)
         {

@@ -30,7 +30,7 @@ class editarRecetaForm extends formularioBase
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
         $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta($this->recetaDTO);
 
-        parent::__construct('editarRecetaForm');
+        //parent::__construct('editarRecetaForm');
     }
 
     // Método para generar los campos del formulario con los datos actuales
