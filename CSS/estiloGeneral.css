@@ -267,9 +267,10 @@ hr {
 }
 
 /* Alineación de las estrellas */
+/*
 .valoracion {
     display: flex;
-    justify-content: center;  /* Centra las estrellas */
+    justify-content: center;  
     gap: 5px;
     margin-top: 10px;
 }
@@ -288,7 +289,7 @@ hr {
 .tags_container_buscar{
     background: #f6f6ae !important;
 }
-
+*/
 /* #endregion */
 
 /* #endregion */
