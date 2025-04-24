@@ -11,14 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ordenar = $_POST['ordenar'] ?? '';
     $precioMin = $_POST['precioMin'] ?? 0;
     $precioMax = $_POST['precioMax'] ?? 100;
-    $valoracion = $_POST['valoracion'] ?? 0;
+    // $valoracion = $_POST['valoracion'] ?? 0;
     $etiquetas = $_POST['etiquetas'] ?? '';
 
     // Se obtiene la conexión a la base de datos a través de la aplicación
     $conn = application::getInstance()->getConexionBd();
 
     // Si no hay filtros, devuelve todas las recetas
-    if ($buscarPlato == "" && $ordenar == "" && $precioMin == 0 && $precioMax == 100 && $valoracion == 0 && $etiquetas == "") {
+    if ($buscarPlato == "" && $ordenar == "" && $precioMin == 0 && $precioMax == 100 /* && $valoracion == 0*/ && $etiquetas == "") {
         
         // Preparamos la sentencia para buscar todas las recetas
         $query = "SELECT ID, Nombre, Ruta FROM recetas";
@@ -39,17 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Preparamos la sentencia para buscar las recetas con los filtros propuestos
-    $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE Nombre LIKE ? AND Precio BETWEEN ? AND ? AND Valoracion >= ?";
+    $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE Nombre LIKE ? AND Precio BETWEEN ? AND ? /*AND Valoracion >= ?*/";
 
     $params = [];
-    $types = "siii"; // Nombre (string), PrecioMin (int), PrecioMax (int), Valoración (int)
+    $types = "sii"; // Nombre (string), PrecioMin (int), PrecioMax (int), ~~~~Valoración (int)~~~~
 
     // Ajustar el nombre de búsqueda por si viene de manera incompleta
     $buscarPlato = "%$buscarPlato%";
     $params[] = $buscarPlato;
     $params[] = $precioMin;
     $params[] = $precioMax;
-    $params[] = $valoracion;
+    // $params[] = $valoracion;
 
     // Filtrado por etiquetas (Si hay etiquetas)
     if ($etiquetas != "") {
