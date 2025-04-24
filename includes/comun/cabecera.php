@@ -23,10 +23,10 @@ $logged = $application->isLogged();
             $esAdmin = true;
           }
     }
-    $cssFile = "cabecera" . $foundedUserDTO->getRol() . ".css";
+    $rol = $foundedUserDTO->getRol();
   } 
   else{
-    $cssFile = "cabeceraUser.css";
+    $rol = "User";
   }
 
 
@@ -38,10 +38,9 @@ $logged = $application->isLogged();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cabecera</title>
-    <link rel="stylesheet" href="CSS/<?= $cssFile ?>">
 </head>
 <body>
-        <div class="container_cabecera">  <!-- Creamos el div en el que estará todo el contenido de la cabecera -->
+        <div class="container_cabecera <?= $rol ?>">  <!-- Creamos el div en el que estará todo el contenido de la cabecera -->
          
           <div class="container_infosearch">
              <!-- Botón de Ayuda -->

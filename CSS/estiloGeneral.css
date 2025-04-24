@@ -17,6 +17,19 @@
     justify-content: flex-start;
 }
 
+
+.container_cabecera.Admin {
+    background-color: #ec1919;
+}
+
+.container_cabecera.Chef {
+    background-color: #2abd09;
+}
+
+.container_cabecera.User {
+    background-color: #f6f6ae;
+}
+
 /*Contiene los primeros tres iconos; Info, Buscar, Admin*/
 .container_infosearch{
     display: flex;
