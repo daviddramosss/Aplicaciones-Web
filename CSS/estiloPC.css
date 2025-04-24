@@ -4,7 +4,7 @@
 /*Contenedor principal de la cabecera. Define color, sombras, tamaño, etc */
 
 .container_cabecera {
-    background-color: #f6f6ae;
+    
     /*position: fixed;*/ /*Mantiene fija la cabecera, descomentar para que se vea siempre */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Añadir sombra difusa */
     width: 100%;
