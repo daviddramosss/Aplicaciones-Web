@@ -52,16 +52,17 @@ class buscarFormulario extends formularioBase
                     <input type="range" id="precioMax" name="precioMax" min="0" max="100" value="$precioMax">
 
 
-                    <!-- Valoración con estrellas -->
+                    <!-- Valoración con estrellas 
                     <label>Valoración:</label>
                     <div class="valoracion">
-                        <input type="hidden" name="valoracion" id="valoracionInput" value="$valoracion">
-                        <span class="estrella_buscar" data-value="1">★</span>
-                        <span class="estrella_buscar" data-value="2">★</span>
-                        <span class="estrella_buscar" data-value="3">★</span>
-                        <span class="estrella_buscar" data-value="4">★</span>
-                        <span class="estrella_buscar" data-value="5">★</span>
+                    <input type="hidden" name="valoracion" id="valoracionInput" value="$valoracion">
+                    <span class="estrella_buscar" data-value="1">★</span>
+                    <span class="estrella_buscar" data-value="2">★</span>
+                    <span class="estrella_buscar" data-value="3">★</span>
+                    <span class="estrella_buscar" data-value="4">★</span>
+                    <span class="estrella_buscar" data-value="5">★</span>
                     </div>
+                    -->
 
                     <!-- NO IMPLEMENTADO TODAVIA - SIGUIENTES ACTUALIZACIONES
                     <div class="checkbox-container">

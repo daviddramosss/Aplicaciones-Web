@@ -1,6 +1,7 @@
 
 // #region Estrellas
 
+/*
 //Esta funcion permite la seleccion de las estrellas
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
-
+*/
 // #endregion
 
 // #region Buscar   
