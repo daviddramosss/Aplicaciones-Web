@@ -19,11 +19,11 @@
 
 
 .container_cabecera.Admin {
-    background-color: #ec1919;
+    background-color: #ff6d6d;
 }
 
 .container_cabecera.Chef {
-    background-color: #2abd09;
+    background-color: #00ffbf;
 }
 
 .container_cabecera.User {
