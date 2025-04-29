@@ -50,6 +50,9 @@ class crearRecetaForm extends formularioBase
             <div id="ingredientContainer">
                 <!-- Los ingredientes se insertarán dinámicamente con JavaScript -->
             </div>
+            <!-- Campo oculto para almacenar los ingredientes seleccionados -->
+            <input type="hidden" name="ingredientesSeleccionados" id="ingredientesSeleccionadosInput" value="">
+
 
             <!-- Sección de pasos -->
             <h2>Pasos para elaborar la receta</h2>
@@ -113,11 +116,13 @@ class crearRecetaForm extends formularioBase
         $descripcion = trim($datos['descripcion'] ?? '');
         $precio = isset($datos['precio']) ? floatval(trim($datos['precio'])) : 0;
         $tiempo = isset($datos['tiempo']) ? intval(trim($datos['tiempo'])) : 0;
-        $ingredientes = $datos['ingredientes'] ?? [];
+        //$ingredientes = $datos['ingredientes'] ?? [];
+        $ingredientesJson = $datos['ingredientesSeleccionados'] ?? '';
+        $ingredientes = json_decode($ingredientesJson, true) ?? [];
         $pasos = isset($datos['steps']) ? array_map('trim', $datos['steps']) : [];
         $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', trim($datos['etiquetas']))) : [];
         $imagenGuardada = $this->procesarImagen();
-        
+
 
         // Validaciones de datos obligatorios
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
@@ -149,10 +154,10 @@ class crearRecetaForm extends formularioBase
             // Creación de la relació de receta-ingredientes en la tabla receta_ingredientes
             $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
 
-            foreach ($ingredientes as $ingredienteId => $ingredienteData) {
-                $ingredienteId = intval($ingredienteId);
-                $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
-                $magnitud = filter_var($ingredienteData['magnitud'] ?? 0, FILTER_VALIDATE_INT);
+            foreach ($ingredientes as $ingredienteData) {
+                $ingredienteId = intval($ingredienteData['id']);
+                $cantidad = floatval($ingredienteData['cantidad']);
+                $magnitud = filter_var($ingredienteData['magnitud']);
             
                 // Si el ingrediente es válido, lo guarda
                 if ($ingredienteId > 0 && $cantidad > 0) {
