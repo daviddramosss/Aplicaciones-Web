@@ -229,44 +229,64 @@ class recetaDAO extends baseDAO implements IReceta
 
     public function mostarRecetasPorComprador($userDTO)
     {
-
         // Obtiene la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
-        // Prepara la consulta SQL para buscar la receta
+        // Prepara la consulta 1 SQL para buscar el id de las recetas compradas
         $query = "SELECT Receta FROM receta_comprada WHERE Usuario = ?";
 
-        // Prepara la declaración SQL
+        // Prepara la declaración 1 SQL
         $stmt = $conn->prepare($query);
 
-        // Asocia el parámetro de la consulta con el ID de la receta
-        $autor = $userDTO->getId();
-        $stmt->bind_param("i", $autor);
+        // Asocia el parámetro de la consulta con el ID del comprador
+        $comprador = $userDTO->getId();
+        $stmt->bind_param("i", $comprador);
 
-        // Ejecuta la consulta
+        // Ejecuta la consulta 1
         if($stmt->execute())
         {
-            // Obtiene el resultado de la consulta
+            // Obtiene el resultado de la consulta 1, devolviendo los IDs de las recetas compradas
             $result = $stmt->get_result();
-            $recetas = [];
+            $recetas_ID = [];
 
-            // Si hay resultados, los recorremos y creamos DTOs de recetas
+            // Si hay resultados, los recorremos
             if ($result->num_rows > 0) 
             {
+                $i = 0; //Contador de IDs
                 while ($row = $result->fetch_assoc()) 
-                {
-                    $recetas[] = new recetaDTO(
-                        $row["ID"],
-                        $row["Nombre"],
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        $row["Ruta"]
-                    );
+                {  
+                    $recetas_ID[]= $row["Receta"]; //Guardamos los IDs de recetas compradas
+                    // Prepara la consulta 2 SQL para buscar la info de la receta iesima comprada
+                    $query2 = "SELECT Nombre, Ruta FROM Recetas WHERE ID = ?";
+
+                    // Prepara la declaración 2 SQL
+                    $stmt2 = $conn->prepare($query2);
+
+                    // Asocia el parámetro de la consulta con el ID de la receta
+                    $stmt2->bind_param("i", $recetas_ID[$i]);
+
+                     // Ejecuta la consulta 2
+                    if($stmt2->execute())
+                    {
+                        // Obtiene el resultado de la consulta 2
+                        $result2 = $stmt2->get_result();
+                        $recetas = [];
+                            while($row2 = $result2->fetch_assoc()){ //Guardamos la info de la receta iesima
+                                $recetas[] = new recetaDTO(
+                                    $recetas_ID[$i],
+                                    $row2["Nombre"],
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    $row2["Ruta"]
+                                );
+                            }
+                    }
+                    $i++; //Aumentamos el contador
                 }
             }
         }

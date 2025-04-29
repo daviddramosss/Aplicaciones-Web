@@ -616,6 +616,8 @@ CREATE TABLE `receta_comprada` (
  CONSTRAINT `fk_rc_usuario` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+    INSERT INTO receta_comprada (Usuario, Receta) VALUES
+        (1, 1); -- El usuario con ID 1, compra la receta (Paella Valenciana) con ID 1
 
 -- Tabla Magnitudes
 CREATE TABLE `magnitudes` (

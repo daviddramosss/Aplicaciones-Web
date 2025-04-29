@@ -59,8 +59,8 @@ class estrellaMichelinHelper {
             return <<<HTML
                 <h1> ¡Bienvenido a tu cocina Chef!</h1>
 
-                <p> Es un placer tenerte de vuelta, {$this->user->getNombre()}. Desde MarketChef estamos deseando de ver tus nuevas creaciones, para ello puedes usar la funcionalida de crear recetas.</p>
-                <div class="crear-receta-container">
+                <p> Es un placer tenerte de vuelta, {$this->user->getNombre()}. Desde MarketChef estamos deseando de ver tus nuevas creaciones, para ello puedes usar la funcionalidad de crear recetas.</p>
+                <div>
                     <button type="button" class="send-button" onclick="location.href='crearReceta.php'">CREAR NUEVA RECETA</button>
                 </div>
 
