@@ -232,6 +232,8 @@ class recetaDAO extends baseDAO implements IReceta
         // Obtiene la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
+        $recetas = []; //Guardará las recetas encontradas; Se coloca aqui para evitar errores cuando no encuentre nada.
+
         // Prepara la consulta 1 SQL para buscar el id de las recetas compradas
         $query = "SELECT Receta FROM receta_comprada WHERE Usuario = ?";
 
@@ -270,7 +272,6 @@ class recetaDAO extends baseDAO implements IReceta
                     {
                         // Obtiene el resultado de la consulta 2
                         $result2 = $stmt2->get_result();
-                        $recetas = [];
                             while($row2 = $result2->fetch_assoc()){ //Guardamos la info de la receta iesima
                                 $recetas[] = new recetaDTO(
                                     $recetas_ID[$i],
