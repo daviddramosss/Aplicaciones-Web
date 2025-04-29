@@ -227,6 +227,57 @@ class recetaDAO extends baseDAO implements IReceta
         return $recetas;
     }
 
+    public function mostarRecetasPorComprador($userDTO)
+    {
+
+        // Obtiene la conexión a la base de datos
+        $conn = application::getInstance()->getConexionBd();
+
+        // Prepara la consulta SQL para buscar la receta
+        $query = "SELECT Receta FROM receta_comprada WHERE Usuario = ?";
+
+        // Prepara la declaración SQL
+        $stmt = $conn->prepare($query);
+
+        // Asocia el parámetro de la consulta con el ID de la receta
+        $autor = $userDTO->getId();
+        $stmt->bind_param("i", $autor);
+
+        // Ejecuta la consulta
+        if($stmt->execute())
+        {
+            // Obtiene el resultado de la consulta
+            $result = $stmt->get_result();
+            $recetas = [];
+
+            // Si hay resultados, los recorremos y creamos DTOs de recetas
+            if ($result->num_rows > 0) 
+            {
+                while ($row = $result->fetch_assoc()) 
+                {
+                    $recetas[] = new recetaDTO(
+                        $row["ID"],
+                        $row["Nombre"],
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        $row["Ruta"]
+                    );
+                }
+            }
+        }
+
+        // Cierra la declaración
+        // Usamos solo close, debido a que: Cierra el statement y libera todos los recursos asociados, por lo que usar un free sería innecesario.
+        $stmt->close();
+
+        return $recetas;
+    }
+
     public function mostrarRecetas($criterio)
     {
         // Obtiene la conexión a la base de datos
