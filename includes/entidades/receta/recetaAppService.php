@@ -2,8 +2,8 @@
 
 namespace es\ucm\fdi\aw\entidades\receta;
 
-use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService, ingredienteRecetaDTO};
-use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService, etiquetaRecetaDTO};
+use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaFactory, ingredienteRecetaDTO};
+use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaFactory, etiquetaRecetaDTO};
 
 class recetaAppService
 {
@@ -28,39 +28,97 @@ class recetaAppService
     } 
 
     // Método para crear una receta
-    public function crearReceta($recetaDTO)
+    public function crearReceta($recetaDTO, $ingredienteArray, $etiquetaArray)
     {
-        // Crea el objeto IRecetaDAO utilizando la fábrica (factory)
+        // Receta
         $IRecetaDAO = recetaFactory::CreateReceta();
-
-        // Llama al método 'crearReceta' del DAO para insertar la receta en la base de datos
         $createdRecetaDTO = $IRecetaDAO->crearReceta($recetaDTO);
+        $idReceta = $createdRecetaDTO->getId();
 
-        // Devuelve el objeto DTO creado
-        return $createdRecetaDTO;
+        //Ingredientes
+        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
+
+        foreach ($ingredienteArray as $ingredienteData) {
+            $ingredienteId = intval($ingredienteData['id']);
+            $cantidad = floatval($ingredienteData['cantidad']);
+            $magnitud = filter_var($ingredienteData['magnitud']);
+        
+            // Si el ingrediente es válido, lo guarda
+            if ($ingredienteId > 0 && $cantidad > 0) {
+                $ingredienteRecetaDTO = new ingredienteRecetaDTO($idReceta, $ingredienteId, $cantidad, $magnitud);
+                $IIngredienteRecetaDAO->crearIngredienteReceta($ingredienteRecetaDTO);
+            }
+        }
+
+        //Etiquetas
+        $IEtiquetaRecetaDAO = etiquetaRecetaFactory::createEtiquetaReceta();
+
+        $etiquetas = array_slice(array_unique($etiquetaArray), 0, 3); // Limita a 3 etiquetas únicas
+        foreach ($etiquetas as $etiqueta) {
+            $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            // Si la etiqueta es válida, la guarda
+            if (!empty($etiqueta)) {
+                $etiquetaRecetaDTO = new etiquetaRecetaDTO($idReceta, $etiqueta);
+                $IEtiquetaRecetaDAO->crearEtiquetaReceta($etiquetaRecetaDTO);
+            }
+        }
     }
 
     // Método para editar una receta
-    public function editarReceta($recetaDTO)
+    public function editarReceta($recetaDTO, $ingredienteArray, $etiquetaArray)
     {
-        // Crea el objeto IRecetaDAO utilizando la fábrica (factory)
+        // Receta
         $IRecetaDAO = recetaFactory::CreateReceta();
+        $editedRecetaDTO = $IRecetaDAO->editarReceta($recetaDTO); 
+        $idReceta = $editedRecetaDTO->getId();
 
-        // Llama al método 'editarReceta' del DAO para actualizar la tabla receta en la base de datos
-        return $IRecetaDAO->editarReceta($recetaDTO); 
+        //Ingrediente
+        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
+        $IIngredienteRecetaDAO->borrarIngredienteReceta($recetaDTO);
+
+        foreach ($ingredienteArray as $ingredienteData) {
+            $ingredienteId = intval($ingredienteData['id']);
+            $cantidad = floatval($ingredienteData['cantidad']);
+            $magnitud = filter_var($ingredienteData['magnitud']);
+        
+            // Si el ingrediente es válido, lo guarda
+            if ($ingredienteId > 0 && $cantidad > 0) {
+                $ingredienteRecetaDTO = new ingredienteRecetaDTO($idReceta, $ingredienteId, $cantidad, $magnitud);
+                $IIngredienteRecetaDAO->crearIngredienteReceta($ingredienteRecetaDTO);
+            }
+        }
+        
+        //Etiqueta
+        $IEtiquetaRecetaDAO = etiquetaRecetaFactory::createEtiquetaReceta();
+        $IEtiquetaRecetaDAO->borrarEtiquetaReceta($recetaDTO);
+
+        $etiquetas = array_slice(array_unique($etiquetaArray), 0, 3); // Limita a 3 etiquetas únicas
+        foreach ($etiquetas as $etiqueta) {
+            $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            // Si la etiqueta es válida, la guarda
+            if (!empty($etiqueta)) {
+                $etiquetaRecetaDTO = new etiquetaRecetaDTO($idReceta, $etiqueta);
+                $IEtiquetaRecetaDAO->crearEtiquetaReceta($etiquetaRecetaDTO);
+            }
+        }
     }
 
     // Método para borrar una receta
     public function borrarReceta($recetaDTO)
     {
-        // Crea el objeto IRecetaDAO utilizando la fábrica (factory)
+        //Ingrediente
+        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
+        $IIngredienteRecetaDAO->borrarIngredienteReceta($recetaDTO);
+    
+        //Etiqueta
+        $IEtiquetaRecetaDAO = etiquetaRecetaFactory::createEtiquetaReceta();
+        $IEtiquetaRecetaDAO->borrarEtiquetaReceta($recetaDTO);
+        
+        // Receta
         $IRecetaDAO = recetaFactory::CreateReceta();
-
-        // Llama al método 'borrarReceta' del DAO para eliminar la receta de la base de datos
-        $deletedRecetaDTO = $IRecetaDAO->borrarReceta($recetaDTO); 
-
-        // Devuelve el objeto DTO borrado
-        return $deletedRecetaDTO;
+        $IRecetaDAO->borrarReceta($recetaDTO); 
     }
 
     public function mostarRecetasPorAutor($userDTO){

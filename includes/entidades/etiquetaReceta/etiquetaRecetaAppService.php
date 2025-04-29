@@ -22,31 +22,6 @@ class etiquetaRecetaAppService
     {
     } 
 
-    // Método para crear una nueva etiqueta de receta.
-    public function crearEtiquetaReceta($etiquetaRecetaDTO)
-    {
-        // Se obtiene una instancia de la interfaz de acceso a datos (DAO) mediante la fábrica
-        $IEtiquetaRecetaDAO = etiquetaRecetaFactory::createEtiquetaReceta();
-
-        // Se delega la creación de la etiqueta al DAO
-        $createdEtiquetaRecetaDTO = $IEtiquetaRecetaDAO->crearEtiquetaReceta($etiquetaRecetaDTO);
-
-        return $createdEtiquetaRecetaDTO;
-    }
-
-    // Método para borrar una etiqueta de receta.
-    public function borrarEtiquetaReceta($recetaDTO)
-    {
-        // Se obtiene una instancia de la interfaz de acceso a datos (DAO) mediante la fábrica
-        $IEtiquetaRecetaDAO = etiquetaRecetaFactory::createEtiquetaReceta();
-
-        // Se delega la creación de la etiqueta al DAO
-        $deletedEtiquetaRecetaDTO = $IEtiquetaRecetaDAO->borrarEtiquetaReceta($recetaDTO);
-
-        return $deletedEtiquetaRecetaDTO;
-    }
-
-
     public function buscarEtiquetaReceta($recetaDTO)
     {
         $IEtiquetaRecetaDAO = etiquetaRecetaFactory::createEtiquetaReceta();

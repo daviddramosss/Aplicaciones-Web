@@ -116,7 +116,6 @@ class crearRecetaForm extends formularioBase
         $descripcion = trim($datos['descripcion'] ?? '');
         $precio = isset($datos['precio']) ? floatval(trim($datos['precio'])) : 0;
         $tiempo = isset($datos['tiempo']) ? intval(trim($datos['tiempo'])) : 0;
-        //$ingredientes = $datos['ingredientes'] ?? [];
         $ingredientesJson = $datos['ingredientesSeleccionados'] ?? '';
         $ingredientes = json_decode($ingredientesJson, true) ?? [];
         $pasos = isset($datos['steps']) ? array_map('trim', $datos['steps']) : [];
@@ -146,40 +145,8 @@ class crearRecetaForm extends formularioBase
              // Creación de la receta en la tabla recetas
             $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, 0, $imagenGuardada);
             $recetaService = recetaAppService::GetSingleton();
-            $nuevaRecetaDTO = $recetaService->crearReceta($recetaDTO);  
+            $recetaService->crearReceta($recetaDTO, $ingredientes, $etiquetas);  
             
-            // Id de la nueva receta para rellenar el resto de tablas
-            $id = $nuevaRecetaDTO->getId();
-
-            // Creación de la relació de receta-ingredientes en la tabla receta_ingredientes
-            $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-
-            foreach ($ingredientes as $ingredienteData) {
-                $ingredienteId = intval($ingredienteData['id']);
-                $cantidad = floatval($ingredienteData['cantidad']);
-                $magnitud = filter_var($ingredienteData['magnitud']);
-            
-                // Si el ingrediente es válido, lo guarda
-                if ($ingredienteId > 0 && $cantidad > 0) {
-                    $ingredienteRecetaDTO = new ingredienteRecetaDTO($id, $ingredienteId, $cantidad, $magnitud);
-                    $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
-                }
-            }
-
-            // Creación de la relació de receta-etiquetas en la tabla receta_etiquetas
-            $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
-
-            $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Limita a 3 etiquetas únicas
-            foreach ($etiquetas as $etiqueta) {
-                $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-                // Si la etiqueta es válida, la guarda
-                if (!empty($etiqueta)) {
-                    $etiquetaRecetaDTO = new etiquetaRecetaDTO($id, $etiqueta);
-                    $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
-                }
-            }
-
             // Redireccionar a la página principal si todo fue correcto
             $result = 'confirmacionRecetaCreada.php';
         }

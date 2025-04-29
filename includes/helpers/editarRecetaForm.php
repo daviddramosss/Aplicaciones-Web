@@ -109,6 +109,9 @@ class editarRecetaForm extends formularioBase
             <div id="ingredientContainer">
                 <!-- Los ingredientes se insertarán dinámicamente con JavaScript -->
             </div>
+            <!-- Campo oculto para almacenar los ingredientes seleccionados -->
+            <input type="hidden" name="ingredientesSeleccionados" id="ingredientesSeleccionadosInput" value="">
+
 
             <!-- Sección de pasos -->
             <h2>Pasos para elaborar la receta</h2>
@@ -184,7 +187,8 @@ class editarRecetaForm extends formularioBase
         $descripcion = trim($datos['descripcion'] ?? '');
         $precio = isset($datos['precio']) ? floatval(trim($datos['precio'])) : 0;
         $tiempo = isset($datos['tiempo']) ? intval(trim($datos['tiempo'])) : 0;
-        $ingredientes = $datos['ingredientes'] ?? [];
+        $ingredientesJson = $datos['ingredientesSeleccionados'] ?? '';
+        $ingredientes = json_decode($ingredientesJson, true) ?? [];
         $pasos = isset($datos['steps']) ? array_map('trim', $datos['steps']) : [];
         $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', trim($datos['etiquetas']))) : [];
         $imagenGuardada = $this->procesarImagen($recetaDTO);
@@ -213,39 +217,8 @@ class editarRecetaForm extends formularioBase
 
                 // Instancia del servicio de recetas
                 $recetaService = recetaAppService::GetSingleton();
-                $recetaService->editarReceta($recetaDTO);
+                $recetaService->editarReceta($recetaDTO, $ingredientes, $etiquetas);
                 
-                // Editamos los ingredientes, borrando los antiguos y creando los nuevos
-                $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton(); 
-                $ingredienteRecetaService->borrarIngredienteReceta($recetaDTO);
-
-                foreach ($ingredientes as $ingredienteId => $ingredienteData) {
-                    $ingredienteId = intval($ingredienteId);
-                    $cantidad = floatval($ingredienteData['cantidad'] ?? 0);
-                    $magnitud = filter_var($ingredienteData['magnitud'] ?? 0, FILTER_VALIDATE_INT);
-                
-                    // Si el ingrediente es válido, lo guarda
-                    if ($ingredienteId > 0 && $cantidad > 0) {
-                        $ingredienteRecetaDTO = new ingredienteRecetaDTO($id, $ingredienteId, $cantidad, $magnitud);
-                        $ingredienteRecetaService->crearIngredienteReceta($ingredienteRecetaDTO);
-                    }
-                }
-
-                // Editamos las recetas, borrando las antiguas y creando las nuevas
-                $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
-                $etiquetaRecetaService->borrarEtiquetaReceta($recetaDTO);
-
-                $etiquetas = array_slice(array_unique($etiquetas), 0, 3); // Limita a 3 etiquetas únicas
-                foreach ($etiquetas as $etiqueta) {
-                    $etiqueta = filter_var($etiqueta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-                    // Si la etiqueta es válida, la guarda
-                    if (!empty($etiqueta)) {
-                        $etiquetaRecetaDTO = new etiquetaRecetaDTO($id, $etiqueta);
-                        $etiquetaRecetaService->crearEtiquetaReceta($etiquetaRecetaDTO);
-                    }
-                }       
-
                 // Redirigir a la confirmación de actualización si tuvo éxito
                 header("Location: confirmacionRecetaEditada.php");
                 exit();
@@ -304,17 +277,9 @@ class editarRecetaForm extends formularioBase
 
     public function borrar($recetaDTO) 
     {   
-        //Borramos entrada de receta-ingrediente asociada a dicha receta
-        $recetaIngredienteService = ingredienteRecetaAppService::GetSingleton();
-        $recetaIngredienteService->borrarIngredienteReceta($recetaDTO);
-
-        //Borramos entrada de receta-etiqueta asociada a dicha receta
-        $recetaEtiquetaService = etiquetaRecetaAppService::GetSingleton();
-        $recetaEtiquetaService->borrarEtiquetaReceta($recetaDTO);
-
         // Lógica para borrar la receta
         $recetaService = recetaAppService::GetSingleton(); // Asegúrate de instanciar tu servicio de recetas
-        $resultado = $recetaService->borrarReceta($recetaDTO); // Llama al método para borrar la receta
+        $recetaService->borrarReceta($recetaDTO); // Llama al método para borrar la receta
 
         // Redirigir tras borrar
         header("Location: confirmacionRecetaBorrada.php");
