@@ -15,7 +15,11 @@ class mostrarRecetaHelper
     private $etiquetas;
     private $similares;
 
-    public function __construct($recetaId) 
+    public function __construct() 
+    {
+    }
+
+    public function init($recetaId)
     {
         $recetaService = recetaAppService::GetSingleton();
         $this->recetaDTO = $recetaService->buscarRecetaPorId(new RecetaDTO($recetaId, null, null, null, null, null, null, null, null, null));

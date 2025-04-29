@@ -14,8 +14,8 @@ if (!$recetaId) {
 }    
 
 // Se instancia un objeto de la clase mostrarRecetaHelper.
-$mostrarRecetaHelper = new mostrarRecetaHelper($recetaId);
-
+$mostrarRecetaHelper = new mostrarRecetaHelper();
+$mostrarRecetaHelper->init($recetaId);
 $htmlMostrarReceta = $mostrarRecetaHelper->print();
 
 // Define el contenido principal de la página, que será insertado en la plantilla
