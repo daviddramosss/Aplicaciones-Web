@@ -36,9 +36,9 @@ class miRecetarioHelper {
             $recetasHTML = $this->mostrarRecetasCompradas();
 
             return <<<HTML
-                <h1> ¡Bienvenido a tu recetario !</h1>
+                <h1> ¡Bienvenido a tu Recetario!</h1>
 
-                <p> Es un placer tenerte de vuelta, {$this->user->getNombre()}. Desde aqui puedes consultar tus recetas compradas. Anímate a ampliar tu despensa !</p>
+                <p> Es un placer tenerte de vuelta, <b>{$this->user->getNombre()}</b>. Desde aqui puedes consultar tus recetas compradas. Anímate a ampliar tu despensa !</p>
                 <div>
                     <button type="button" class="send-button" onclick="location.href='buscar.php'">BUSCA NUEVAS RECETAS</button>
                 </div>
