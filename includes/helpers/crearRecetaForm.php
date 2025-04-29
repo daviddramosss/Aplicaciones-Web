@@ -112,13 +112,19 @@ class crearRecetaForm extends formularioBase
         $fecha_creacion = date('Y-m-d H:i:s');
 
         // Saneamiento de datos de entrada
-        $titulo = trim($datos['titulo'] ?? '');
-        $descripcion = trim($datos['descripcion'] ?? '');
+        $titulo = htmlspecialchars(trim($datos['titulo'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $descripcion = htmlspecialchars(trim($datos['descripcion'] ?? ''), ENT_QUOTES, 'UTF-8');
         $precio = isset($datos['precio']) ? floatval(trim($datos['precio'])) : 0;
         $tiempo = isset($datos['tiempo']) ? intval(trim($datos['tiempo'])) : 0;
+        
         $ingredientesJson = $datos['ingredientesSeleccionados'] ?? '';
         $ingredientes = json_decode($ingredientesJson, true) ?? [];
-        $pasos = isset($datos['steps']) ? array_map('trim', $datos['steps']) : [];
+        
+        // Escapar cada paso individualmente
+        $pasos = isset($datos['steps']) ? array_map(function ($paso) {
+            return htmlspecialchars(trim($paso), ENT_QUOTES, 'UTF-8');
+        }, $datos['steps']) : [];
+
         $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', trim($datos['etiquetas']))) : [];
         $imagenGuardada = $this->procesarImagen();
 

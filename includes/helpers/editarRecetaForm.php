@@ -78,9 +78,6 @@ class editarRecetaForm extends formularioBase
         // Generamos el formulario con los valores actuales para edición
         // Generación del HTML para el formulario
         $html = <<<EOF
-            <input type="hidden" name="id" value="{$this->recetaDTO->getId()}">
-            
-
             <div class="input-container">
                 <input type="textarea" name="titulo" placeholder="TITULO" value="$nombre" required/>
             </div>
@@ -163,13 +160,6 @@ class editarRecetaForm extends formularioBase
     // Método que maneja el procesamiento de la edición al enviar el formulario
     protected function Process($datos)
     {
-        // Obtener instancia del servicio de recetas
-        //$recetaService = recetaAppService::GetSingleton();
-        $id = intval($datos['id'] ?? 0);
-        $this->init($id);
-        // Obtener la receta desde la base de datos, para ver la ruta antigua
-        //$recetaDTO = $recetaService->buscarRecetaPorId(new RecetaDTO($id, null, null, null, null, null, null, null, null, null));
-
         if (isset($datos['borrar'])) { // Si el formulario se envió con el botón "borrar"
             return $this->borrar($this->recetaDTO);
         }
@@ -177,15 +167,22 @@ class editarRecetaForm extends formularioBase
         $result = array();
              
         // Saneamiento de datos de entrada
-        $titulo = trim($datos['titulo'] ?? '');
-        $descripcion = trim($datos['descripcion'] ?? '');
+        $titulo = htmlspecialchars(trim($datos['titulo'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $descripcion = htmlspecialchars(trim($datos['descripcion'] ?? ''), ENT_QUOTES, 'UTF-8');
         $precio = isset($datos['precio']) ? floatval(trim($datos['precio'])) : 0;
         $tiempo = isset($datos['tiempo']) ? intval(trim($datos['tiempo'])) : 0;
+        
         $ingredientesJson = $datos['ingredientesSeleccionados'] ?? '';
         $ingredientes = json_decode($ingredientesJson, true) ?? [];
-        $pasos = isset($datos['steps']) ? array_map('trim', $datos['steps']) : [];
+        
+        // Escapar cada paso individualmente
+        $pasos = isset($datos['steps']) ? array_map(function ($paso) {
+            return htmlspecialchars(trim($paso), ENT_QUOTES, 'UTF-8');
+        }, $datos['steps']) : [];
+
         $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', trim($datos['etiquetas']))) : [];
         $imagenGuardada = $this->procesarImagen($this->recetaDTO);
+
 
         // Validaciones
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
@@ -207,7 +204,7 @@ class editarRecetaForm extends formularioBase
         if (count($result) === 0)
         {      
             // Crear un objeto DTO con los nuevos valores
-            $recetaDTO = new recetaDTO($id, $titulo, null, $descripcion, $pasos, $tiempo, $precio, null, null, $imagenGuardada);
+            $recetaDTO = new recetaDTO($this->recetaDTO->getId(), $titulo, null, $descripcion, $pasos, $tiempo, $precio, null, null, $imagenGuardada);
 
             // Instancia del servicio de recetas
             $recetaService = recetaAppService::GetSingleton();
