@@ -179,24 +179,23 @@ document.addEventListener("DOMContentLoaded", function () {
         observer.observe(ingredientContainer, { childList: true, subtree: true });
     }
 
-    const form = document.getElementById("crearRecetaForm"); // ID del formulario
-    if (form) {
-        form.addEventListener("submit", function (event) {
-            // Seleccionamos directamente el input oculto que ya existe
-            const inputIngredientes = document.getElementById("ingredientesSeleccionadosInput");
+    ["crearRecetaForm", "editarRecetaForm"].forEach(formId => {
+        const form = document.getElementById(formId);
+        if (form) {
+            form.addEventListener("submit", function (event) {
+                const inputIngredientes = document.getElementById("ingredientesSeleccionadosInput");
     
-            // Convertimos ingredientesSeleccionados (objeto) en array de objetos
-            const ingredientesArray = Object.keys(ingredientesSeleccionados).map(id => ({
-                id: parseInt(id),
-                cantidad: parseFloat(ingredientesSeleccionados[id].cantidad), // aseguramos double
-                magnitud: parseInt(ingredientesSeleccionados[id].magnitud)     // aseguramos int
-            }));
-            
+                const ingredientesArray = Object.keys(ingredientesSeleccionados).map(id => ({
+                    id: parseInt(id),
+                    cantidad: parseFloat(ingredientesSeleccionados[id].cantidad),
+                    magnitud: parseInt(ingredientesSeleccionados[id].magnitud)
+                }));
     
-            // Guardamos el array como JSON en el input
-            inputIngredientes.value = JSON.stringify(ingredientesArray);
-        });
-    }
+                inputIngredientes.value = JSON.stringify(ingredientesArray);
+            });
+        }
+    });
+    
     
     
 });
