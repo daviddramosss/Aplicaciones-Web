@@ -20,65 +20,12 @@ class miRecetarioHelper {
 
     }
 
-    
-    public function iniciarRol() {    
-
-        // Se obtiene el rol del usuario
-        $rol = $this->user->getRol();
-
-        // Si el rol no es chef, se redirige a la página principal y se deja de ejecutar el código de este archivo
-        if($rol == 'User'){
-
-            // Mostramos un texto
-            return <<<HTML
-                <h1>¡Conviertete en un Chef Estrella Michelin!</h1>
-                <p> Si quieres ser un chef, debes ponerte en contacto con nosotros y comentarnos porqué quieres ser chef, tu experiencia y tus habilidades</p>
-                <p> No te olvides de adjuntar tu DNI y tu cuenta bancaria para que podamos comprobar tu identidad y gestionar los pagos</p>
-
-                <p> ¡Para contactar con nosotros puedes acceder a la sección de contacto o simplemente haz click <a href="contacto.php">aquí</a>!</p>   
-            HTML;
-        }else if ($rol == 'Admin'){
-            
-            $recetasHTML = $this->mostrarRecetaAdmin();
-
-            return <<<HTML
-                <h1> ¡Bienvenido a la cocina Admin!</h1>
-
-                <p> Aquí podrás ver y editar las recetas que los chefs han creado.</p>
-                 <p> Al hacer clic en cada uno de tus platos podrás editarlos o borrarlos de una manera sencilla.</p>               
-                {$recetasHTML}
-            HTML;        
-        
-        }else if ($rol == 'Chef'){
-
-            $recetasHTML = $this->mostrarRecetasChef();
-
-            $chefAppService = chefAppService::GetSingleton();
-            $chefDTO = $chefAppService->informacionChef($this->user);
-
-            return <<<HTML
-                <h1> ¡Bienvenido a tu cocina Chef!</h1>
-
-                <p> Es un placer tenerte de vuelta, {$this->user->getNombre()}. Desde MarketChef estamos deseando de ver tus nuevas creaciones, para ello puedes usar la funcionalida de crear recetas.</p>
-                <div class="crear-receta-container">
-                    <button type="button" class="send-button" onclick="location.href='crearReceta.php'">CREAR NUEVA RECETA</button>
-                </div>
-
-                <p> Además al hacer clic en cada uno de tus platos podrás editarlos o borrarlos de una manera sencilla.</p>               
-                {$recetasHTML}
-
-                <h2>Saldo acumulado hasta el momento: {$chefDTO->getSaldo()} €</h2>
-
-            HTML;
-        }
-    }
-
     public function mostrarRecetasCompradas() {
         $recetaAppService = recetaAppService::GetSingleton();
         $recetas = $recetaAppService->mostarRecetasPorComprador($this->user);
 
         if (empty($recetas)) {
-            return "<p>No tienes recetas publicadas aún.</p>";
+            return "<p>No tienes recetas compradas aún.</p>";
         }
 
         $html = '<div class="recetas-container">';
