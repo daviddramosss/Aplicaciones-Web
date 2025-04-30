@@ -25,7 +25,7 @@ class editarRecetaForm extends formularioBase
         $recetaService = recetaAppService::GetSingleton();
         
         // Obtener la receta desde la base de datos
-        $this->recetaDTO = $recetaService->buscarRecetaPorId(new recetaDTO($recetaId, null, null, null, null, null, null, null, null, null)); 
+        $this->recetaDTO = $recetaService->buscarRecetaPorId(new recetaDTO($recetaId, null, null, null, null, null, null, null, null)); 
 
         //Hago lo mismo para obtener los ingredientes y las etiquetas
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
@@ -204,7 +204,7 @@ class editarRecetaForm extends formularioBase
         if (count($result) === 0)
         {      
             // Crear un objeto DTO con los nuevos valores
-            $recetaDTO = new recetaDTO($this->recetaDTO->getId(), $titulo, null, $descripcion, $pasos, $tiempo, $precio, null, null, $imagenGuardada);
+            $recetaDTO = new recetaDTO($this->recetaDTO->getId(), $titulo, null, $descripcion, $pasos, $tiempo, $precio, null, $imagenGuardada);
 
             // Instancia del servicio de recetas
             $recetaService = recetaAppService::GetSingleton();

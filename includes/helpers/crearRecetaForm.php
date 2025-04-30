@@ -149,7 +149,7 @@ class crearRecetaForm extends formularioBase
         if (count($result) === 0)
         {
              // Creación de la receta en la tabla recetas
-            $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, 0, $imagenGuardada);
+            $recetaDTO = new RecetaDTO(0, $titulo, $usuarioId, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, $imagenGuardada);
             $recetaService = recetaAppService::GetSingleton();
             $recetaService->crearReceta($recetaDTO, $ingredientes, $etiquetas);  
             

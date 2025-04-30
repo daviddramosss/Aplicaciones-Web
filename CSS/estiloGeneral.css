@@ -279,30 +279,6 @@ hr {
     color: #555;
 }
 
-/* Alineación de las estrellas */
-/*
-.valoracion {
-    display: flex;
-    justify-content: center;  
-    gap: 5px;
-    margin-top: 10px;
-}
-
-.estrella_buscar {
-    font-size: 22px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.estrella_buscar:hover, 
-.estrella_buscar.seleccionada {
-    color: gold;
-}
-
-.tags_container_buscar{
-    background: #f6f6ae !important;
-}
-*/
 /* #endregion */
 
 /* #endregion */
