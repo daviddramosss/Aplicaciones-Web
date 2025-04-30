@@ -7,6 +7,7 @@
     $tituloPagina = 'Mi Recetario';
 
     $miRecetarioHelper = new miRecetarioHelper();
+    $miRecetarioHelper->init(); 
     $htmlMiRecetarioHelper = $miRecetarioHelper->iniciarRol();
 
     $contenidoPrincipal = <<<EOS

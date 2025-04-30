@@ -6,7 +6,7 @@ class recetaCompradaFactory
 {
 
     //Método estático que crea y devuelve una instancia de recetaDAO.
-    public static function CreateReceta(): IReceta
+    public static function CreateReceta(): IRecetaComprada
     {
         // Inicializa la variable con un valor por defecto (innecesario aquí)
         $recetaCompradaDAO = false;
