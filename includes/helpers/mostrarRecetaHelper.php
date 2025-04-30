@@ -129,7 +129,10 @@ class mostrarRecetaHelper
         return $html;
     }
     
-
+    public function esComprador($idusuario, $idReceta){
+        
+        return false;
+    }
 
 
 }
