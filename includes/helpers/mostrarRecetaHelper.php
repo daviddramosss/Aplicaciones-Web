@@ -90,6 +90,15 @@ class mostrarRecetaHelper
             <br>
             <h2> Recetas similares </h2>
             $recetas_aux
+
+
+            <form action="anadirCarrito.php" method="post">
+                <input type="hidden" name="recetaId" value="{$this->recetaDTO->getId()}">
+                <button type="submit" class="boton-comprar">Añadir al carrito</button>
+            </form>
+
+
+
         HTML;
     }
     
