@@ -236,6 +236,8 @@ class editarRecetaForm extends formularioBase
             return null; // Error en la subida
         }
     
+        $this->eliminarImagen($recetaDTO->getRuta());
+
         $imagenTmp = $_FILES['imagenReceta']['tmp_name'];
         $nombreOriginal = $_FILES['imagenReceta']['name'];
     
@@ -265,12 +267,26 @@ class editarRecetaForm extends formularioBase
         return $nombreImagen; // Devolver el nombre de la imagen guardada
     }
 
+    private function eliminarImagen($nombreImagen)
+    {
+        if (!$nombreImagen || $nombreImagen === 'recetaDefault.jpeg') {
+            // No borres si no hay imagen o es la imagen por defecto
+            return;
+        }
+
+        $rutaImagen = dirname(dirname(__DIR__)) . "/img/receta/" . $nombreImagen;
+
+        if (file_exists($rutaImagen)) {
+            unlink($rutaImagen); // Borra la imagen
+        }
+    }
+
     public function borrar($recetaDTO) 
     {   
         // Lógica para borrar la receta
         $recetaService = recetaAppService::GetSingleton(); // Asegúrate de instanciar tu servicio de recetas
+        $this->eliminarImagen($recetaDTO->getRuta());
         $recetaService->borrarReceta($recetaDTO); // Llama al método para borrar la receta
-
         // Redirigir tras borrar
         header("Location: confirmacionRecetaBorrada.php");
         exit();
