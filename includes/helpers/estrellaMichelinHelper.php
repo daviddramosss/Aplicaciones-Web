@@ -12,6 +12,10 @@ class estrellaMichelinHelper {
     private $user;
 
     public function __construct() {
+       
+    }
+
+    public function init(){
         $app = application::getInstance();
 
         $userAppService = userAppService::GetSingleton();
