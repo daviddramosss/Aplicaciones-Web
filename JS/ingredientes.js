@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             magnitudSelect.disabled = false;
 
                             ingredientesSeleccionados[ingrediente.id] = {
-                                cantidad: cantidadInput.value || 0,  // puedes poner 0 si no hay cantidad aún
+                                cantidad: cantidadInput.value || 1,  // puedes poner 0 si no hay cantidad aún
                                 magnitud: magnitudSelect.value       // guardamos la magnitud actual
                             };
                         } else {
