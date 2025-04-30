@@ -54,7 +54,6 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
                         null,
                         null,
                         null,
-                        null,
                         $row["Ruta"]     // Ruta de la receta
                     );
                 }
