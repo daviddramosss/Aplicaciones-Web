@@ -12,6 +12,10 @@ class miRecetarioHelper {
     private $user;
 
     public function __construct() {
+       //quito lo que habia aqui y lo pongo en el init
+    }
+
+    public function init() {
         $app = application::getInstance();
 
         $userAppService = userAppService::GetSingleton();
@@ -51,8 +55,8 @@ class miRecetarioHelper {
     }
 
     public function mostrarRecetasCompradas() {
-        $recetaAppService = recetaAppService::GetSingleton();
-        $recetas = $recetaAppService->mostarRecetasPorComprador($this->user);
+        $recetaCompradaAppService = recetaCompradaAppService::GetSingleton();
+        $recetas = $recetaCompradaAppService->mostarRecetasPorComprador($this->user);
 
         if (empty($recetas)) {
             return "<p>No tienes recetas compradas aún.</p>";
