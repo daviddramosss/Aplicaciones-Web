@@ -25,7 +25,6 @@ DROP TABLE IF EXISTS ingrediente_alergeno;
 DROP TABLE IF EXISTS receta_ingrediente;
 DROP TABLE IF EXISTS magnitudes;
 DROP TABLE IF EXISTS receta_comprada;
-DROP TABLE IF EXISTS valoraciones;
 DROP TABLE IF EXISTS alergenos;
 DROP TABLE IF EXISTS ingredientes;
 DROP TABLE IF EXISTS recetas;
@@ -100,7 +99,6 @@ CREATE TABLE `recetas` (
  `Tiempo` int(11) NOT NULL,
  `Precio` double NOT NULL,
  `Fecha_Creacion` timestamp NOT NULL DEFAULT current_timestamp(),
- `Valoracion` double DEFAULT NULL,
   `Ruta` varchar(100) NOT NULL,
  PRIMARY KEY (`ID`),
  KEY `fk_recetas_autor` (`Autor`),
@@ -109,7 +107,7 @@ CREATE TABLE `recetas` (
 
 
 -- Recetas Precargadas
-INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Fecha_Creacion, Valoracion, Ruta) 
+INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Fecha_Creacion, Ruta) 
 VALUES
     ('Paella Valenciana', 
     3, 
@@ -124,7 +122,6 @@ VALUES
     60, 
     20.0,
     '2022-07-15 14:25:30',
-    4.8, 
     'paella_valenciana.jpg'),
 
     ('Spaghetti Carbonara', 
@@ -140,7 +137,6 @@ VALUES
     20, 
     10.5, 
     '2021-05-10 18:45:20',
-    4.7, 
     'spaghetti_carbonara.jpg'),
 
     ('Tacos al Pastor', 
@@ -156,7 +152,6 @@ VALUES
     45, 
     15.0, 
     '2023-11-08 09:30:10',
-    4.9, 
     'tacos_al_pastor.jpg'),
 
     ('Sushi de Salmón', 
@@ -172,7 +167,6 @@ VALUES
     40, 
     25.0, 
     '2020-02-20 12:15:45',
-    4.6, 
     'sushi_de_salmon.jpg'),
 
     ('Hamburguesa Clásica', 
@@ -188,7 +182,6 @@ VALUES
     25, 
     12.0, 
     '2024-01-05 17:50:55',
-    4.5, 
     'hamburguesa_clasica.jpg'),
 
     ('Ensalada César', 
@@ -204,7 +197,6 @@ VALUES
     15, 
     8.0,
     '2019-09-25 07:10:30', 
-    4.4, 
     'ensalada_cesar.jpg'),
 
     ('Lasagna Bolognesa', 
@@ -221,7 +213,6 @@ VALUES
     50, 
     18.0, 
     '2024-01-06 17:50:55',
-    4.7, 
     'lasagna_bolognesa.jpg'),
 
     ('Pollo al Curry', 
@@ -237,7 +228,6 @@ VALUES
     35, 
     14.0, 
     '2024-09-05 17:50:55',
-    4.6, 
     'pollo_al_curry.jpg'),
 
     ('Chili con Carne', 
@@ -253,7 +243,6 @@ VALUES
     45, 
     16.0, 
     '2024-12-09 10:50:55',
-    4.5, 
     'chili_con_carne.jpg'),
 
     ('Ceviche de Pescado', 
@@ -269,7 +258,6 @@ VALUES
     30, 
     13.5, 
     '2025-01-01 17:50:55',
-    4.8, 
     'ceviche_de_pescado.jpg'),
 
     ('Risotto de Champiñones', 
@@ -285,7 +273,6 @@ VALUES
     40, 
     17.0, 
     '2024-01-25 07:50:55',
-    4.7, 
     'risotto_de_champinones.jpg'),
 
     ('Papas a la Huancaína', 
@@ -301,7 +288,6 @@ VALUES
     25,
     9.5, 
     '2024-01-05 00:50:55',
-    4.6,
     'papas_a_la_huancaina.jpg'),
 
     ('Goulash Húngaro', 
@@ -317,7 +303,6 @@ VALUES
     60, 
     22.0, 
     '2024-01-05 17:50:55',
-    4.8, 
     'goulash_hungaro.jpg'),
 
     ('Sopa de Tomate', 
@@ -333,7 +318,6 @@ VALUES
     30, 
     10.0, 
     '2024-01-05 17:50:55',
-    4.5, 
     'sopa_de_tomate.jpg'),
 
     ('Moussaka', 
@@ -349,7 +333,6 @@ VALUES
     50, 
     19.0, 
     '2022-01-05 17:50:55',
-    4.7, 
     'moussaka.jpg'),
 
      ('Crema de Calabaza', 
@@ -365,7 +348,6 @@ VALUES
     30, 
     12.0, 
     '2023-10-15 12:00:00',  
-    85,  
     'crema_de_calabaza.jpg'),
 
     
@@ -381,7 +363,6 @@ VALUES
     20, 
     10.0, 
     '2023-10-16 12:00:00',  
-    90,  
     'pasta_al_pesto.jpeg'),
 
      ('Tarta de Manzana', 
@@ -397,7 +378,6 @@ VALUES
     60, 
     15.0, 
     '2023-10-17 12:00:00',  
-    88,  
     'tarta_de_manzana.jpg'),
 
     ('Curry de Garbanzos', 
@@ -412,7 +392,6 @@ VALUES
     40, 
     14.0, 
     '2023-10-18 12:00:00', 
-    92,  
     'curry_garbanzos.jpg'),
 
     ('Salmon a la Plancha', 
@@ -426,7 +405,6 @@ VALUES
     25, 
     18.0, 
     '2023-10-19 12:00:00',  
-    87, 
     'salmon_plancha.jpg');
 
 
@@ -589,21 +567,6 @@ CREATE TABLE `ingredientes` (
 
         -- Otros
         ("Calabaza");      -- 114
-
-
--- Tabla Valoraciones
-CREATE TABLE `valoraciones` (
- `ID` int(11) NOT NULL AUTO_INCREMENT,
- `Usuario` int(11) NOT NULL,
- `Receta` int(11) NOT NULL,
- `Puntuacion` double NOT NULL COMMENT 'de 0 a 5',
- `Comentario` text DEFAULT NULL,
- PRIMARY KEY (`ID`),
- KEY `fk_valoraciones_usuario` (`Usuario`),
- KEY `fk_valoraciones_receta` (`Receta`),
- CONSTRAINT `fk_valoraciones_receta` FOREIGN KEY (`Receta`) REFERENCES `recetas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
- CONSTRAINT `fk_valoraciones_usuario` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 -- Tabla Receta_Comprada

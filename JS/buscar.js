@@ -1,38 +1,4 @@
 
-// #region Estrellas
-
-/*
-//Esta funcion permite la seleccion de las estrellas
-document.addEventListener("DOMContentLoaded", function() {
-
-    const estrellas = document.querySelectorAll(".estrella_buscar");
-    const valoracionInput = document.getElementById("valoracionInput");
-
-    estrellas.forEach(estrella => {
-        estrella.addEventListener("click", function() {
-
-            let valor = this.getAttribute("data-value");
-
-            valoracionInput.value = valor; // Guardamos la calificación
-
-            actualizarEstrellas(valor);
-        });
-    });
-
-    function actualizarEstrellas(valor) { // Recorre las estrellas y si su valor es menos o igual al seleccionado, le añade la clase seleccionada
-        estrellas.forEach(estrella => {
-
-            estrella.classList.remove("seleccionada");
-
-            if (estrella.getAttribute("data-value") <= valor) {
-                estrella.classList.add("seleccionada");
-            }
-        });
-    }
-});
-*/
-// #endregion
-
 // #region Buscar   
 
 document.addEventListener("DOMContentLoaded", function () {

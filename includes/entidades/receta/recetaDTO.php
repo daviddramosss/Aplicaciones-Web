@@ -16,11 +16,10 @@ class recetaDTO
     private $tiempo;
     private $precio;
     private $fecha_creacion;
-    private $valoracion;
     private $ruta;
 
     //Constructor de la clase recetaDTO
-    public function __construct($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, $valoracion, $ruta)
+    public function __construct($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fecha_creacion, $ruta)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -30,7 +29,6 @@ class recetaDTO
         $this->tiempo = $tiempo;
         $this->precio = $precio;
         $this->fecha_creacion = $fecha_creacion;
-        $this->valoracion = $valoracion;
         $this->ruta = $ruta;
     }
 
@@ -73,11 +71,6 @@ class recetaDTO
     public function getFechaCreacion()
     {
         return $this->fecha_creacion;
-    }
-
-    public function getValoracion()
-    {
-        return $this->valoracion;
     }
 
     public function getRuta()

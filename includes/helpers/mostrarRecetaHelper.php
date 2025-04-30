@@ -22,16 +22,16 @@ class mostrarRecetaHelper
     public function init($recetaId)
     {
         $recetaService = recetaAppService::GetSingleton();
-        $this->recetaDTO = $recetaService->buscarRecetaPorId(new RecetaDTO($recetaId, null, null, null, null, null, null, null, null, null));
+        $this->recetaDTO = $recetaService->buscarRecetaPorId(new recetaDTO($recetaId, null, null, null, null, null, null, null, null));
         
         $usuarioService = userAppService::GetSingleton();
         $this->autor = $usuarioService->buscarUsuarioPorID(new userDTO($this->recetaDTO->getAutor(), null, null, null, null, null, null));
 
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null, null), 'nombres');
+        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null), 'nombres');
     
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
-        $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null, null));
+        $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null));
 
         $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, $recetaId);        
     }
@@ -52,7 +52,6 @@ class mostrarRecetaHelper
         $descripcion = nl2br(htmlspecialchars($this->recetaDTO->getDescripcion()));
         $tiempo = htmlspecialchars($this->recetaDTO->getTiempo()) . " minutos";
         $precio = htmlspecialchars($this->recetaDTO->getPrecio()) . "€";
-        $valoracion = htmlspecialchars($this->recetaDTO->getValoracion()) ?: "Sin valoración";
         $rutaImagen = "img/receta/" . htmlspecialchars($this->recetaDTO->getRuta());
     
         // Formatear fecha (solo día/mes/año)
@@ -79,7 +78,6 @@ class mostrarRecetaHelper
                     <p><strong>Descripción:</strong> $descripcion</p>
                     <p><strong>Tiempo de preparación:</strong> $tiempo</p>
                     <p><strong>Precio:</strong> $precio</p>
-                    <p><strong>Valoración:</strong> $valoracion</p>
                     <p><strong>Fecha de creación:</strong> $fechaCreacion</p>
                     $etiquetas
                 </div>
