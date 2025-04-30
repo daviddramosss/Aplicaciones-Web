@@ -181,9 +181,8 @@ class editarRecetaForm extends formularioBase
         }, $datos['steps']) : [];
 
         $etiquetas = isset($datos['etiquetas']) ? array_map('intval', explode(',', trim($datos['etiquetas']))) : [];
-        $imagenGuardada = $this->procesarImagen($this->recetaDTO);
-
-
+        
+        
         // Validaciones
         if (empty($titulo) || empty($descripcion) || $precio <= 0 || $tiempo <= 0) {
             $result[] = "Error: Todos los campos son obligatorios y deben ser válidos.";
@@ -191,10 +190,13 @@ class editarRecetaForm extends formularioBase
         if (!is_array($ingredientes) || count($ingredientes) === 0) {
             $result[] = "Error: Debes añadir al menos un ingrediente.";
         }
-
+        
         if (!is_array($pasos) || count($pasos) === 0) {
             $result[] = "Error: La receta debe tener al menos un paso.";
         }
+
+        $imagenGuardada = $this->procesarImagen($this->recetaDTO);
+        
         if ($imagenGuardada === null) {
             $result[] = "Error: La imagen subida no es válida.";
         }
