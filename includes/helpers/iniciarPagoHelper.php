@@ -1,62 +1,60 @@
 <?php
 
-namespace es\ucm\fdi\aw\helpers;
-
-use es\ucm\fdi\aw\lib\redsys\Model\element\RESTOperationElement;
-use es\ucm\fdi\aw\lib\redsys\Constants\RESTConstants;
-use es\ucm\fdi\aw\lib\redsys\Model\message\RESTOperationMessage;
-use es\ucm\fdi\aw\lib\redsys\Service\Impl\RESTOperationService;
+include_once("includes/lib/ApiRedsysREST/initRedsysApi.php");
 
 class iniciarPagoHelper
 {
     public function generarFormularioPago(): string
     {
-        if (!isset($_SESSION)) session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
         $importe = $_POST['importeTotal'] ?? null;
 
-        if (!$importe || !is_numeric($importe)) {
+        // Validar importe
+        if (!$importe || !is_numeric($importe) || $importe <= 0) {
             return "<p>Error: Importe no válido.</p>";
         }
 
-        // Configuración de Redsys en modo prueba
+        // Convertir importe a formato de Redsys
+        $importeEnCentimos = (int)round(floatval($importe) * 100);
+
+        // Configuración Redsys (modo pruebas)
         $claveFirma = "sq7HjrUOBfKmC576ILgskD5srU870gJ7";
         $entorno = RESTConstants::$ENV_SANDBOX;
         $fuc = "999008881";
         $terminal = "1";
-        $order = uniqid();
+        $moneda = "978";
+        $order = uniqid("ORD");
+        $transaccion = "0"; // Autorización
         $urlOk = "http://localhost/tu-proyecto/pagoOk.php";
         $urlKo = "http://localhost/tu-proyecto/pagoKo.php";
 
-        // Crear objeto operación con setters
-        $operation = new RESTOperationElement();
-        $operation
-            ->setAmount($importe)
-            ->setCurrency("978")
+        // Crear mensaje de inicio
+        $message = new RESTInitialRequestMessage();
+        $message
+            ->setAmount($importeEnCentimos)
+            ->setCurrency($moneda)
             ->setOrder($order)
             ->setMerchant($fuc)
             ->setTerminal($terminal)
-            ->setTransactionType("AUTHORIZATION");
+            ->setTransactionType($transaccion)
+            ->setMerchantURL($urlOk)
+            ->setUrlKO($urlKo)
+            ->setUrlOK($urlOk);
 
+        // Instanciar servicio
+        $servicio = new RESTInitialRequestService($claveFirma, $entorno);
+        $response = $servicio->sendInitialRequest($message);
 
-        $message = new RESTOperationMessage();
-        $message
-            ->setAmount($operation->getAmount())
-            ->setCurrency($operation->getCurrency())
-            ->setOrder($operation->getOrder())
-            ->setMerchant($operation->getMerchant())
-            ->setTerminal($operation->getTerminal())
-            ->setTransactionType($operation->getTransactionType());
-            
-
-        $servicio = new RESTOperationService($claveFirma, $entorno);
-        $response = $servicio->sendOperation($message);
-
-        if ($response->result === "OK" && isset($response->operation->url)) {
-            $url = htmlspecialchars($response->operation->url);
-            $params = htmlspecialchars($response->operation->merchantParameters);
-            $signature = htmlspecialchars($response->operation->signature);
-            $signatureVersion = htmlspecialchars($response->operation->signatureVersion);
+        // Analizar respuesta
+        if ($response->getResult() === "OK") {
+            $op = $response->getOperation();
+            $url = htmlspecialchars($op->getUrl());
+            $params = htmlspecialchars($op->getMerchantParameters());
+            $signature = htmlspecialchars($op->getSignature());
+            $signatureVersion = htmlspecialchars($op->getSignatureVersion());
 
             return <<<HTML
                 <p>Redirigiendo a Redsys para completar el pago...</p>
@@ -64,12 +62,14 @@ class iniciarPagoHelper
                     <input type="hidden" name="Ds_MerchantParameters" value="$params">
                     <input type="hidden" name="Ds_SignatureVersion" value="$signatureVersion">
                     <input type="hidden" name="Ds_Signature" value="$signature">
-                    <button type="submit">Ir a Redsys</button>
+                    <noscript><button type="submit">Ir a Redsys</button></noscript>
                 </form>
                 <script>document.getElementById("formPago").submit();</script>
             HTML;
         } else {
-            return "<p>Error al iniciar el pago. Código: {$response->apiCode}</p>";
+            $errorCode = htmlspecialchars($response->getApiCode());
+            $errorMessage = htmlspecialchars($response->getErrorMessage() ?? 'Error desconocido');
+            return "<p>Error al iniciar el pago. Código: $errorCode. Mensaje: $errorMessage</p>";
         }
     }
 }
