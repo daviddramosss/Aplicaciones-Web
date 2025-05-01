@@ -6,7 +6,7 @@ require_once("includes/helpers/iniciarPagoHelper.php");
 $tituloPagina = 'Procesando pago';
 
 $helper = new iniciarPagoHelper();
-$contenidoPrincipal = $helper->generarFormularioPago();
+$contenidoPrincipal = $helper->procesar();
 
 require("includes/comun/plantilla.php");
 
