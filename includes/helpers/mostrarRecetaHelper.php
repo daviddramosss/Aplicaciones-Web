@@ -16,6 +16,7 @@ class mostrarRecetaHelper
     private $etiquetas;
     private $similares;
     private $esComprador;
+    private $logueado;
 
     public function __construct() 
     {
@@ -38,7 +39,15 @@ class mostrarRecetaHelper
         $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, $recetaId);
         
         $recetaCompradaService = recetaCompradaAppService::GetSingleton();
-        $this->esComprador = $recetaCompradaService->esComprador(new recetaCompradaDTO($this->autor->getId(), $recetaId));
+
+        if(isset($_SESSION["login"])){
+            $this->esComprador = $recetaCompradaService->esComprador(new recetaCompradaDTO($_SESSION["id"], $recetaId));
+            $this->logueado = true;
+        }
+        else{
+            $this->logueado = false;
+            $this->esComprador = false;
+        }
     }
 
     public function print()
@@ -75,7 +84,9 @@ class mostrarRecetaHelper
         // Mostrar los pasos solo si es comprador
         if ($this->esComprador) {
             $pasosArray = json_decode($this->recetaDTO->getPasos(), true);
-            $listaPasos = "<div class='receta-pasos'>";
+            $listaPasos = "<h2>Pasos de la receta</h2>";
+            $listaPasos .= "<div class='receta-pasos'>";
+
             foreach ($pasosArray as $indice => $paso) {
                 $numPaso = $indice + 1;
                 $listaPasos .= "<p><strong>Paso $numPaso:</strong> " . htmlspecialchars($paso) . "</p>";
@@ -87,7 +98,25 @@ class mostrarRecetaHelper
 
 
         $etiquetas = $this->generarEtiquetas();
-        $ingredientes = $this->generarIngredientes();
+        $ingredientes = "";
+        if ($this->esComprador) {
+            $ingredientes = $this->generarIngredientes();
+        }
+        $botonCarrito = "";
+        if($this->logueado){
+            if(!$this->esComprador){
+                $botonCarrito = "
+                <form action='anadirCarrito.php' method='post'>
+                    <input type='hidden' name='recetaId' value='{$this->recetaDTO->getId()}'>
+                    <button type='submit' class='send-button'>Añadir al carrito</button>
+                </form>
+                ";
+            }
+        }
+        else{
+            $botonCarrito = "<p>hola</p>";
+            //boton iniciar Sesión
+        }
         $recetas_aux = $this->similares;
         return <<<HTML
             <section>
@@ -102,20 +131,15 @@ class mostrarRecetaHelper
                     $etiquetas
                 </div>
                 <div>
-                    <h2>Pasos de la receta</h2>
                     $listaPasos
                     $ingredientes
                 </div>
             </section>
+            $botonCarrito
             <br>
             <h2> Recetas similares </h2>
             $recetas_aux
 
-
-            <form action="anadirCarrito.php" method="post">
-                <input type="hidden" name="recetaId" value="{$this->recetaDTO->getId()}">
-                <button type="submit" class="boton-comprar">Añadir al carrito</button>
-            </form>
 
 
 

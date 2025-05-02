@@ -97,7 +97,7 @@ class userDAO implements IUser
 
         $stmt = $conn->prepare($query);
 
-        // Si la ejecución del insert se hizo correctamente, cogeremos el id asignado automáticamente por la BBSDD y crearemos el usuario con los datos para devolverlo
+        // Si la ejecución del insert se hizo correctamente, cogeremos el id asignado automáticamente por la BBDD y crearemos el usuario con los datos para devolverlo
         if ($stmt->execute()) 
         {
             $idUser = $conn->insert_id;
