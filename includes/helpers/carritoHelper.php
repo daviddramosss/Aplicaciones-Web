@@ -37,7 +37,9 @@ class carritoHelper
             return "<p>No hay recetas en el carrito.</p>";
         }
 
-        $html = "<h1>Carrito de Recetas</h1>";
+        $html = "<h1>Carrito de Recetas</h1>
+                <div class='container'>";
+
         $html .= "<ul class='lista-carrito'>";
 
         foreach ($this->recetas as $r) {
@@ -48,14 +50,16 @@ class carritoHelper
 
         $totalFormatted = number_format($this->total, 2);
         $html .= "</ul>";
-        $html .= "<p><strong>Total:</strong> $totalFormatted €</p>";
+        $html .= "<h2>Total: $totalFormatted €</h2>";
 
         $html .= <<<HTML
             <form action="iniciarPago.php" method="post">
                 <input type="hidden" name="importeTotal" value="{$this->getImporteCentesimos()}">
-                <button type="submit" class="boton-pagar">Pagar con tarjeta</button>
+                <button type="submit" class="send-button">PAGAR CON TARJETA</button>
             </form>
         HTML;
+
+        $html .= "</div>";
 
         return $html;
     }
