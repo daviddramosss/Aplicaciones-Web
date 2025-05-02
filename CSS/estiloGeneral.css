@@ -510,6 +510,12 @@ p {
     color: #666;
 }
 
+/* Candado */
+.candado{
+    scale: 1;
+    font-size: 4em;
+}
+
 /*Contenedor comun; tiene una sombra*/
 .container {
     margin: 25px auto;

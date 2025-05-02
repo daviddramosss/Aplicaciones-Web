@@ -93,7 +93,23 @@ class mostrarRecetaHelper
             }
             $listaPasos .= "</div>";
         } else {
-            $listaPasos = "<div class='bloqueado'><p>Debes comprar la receta para ver los pasos de preparación.</p></div>";
+
+            $listaPasos = "
+            <div>
+                <p class='candado'>🔒</p>
+            ";
+            if(!$this->logueado){
+                $listaPasos.= "
+                <p> ¡No estas logueado! Inicia sesión primero</p>
+                ";
+            } 
+            else{
+                $listaPasos.= "
+                    <p> ¡No tienes comprada esta receta!
+                    <p>Debes comprar la receta para ver los pasos de preparación.</p>
+                ";
+            }
+            $listaPasos.= "</div>";
         }
 
 
@@ -136,8 +152,6 @@ class mostrarRecetaHelper
                     $ingredientes
                     $botonCarrito
                 </div>
-            </section>
-            <section> 
             </section>
             <br>
             <h2> Recetas similares </h2>
