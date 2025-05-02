@@ -6,6 +6,7 @@ use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
 use es\ucm\fdi\aw\entidades\usuario\{userAppService, userDTO};
 use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService};
 use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService};
+use es\ucm\fdi\aw\entidades\recetaComprada\{recetaCompradaAppService, recetaCompradaDTO};
 
 class mostrarRecetaHelper
 {
@@ -14,6 +15,7 @@ class mostrarRecetaHelper
     private $autor;
     private $etiquetas;
     private $similares;
+    private $esComprador;
 
     public function __construct() 
     {
@@ -33,7 +35,10 @@ class mostrarRecetaHelper
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
         $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null));
 
-        $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, $recetaId);        
+        $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, $recetaId);
+        
+        $recetaCompradaService = recetaCompradaAppService::GetSingleton();
+        $this->esComprador = $recetaCompradaService->esComprador(new recetaCompradaDTO($this->autor, $recetaId));
     }
 
     public function print()
@@ -137,11 +142,5 @@ class mostrarRecetaHelper
     
         return $html;
     }
-    
-    public function esComprador($idusuario, $idReceta){
-        
-        return false;
-    }
-
 
 }

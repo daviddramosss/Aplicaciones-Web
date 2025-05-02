@@ -14,7 +14,7 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
     {
     }
 
-    public function mostarRecetasPorComprador($userDTO)
+    public function mostarRecetasPorComprador($recetaCompradaDTO)
     {
         // Obtiene la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
@@ -33,7 +33,7 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
         $stmt = $conn->prepare($query);
 
         // Asocia el parámetro de la consulta con el ID del comprador
-        $comprador = $userDTO->getId();
+        $comprador = $recetaCompradaDTO->getUsuario();
         $stmt->bind_param("i", $comprador);
 
         // Ejecuta la consulta
@@ -90,6 +90,40 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
             // Devuelve false si la compra ha fallado
             return false;
         }
+    }
+
+    public function esComprador($recetaCompradaDTO){
+        // Variable que demostrara si es o no comprador
+        $esComprador = false;
+        // Obtiene la conexión a la base de datos
+        $conn = application::getInstance()->getConexionBd();
+
+        // Prepara la consulta SQL para comprar la receta
+        $query = "SELECT * FROM receta_comprada WHERE Usuario = ? AND Receta = ?"; 
+
+        // Prepara la declaración SQL
+        $stmt = $conn->prepare($query);
+
+        // Asocia el parámetro de la consulta con el ID del comprador
+        $comprador = $recetaCompradaDTO->getUsuario();
+        $recetaId = $recetaCompradaDTO->getReceta();
+        $stmt->bind_param("ii", $comprador, $recetaId);
+
+        // Ejecuta la consulta
+        if ($stmt->execute()) {
+            // Obtiene el resultado de la consulta
+            $result = $stmt->get_result();
+
+            // Si hay resultados significa que si es comprador
+            if ($result->num_rows > 0) {
+                $esComprador = true;
+            }
+        }
+
+        // Cierra la declaración
+        $stmt->close();
+
+        return $esComprador;
     }
 }  
 ?>

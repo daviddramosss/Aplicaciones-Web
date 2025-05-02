@@ -22,7 +22,7 @@ class miRecetarioHelper {
         $userAppService = userAppService::GetSingleton();
 
         $this->user = $userAppService->buscarUsuario(new userDTO(null, null, null, $app->getEmail(), null, null, null)); // Buscamos al usuario mediante su email ($app->getEmail());
-
+        
     }
 
     public function iniciarRol() {    
@@ -57,7 +57,7 @@ class miRecetarioHelper {
 
     public function mostrarRecetasCompradas() {
         $recetaCompradaAppService = recetaCompradaAppService::GetSingleton();
-        $recetas = $recetaCompradaAppService->mostarRecetasPorComprador($this->user);
+        $recetas = $recetaCompradaAppService->mostarRecetasPorComprador(new recetaCompradaDTO($this->user->getId(), null));
 
         if (empty($recetas)) {
             return "<p>No tienes recetas compradas aún.</p>";

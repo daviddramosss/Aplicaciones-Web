@@ -25,10 +25,10 @@ class recetaCompradaAppService
     } 
 
 
-    public function mostarRecetasPorComprador($userDTO){
+    public function mostarRecetasPorComprador($recetaCompradaDTO){
         $IRecetaCompradaDAO = recetaCompradaFactory::CreateReceta();
 
-        return $IRecetaCompradaDAO->mostarRecetasPorComprador($userDTO);
+        return $IRecetaCompradaDAO->mostarRecetasPorComprador($recetaCompradaDTO);
         
     }
 
@@ -37,6 +37,12 @@ class recetaCompradaAppService
 
         return $IRecetaCompradaDAO->comprarReceta($recetaCompradaDTO);
         
+    }
+
+    public function esComprador($recetaCompradaDTO){
+        $IRecetaCompradaDAO = recetaCompradaFactory::CreateReceta();
+
+        return $IRecetaCompradaDAO->esComprador($recetaCompradaDTO);
     }
    
 }
