@@ -14,7 +14,7 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
     {
     }
 
-    public function mostarRecetasPorComprador($recetaCompradaDTO)
+    public function mostrarRecetasPorComprador($recetaCompradaDTO)
     {
         // Obtiene la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
