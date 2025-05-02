@@ -38,7 +38,7 @@ class mostrarRecetaHelper
         $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, $recetaId);
         
         $recetaCompradaService = recetaCompradaAppService::GetSingleton();
-        $this->esComprador = $recetaCompradaService->esComprador(new recetaCompradaDTO($this->autor, $recetaId));
+        $this->esComprador = $recetaCompradaService->esComprador(new recetaCompradaDTO($this->autor->getId(), $recetaId));
     }
 
     public function print()
@@ -62,14 +62,29 @@ class mostrarRecetaHelper
         // Formatear fecha (solo día/mes/año)
         $fechaCreacion = date("d/m/Y", strtotime($this->recetaDTO->getFechaCreacion()));
     
-        // Convertir los pasos de JSON a array
+        // Convertir los pasos de JSON a array v1
+        /*
         $pasosArray = json_decode($this->recetaDTO->getPasos(), true);
         $listaPasos = "<div class='receta-pasos'>";
         foreach ($pasosArray as $indice => $paso) {
             $numPaso = $indice + 1;
             $listaPasos .= "<p><strong>Paso $numPaso:</strong> " . htmlspecialchars($paso) . "</p>";
         }
-        $listaPasos .= "</div>";
+        $listaPasos .= "</div>";*/
+
+        // Mostrar los pasos solo si es comprador
+        if ($this->esComprador) {
+            $pasosArray = json_decode($this->recetaDTO->getPasos(), true);
+            $listaPasos = "<div class='receta-pasos'>";
+            foreach ($pasosArray as $indice => $paso) {
+                $numPaso = $indice + 1;
+                $listaPasos .= "<p><strong>Paso $numPaso:</strong> " . htmlspecialchars($paso) . "</p>";
+            }
+            $listaPasos .= "</div>";
+        } else {
+            $listaPasos = "<div class='bloqueado'><p>Debes comprar la receta para ver los pasos de preparación.</p></div>";
+        }
+
 
         $etiquetas = $this->generarEtiquetas();
         $ingredientes = $this->generarIngredientes();
