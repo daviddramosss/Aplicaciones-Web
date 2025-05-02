@@ -575,29 +575,3 @@ p#copy {
 
 /* #endregion */
 
-/* #region NO IMPLEMENTADO - SIGUIENTES ACTUALIZACIONES */
-
-/* Contiene el CSS listo para implementarse en la proxima entrega. 
-Es el checkbox para usar la utilidad Mi Despensa a la hora de buscar.
-Se debatira la inclusion de esta funcionalidad dada la complejidad de la practica */ 
-
-/* Alineación de los checkboxes con sus labels */
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Espacio entre el checkbox y el texto */
-    margin-top: 10px;
-}
-
-.checkbox-container label{
-    position: relative;
-    top: -0.75vh; /* Sube un poco el label */
-}
-
-.checkbox-container input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-/* #endregion */
