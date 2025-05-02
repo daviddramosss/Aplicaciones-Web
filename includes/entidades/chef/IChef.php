@@ -13,5 +13,9 @@ interface IChef
 
     public function informacionChef($userDTO);
 
+    public function actualizarSaldo($chefDTO, $recetaDTO);
+
+    public function buscarChefPorID($chefDTO);
+
 }
 ?>
