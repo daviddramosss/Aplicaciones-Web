@@ -5,7 +5,7 @@ $tituloPagina = 'Receta editada con éxito';
 
 // Define el contenido principal de la página, que será insertado en la plantilla
 $contenidoPrincipal=<<<EOS
-    <h1>¿Su receta ha sido editada exitosamente!</h1>
+    <h1>¡Su receta ha sido editada exitosamente!</h1>
     <p>Serás redirigido a la página principal en unos segundos...</p>
     <script>
         setTimeout(function() {

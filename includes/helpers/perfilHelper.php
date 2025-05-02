@@ -41,9 +41,10 @@ class perfilHelper {
                     <h2 class="card-title">Hola, {$user->getNombre()} {$user->getApellidos()}</h2>
                     <p class="card-text"><strong>Email:</strong> {$user->getEmail()}</p>
                     <p class="card-text"><strong>Rol:</strong> {$user->getRol()}</p>
-                    <form action="logout.php" method="post">
-                        <button type="submit" class="send-button">CERRAR SESIÓN</button>
-                    </form>
+                    <button type='button' class='send-button' onclick='location.href=`logout.php`'> CERRAR SESIÓN</button>
+                    <button type='button' class='send-button' onclick='location.href=`editarPerfil.php`'> EDITAR PERFIL</button>
+
+
             </div>
         </div>
         EOS;

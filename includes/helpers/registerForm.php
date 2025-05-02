@@ -136,6 +136,7 @@ class registerForm extends formularioBase
                 // en caso de que todo haya ido bien, le damos acceso a la web y guardamos los datos importantes de la sesión
                 $_SESSION["login"] = true;
                 $_SESSION["usuario"] = $email;
+                $_SESSION["id"] = $createdUserDTO->getId();
                 // lo redirigimos a la pantalla de inicio
                 $result = 'index.php';
             }

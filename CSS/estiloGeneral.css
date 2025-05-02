@@ -213,7 +213,15 @@ textarea {
 
 /*Imagen de previsualizacion; comun para crearReceta y registerForm*/
 #previewImage{
+    scale: 1;
     max-width: 200px;
+    max-height: 200px;
+}
+
+.passwords-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 /* #endregion */
