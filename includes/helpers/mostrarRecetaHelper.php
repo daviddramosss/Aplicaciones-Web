@@ -108,14 +108,15 @@ class mostrarRecetaHelper
                 $botonCarrito = "
                 <form action='anadirCarrito.php' method='post'>
                     <input type='hidden' name='recetaId' value='{$this->recetaDTO->getId()}'>
-                    <button type='submit' class='send-button'>Añadir al carrito</button>
+                    <button type='submit' class='send-button'>AÑADIR AL CARRITO</button>
                 </form>
                 ";
             }
         }
         else{
-            $botonCarrito = "<p>hola</p>";
-            //boton iniciar Sesión
+            $botonCarrito = " 
+                <button type='button' class='send-button' onclick='location.href=`login.php`'> INICIAR SESIÓN</button>
+            ";
         }
         $recetas_aux = $this->similares;
         return <<<HTML
@@ -130,12 +131,14 @@ class mostrarRecetaHelper
                     <p><strong>Fecha de creación:</strong> $fechaCreacion</p>
                     $etiquetas
                 </div>
-                <div>
+                <div class="receta-detalle">
                     $listaPasos
                     $ingredientes
+                    $botonCarrito
                 </div>
             </section>
-            $botonCarrito
+            <section> 
+            </section>
             <br>
             <h2> Recetas similares </h2>
             $recetas_aux
