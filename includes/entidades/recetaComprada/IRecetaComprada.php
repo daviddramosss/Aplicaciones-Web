@@ -6,6 +6,8 @@ interface IRecetaComprada
 {
     public function mostarRecetasPorComprador($userDTO);
 
+    public function comprarReceta($recetaCompradaDTO);
+
 }
 
 ?>

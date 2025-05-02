@@ -2,9 +2,6 @@
 
 namespace es\ucm\fdi\aw\entidades\recetaComprada;
 
-use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaFactory, ingredienteRecetaDTO};
-use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaFactory, etiquetaRecetaDTO};
-
 class recetaCompradaAppService
 {
     private static $instance; 
@@ -32,6 +29,13 @@ class recetaCompradaAppService
         $IRecetaCompradaDAO = recetaCompradaFactory::CreateReceta();
 
         return $IRecetaCompradaDAO->mostarRecetasPorComprador($userDTO);
+        
+    }
+
+    public function comprarReceta($recetaCompradaDTO){
+        $IRecetaCompradaDAO = recetaCompradaFactory::CreateReceta();
+
+        return $IRecetaCompradaDAO->comprarReceta($recetaCompradaDTO);
         
     }
    

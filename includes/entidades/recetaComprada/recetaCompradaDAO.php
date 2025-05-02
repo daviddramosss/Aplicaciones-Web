@@ -65,5 +65,31 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
 
         return $recetas;
     }
+
+    public function comprarReceta($recetaCompradaDTO)
+    {
+        // Obtiene la conexión a la base de datos
+        $conn = application::getInstance()->getConexionBd();
+
+        // Prepara la consulta SQL para comprar la receta
+        $query = "INSERT INTO receta_comprada (Usuario, Receta) VALUES (?, ?)";
+
+        // Prepara la declaración SQL
+        $stmt = $conn->prepare($query);
+
+        // Asocia el parámetro de la consulta con el ID del comprador y la receta
+        $usuario = $recetaCompradaDTO->getUsuario();
+        $receta = $recetaCompradaDTO->getReceta();
+        $stmt->bind_param("ii", $usuario, $receta);
+
+        // Ejecuta la consulta
+        if ($stmt->execute()) {
+            // Devuelve true si la compra se ha realizado con éxito
+            return true;
+        } else {
+            // Devuelve false si la compra ha fallado
+            return false;
+        }
+    }
 }  
 ?>

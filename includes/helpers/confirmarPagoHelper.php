@@ -2,11 +2,21 @@
 
 namespace es\ucm\fdi\aw\helpers;
 
+use es\ucm\fdi\aw\entidades\recetaComprada\{recetaCompradaDTO, recetaCompradaAppService};
+
 class confirmarPagoHelper
 {
     public function procesar(): string
-    {
-        // Vacía el carrito
+    {        
+        $recetaCompradaService = recetaCompradaAppService::GetSingleton();
+
+        foreach ($_SESSION['carrito'] as $idReceta) {
+            $recetaComprada = new recetaCompradaDTO($_SESSION['id'], $idReceta);
+            $comprada = $recetaCompradaService->comprarReceta($recetaComprada);
+        }
+        
+        if(!$comprada) return "Error al comprar la receta";
+
         unset($_SESSION['carrito']);
 
         // Devuelve el contenido HTML
