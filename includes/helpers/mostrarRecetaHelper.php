@@ -42,7 +42,7 @@ class mostrarRecetaHelper
         $recetaCompradaService = recetaCompradaAppService::GetSingleton();
         
         if(isset($_SESSION["login"])){
-            $this->esAutor = $recetaService->esAutor($_SESSION["id"], $recetaId);
+            $this->esAutor = $recetaService->esAutor(new recetaDTO($recetaId, null, $_SESSION["id"], null, null, null, null, null, null));
             if(!$this->esAutor){
                 $this->esComprador = $recetaCompradaService->esComprador(new recetaCompradaDTO($_SESSION["id"], $recetaId));
             }
@@ -72,16 +72,7 @@ class mostrarRecetaHelper
         $fechaCreacion = date("d/m/Y", strtotime($this->recetaDTO->getFechaCreacion()));
     
         // Convertir los pasos de JSON a array v1
-        /*
-        $pasosArray = json_decode($this->recetaDTO->getPasos(), true);
-        $listaPasos = "<div class='receta-pasos'>";
-        foreach ($pasosArray as $indice => $paso) {
-            $numPaso = $indice + 1;
-            $listaPasos .= "<p><strong>Paso $numPaso:</strong> " . htmlspecialchars($paso) . "</p>";
-        }
-        $listaPasos .= "</div>";*/
-
-        // Mostrar los pasos solo si es comprador
+        // Mostrar los pasos y los ingredientes solo si es comprador
         if ($this->esComprador || $this->esAutor) {
             $pasosArray = json_decode($this->recetaDTO->getPasos(), true);
             $listaPasos = "<h2>Pasos de la receta</h2>";
@@ -114,10 +105,14 @@ class mostrarRecetaHelper
 
 
         $etiquetas = $this->generarEtiquetas();
-        $ingredientes = "";
+        $ingredientes = ""; //Si no es comprador, los ingredientes están vacíos
         if ($this->esComprador || $this->esAutor) {
             $ingredientes = $this->generarIngredientes();
         }
+        // Lógica de usuarios
+        // Si esta logueado y es comprador no muestra ningun boton
+        // Si esta logueado y NO es comprador, muestra el boton de añadir al carrito con su texto
+        // Si NO esta logueado, muestra el boton de iniciar sesion con su texto
         $botonCarrito = "";
         if($this->logueado){
             if(!$this->esComprador && !$this->esAutor){

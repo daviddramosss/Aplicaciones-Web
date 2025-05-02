@@ -154,10 +154,10 @@ class recetaAppService
         return $IRecetaDAO->buscarRecetasConEtiquetas($etiquetas, $idRecetaActual);
     }
 
-    public function esAutor($idAutor, $idRecetaActual){
+    public function esAutor($recetaDTO){
         $IRecetaDAO = recetaFactory::CreateReceta();
 
-        return $IRecetaDAO->esAutor($idAutor, $idRecetaActual);
+        return $IRecetaDAO->esAutor($recetaDTO);
     }
 }
 

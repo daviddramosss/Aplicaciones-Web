@@ -21,7 +21,7 @@ interface IReceta
    
    public function buscarRecetasConEtiquetas($etiquetas, $idRecetaActual);
 
-   public function esAutor($idAutor, $idReceta);
+   public function esAutor($recetaDTO);
 }
 
 ?>

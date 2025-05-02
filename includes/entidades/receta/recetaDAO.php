@@ -428,7 +428,7 @@ class recetaDAO extends baseDAO implements IReceta
         return $html;
     }
 
-    public function esAutor($idAutor, $idRecetaActual){
+    public function esAutor($recetaDTO){
 
          // Obtiene la conexión a la base de datos
          $conn = application::getInstance()->getConexionBd();
@@ -441,7 +441,7 @@ class recetaDAO extends baseDAO implements IReceta
  
          // Asocia el parámetro de la consulta con el valor del ID
          //$id = $recetaDTO->getId();
-         $stmt->bind_param("ii", $idRecetaActual, $idAutor);
+         $stmt->bind_param("ii", $recetaDTO->getId(), $recetaDTO->getAutor());
 
          // Ejecutar consulta
          $stmt->execute();
