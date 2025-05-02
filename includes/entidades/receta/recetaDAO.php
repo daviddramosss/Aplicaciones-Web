@@ -441,7 +441,9 @@ class recetaDAO extends baseDAO implements IReceta
  
          // Asocia el parámetro de la consulta con el valor del ID
          //$id = $recetaDTO->getId();
-         $stmt->bind_param("ii", $recetaDTO->getId(), $recetaDTO->getAutor());
+         $recetaId = $recetaDTO->getId();
+         $autor = $recetaDTO->getAutor();
+         $stmt->bind_param("ii", $recetaId, $autor);
 
          // Ejecutar consulta
          $stmt->execute();
