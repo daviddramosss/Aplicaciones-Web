@@ -18,6 +18,8 @@ interface IReceta
    public function mostrarRecetas($crtierio);
    
    public function buscarRecetasConEtiquetas($etiquetas, $idRecetaActual);
+
+   public function esAutor();
 }
 
 ?>
