@@ -10,9 +10,10 @@ class confirmarPagoHelper
     {        
         $recetaCompradaService = recetaCompradaAppService::GetSingleton();
 
-        foreach ($_SESSION['carrito'] as $idReceta) {
-            $recetaComprada = new recetaCompradaDTO($_SESSION['id'], $idReceta);
-            $comprada = $recetaCompradaService->comprarReceta($recetaComprada);
+        foreach ($_SESSION['carrito'] as $idReceta) {       
+            $recetaCompradaDTO = new recetaCompradaDTO($_SESSION['id'], $idReceta);
+            $comprada = $recetaCompradaService->comprarReceta($recetaCompradaDTO);
+
         }
         
         if(!$comprada) return "Error al comprar la receta";
