@@ -19,7 +19,7 @@ interface IReceta
    
    public function buscarRecetasConEtiquetas($etiquetas, $idRecetaActual);
 
-   public function esAutor();
+   public function esAutor($idAutor, $idRecetaActual);
 }
 
 ?>
