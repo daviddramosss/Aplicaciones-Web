@@ -9,7 +9,6 @@ $tituloPagina = 'Mi despensa';
 
 // Crea una nueva instancia de la clase despensaFormulario
 $form = new despensaFormulario();
-$form->init(); //inicializo
 $htmlFormDespensa = $form->Manage();
 
 // Define el contenido principal de la página, que será insertado en la plantilla

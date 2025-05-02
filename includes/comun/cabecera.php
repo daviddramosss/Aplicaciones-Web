@@ -111,7 +111,7 @@ $logged = $application->isLogged();
                <!-- Si el usuario está logueado, mostramos el acceso a su información -->
               <?php if ($logged): ?>
                   <a href="perfil.php">Mi Perfil</a>
-                  <a href="despensa.php">Mi Despensa</a>
+                  <!-- <a href="despensa.php">Mi Despensa</a> -->
                   <a href ="recetario.php">Mi Recetario</a>
                   <a href="logout.php">Cerrar Sesión</a>
               <!-- Si el usuario no está logueado, mostramos iniciar sesión y registro -->
