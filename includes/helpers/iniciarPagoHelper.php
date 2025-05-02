@@ -22,7 +22,6 @@ class iniciarPagoHelper
         $moneda = '978'; // Euros
         $urlOK = 'http://localhost/AW/MarketChef/confirmacionPago.php';
         $urlKO = 'http://localhost/AW/MarketChef/denegadoPago.php';
-        $urlNotificacion = 'http://localhost/AW/MarketChef/notificacionPago.php';
         $order = date('mdHis'); // Número único
 
         // 1. Preparar parámetros (sin espacios ni saltos de línea)
@@ -33,7 +32,6 @@ class iniciarPagoHelper
             'DS_MERCHANT_CURRENCY' => $moneda,
             'DS_MERCHANT_TRANSACTIONTYPE' => '0', // 0 = Pago
             'DS_MERCHANT_TERMINAL' => $terminal,
-            'DS_MERCHANT_MERCHANTURL' => $urlNotificacion,
             'DS_MERCHANT_URLOK' => $urlOK,
             'DS_MERCHANT_URLKO' => $urlKO
         ];
