@@ -1,7 +1,8 @@
 <?php
 
 require_once("includes/config.php");
-require_once("includes/helpers/iniciarPagoHelper.php");
+
+use es\ucm\fdi\aw\helpers\iniciarPagoHelper;
 
 $tituloPagina = 'Procesando pago';
 
