@@ -85,7 +85,7 @@ class editarPerfilForm extends formularioBase
             $result[] = "Error: Los campos de nombre y apellidos son obligatorios.";
         }
 
-        if($antiguaPass !== "" && $nuevaPass !== "" && $rePass !== ""){
+        if($antiguaPass !== "" || $nuevaPass !== "" || $rePass !== ""){
 
             if (!password_verify($antiguaPass, $this->userDTO->getPassword())){
                 $result[] = "Error: La contraseña actual no coincide.";
