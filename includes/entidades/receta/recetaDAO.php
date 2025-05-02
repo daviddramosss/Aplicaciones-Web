@@ -427,6 +427,31 @@ class recetaDAO extends baseDAO implements IReceta
           // Devuelve todas las recetas
         return $html;
     }
+
+    public function esAutor($idAutor, $idRecetaActual){
+
+         // Obtiene la conexión a la base de datos
+         $conn = application::getInstance()->getConexionBd();
+
+         // Prepara la consulta SQL para eliminar la receta
+         $query = "SELECT 1 FROM recetas WHERE ID = ? AND Autor = ?";
+ 
+         // Prepara la declaración SQL
+         $stmt = $conn->prepare($query);
+ 
+         // Asocia el parámetro de la consulta con el valor del ID
+         //$id = $recetaDTO->getId();
+         $stmt->bind_param("ii", $idRecetaActual, $idAutor);
+
+         // Ejecutar consulta
+         $stmt->execute();
+         $result = $stmt->get_result();
+        
+         if($result->num_rows > 0){
+            return true;
+         }
+        return false;
+    }
 }  
 
 

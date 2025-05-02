@@ -15,8 +15,9 @@ class mostrarRecetaHelper
     private $autor;
     private $etiquetas;
     private $similares;
-    private $esComprador;
-    private $logueado;
+    private $esComprador = false;
+    private $logueado = false;
+    private $esAutor = false;
 
     public function __construct() 
     {
@@ -29,24 +30,23 @@ class mostrarRecetaHelper
         
         $usuarioService = userAppService::GetSingleton();
         $this->autor = $usuarioService->buscarUsuarioPorID(new userDTO($this->recetaDTO->getAutor(), null, null, null, null, null, null));
-
+        
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
         $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null), 'nombres');
-    
+        
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
         $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null));
-
+        
         $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, $recetaId);
         
         $recetaCompradaService = recetaCompradaAppService::GetSingleton();
-
+        
         if(isset($_SESSION["login"])){
-            $this->esComprador = $recetaCompradaService->esComprador(new recetaCompradaDTO($_SESSION["id"], $recetaId));
+            $this->esAutor = $recetaService->esAutor($_SESSION["id"], $recetaId);
+            if(!$this->esAutor){
+                $this->esComprador = $recetaCompradaService->esComprador(new recetaCompradaDTO($_SESSION["id"], $recetaId));
+            }
             $this->logueado = true;
-        }
-        else{
-            $this->logueado = false;
-            $this->esComprador = false;
         }
     }
 
@@ -82,7 +82,7 @@ class mostrarRecetaHelper
         $listaPasos .= "</div>";*/
 
         // Mostrar los pasos solo si es comprador
-        if ($this->esComprador) {
+        if ($this->esComprador || $this->esAutor) {
             $pasosArray = json_decode($this->recetaDTO->getPasos(), true);
             $listaPasos = "<h2>Pasos de la receta</h2>";
             $listaPasos .= "<div class='receta-pasos'>";
@@ -115,12 +115,12 @@ class mostrarRecetaHelper
 
         $etiquetas = $this->generarEtiquetas();
         $ingredientes = "";
-        if ($this->esComprador) {
+        if ($this->esComprador || $this->esAutor) {
             $ingredientes = $this->generarIngredientes();
         }
         $botonCarrito = "";
         if($this->logueado){
-            if(!$this->esComprador){
+            if(!$this->esComprador && !$this->esAutor){
                 $botonCarrito = "
                 <form action='anadirCarrito.php' method='post'>
                     <input type='hidden' name='recetaId' value='{$this->recetaDTO->getId()}'>
