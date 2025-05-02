@@ -121,17 +121,17 @@ class recetaAppService
         $IRecetaDAO->borrarReceta($recetaDTO); 
     }
 
-    public function mostarRecetasPorAutor($userDTO){
+    public function mostrarRecetasPorAutor($userDTO){
         $IRecetaDAO = recetaFactory::CreateReceta();
 
-        return $IRecetaDAO->mostarRecetasPorAutor($userDTO);
+        return $IRecetaDAO->mostrarRecetasPorAutor($userDTO);
         
     }
 
-    public function mostarRecetasPorComprador($userDTO){
+    public function mostrarRecetasPorComprador($userDTO){
         $IRecetaDAO = recetaFactory::CreateReceta();
 
-        return $IRecetaDAO->mostarRecetasPorComprador($userDTO);
+        return $IRecetaDAO->mostrarRecetasPorComprador($userDTO);
         
     }
 

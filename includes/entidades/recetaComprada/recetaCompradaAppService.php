@@ -25,7 +25,7 @@ class recetaCompradaAppService
     } 
 
 
-    public function mostarRecetasPorComprador($recetaCompradaDTO){
+    public function mostrarRecetasPorComprador($recetaCompradaDTO){
         $IRecetaCompradaDAO = recetaCompradaFactory::CreateReceta();
 
         return $IRecetaCompradaDAO->mostarRecetasPorComprador($recetaCompradaDTO);

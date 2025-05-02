@@ -13,11 +13,15 @@ interface IReceta
 
    public function borrarReceta($recetaDTO);
 
-   public function mostarRecetasPorAutor($userDTO);
+   public function mostrarRecetasPorAutor($userDTO);
+
+   public function mostrarRecetasPorComprador($userDTO);
 
    public function mostrarRecetas($crtierio);
    
    public function buscarRecetasConEtiquetas($etiquetas, $idRecetaActual);
+
+   public function esAutor($idAutor, $idReceta);
 }
 
 ?>

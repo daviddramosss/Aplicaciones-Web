@@ -175,7 +175,7 @@ class recetaDAO extends baseDAO implements IReceta
         return $deletedRecetaDTO;
     }
 
-    public function mostarRecetasPorAutor($userDTO)
+    public function mostrarRecetasPorAutor($userDTO)
     {
 
         // Obtiene la conexión a la base de datos
@@ -225,7 +225,7 @@ class recetaDAO extends baseDAO implements IReceta
         return $recetas;
     }
 
-    public function mostarRecetasPorComprador($userDTO)
+    public function mostrarRecetasPorComprador($userDTO)
     {
         // Obtiene la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();

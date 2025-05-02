@@ -57,7 +57,7 @@ class miRecetarioHelper {
 
     public function mostrarRecetasCompradas() {
         $recetaCompradaAppService = recetaCompradaAppService::GetSingleton();
-        $recetas = $recetaCompradaAppService->mostarRecetasPorComprador(new recetaCompradaDTO($this->user->getId(), null));
+        $recetas = $recetaCompradaAppService->mostrarRecetasPorComprador(new recetaCompradaDTO($this->user->getId(), null));
 
         if (empty($recetas)) {
             return "<p>No tienes recetas compradas aún.</p>";
