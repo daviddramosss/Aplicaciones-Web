@@ -1,0 +1,3 @@
+# Denegar el acceso a todos los usuarios
+Order Allow,Deny
+Deny from all

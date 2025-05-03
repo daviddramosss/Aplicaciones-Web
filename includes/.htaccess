@@ -1,0 +1,10 @@
+# .htaccess en el directorio includes
+
+# Habilitar el motor de reescritura
+RewriteEngine On
+
+# Permitir acceso a la carpeta 'endpoints'
+RewriteRule ^endpoints/ - [L]
+
+# Denegar el acceso a todos los demás archivos y carpetas
+RewriteRule ^ - [F]
