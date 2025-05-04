@@ -12,6 +12,7 @@ class confirmarPagoHelper
 
         foreach ($_SESSION['carrito'] as $idReceta) {       
             $recetaCompradaDTO = new recetaCompradaDTO($_SESSION['id'], $idReceta);
+            
             $comprada = $recetaCompradaService->comprarReceta($recetaCompradaDTO);
 
         }

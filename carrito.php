@@ -8,6 +8,7 @@ $tituloPagina = 'Carrito de compras';
 
 // Creamos instancia del helper y generamos el HTML del carrito
 $helper = new carritoHelper();
+$helper->init();
 $contenidoPrincipal = $helper->generarHTML();
 
 // Usamos la plantilla común del sitio

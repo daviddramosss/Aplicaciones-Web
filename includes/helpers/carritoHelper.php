@@ -10,6 +10,10 @@ class carritoHelper
     private $total;
 
     public function __construct()
+    {       
+    }
+
+    public function init()
     {
         $this->recetas = [];
         $this->total = 0.0;
