@@ -136,5 +136,6 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
 
         return $esComprador;
     }
+
 }  
 ?>

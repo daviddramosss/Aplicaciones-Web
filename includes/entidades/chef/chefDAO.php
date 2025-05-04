@@ -81,7 +81,7 @@ class chefDAO extends baseDAO implements IChef
         $stmt = $conn->prepare($query);
  
         $Usuario = $chefDTO->getId();
-        $saldo = $chefDTO->getSaldo() + $recetaDTO->getPrecio();
+        $saldo = $chefDTO->getSaldo() + $recetaDTO->getPrecio()*0.85;       //MarketChef se queda una comision del 15%
 
         $stmt->bind_param("di", $saldo, $Usuario);
  
