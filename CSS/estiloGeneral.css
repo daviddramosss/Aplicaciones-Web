@@ -538,6 +538,45 @@ p {
 
 /* #endregion */
 
+/* #region CARRITO */
+
+
+.carrito-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.carrito-imagen {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.carrito-info {
+    flex-grow: 1;
+}
+
+.carrito-eliminar-boton {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.carrito-eliminar-boton:hover {
+    background-color: #c0392b;
+}
+
+/* #endregion */
+
 /* #endregion */
 
 /* #region PIE */
@@ -584,43 +623,3 @@ p#copy {
 /* #endregion */
 
 /* Pruebas ANTONIO */
-.carrito-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    margin-top: 20px;
-}
-
-.carrito-item {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.carrito-imagen {
-    width: 100px;
-    height: auto;
-    border-radius: 8px;
-}
-
-.carrito-info {
-    flex-grow: 1;
-}
-
-.carrito-eliminar-boton {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 8px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.carrito-eliminar-boton:hover {
-    background-color: #c0392b;
-}
