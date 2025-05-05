@@ -42,7 +42,7 @@ class carritoHelper
         }
     
         $html = "<h1>Carrito de Recetas</h1>";
-        $html .= "<div class='carrito-container'>";
+        $html .= "<div class='container'>";
     
         foreach ($this->recetas as $receta) {
             $nombre = htmlspecialchars($receta->getNombre());
@@ -54,11 +54,12 @@ class carritoHelper
             <div class="carrito-item" data-id="$idReceta" data-precio="{$receta->getPrecio()}">
                 <img src="img/receta/$rutaImg" alt="$nombre" class="carrito-imagen">
                 <div class="carrito-info">
-                    <p class="carrito-nombre">$nombre</p>
-                    <p class="carrito-precio">$precio €</p>
+                    <p><b>$nombre</b></p>
+                    <p>$precio €</p>
                 </div>
                 <button class="carrito-eliminar-boton" data-id="$idReceta">Eliminar</button>
             </div>
+            <br>
             HTML;
         
             $html .= '<script src="js/carrito.js"></script>';
@@ -72,6 +73,7 @@ class carritoHelper
             <form action="iniciarPago.php" method="post">
                 <input type="hidden" name="importeTotal" value="{$this->getImporteCentesimos()}">
                 <button type="submit" class="send-button">PAGAR CON TARJETA</button>
+                <button type="button" class="send-button" onclick="location.href='buscar.php'">SEGUIR COMPRANDO</button>
             </form>
         HTML;
     
