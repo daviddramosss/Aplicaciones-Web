@@ -1,4 +1,4 @@
-<?php
+<?php 
 namespace es\ucm\fdi\aw\entidades\ingrediente;
 
 use es\ucm\fdi\aw\comun\baseDAO;
@@ -6,9 +6,15 @@ use es\ucm\fdi\aw\application;
 
 class IngredienteDAO extends baseDAO implements IIngrediente {
 
-    public function __construct() {}
+    // Constructor de la clase
+    public function __construct()
+    {
+        
+    }
 
-    public function crearIngrediente($ingredienteDTO) {
+    // Método para crear un nuevo ingrediente
+    public function crearIngrediente($ingredienteDTO)
+    {
         try {
             $conn = application::getInstance()->getConexionBd();
             $query = "INSERT INTO ingredientes (Nombre) VALUES (?)";
@@ -21,7 +27,9 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
         }
     }
 
-    public function editarIngrediente($ingredienteDTO) {
+    // Método para editar un ingrediente existente
+    public function editarIngrediente($ingredienteDTO)
+    {
         try {
             $conn = application::getInstance()->getConexionBd();
             $query = "UPDATE ingredientes SET Nombre = ? WHERE id = ?";
@@ -34,7 +42,9 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
         }
     }
 
-    public function eliminarIngrediente($ingredienteDTO) {
+    // Método para eliminar un ingrediente
+    public function eliminarIngrediente($ingredienteDTO)
+    {
         try {
             $conn = application::getInstance()->getConexionBd();
             $query = "DELETE FROM ingredientes WHERE id = ?";
@@ -47,7 +57,9 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
         }
     }
 
-    public function obtenerIngredientes() {
+    // Método para obtener la lista de ingredientes
+    public function obtenerIngredientes()
+    {
         try {
             $conn = application::getInstance()->getConexionBd();
             $query = "SELECT id, Nombre FROM ingredientes";
@@ -72,8 +84,9 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
         }
     }
 
-    // ✅ Mantén solo esta versión
-    public function obtenerPlatosPorIngrediente($ingredienteId) {
+    // Método para obtener los platos en los que se usa un ingrediente
+    public function obtenerPlatosPorIngrediente($ingredienteId)
+    {
         try {
             $conn = application::getInstance()->getConexionBd();
             $query = "SELECT platos.id, platos.nombre
@@ -97,33 +110,6 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
 
             $stmt->close();
             return $platos;
-        } catch (mysqli_sql_exception $e) {
-            throw $e;
-        }
-    }
-
-    public function buscarIngredientesPorNombre($termino) {
-        try {
-            $conn = application::getInstance()->getConexionBd();
-            $query = "SELECT id, Nombre FROM ingredientes WHERE Nombre LIKE ?";
-            $stmt = $conn->prepare($query);
-            $likeTerm = '%' . $termino . '%';
-            $stmt->bind_param("s", $likeTerm);
-            $stmt->execute();
-
-            $ingredientes = [];
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $ingredientes[] = [
-                        "id" => $row['id'],
-                        "nombre" => $row['Nombre']
-                    ];
-                }
-            }
-
-            $stmt->close();
-            return $ingredientes;
         } catch (mysqli_sql_exception $e) {
             throw $e;
         }
