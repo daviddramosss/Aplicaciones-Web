@@ -9,8 +9,8 @@ Los datos que se cargarán son los más básicos, un usuario de cada tipo y la t
 */
 
 -- Creación de la BBDD si no está creada y acceso
-CREATE DATABASE IF NOT EXISTS MarketChefN;
-USE MarketChefN;
+CREATE DATABASE IF NOT EXISTS marketchefn;
+USE marketchefn;
 
 /*
 

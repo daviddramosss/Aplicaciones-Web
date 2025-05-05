@@ -70,39 +70,35 @@ class application
 	}
 	
 	public function getConexionBd()
-	{
-	    $this->compruebaInstanciaInicializada();
-		
-		if (! $this->conn ) 
-		{
-			$bdHost = $this->bdDatosConexion['host'];
-			$bdUser = $this->bdDatosConexion['user'];
-			$bdPass = $this->bdDatosConexion['pass'];
-			$bd     = $this->bdDatosConexion['bd'];
-			
-			//$driver = new mysqli_driver();
-			
-			//$driver->report_mode = MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT;
+{
+    $this->compruebaInstanciaInicializada();
 
-			$conn = new mysqli($bdHost, $bdUser, $bdPass, $bd);
-			
-			if ( $conn->connect_errno ) 
-			{
-				echo "Error de conexión a la BD ({$conn->connect_errno}):  {$conn->connect_error}";
-				exit();
-			}
-			
-			if ( ! $conn->set_charset("utf8mb4")) 
-			{
-				echo "Error al configurar la BD ({$conn->errno}):  {$conn->error}";
-				exit();
-			}
-			
-			$this->conn = $conn;
-		}
-		
-		return $this->conn;
-	}
+    if (!$this->conn) {
+        $bdHost = $this->bdDatosConexion['host'];
+        $bdUser = $this->bdDatosConexion['user'];
+        $bdPass = $this->bdDatosConexion['pass'];
+        $bd = $this->bdDatosConexion['bd'];
+
+        try {
+            $conn = new mysqli($bdHost, $bdUser, $bdPass, $bd);
+            if ($conn->connect_errno) {
+                throw new \Exception("Error de conexión a la BD ({$conn->connect_errno}):  {$conn->connect_error}");
+            }
+
+            if (!$conn->set_charset("utf8mb4")) {
+                throw new \Exception("Error al configurar la BD ({$conn->errno}):  {$conn->error}");
+            }
+
+            $this->conn = $conn;
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
+    return $this->conn;
+}
+
 
 	public function putAtributoPeticion($clave, $valor)
 	{

@@ -3,8 +3,12 @@ namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\entidades\plato\PlatoDAO;
 use es\ucm\fdi\aw\entidades\plato\PlatoDTO;
-
+if (!class_exists(\es\ucm\fdi\aw\entidades\plato\PlatoDAO::class)) {
+        die("Clase PlatoDAO no se ha cargado. Verifica autoloader o ruta.");
+    }
 class GestorPlatos {
+    
+    
     private PlatoDAO $platoDAO;
 
     public function __construct() {
