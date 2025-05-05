@@ -25,14 +25,15 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 foreach ($platos as $plato) {
+    // Usando los métodos de la clase PlatoDTO para obtener los valores
     $contenidoPrincipal .= "<tr>
-        <td>" . htmlspecialchars($plato['id']) . "</td>
-        <td>" . htmlspecialchars($plato['nombre']) . "</td>
-        <td>" . htmlspecialchars($plato['descripcion']) . "</td>
+        <td>" . htmlspecialchars($plato->getId()) . "</td>
+        <td>" . htmlspecialchars($plato->getNombre()) . "</td>
+        <td>" . htmlspecialchars($plato->getDescripcion()) . "</td>
         <td>
-            <form action='gestionarPlatos.php' method='POST' style='display:inline;' id='form_eliminar_{$plato['id']}'>
-                <input type='hidden' name='eliminar_id' value='" . htmlspecialchars($plato['id']) . "'>
-                <button type='button' onclick='confirmarEliminacion({$plato['id']})'>🗑️ Eliminar</button>
+            <form action='gestionarPlatos.php' method='POST' style='display:inline;' id='form_eliminar_{$plato->getId()}'>
+                <input type='hidden' name='eliminar_id' value='" . htmlspecialchars($plato->getId()) . "'>
+                <button type='button' onclick='confirmarEliminacion({$plato->getId()})'>🗑️ Eliminar</button>
             </form>
         </td>
     </tr>";
@@ -64,3 +65,4 @@ EOS;
 
 $tituloPagina = 'Gestionar Platos';
 require("includes/comun/plantilla.php");
+?>

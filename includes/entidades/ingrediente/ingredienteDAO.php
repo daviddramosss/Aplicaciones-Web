@@ -1,4 +1,4 @@
-<?php
+<?php 
 namespace es\ucm\fdi\aw\entidades\ingrediente;
 
 use es\ucm\fdi\aw\comun\baseDAO;
@@ -16,15 +16,11 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
     public function crearIngrediente($ingredienteDTO)
     {
         try {
-            // Se obtiene la conexión a la base de datos
             $conn = application::getInstance()->getConexionBd();
-
-            // Consulta SQL para insertar un ingrediente
             $query = "INSERT INTO ingredientes (Nombre) VALUES (?)";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("s", $ingredienteDTO->getNombre());
             $stmt->execute();
-
             $stmt->close();
         } catch (mysqli_sql_exception $e) {
             throw $e;
@@ -35,15 +31,11 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
     public function editarIngrediente($ingredienteDTO)
     {
         try {
-            // Se obtiene la conexión a la base de datos
             $conn = application::getInstance()->getConexionBd();
-
-            // Consulta SQL para actualizar un ingrediente
             $query = "UPDATE ingredientes SET Nombre = ? WHERE id = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("si", $ingredienteDTO->getNombre(), $ingredienteDTO->getId());
             $stmt->execute();
-
             $stmt->close();
         } catch (mysqli_sql_exception $e) {
             throw $e;
@@ -54,39 +46,29 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
     public function eliminarIngrediente($ingredienteDTO)
     {
         try {
-            // Se obtiene la conexión a la base de datos
             $conn = application::getInstance()->getConexionBd();
-
-            // Consulta SQL para eliminar el ingrediente
             $query = "DELETE FROM ingredientes WHERE id = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("i", $ingredienteDTO->getId());
             $stmt->execute();
-
             $stmt->close();
         } catch (mysqli_sql_exception $e) {
             throw $e;
         }
     }
 
-    // Método para obtener la lista de ingredientes desde la base de datos
+    // Método para obtener la lista de ingredientes
     public function obtenerIngredientes()
     {
         try {
-            // Se obtiene la conexión a la base de datos
             $conn = application::getInstance()->getConexionBd();
-
-            // Consulta SQL para obtener los ingredientes
             $query = "SELECT id, Nombre FROM ingredientes";
-
-            // Se prepara la consulta
             $stmt = $conn->prepare($query);
             $stmt->execute();
 
             $ingredientes = [];
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
-                // Se recorren los resultados y se almacenan en un array
                 while ($row = $result->fetch_assoc()) {
                     $ingredientes[] = [
                         "id" => $row['id'],
@@ -95,10 +77,39 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
                 }
             }
 
-            // Se cierra la consulta
             $stmt->close();
-
             return $ingredientes;
+        } catch (mysqli_sql_exception $e) {
+            throw $e;
+        }
+    }
+
+    // Método para obtener los platos en los que se usa un ingrediente
+    public function obtenerPlatosPorIngrediente($ingredienteId)
+    {
+        try {
+            $conn = application::getInstance()->getConexionBd();
+            $query = "SELECT platos.id, platos.nombre
+                      FROM platos
+                      JOIN platos_ingredientes ON platos.id = platos_ingredientes.plato_id
+                      WHERE platos_ingredientes.ingrediente_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $ingredienteId);
+            $stmt->execute();
+
+            $platos = [];
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $platos[] = [
+                        "id" => $row['id'],
+                        "nombre" => $row['nombre']
+                    ];
+                }
+            }
+
+            $stmt->close();
+            return $platos;
         } catch (mysqli_sql_exception $e) {
             throw $e;
         }

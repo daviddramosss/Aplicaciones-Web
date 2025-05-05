@@ -24,8 +24,17 @@ class GestorIngredientes {
     }
 
     private function eliminarIngrediente($id): void {
-        $dto = new IngredienteDTO($id, '');
-        $this->ingredienteDAO->eliminarIngrediente($dto);
+        $platos = $this->ingredienteDAO->obtenerPlatosPorIngrediente($id);
+        if (empty($platos)) {
+            $dto = new IngredienteDTO($id, '');
+            $this->ingredienteDAO->eliminarIngrediente($dto);
+        } else {
+            echo "<p style='color:red;'>No se puede eliminar el ingrediente porque está en uso en los siguientes platos: ";
+            foreach ($platos as $plato) {
+                echo htmlspecialchars($plato['nombre']) . ' ';
+            }
+            echo "</p>";
+        }
         header('Location: gestionarIngredientes.php');
         exit;
     }
@@ -61,4 +70,9 @@ class GestorIngredientes {
     public function obtenerTodos(): array {
         return $this->ingredienteDAO->obtenerIngredientes();
     }
+
+    public function obtenerPlatosPorIngrediente($ingredienteId) {
+        return $this->ingredienteDAO->obtenerPlatosPorIngrediente($ingredienteId);
+    }
 }
+?>

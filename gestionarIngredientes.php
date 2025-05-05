@@ -24,16 +24,34 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 foreach ($ingredientes as $ingrediente) {
-    $contenidoPrincipal .= "<tr>
-        <td>" . htmlspecialchars($ingrediente['id']) . "</td>
-        <td>" . htmlspecialchars($ingrediente['nombre']) . "</td>
-        <td>
-            <form action='gestionarIngredientes.php' method='POST' style='display:inline;' id='form_eliminar_{$ingrediente['id']}'>
-                <input type='hidden' name='eliminar_id' value='" . htmlspecialchars($ingrediente['id']) . "'>
-                <button type='button' onclick='confirmarEliminacion({$ingrediente['id']})'>🗑️ Eliminar</button>
-            </form>
-        </td>
-    </tr>";
+    // Verificar si el ingrediente está en algún plato
+    $platosUsandoIngrediente = $gestor->obtenerPlatosPorIngrediente($ingrediente['id']);
+    
+    if (!empty($platosUsandoIngrediente)) {
+        $platosNombres = array_map(function($plato) {
+            return htmlspecialchars($plato['nombre']);
+        }, $platosUsandoIngrediente);
+        
+        $platosStr = implode(', ', $platosNombres);
+        $contenidoPrincipal .= "<tr>
+            <td>" . htmlspecialchars($ingrediente['id']) . "</td>
+            <td>" . htmlspecialchars($ingrediente['nombre']) . "</td>
+            <td>
+                <button type='button' disabled>Este ingrediente está en los platos: $platosStr</button>
+            </td>
+        </tr>";
+    } else {
+        $contenidoPrincipal .= "<tr>
+            <td>" . htmlspecialchars($ingrediente['id']) . "</td>
+            <td>" . htmlspecialchars($ingrediente['nombre']) . "</td>
+            <td>
+                <form action='gestionarIngredientes.php' method='POST' style='display:inline;' id='form_eliminar_{$ingrediente['id']}'>
+                    <input type='hidden' name='eliminar_id' value='" . htmlspecialchars($ingrediente['id']) . "'>
+                    <button type='button' onclick='confirmarEliminacion({$ingrediente['id']})'>🗑️ Eliminar</button>
+                </form>
+            </td>
+        </tr>";
+    }
 }
 
 $contenidoPrincipal .= <<<EOS
@@ -58,3 +76,4 @@ EOS;
 
 $tituloPagina = 'Gestionar Ingredientes';
 require("includes/comun/plantilla.php");
+?>
