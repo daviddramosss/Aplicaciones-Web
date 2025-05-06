@@ -1,8 +1,8 @@
 <?php
 
 namespace es\ucm\fdi\aw\entidades\recetaComprada;
-use es\ucm\fdi\aw\entidades\receta\{recetaDTO, recetaAppService};
-use es\ucm\fdi\aw\entidades\chef\{chefAppService, chefDTO};
+use es\ucm\fdi\aw\entidades\receta\{recetaDTO};
+
 
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
@@ -87,15 +87,6 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
         // Ejecuta la consulta
         if ($stmt->execute()) {
             // Devuelve true si la compra se ha realizado con éxito
-
-            $recetaService = recetaAppService::GetSingleton();
-            $recetaDTO = $recetaService->buscarRecetaPorId(new recetaDTO($receta, null, null, null, null, null, null, null, null));
-
-            $chefService = chefAppService::GetSingleton();
-            $chefDTO = $chefService->buscarChefPorID(new ChefDTO($recetaDTO->getAutor(), null, null, null, null, null));
-
-            $chefService->actualizarSaldo($chefDTO, $recetaDTO);
-
             return true;
         } else {
             // Devuelve false si la compra ha fallado

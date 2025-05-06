@@ -2,6 +2,9 @@
 
 namespace es\ucm\fdi\aw\entidades\recetaComprada;
 
+use es\ucm\fdi\aw\entidades\chef\{chefAppService, chefDTO};
+use es\ucm\fdi\aw\entidades\receta\{recetaDTO, recetaAppService};
+
 class recetaCompradaAppService
 {
     private static $instance; 
@@ -42,7 +45,18 @@ class recetaCompradaAppService
     public function esComprador($recetaCompradaDTO){
         $IRecetaCompradaDAO = recetaCompradaFactory::CreateReceta();
 
-        return $IRecetaCompradaDAO->esComprador($recetaCompradaDTO);
+        $comprada = $IRecetaCompradaDAO->esComprador($recetaCompradaDTO);
+
+        //Buscamos el autor de la receta para poder actualizar el saldo
+        $recetaService = recetaAppService::GetSingleton();
+        $recetaDTO = $recetaService->buscarRecetaPorId(new recetaDTO($recetaCompradaDTO->getReceta(), null, null, null, null, null, null, null, null));
+
+        $chefService = chefAppService::GetSingleton();
+        $chefDTO = $chefService->buscarChefPorID(new ChefDTO($recetaDTO->getAutor(), null, null, null, null, null));
+
+        $chefService->actualizarSaldo($chefDTO, $recetaDTO);
+
+        return $comprada;
     }
    
 }
