@@ -37,7 +37,7 @@ class mostrarRecetaHelper
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
         $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null));
         
-        $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, $recetaId);
+        $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, new recetaDTO($recetaId, null, null, null, null, null, null, null, null));
         
         $recetaCompradaService = recetaCompradaAppService::GetSingleton();
         
