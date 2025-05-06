@@ -65,6 +65,8 @@ $logged = $application->isLogged();
                     <a href="gestionarUsuarios.php">Gestionar usuarios</a>
                     <a href="gestionarIngredientes.php">Gestionar ingredientes</a>    
               </div>
+                            
+              <script src="JS/desplegable_admin.js"></script>
             <?php endif; ?>
           </div>
            
@@ -127,6 +129,5 @@ $logged = $application->isLogged();
           
      <!-- Scripts que permiten hacer los desplegables -->
     <script src="JS/desplegable_perfil.js"></script>
-    <script src="JS/desplegable_admin.js"></script>
 </body>
 </html>
