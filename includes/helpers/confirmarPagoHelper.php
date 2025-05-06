@@ -6,7 +6,7 @@ use es\ucm\fdi\aw\entidades\recetaComprada\{recetaCompradaDTO, recetaCompradaApp
 
 class confirmarPagoHelper
 {
-    public function procesar(): string
+    public function procesar()
     {        
         $recetaCompradaService = recetaCompradaAppService::GetSingleton();
 
@@ -35,3 +35,5 @@ class confirmarPagoHelper
         HTML;
     }
 }
+
+?>
