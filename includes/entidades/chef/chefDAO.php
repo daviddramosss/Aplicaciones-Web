@@ -14,17 +14,17 @@ class chefDAO extends baseDAO implements IChef
     
     public function crearChef($chefDTO)
     {
-        //Implementar luego
+        //Implementación NICO
     }
 
     public function editarChef($chefDTO)
     {
-        //Implementar luego
+        //Implementación NICO
     }
 
     public function borrarChef($chefDTO)
     {
-        //Implementar luego
+        //Implementación NICO
     }
 
     public function informacionChef($userDTO)

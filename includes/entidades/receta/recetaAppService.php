@@ -128,14 +128,6 @@ class recetaAppService
         
     }
 
-    public function mostrarRecetasPorComprador($userDTO){
-        $IRecetaDAO = recetaFactory::CreateReceta();
-
-        return $IRecetaDAO->mostrarRecetasPorComprador($userDTO);
-        
-    }
-
-
     public function mostrarRecetas($criterio){
         $IRecetaDAO = recetaFactory::CreateReceta();
 

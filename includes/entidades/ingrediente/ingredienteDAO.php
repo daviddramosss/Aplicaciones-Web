@@ -15,19 +15,19 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
     // Método para crear un nuevo ingrediente (aún no implementado)
     public function crearIngrediente($ingredienteDTO)
     {
-        // Implementar después
+        //Implementación NICO
     }
 
     // Método para editar un ingrediente existente (aún no implementado)
     public function editarIngrediente($ingredienteDTO)
     {
-        // Implementar después
+        //Implementación NICO
     }
 
     // Método para eliminar un ingrediente (aún no implementado)
     public function eliminarIngrediente($ingredienteDTO)
     {
-        // Implementar después
+        //Implementación NICO
     }
 }
 ?>

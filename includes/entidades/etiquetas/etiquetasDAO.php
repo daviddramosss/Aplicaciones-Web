@@ -12,17 +12,17 @@ class etiquetasDAO extends baseDAO implements IEtiquetas
 
     public function crearEtiqueta($etiquetaDTO)
     {
-        //Implementar luego
+        //Implementación NICO
     }
 
     public function editarEtiqueta($etiquetaDTO)
     {
-        //Implementar luego
+        //Implementación NICO
     }
 
     public function borrarEtiqueta($etiquetaDTO)
     {
-        //Implementar luego
+        //Implementación NICO
     }
 
 }

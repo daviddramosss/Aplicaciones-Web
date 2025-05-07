@@ -14,17 +14,17 @@ class magnitudDAO extends baseDAO implements IMagnitud
 
     public function crearMagnitud($etiquetaDTO)
     {
-        //Implementar luego
+        //Implementación NICO
     }
 
     public function editarMagnitud($etiquetaDTO)
     {
-        //Implementar luego
+        //Implementación NICO
     }
 
     public function borrarMagnitud($etiquetaDTO)
     {
-        //Implementar luego
+        //Implementación NICO
     }
 
 }
