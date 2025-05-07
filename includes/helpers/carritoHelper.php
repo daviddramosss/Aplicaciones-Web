@@ -42,7 +42,7 @@ class carritoHelper
         }
     
         $html = "<h1>Carrito de Recetas</h1>";
-        $html .= "<div class='container'>";
+        $html .= "<div id='carrito-container' class='container'>";
     
         foreach ($this->recetas as $receta) {
             $nombre = htmlspecialchars($receta->getNombre());
