@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->close();
         // Devuelve todas las recetas
-        echo json_encode(generaHTMLRecetas($recetas));
+        echo json_encode($recetas);
         exit;
     }
 
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $stmt->close();
     // Devuelve todas las recetas
-    echo json_encode(generaHTMLRecetas($recetas));
+    echo json_encode($recetas);
 
 }
 
@@ -103,31 +103,6 @@ function obtenerRecetas($result) {
         }        
     }
     return $recetas;
-}
-
-// Función que genera el HTML de las recetas en función del array de recetas
-function generaHTMLRecetas($recetas) {
-
-    if (empty($recetas)) {
-        return "<p>No existen recetas que cumplan esos criterios.</p>";
-    }
-
-    $html = '<div class="recetas-container">';
-    
-        foreach ($recetas as $receta) {
-            $html .= <<<HTML
-                <div class="receta-card">
-                    <a href="mostrarReceta.php?id={$receta['id']}">
-                        <img src="img/receta/{$receta['ruta']}" alt="{$receta['nombre']}" class="receta-imagen">
-                    </a>
-                    <p class="receta-titulo">{$receta['nombre']}</p>
-                </div>
-            HTML;
-        }
-    
-        $html .= '</div>';
-    
-    return $html;
 }
 
 ?>
