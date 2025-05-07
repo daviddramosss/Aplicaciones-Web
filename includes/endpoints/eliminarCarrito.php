@@ -1,4 +1,7 @@
 <?php
+
+require_once("../config.php");
+
 session_start();
 
 $recetaId = $_POST['recetaId'] ?? null;
