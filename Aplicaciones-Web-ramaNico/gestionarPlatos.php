@@ -19,7 +19,6 @@ $contenidoPrincipal = <<<EOS
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Descripción</th>
             <th>Acciones</th>
         </tr>
 EOS;
@@ -29,7 +28,6 @@ foreach ($platos as $plato) {
     $contenidoPrincipal .= "<tr>
         <td>" . htmlspecialchars($plato->getId()) . "</td>
         <td>" . htmlspecialchars($plato->getNombre()) . "</td>
-        <td>" . htmlspecialchars($plato->getDescripcion()) . "</td>
         <td>
             <form action='gestionarPlatos.php' method='POST' style='display:inline;' id='form_eliminar_{$plato->getId()}'>
                 <input type='hidden' name='eliminar_id' value='" . htmlspecialchars($plato->getId()) . "'>
@@ -46,8 +44,6 @@ $contenidoPrincipal .= <<<EOS
     <form method="POST" action="gestionarPlatos.php">
         <label for="crear_nombre">Nombre del plato:</label>
         <input type="text" id="crear_nombre" name="crear_nombre" required>
-        <label for="crear_descripcion">Descripción del plato:</label>
-        <textarea id="crear_descripcion" name="crear_descripcion" required></textarea>
         <button type="submit">➕ Crear Plato</button>
     </form>
 
@@ -57,8 +53,6 @@ $contenidoPrincipal .= <<<EOS
         <input type="number" id="editar_id" name="editar_id" required>
         <label for="editar_nombre">Nuevo nombre:</label>
         <input type="text" id="editar_nombre" name="editar_nombre" required>
-        <label for="editar_descripcion">Nueva descripción:</label>
-        <textarea id="editar_descripcion" name="editar_descripcion" required></textarea>
         <button type="submit">✏️ Editar Plato</button>
     </form>
 EOS;

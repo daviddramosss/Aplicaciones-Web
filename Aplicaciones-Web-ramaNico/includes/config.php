@@ -3,7 +3,7 @@
 use es\ucm\fdi\aw\application;
 
 define('BD_HOST', 'localhost');
-define('BD_NAME', 'MarketChef');
+define('BD_NAME', 'marketchefn');
 define('BD_USER', 'MarketChef');
 define('BD_PASS', 'MarketChef');
 
