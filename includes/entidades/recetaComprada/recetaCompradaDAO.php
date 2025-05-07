@@ -101,8 +101,6 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
 
     public function esComprador($recetaCompradaDTO)
     {
-        // Variable que demostrara si es o no comprador
-        $esComprador = false;
         // Obtiene la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
@@ -124,14 +122,15 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
 
             // Si hay resultados significa que si es comprador
             if ($result->num_rows > 0) {
-                $esComprador = true;
+                $stmt->close();
+                return true;
             }
         }
 
         // Cierra la declaración
         $stmt->close();
 
-        return $esComprador;
+        return false;
     }
 
 }  

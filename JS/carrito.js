@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Si el carrito queda vacío, mostrar mensaje
                 if (document.querySelectorAll('.carrito-item').length === 0) {
-                    document.querySelector('.carrito-container').innerHTML = '<p>No hay recetas en el carrito.</p>';
+                    document.querySelector('#carrito-container').innerHTML = '<p>No hay recetas en el carrito.</p>';
                 }
             }
         });
