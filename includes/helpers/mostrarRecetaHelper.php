@@ -129,7 +129,29 @@ class mostrarRecetaHelper
                 <button type='button' class='send-button' onclick='location.href=`login.php`'> INICIAR SESIÓN</button>
             ";
         }
-        $recetas_aux = $this->similares;
+
+        $recetas_aux = "";
+        if (empty($this->similares)) {
+            $recetas_aux ="<p>No existen recetas que cumplan esos criterios.</p>";
+        }
+        else{
+
+            $recetas_aux = '<div class="recetas-container">';
+            
+                foreach ($this->similares as $receta) {
+                    $recetas_aux .= <<<HTML
+                        <div class="receta-card">
+                            <a href="mostrarReceta.php?id={$receta->getId()}">
+                                <img src="img/receta/{$receta->getRuta()}" alt="{$receta->getNombre()}" class="receta-imagen">
+                            </a>
+                            <p class="receta-titulo">{$receta->getNombre()}</p>
+                        </div>
+                    HTML;
+                }
+            
+            $recetas_aux .= '</div>';
+        }
+        
         return <<<HTML
             <section>
                 <div class="receta-detalle">

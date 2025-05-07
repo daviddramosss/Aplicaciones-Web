@@ -333,29 +333,8 @@ class recetaDAO extends baseDAO implements IReceta
             $stmt->close();
         }
 
-        if (empty($recetas)) {
-            $html ="<p>No existen recetas que cumplan esos criterios.</p>";
-        }
-        else{
-
-            $html = '<div class="recetas-container">';
-            
-                foreach ($recetas as $receta) {
-                    $html .= <<<HTML
-                        <div class="receta-card">
-                            <a href="mostrarReceta.php?id={$receta->getId()}">
-                                <img src="img/receta/{$receta->getRuta()}" alt="{$receta->getNombre()}" class="receta-imagen">
-                            </a>
-                            <p class="receta-titulo">{$receta->getNombre()}</p>
-                        </div>
-                    HTML;
-                }
-            
-            $html .= '</div>';
-        }
-
           // Devuelve todas las recetas
-        return $html;
+        return $recetas;
     }
 
     public function esAutor($recetaDTO)

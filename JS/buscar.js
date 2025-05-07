@@ -32,17 +32,35 @@ function cargarRecetas(formData = null) {
     .then(data => {
         console.log("Respuesta del servidor:", data);
         resultadosDiv.innerHTML = ""; // Limpiar resultados previos
-
-        if (data.length === 0) {
-            resultadosDiv.innerHTML = "<p>No se encontraron resultados.</p>";
-            return;
-        }
-
-        resultadosDiv.innerHTML = data;
+        resultadosDiv.innerHTML = generaHTMLRecetas(data);
     })
     .catch(error => console.error("Error en la búsqueda:", error));
 }
 
+// Función que genera el HTML de las recetas en función del array de recetas
+function generaHTMLRecetas(recetas) {
+
+    if (!recetas || recetas.length === 0) {
+        return "<p>No existen recetas que cumplan esos criterios.</p>";
+    }
+
+    let html = '<div class="recetas-container">';
+    
+        recetas.forEach(receta =>{
+            html += `
+            <div class="receta-card">
+                <a href="mostrarReceta.php?id=${receta.id}">
+                    <img src="img/receta/${receta.ruta}" alt="${receta.nombre}" class="receta-imagen">
+                </a>
+                <p class="receta-titulo">${receta.nombre}</p>
+            </div>
+        `;
+        });
+    
+        html += '</div>';
+    
+    return html;
+}
 
 // #endregion
 
