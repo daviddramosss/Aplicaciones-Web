@@ -131,7 +131,6 @@
 }
 
 /* #region INDEX */
-
 /*Video que aparece en el index*/
 video#videoPrincipal{
     width: 100vw; /* Ocupa todo el ancho de la ventana */
@@ -170,7 +169,6 @@ video#videoPrincipal{
 /* #region Formulario COMUN */
 /*Este tipo de formularios es el mas comun en la pagina. Se usa en Contacto, Login,
 Register... */
-
 /*Estilo comun para formularios*/
 form {
     width: 60%;
@@ -576,6 +574,42 @@ p {
 }
 
 /* #endregion */
+
+/* #region PAGOS */
+.aviso {
+    padding: 20px;
+    margin: 40px auto;
+    max-width: 600px;
+    font-family: sans-serif;
+    text-align: center;
+    border-left: 6px solid;
+    border-radius: 5px;
+}
+
+.aviso.exito {
+    background-color: #ddffdd;
+    border-color: #4CAF50;
+    color: #2e7d32;
+}
+
+.aviso.error {
+    background-color: #ffdddd;
+    border-color: #f44336;
+    color: #a94442;
+}
+
+.aviso h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.aviso p {
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* #endregion */ 
+
 
 /* #endregion */
 
