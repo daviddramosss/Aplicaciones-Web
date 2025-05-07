@@ -337,7 +337,10 @@ class recetaDAO extends baseDAO implements IReceta
         return $recetas;
     }
 
-    public function esAutor($recetaDTO){
+    public function esAutor($recetaDTO)
+    {
+
+        $autor = FALSE;
 
          // Obtiene la conexión a la base de datos
          $conn = application::getInstance()->getConexionBd();
@@ -358,10 +361,13 @@ class recetaDAO extends baseDAO implements IReceta
          $stmt->execute();
          $result = $stmt->get_result();
         
-         if($result->num_rows > 0){
-            return true;
-         }
-        return false;
+        if($result->num_rows > 0){
+            $autor = true;
+        }
+
+        $stmt->close();
+
+        return $autor;
     }
 }  
 
