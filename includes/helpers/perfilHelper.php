@@ -43,8 +43,6 @@ class perfilHelper {
                     <p class="card-text"><strong>Rol:</strong> {$user->getRol()}</p>
                     <button type='button' class='send-button' onclick='location.href=`logout.php`'> CERRAR SESIÓN</button>
                     <button type='button' class='send-button' onclick='location.href=`editarPerfil.php`'> EDITAR PERFIL</button>
-
-
             </div>
         </div>
         EOS;

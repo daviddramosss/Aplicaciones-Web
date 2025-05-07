@@ -169,8 +169,6 @@ class userDAO implements IUser
         $devolver = false;
         if ($stmt->execute()) $devolver = true;
         
-
-
         // Cierra la declaración 
         // Usamos solo close, debido a que: Cierra el statement y libera todos los recursos asociados, por lo que usar un free sería innecesario.
         $stmt->close();

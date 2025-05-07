@@ -151,10 +151,6 @@ class mostrarRecetaHelper
             <br>
             <h2> Recetas similares </h2>
             $recetas_aux
-
-
-
-
         HTML;
     }
     

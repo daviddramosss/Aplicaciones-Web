@@ -4,8 +4,8 @@ namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\application;
 use es\ucm\fdi\aw\entidades\usuario\{userDTO, userAppService};
-use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
-use es\ucm\fdi\aw\entidades\chef\{chefAppService, chefDTO};
+use es\ucm\fdi\aw\entidades\receta\{recetaAppService};
+use es\ucm\fdi\aw\entidades\chef\{chefAppService};
 
 class estrellaMichelinHelper {
 

@@ -10,3 +10,5 @@ if ($recetaId !== null && isset($_SESSION['carrito'])) {
 }
 
 echo json_encode(['success' => false]);
+
+?>

@@ -70,6 +70,8 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
 
     public function comprarReceta($recetaCompradaDTO)
     {
+        $comprada = false;
+
         // Obtiene la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
@@ -87,14 +89,18 @@ class recetaCompradaDAO extends baseDAO implements IRecetaComprada
         // Ejecuta la consulta
         if ($stmt->execute()) {
             // Devuelve true si la compra se ha realizado con éxito
-            return true;
-        } else {
-            // Devuelve false si la compra ha fallado
-            return false;
+            $comprada = true;
         }
+
+        $stmt->close();
+        
+        // Devuelve false si la compra ha fallado
+        return $comprada;
+        
     }
 
-    public function esComprador($recetaCompradaDTO){
+    public function esComprador($recetaCompradaDTO)
+    {
         // Variable que demostrara si es o no comprador
         $esComprador = false;
         // Obtiene la conexión a la base de datos

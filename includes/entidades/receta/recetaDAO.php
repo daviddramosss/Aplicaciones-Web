@@ -361,7 +361,7 @@ class recetaDAO extends baseDAO implements IReceta
     public function esAutor($recetaDTO)
     {
 
-        $autor = FALSE;
+        $autor = false;
 
          // Obtiene la conexión a la base de datos
          $conn = application::getInstance()->getConexionBd();

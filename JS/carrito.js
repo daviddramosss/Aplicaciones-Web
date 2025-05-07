@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData();
             formData.append('recetaId', recetaId);
 
-            const response = await fetch('eliminarCarrito.php', {
+            const response = await fetch('includes/endpoints/eliminarCarrito.php', {
                 method: 'POST',
                 body: formData
             });
