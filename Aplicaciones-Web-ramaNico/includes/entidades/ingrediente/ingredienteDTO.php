@@ -2,37 +2,31 @@
 namespace es\ucm\fdi\aw\entidades\ingrediente;
 
 class IngredienteDTO {
+    private ?int $id;
+    private ?string $nombre;
 
-    private $id;
-    private $nombre;
-
-    // Constructor de la clase
-    public function __construct($id, $nombre)
-    {
+    public function __construct(?int $id, ?string $nombre, bool $allowEmpty = false) {
         $this->id = $id;
-        $this->nombre = $nombre;
+        $this->setNombre($nombre, $allowEmpty);
     }
 
-    // Métodos para obtener los valores
-    public function getId()
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getNombre()
-    {
+    public function getNombre(): ?string {
         return $this->nombre;
     }
 
-    // Métodos para establecer los valores
-    public function setId($id)
-    {
+    public function setId(?int $id): void {
         $this->id = $id;
     }
 
-    public function setNombre($nombre)
-    {
+    public function setNombre(?string $nombre, bool $allowEmpty = false): void {
+        $nombre = trim($nombre ?? '');
+        if (!$allowEmpty && empty($nombre)) {
+            throw new \InvalidArgumentException("El nombre del ingrediente no puede estar vacío");
+        }
         $this->nombre = $nombre;
     }
 }
-?>

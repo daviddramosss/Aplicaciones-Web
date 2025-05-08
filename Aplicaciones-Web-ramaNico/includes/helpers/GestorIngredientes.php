@@ -13,55 +13,57 @@ class GestorIngredientes {
 
     public function procesarFormulario(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['eliminar_id'])) {
-                $this->eliminarIngrediente($_POST['eliminar_id']);
-            } elseif (isset($_POST['crear_nombre'])) {
-                $this->crearIngrediente($_POST['crear_nombre']);
-            } elseif (isset($_POST['editar_id'], $_POST['editar_nombre'])) {
-                $this->editarIngrediente($_POST['editar_id'], $_POST['editar_nombre']);
+            if (isset($_POST['eliminar_id']) && is_numeric($_POST['eliminar_id'])) {
+                $this->eliminarIngrediente((int)$_POST['eliminar_id']);
+            } elseif (isset($_POST['crear_nombre']) && !empty(trim($_POST['crear_nombre']))) {
+                $this->crearIngrediente(trim($_POST['crear_nombre']));
+            } elseif (isset($_POST['editar_id'], $_POST['editar_nombre']) && is_numeric($_POST['editar_id']) && !empty(trim($_POST['editar_nombre']))) {
+                $this->editarIngrediente((int)$_POST['editar_id'], trim($_POST['editar_nombre']));
+            } else {
+                $_SESSION['error'] = "Datos del formulario inválidos.";
+                header('Location: gestionarIngredientes.php');
+                exit;
             }
         }
     }
 
-    private function eliminarIngrediente($id): void {
+    private function eliminarIngrediente(int $id): void {
         $platos = $this->ingredienteDAO->obtenerPlatosPorIngrediente($id);
         if (empty($platos)) {
-            $dto = new IngredienteDTO($id, '');
-            $this->ingredienteDAO->eliminarIngrediente($dto);
+            $dto = new IngredienteDTO($id, null, true); // Permitir nombre vacío
+            try {
+                $this->ingredienteDAO->eliminarIngrediente($dto);
+                $_SESSION['success'] = "Ingrediente eliminado correctamente.";
+            } catch (\Exception $e) {
+                $_SESSION['error'] = "Error al eliminar el ingrediente: " . htmlspecialchars($e->getMessage());
+            }
         } else {
-            echo "<p style='color:red;'>No se puede eliminar el ingrediente porque está en uso en los siguientes platos: ";
-            foreach ($platos as $plato) {
-                echo htmlspecialchars($plato['nombre']) . ' ';
-            }
-            echo "</p>";
+            $nombres = array_map(fn($p) => htmlspecialchars($p['nombre']), $platos);
+            $_SESSION['error'] = "No se puede eliminar el ingrediente porque está en uso en los platos: " . implode(', ', $nombres);
         }
         header('Location: gestionarIngredientes.php');
         exit;
     }
 
-    private function crearIngrediente($nombre): void {
-        $nombre = trim($nombre);
-        if (!empty($nombre)) {
+    private function crearIngrediente(string $nombre): void {
+        try {
             $dto = new IngredienteDTO(null, $nombre);
-            try {
-                $this->ingredienteDAO->crearIngrediente($dto);
-            } catch (\Exception $e) {
-                echo "<p style='color:red;'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
-            }
+            $this->ingredienteDAO->crearIngrediente($dto);
+            $_SESSION['success'] = "Ingrediente creado correctamente.";
+        } catch (\Exception $e) {
+            $_SESSION['error'] = "Error al crear el ingrediente: " . htmlspecialchars($e->getMessage());
         }
         header('Location: gestionarIngredientes.php');
         exit;
     }
 
-    private function editarIngrediente($id, $nombre): void {
-        $nombre = trim($nombre);
-        if (!empty($nombre)) {
+    private function editarIngrediente(int $id, string $nombre): void {
+        try {
             $dto = new IngredienteDTO($id, $nombre);
-            try {
-                $this->ingredienteDAO->editarIngrediente($dto);
-            } catch (\Exception $e) {
-                echo "<p style='color:red;'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
-            }
+            $this->ingredienteDAO->editarIngrediente($dto);
+            $_SESSION['success'] = "Ingrediente editado correctamente.";
+        } catch (\Exception $e) {
+            $_SESSION['error'] = "Error al editar el ingrediente: " . htmlspecialchars($e->getMessage());
         }
         header('Location: gestionarIngredientes.php');
         exit;
@@ -71,84 +73,55 @@ class GestorIngredientes {
         return $this->ingredienteDAO->obtenerIngredientes();
     }
 
-    public function obtenerPlatosPorIngrediente($ingredienteId) {
+    public function obtenerPlatosPorIngrediente(int $ingredienteId): array {
         return $this->ingredienteDAO->obtenerPlatosPorIngrediente($ingredienteId);
+    }
+
+    public function buscarIngredientes(string $busqueda): array {
+        return $this->ingredienteDAO->buscarIngredientes(trim($busqueda));
     }
 
     public function renderizar(): string {
         $ingredientes = $this->obtenerTodos();
-    
-        $html = <<<EOS
-            <h2>Panel de administración de ingredientes</h2>
-            <p>En este panel puedes gestionar los ingredientes de la aplicación.</p>
-            <p>Vas a poder borrar, crear o editar ingredientes.</p>
-    
-            <table border="1">
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Acciones</th>
-                </tr>
-        EOS;
-    
-        foreach ($ingredientes as $ingrediente) {
-            $id = htmlspecialchars($ingrediente['id']);
-            $nombre = htmlspecialchars($ingrediente['nombre']);
-            $platosUsandoIngrediente = $this->obtenerPlatosPorIngrediente($ingrediente['id']);
-    
-            if (!empty($platosUsandoIngrediente)) {
-                $platosNombres = array_map(function($plato) {
-                    return htmlspecialchars($plato['nombre']);
-                }, $platosUsandoIngrediente);
-    
-                $platosStr = implode(', ', $platosNombres);
-                $html .= <<<EOS
-                    <tr>
-                        <td>$id</td>
-                        <td>$nombre</td>
-                        <td>
-                            <button type='button' disabled>Este ingrediente está en los platos: $platosStr</button>
-                        </td>
-                    </tr>
-                EOS;
+        $html = "<h2>Panel de administración de ingredientes</h2>\n";
+        $html .= "<p>En este panel puedes gestionar los ingredientes de la aplicación.</p>\n";
+        $html .= "<label for=\"busquedaIngrediente\">🔍 Buscar ingrediente:</label>\n";
+        $html .= "<input type=\"text\" id=\"busquedaIngrediente\" placeholder=\"Escribe un nombre...\">\n";
+        $html .= "<table border=\"1\">\n<thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead>\n<tbody id=\"cuerpoTabla\">\n";
+
+        foreach ($ingredientes as $ing) {
+            $id = htmlspecialchars($ing['id']);
+            $nombre = htmlspecialchars($ing['nombre']);
+            $platos = $this->obtenerPlatosPorIngrediente((int)$ing['id']);
+
+            if (!empty($platos)) {
+                $noms = array_map(fn($p) => htmlspecialchars($p['nombre']), $platos);
+                $str = implode(', ', $noms);
+                $html .= "<tr><td>{$id}</td><td>{$nombre}</td><td><button disabled>En uso: {$str}</button></td></tr>\n";
             } else {
-                $html .= <<<EOS
-                    <tr>
-                        <td>$id</td>
-                        <td>$nombre</td>
-                        <td>
-                            <form action='gestionarIngredientes.php' method='POST' style='display:inline;' id='form_eliminar_$id'>
-                                <input type='hidden' name='eliminar_id' value='$id'>
-                                <button type='button' onclick='confirmarEliminacion($id)'>🗑️ Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>
-                EOS;
+                $html .= "<tr><td>{$id}</td><td>{$nombre}</td><td>";
+                $html .= "<form id=\"form_eliminar_{$id}\" action=\"gestionarIngredientes.php\" method=\"POST\" style=\"display:inline;\">";
+                $html .= "<input type=\"hidden\" name=\"eliminar_id\" value=\"{$id}\">";
+                $html .= "<button type=\"button\" onclick=\"confirmarEliminacion({$id})\">🗑️ Eliminar</button>";
+                $html .= "</form></td></tr>\n";
             }
         }
-    
-        $html .= <<<EOS
-            </table>
-    
-            <h3>Crear Ingrediente</h3>
-            <form method="POST" action="gestionarIngredientes.php">
-                <label for="crear_nombre">Nombre del ingrediente:</label>
-                <input type="text" id="crear_nombre" name="crear_nombre" required>
-                <button type="submit">➕ Crear Ingrediente</button>
-            </form>
-    
-            <h3>Editar Ingrediente</h3>
-            <form method="POST" action="gestionarIngredientes.php">
-                <label for="editar_id">ID del ingrediente:</label>
-                <input type="number" id="editar_id" name="editar_id" required>
-                <label for="editar_nombre">Nuevo nombre:</label>
-                <input type="text" id="editar_nombre" name="editar_nombre" required>
-                <button type="submit">✏️ Editar Ingrediente</button>
-            </form>
-        EOS;
-    
+
+        $html .= "</tbody></table>\n";
+        $html .= "<h3>Crear Ingrediente</h3>\n";
+        $html .= "<form method=\"POST\" action=\"gestionarIngredientes.php\">";
+        $html .= "<label for=\"crear_nombre\">Nombre:</label>";
+        $html .= "<input type=\"text\" id=\"crear_nombre\" name=\"crear_nombre\" required>";
+        $html .= "<button type=\"submit\">➕ Crear</button></form>\n";
+
+        $html .= "<h3>Editar Ingrediente</h3>\n";
+        $html .= "<form method=\"POST\" action=\"gestionarIngredientes.php\">";
+        $html .= "<label for=\"editar_id\">ID:</label>";
+        $html .= "<input type=\"number\" id=\"editar_id\" name=\"editar_id\" required>";
+        $html .= "<label for=\"editar_nombre\">Nuevo nombre:</label>";
+        $html .= "<input type=\"text\" id=\"editar_nombre\" name=\"editar_nombre\" required>";
+        $html .= "<button type=\"submit\">✏️ Editar</button></form>\n";
+
         return $html;
     }
-    
 }
-?>

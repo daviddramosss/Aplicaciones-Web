@@ -1,92 +1,118 @@
-<?php 
+<?php
 namespace es\ucm\fdi\aw\entidades\ingrediente;
 
 use es\ucm\fdi\aw\comun\baseDAO;
 use es\ucm\fdi\aw\application;
 
 class IngredienteDAO extends baseDAO implements IIngrediente {
-
-    // Constructor de la clase
-    public function __construct()
-    {
-        
+    public function __construct() {
+        // Constructor vacío, conexión manejada por application::getInstance()
     }
 
-    // Método para crear un nuevo ingrediente
-    public function crearIngrediente($ingredienteDTO)
-    {
+    public function crearIngrediente($ingredienteDTO) {
         try {
             $conn = application::getInstance()->getConexionBd();
             $query = "INSERT INTO ingredientes (Nombre) VALUES (?)";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("s", $ingredienteDTO->getNombre());
-            $stmt->execute();
+            $nombre = $ingredienteDTO->getNombre();
+            if (empty($nombre)) {
+                throw new \Exception("El nombre del ingrediente no puede estar vacío");
+            }
+            $stmt->bind_param("s", $nombre);
+            if (!$stmt->execute()) {
+                throw new \Exception("Error al crear el ingrediente");
+            }
             $stmt->close();
         } catch (mysqli_sql_exception $e) {
-            throw $e;
+            throw new \Exception("Error en la base de datos: " . $e->getMessage());
         }
     }
 
-    // Método para editar un ingrediente existente
-    public function editarIngrediente($ingredienteDTO)
-    {
+    public function editarIngrediente($ingredienteDTO) {
         try {
             $conn = application::getInstance()->getConexionBd();
             $query = "UPDATE ingredientes SET Nombre = ? WHERE id = ?";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("si", $ingredienteDTO->getNombre(), $ingredienteDTO->getId());
-            $stmt->execute();
+            $nombre = $ingredienteDTO->getNombre();
+            $id = $ingredienteDTO->getId();
+            if (empty($nombre)) {
+                throw new \Exception("El nombre del ingrediente no puede estar vacío");
+            }
+            if (!is_numeric($id)) {
+                throw new \Exception("ID inválido");
+            }
+            $stmt->bind_param("si", $nombre, $id);
+            if (!$stmt->execute() || $stmt->affected_rows === 0) {
+                throw new \Exception("No se encontró el ingrediente con ID $id");
+            }
             $stmt->close();
         } catch (mysqli_sql_exception $e) {
-            throw $e;
+            throw new \Exception("Error en la base de datos: " . $e->getMessage());
         }
     }
 
-    // Método para eliminar un ingrediente
-    public function eliminarIngrediente($ingredienteDTO)
-    {
+    public function eliminarIngrediente($ingredienteDTO) {
         try {
             $conn = application::getInstance()->getConexionBd();
             $query = "DELETE FROM ingredientes WHERE id = ?";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("i", $ingredienteDTO->getId());
-            $stmt->execute();
+            $id = $ingredienteDTO->getId();
+            if (!is_numeric($id)) {
+                throw new \Exception("ID inválido");
+            }
+            $stmt->bind_param("i", $id);
+            if (!$stmt->execute() || $stmt->affected_rows === 0) {
+                throw new \Exception("No se encontró el ingrediente con ID $id");
+            }
             $stmt->close();
         } catch (mysqli_sql_exception $e) {
-            throw $e;
+            throw new \Exception("Error en la base de datos: " . $e->getMessage());
         }
     }
 
-    // Método para obtener la lista de ingredientes
-    public function obtenerIngredientes()
-    {
+    public function obtenerIngredientes() {
         try {
             $conn = application::getInstance()->getConexionBd();
-            $query = "SELECT id, Nombre FROM ingredientes";
-            $stmt = $conn->prepare($query);
-            $stmt->execute();
-
+            $query = "SELECT id, Nombre AS nombre FROM ingredientes ORDER BY nombre";
+            $result = $conn->query($query);
             $ingredientes = [];
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $ingredientes[] = [
-                        "id" => $row['id'],
-                        "nombre" => $row['Nombre']
-                    ];
-                }
+            while ($row = $result->fetch_assoc()) {
+                $ingredientes[] = [
+                    "id" => (int)$row['id'],
+                    "nombre" => $row['nombre']
+                ];
             }
+            $result->free();
+            return $ingredientes;
+        } catch (mysqli_sql_exception $e) {
+            throw new \Exception("Error en la base de datos: " . $e->getMessage());
+        }
+    }
 
+    public function buscarIngredientes(string $busqueda): array {
+        try {
+            $conn = application::getInstance()->getConexionBd();
+            $query = "SELECT id, Nombre AS nombre FROM ingredientes WHERE Nombre LIKE ? ORDER BY nombre";
+            $stmt = $conn->prepare($query);
+            $busqueda = "%" . trim($busqueda) . "%";
+            $stmt->bind_param("s", $busqueda);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $ingredientes = [];
+            while ($row = $result->fetch_assoc()) {
+                $ingredientes[] = [
+                    "id" => (int)$row['id'],
+                    "nombre" => $row['nombre']
+                ];
+            }
             $stmt->close();
             return $ingredientes;
         } catch (mysqli_sql_exception $e) {
-            throw $e;
+            throw new \Exception("Error en la base de datos: " . $e->getMessage());
         }
     }
 
-    // Método para obtener los platos en los que se usa un ingrediente
-    public function obtenerPlatosPorIngrediente($ingredienteId)
-    {
+    public function obtenerPlatosPorIngrediente($ingredienteId) {
         try {
             $conn = application::getInstance()->getConexionBd();
             $query = "SELECT platos.id, platos.nombre
@@ -96,23 +122,18 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
             $stmt = $conn->prepare($query);
             $stmt->bind_param("i", $ingredienteId);
             $stmt->execute();
-
-            $platos = [];
             $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $platos[] = [
-                        "id" => $row['id'],
-                        "nombre" => $row['nombre']
-                    ];
-                }
+            $platos = [];
+            while ($row = $result->fetch_assoc()) {
+                $platos[] = [
+                    "id" => (int)$row['id'],
+                    "nombre" => $row['nombre']
+                ];
             }
-
             $stmt->close();
             return $platos;
         } catch (mysqli_sql_exception $e) {
-            throw $e;
+            throw new \Exception("Error en la base de datos: " . $e->getMessage());
         }
     }
 }
-?>
