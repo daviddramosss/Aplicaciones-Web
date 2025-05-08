@@ -78,7 +78,13 @@ class GestorIngredientes {
     }
 
     public function buscarIngredientes(string $busqueda): array {
-        return $this->ingredienteDAO->buscarIngredientes(trim($busqueda));
+        $ingredientes = $this->ingredienteDAO->buscarIngredientes(trim($busqueda));
+        // Añadir los platos asociados a cada ingrediente
+        foreach ($ingredientes as &$ingrediente) {
+            $ingrediente['platos'] = $this->obtenerPlatosPorIngrediente((int)$ingrediente['id']);
+        }
+        unset($ingrediente); // Liberar la referencia
+        return $ingredientes;
     }
 
     public function renderizar(): string {
@@ -94,17 +100,18 @@ class GestorIngredientes {
             $nombre = htmlspecialchars($ing['nombre']);
             $platos = $this->obtenerPlatosPorIngrediente((int)$ing['id']);
 
+            $html .= "<tr><td>{$id}</td><td>{$nombre}</td><td>";
             if (!empty($platos)) {
                 $noms = array_map(fn($p) => htmlspecialchars($p['nombre']), $platos);
                 $str = implode(', ', $noms);
-                $html .= "<tr><td>{$id}</td><td>{$nombre}</td><td><button disabled>En uso: {$str}</button></td></tr>\n";
+                $html .= "En uso en platos: {$str}";
             } else {
-                $html .= "<tr><td>{$id}</td><td>{$nombre}</td><td>";
                 $html .= "<form id=\"form_eliminar_{$id}\" action=\"gestionarIngredientes.php\" method=\"POST\" style=\"display:inline;\">";
                 $html .= "<input type=\"hidden\" name=\"eliminar_id\" value=\"{$id}\">";
                 $html .= "<button type=\"button\" onclick=\"confirmarEliminacion({$id})\">🗑️ Eliminar</button>";
-                $html .= "</form></td></tr>\n";
+                $html .= "</form>";
             }
+            $html .= "</td></tr>\n";
         }
 
         $html .= "</tbody></table>\n";

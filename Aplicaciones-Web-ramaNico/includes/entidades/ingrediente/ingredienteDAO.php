@@ -114,6 +114,9 @@ class IngredienteDAO extends baseDAO implements IIngrediente {
 
     public function obtenerPlatosPorIngrediente($ingredienteId) {
         try {
+            if (!is_numeric($ingredienteId)) {
+                throw new \Exception("ID de ingrediente inválido");
+            }
             $conn = application::getInstance()->getConexionBd();
             $query = "SELECT platos.id, platos.nombre
                       FROM platos

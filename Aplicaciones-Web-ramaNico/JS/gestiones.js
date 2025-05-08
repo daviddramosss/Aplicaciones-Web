@@ -49,16 +49,22 @@ document.addEventListener("DOMContentLoaded", () => {
             tbody.innerHTML = datos.map(ing => {
                 const id = Number(ing.id);
                 const nombre = String(ing.nombre).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                let acciones = '';
+                if (ing.platos && ing.platos.length > 0) {
+                    const nombresPlatos = ing.platos.map(p => String(p.nombre).replace(/</g, "&lt;").replace(/>/g, "&gt;")).join(', ');
+                    acciones = `En uso en platos: ${nombresPlatos}`;
+                } else {
+                    acciones = `
+                        <form action="gestionarIngredientes.php" method="POST" id="form_eliminar_${id}" style="display:inline;">
+                            <input type="hidden" name="eliminar_id" value="${id}">
+                            <button type="button" onclick="confirmarEliminacion(${id})">🗑️ Eliminar</button>
+                        </form>`;
+                }
                 return `
                     <tr>
                         <td>${id}</td>
                         <td>${nombre}</td>
-                        <td>
-                            <form action="gestionarIngredientes.php" method="POST" id="form_eliminar_${id}" style="display:inline;">
-                                <input type="hidden" name="eliminar_id" value="${id}">
-                                <button type="button" onclick="confirmarEliminacion(${id})">🗑️ Eliminar</button>
-                            </form>
-                        </td>
+                        <td>${acciones}</td>
                     </tr>`;
             }).join("");
         } catch (e) {
