@@ -1,29 +1,35 @@
 <?php
+
 namespace es\ucm\fdi\aw\entidades\plato;
 
-class PlatoDTO {
-    private $id;
-    private $nombre;
+class PlatoDTO
+{
+    private ?int $id;
+    private string $nombre;
 
-    public function __construct($id, $nombre) {
+    public function __construct(?int $id, string $nombre)
+    {
         $this->id = $id;
         $this->nombre = $nombre;
     }
 
-    public function getId() {
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
-    public function getNombre() {
+    public function getNombre(): string
+    {
         return $this->nombre;
     }
 
-    public function setId($id) {
+    public function setId(int $id): void
+    {
         $this->id = $id;
     }
 
-    public function setNombre($nombre) {
+    public function setNombre(string $nombre): void
+    {
         $this->nombre = $nombre;
     }
 }
-?>

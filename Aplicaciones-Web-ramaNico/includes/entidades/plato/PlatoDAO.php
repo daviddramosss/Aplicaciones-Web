@@ -9,10 +9,9 @@ class PlatoDAO implements IPlato
 {
     public function __construct()
     {
-        // Inicialización opcional
+        // Constructor vacío por ahora
     }
 
-    // Crear un nuevo plato (solo nombre)
     public function crearPlato(PlatoDTO $platoDTO)
     {
         try {
@@ -22,13 +21,12 @@ class PlatoDAO implements IPlato
             $stmt->bind_param("s", $platoDTO->getNombre());
             $stmt->execute();
             $stmt->close();
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             error_log("Error al crear plato: " . $e->getMessage());
             throw $e;
         }
     }
 
-    // Editar un plato (solo nombre)
     public function editarPlato(PlatoDTO $platoDTO)
     {
         try {
@@ -38,13 +36,12 @@ class PlatoDAO implements IPlato
             $stmt->bind_param("si", $platoDTO->getNombre(), $platoDTO->getId());
             $stmt->execute();
             $stmt->close();
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             error_log("Error al editar plato: " . $e->getMessage());
             throw $e;
         }
     }
 
-    // Eliminar un plato
     public function eliminarPlato(PlatoDTO $platoDTO)
     {
         try {
@@ -54,13 +51,12 @@ class PlatoDAO implements IPlato
             $stmt->bind_param("i", $platoDTO->getId());
             $stmt->execute();
             $stmt->close();
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             error_log("Error al eliminar plato: " . $e->getMessage());
             throw $e;
         }
     }
 
-    // Obtener todos los platos (solo id y nombre)
     public function obtenerPlatos(): array
     {
         try {
@@ -75,13 +71,12 @@ class PlatoDAO implements IPlato
             }
             $stmt->close();
             return $platos;
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             error_log("Error al obtener platos: " . $e->getMessage());
             throw $e;
         }
     }
 
-    // Obtener ingredientes asociados a un plato
     public function obtenerIngredientesDePlato($idPlato): array
     {
         try {
@@ -99,13 +94,12 @@ class PlatoDAO implements IPlato
             }
             $stmt->close();
             return $ingredientes;
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             error_log("Error al obtener ingredientes de plato: " . $e->getMessage());
             throw $e;
         }
     }
 
-    // Asociar un ingrediente a un plato
     public function asociarIngrediente($idPlato, $idIngrediente)
     {
         try {
@@ -115,13 +109,12 @@ class PlatoDAO implements IPlato
             $stmt->bind_param("ii", $idPlato, $idIngrediente);
             $stmt->execute();
             $stmt->close();
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             error_log("Error al asociar ingrediente a plato: " . $e->getMessage());
             throw $e;
         }
     }
 
-    // Desasociar un ingrediente de un plato
     public function desasociarIngrediente($idPlato, $idIngrediente)
     {
         try {
@@ -131,10 +124,9 @@ class PlatoDAO implements IPlato
             $stmt->bind_param("ii", $idPlato, $idIngrediente);
             $stmt->execute();
             $stmt->close();
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             error_log("Error al desasociar ingrediente de plato: " . $e->getMessage());
             throw $e;
         }
     }
 }
-?>
