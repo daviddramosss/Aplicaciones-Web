@@ -38,6 +38,8 @@ class loginForm extends formularioBase
                 </div>
                 
                 <button type="submit" class="send-button" name="login">ENTRAR</button>
+
+                <p> ¿No estás registrado? <a href="register.php">Regístrate aquí</a> </p>
         EOF;
 
         return $html;
