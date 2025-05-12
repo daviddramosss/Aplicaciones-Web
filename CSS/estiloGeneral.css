@@ -610,6 +610,15 @@ p {
 
 /* #endregion */ 
 
+/* #region ERRORES */
+
+.error{
+    color: red; 
+    text-align: center;
+    padding-top: 2%;
+}
+
+/* #endregion */
 
 /* #endregion */
 

@@ -69,7 +69,7 @@ abstract class formularioBase
         
         return $html;
     }
-
+/*
     private function CreateErrors($errores)
     {
         $html='';
@@ -86,6 +86,19 @@ abstract class formularioBase
         }
         return $html;
     }
+*/
+    private function CreateErrors($errores)
+{
+    $html = '';
+    $numErrores = count($errores);
+    if ($numErrores > 0) {
+        $html .= '<div class="error">';
+        $html .= implode('<br>', $errores);
+        $html .= '</div>';
+    }
+    return $html;
+}
+
 
     protected function CreateFields($datosIniciales)
     {
