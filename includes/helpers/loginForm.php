@@ -38,6 +38,8 @@ class loginForm extends formularioBase
                 </div>
                 
                 <button type="submit" class="send-button" name="login">ENTRAR</button>
+
+                <p> ¿No estás registrado? <a href="register.php">Regístrate aquí</a> </p>
         EOF;
 
         return $html;
@@ -92,6 +94,7 @@ class loginForm extends formularioBase
                 // si ha iniciado sesión, se almacenan los valores relevantes de la sesión
                 $_SESSION["login"] = true;
                 $_SESSION["usuario"] = $email;
+                $_SESSION["id"] = $foundedUserDTO->getId();
 
                 // se guarda la ruta a la que se debe redirigir al usuario
                 $result = 'index.php';

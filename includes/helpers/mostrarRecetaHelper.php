@@ -6,6 +6,7 @@ use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
 use es\ucm\fdi\aw\entidades\usuario\{userAppService, userDTO};
 use es\ucm\fdi\aw\entidades\ingredienteReceta\{ingredienteRecetaAppService};
 use es\ucm\fdi\aw\entidades\etiquetaReceta\{etiquetaRecetaAppService};
+use es\ucm\fdi\aw\entidades\recetaComprada\{recetaCompradaAppService, recetaCompradaDTO};
 
 class mostrarRecetaHelper
 {
@@ -14,22 +15,39 @@ class mostrarRecetaHelper
     private $autor;
     private $etiquetas;
     private $similares;
+    private $esComprador = false;
+    private $logueado = false;
+    private $esAutor = false;
 
-    public function __construct($recetaId) 
+    public function __construct() 
+    {
+    }
+
+    public function init($recetaId)
     {
         $recetaService = recetaAppService::GetSingleton();
-        $this->recetaDTO = $recetaService->buscarRecetaPorId(new RecetaDTO($recetaId, null, null, null, null, null, null, null, null, null));
+        $this->recetaDTO = $recetaService->buscarRecetaPorId(new recetaDTO($recetaId, null, null, null, null, null, null, null, null));
         
         $usuarioService = userAppService::GetSingleton();
         $this->autor = $usuarioService->buscarUsuarioPorID(new userDTO($this->recetaDTO->getAutor(), null, null, null, null, null, null));
-
+        
         $ingredienteRecetaService = ingredienteRecetaAppService::GetSingleton();
-        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null, null), 'nombres');
-    
+        $this->ingredientes = $ingredienteRecetaService->buscarIngredienteReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null), 'nombres');
+        
         $etiquetaRecetaService = etiquetaRecetaAppService::GetSingleton();
-        $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null, null));
-
-        $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, $recetaId);        
+        $this->etiquetas = $etiquetaRecetaService->buscarEtiquetaReceta(new recetaDTO($recetaId, null, null, null, null, null, null, null, null));
+        
+        $this->similares = $recetaService->buscarRecetasConEtiquetas($this->etiquetas, new recetaDTO($recetaId, null, null, null, null, null, null, null, null));
+        
+        $recetaCompradaService = recetaCompradaAppService::GetSingleton();
+        
+        if(isset($_SESSION["login"])){
+            $this->esAutor = $recetaService->esAutor(new recetaDTO($recetaId, null, $_SESSION["id"], null, null, null, null, null, null));
+            if(!$this->esAutor){
+                $this->esComprador = $recetaCompradaService->esComprador(new recetaCompradaDTO($_SESSION["id"], $recetaId));
+            }
+            $this->logueado = true;
+        }
     }
 
     public function print()
@@ -48,24 +66,92 @@ class mostrarRecetaHelper
         $descripcion = nl2br(htmlspecialchars($this->recetaDTO->getDescripcion()));
         $tiempo = htmlspecialchars($this->recetaDTO->getTiempo()) . " minutos";
         $precio = htmlspecialchars($this->recetaDTO->getPrecio()) . "€";
-        $valoracion = htmlspecialchars($this->recetaDTO->getValoracion()) ?: "Sin valoración";
         $rutaImagen = "img/receta/" . htmlspecialchars($this->recetaDTO->getRuta());
     
         // Formatear fecha (solo día/mes/año)
         $fechaCreacion = date("d/m/Y", strtotime($this->recetaDTO->getFechaCreacion()));
     
-        // Convertir los pasos de JSON a array
-        $pasosArray = json_decode($this->recetaDTO->getPasos(), true);
-        $listaPasos = "<div class='receta-pasos'>";
-        foreach ($pasosArray as $indice => $paso) {
-            $numPaso = $indice + 1;
-            $listaPasos .= "<p><strong>Paso $numPaso:</strong> " . htmlspecialchars($paso) . "</p>";
+        // Convertir los pasos de JSON a array v1
+        // Mostrar los pasos y los ingredientes solo si es comprador
+        if ($this->esComprador || $this->esAutor) {
+            $pasosArray = json_decode($this->recetaDTO->getPasos(), true);
+            $listaPasos = "<h2>Pasos de la receta</h2>";
+            $listaPasos .= "<div class='receta-pasos'>";
+
+            foreach ($pasosArray as $indice => $paso) {
+                $numPaso = $indice + 1;
+                $listaPasos .= "<p><strong>Paso $numPaso:</strong> " . htmlspecialchars($paso) . "</p>";
+            }
+            $listaPasos .= "</div>";
+        } else {
+
+            $listaPasos = "
+            <div>
+                <p class='candado'>🔒</p>
+            ";
+            if(!$this->logueado){
+                $listaPasos.= "
+                <p> ¡No estas logueado! Inicia sesión primero</p>
+                ";
+            } 
+            else{
+                $listaPasos.= "
+                    <p> ¡No tienes comprada esta receta!
+                    <p>Debes comprar la receta para ver los pasos de preparación.</p>
+                ";
+            }
+            $listaPasos.= "</div>";
         }
-        $listaPasos .= "</div>";
+
 
         $etiquetas = $this->generarEtiquetas();
-        $ingredientes = $this->generarIngredientes();
-        $recetas_aux = $this->similares;
+        $ingredientes = ""; //Si no es comprador, los ingredientes están vacíos
+        if ($this->esComprador || $this->esAutor) {
+            $ingredientes = $this->generarIngredientes();
+        }
+        // Lógica de usuarios
+        // Si esta logueado y es comprador no muestra ningun boton
+        // Si esta logueado y NO es comprador, muestra el boton de añadir al carrito con su texto
+        // Si NO esta logueado, muestra el boton de iniciar sesion con su texto
+        $botonCarrito = "";
+        if($this->logueado){
+            if(!$this->esComprador && !$this->esAutor){
+                $botonCarrito = "
+                <form action='anadirCarrito.php' method='post'>
+                    <input type='hidden' name='recetaId' value='{$this->recetaDTO->getId()}'>
+                    <button type='submit' class='send-button'>AÑADIR AL CARRITO</button>
+                </form>
+                ";
+            }
+        }
+        else{
+            $botonCarrito = " 
+                <button type='button' class='send-button' onclick='location.href=`login.php`'> INICIAR SESIÓN</button>
+            ";
+        }
+
+        $recetas_aux = "";
+        if (empty($this->similares)) {
+            $recetas_aux ="<p>No existen recetas que cumplan esos criterios.</p>";
+        }
+        else{
+
+            $recetas_aux = '<div class="recetas-container">';
+            
+                foreach ($this->similares as $receta) {
+                    $recetas_aux .= <<<HTML
+                        <div class="receta-card">
+                            <a href="mostrarReceta.php?id={$receta->getId()}">
+                                <img src="img/receta/{$receta->getRuta()}" alt="{$receta->getNombre()}" class="receta-imagen">
+                            </a>
+                            <p class="receta-titulo">{$receta->getNombre()}</p>
+                        </div>
+                    HTML;
+                }
+            
+            $recetas_aux .= '</div>';
+        }
+        
         return <<<HTML
             <section>
                 <div class="receta-detalle">
@@ -75,14 +161,13 @@ class mostrarRecetaHelper
                     <p><strong>Descripción:</strong> $descripcion</p>
                     <p><strong>Tiempo de preparación:</strong> $tiempo</p>
                     <p><strong>Precio:</strong> $precio</p>
-                    <p><strong>Valoración:</strong> $valoracion</p>
                     <p><strong>Fecha de creación:</strong> $fechaCreacion</p>
                     $etiquetas
                 </div>
-                <div>
-                    <h2>Pasos de la receta</h2>
+                <div class="receta-detalle">
                     $listaPasos
                     $ingredientes
+                    $botonCarrito
                 </div>
             </section>
             <br>
@@ -126,8 +211,5 @@ class mostrarRecetaHelper
     
         return $html;
     }
-    
-
-
 
 }

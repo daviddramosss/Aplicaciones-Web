@@ -46,6 +46,17 @@ class chefAppService
         return $IChefDAO->informacionChef($userDTO);
     }
 
+    public function actualizarSaldo($chefDTO, $recetaDTO)
+    {
+        $IChefDAO = chefFactory::createChef();
+        return $IChefDAO->actualizarSaldo($chefDTO, $recetaDTO);
+    }
+
+    public function buscarChefPorID($chefDTO)
+    {
+        $IChefDAO = chefFactory::createChef();
+        return $IChefDAO->buscarChefPorID($chefDTO);
+    }
 }
 
 ?>

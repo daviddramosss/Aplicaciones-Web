@@ -8,6 +8,7 @@
     $tituloPagina = 'Estrella Michelin';
 
     $estrellaMichelinHelper = new estrellaMichelinHelper();
+    $estrellaMichelinHelper->init(); 
     $htmlEstrellaMichelinHelper = $estrellaMichelinHelper->iniciarRol();
 
     $contenidoPrincipal = <<<EOS

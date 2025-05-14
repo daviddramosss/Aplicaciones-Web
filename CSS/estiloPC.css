@@ -94,6 +94,14 @@ section{
 
 /* #endregion */
 
+/* #region CARRITO */
+
+.carrito-item {
+    flex-direction: row;
+}
+
+/* #endregion */
+
 /* #endregion */
 
 /* #region PIE */

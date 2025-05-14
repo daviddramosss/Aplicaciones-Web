@@ -97,7 +97,7 @@ class userDAO implements IUser
 
         $stmt = $conn->prepare($query);
 
-        // Si la ejecución del insert se hizo correctamente, cogeremos el id asignado automáticamente por la BBSDD y crearemos el usuario con los datos para devolverlo
+        // Si la ejecución del insert se hizo correctamente, cogeremos el id asignado automáticamente por la BBDD y crearemos el usuario con los datos para devolverlo
         if ($stmt->execute()) 
         {
             $idUser = $conn->insert_id;
@@ -146,6 +146,34 @@ class userDAO implements IUser
         
         // Si no se ha encontrado ningún usuario con ese email, se devuelve un false
         return false;
+    }
+
+    public function editarPerfil($userDTO){
+
+        $conn = application::getInstance()->getConexionBd();
+
+        $query = "UPDATE usuarios SET Nombre = ?, Apellidos = ?, Password = ?, Ruta = ? WHERE ID = ?";
+
+        // Prepara la declaración SQL
+        $stmt = $conn->prepare($query);
+
+        // Asocia el parámetro de la consulta con el valor del ID
+        $nombre = $userDTO->getNombre();
+        $apellidos = $userDTO->getApellidos();
+        $password = $userDTO->getPassword();
+        $ruta = $userDTO->getRuta();
+        $id = $userDTO->getId();
+
+        $stmt->bind_param("ssssi", $nombre, $apellidos, $password, $ruta, $id); 
+
+        $devolver = false;
+        if ($stmt->execute()) $devolver = true;
+        
+        // Cierra la declaración 
+        // Usamos solo close, debido a que: Cierra el statement y libera todos los recursos asociados, por lo que usar un free sería innecesario.
+        $stmt->close();
+
+        return $devolver;
     }
 
 }

@@ -11,7 +11,8 @@ $tituloPagina = 'Editar Receta';
 $recetaId = $_GET['id'] ?? null;
 
 // Se instancia un objeto de la clase crearRecetaForm.
-$form = new editarRecetaForm($recetaId);
+$form = new editarRecetaForm();
+$form->init($recetaId);
 $htmlFormModReceta = $form->Manage();
 
 // Define el contenido principal de la página, que será insertado en la plantilla

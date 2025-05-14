@@ -59,6 +59,10 @@ class userAppService
         return $IUserDAO->buscarUsuarioPorID($userDTO);
     }
    
+    public function editarPerfil($userDTO){
+        $IUserDAO = userFactory::CreateUser();
+        return $IUserDAO->editarPerfil($userDTO);
+    }
 }
 
 ?>

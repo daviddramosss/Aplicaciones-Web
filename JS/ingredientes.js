@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ingredientContainer.parentNode.insertBefore(searchInput, ingredientContainer);
 
     let ingredientesData = [];
-
+    let ingredientesSeleccionados = {}; // clave: id, valor: { cantidad, magnitud }
     // Cargar ingredientes automáticamente
     fetch("includes/endpoints/getIngredientes.php")
         .then(response => response.json())
@@ -65,14 +65,52 @@ document.addEventListener("DOMContentLoaded", function () {
                         magnitudSelect.appendChild(option);
                     });
 
+                    // revisa si hay ingredientes seleccionados al cargar la tabla
+                    // Si alguno tenía puesto cucharadas, no lo cargaba bien, ya si
+                    if (ingredientesSeleccionados[ingrediente.id]) {
+                        checkbox.checked = true;
+                        cantidadInput.disabled = false;
+                        cantidadInput.value = ingredientesSeleccionados[ingrediente.id].cantidad || "";
+                        magnitudSelect.disabled = false;
+                        magnitudSelect.value = ingredientesSeleccionados[ingrediente.id].magnitud || magnitudes[0].id; // Seleccionar la primera opción si no hay valor guardado
+                    } else {
+                        magnitudSelect.value = magnitudes[0].id; // Seleccionar la primera opción por defecto
+                    }
+
                     checkbox.addEventListener("change", function () {
                         if (checkbox.checked) {
                             cantidadInput.disabled = false;
                             magnitudSelect.disabled = false;
+
+                            ingredientesSeleccionados[ingrediente.id] = {
+                                cantidad: cantidadInput.value || 1,  // puedes poner 0 si no hay cantidad aún
+                                magnitud: magnitudSelect.value       // guardamos la magnitud actual
+                            };
                         } else {
                             cantidadInput.disabled = true;
                             cantidadInput.value = "";
                             magnitudSelect.disabled = true;
+                            // Borro el ingrediente del array de objetos
+                            delete ingredientesSeleccionados[ingrediente.id];
+                        }
+                    });
+
+                    // Cada vez que cambie el cantidad, actualiza el valor del ingrediente seleccionado en el array de objetos
+                    cantidadInput.addEventListener("input", function () {
+                        if (checkbox.checked) {
+                            if (!ingredientesSeleccionados[ingrediente.id]) {
+                                ingredientesSeleccionados[ingrediente.id] = {};
+                            }
+                            ingredientesSeleccionados[ingrediente.id].cantidad = cantidadInput.value;
+                        }
+                    });
+                    // Cada vez que cambie la magnitud, actualiza el valor del ingrediente seleccionado en el array de objetos
+                    magnitudSelect.addEventListener("change", function () {
+                        if (checkbox.checked) {
+                            if (!ingredientesSeleccionados[ingrediente.id]) {
+                                ingredientesSeleccionados[ingrediente.id] = {};
+                            }
+                            ingredientesSeleccionados[ingrediente.id].magnitud = magnitudSelect.value;
                         }
                     });
 
@@ -120,6 +158,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 }
 
+                // Guarda los ingredientes de la receta como ingredientes seleccionados para mantenerlos
+                ingredientesSeleccionados[ingrediente.id] = {
+                    cantidad: ingrediente.cantidad,
+                    magnitud: ingrediente.id_magnitud
+                };
+
                 checkboxesEncontrados++;
             }
         });
@@ -134,4 +178,24 @@ document.addEventListener("DOMContentLoaded", function () {
     if (ingredientContainer) {
         observer.observe(ingredientContainer, { childList: true, subtree: true });
     }
+
+    ["crearRecetaForm", "editarRecetaForm"].forEach(formId => {
+        const form = document.getElementById(formId);
+        if (form) {
+            form.addEventListener("submit", function (event) {
+                const inputIngredientes = document.getElementById("ingredientesSeleccionadosInput");
+    
+                const ingredientesArray = Object.keys(ingredientesSeleccionados).map(id => ({
+                    id: parseInt(id),
+                    cantidad: parseFloat(ingredientesSeleccionados[id].cantidad),
+                    magnitud: parseInt(ingredientesSeleccionados[id].magnitud)
+                }));
+    
+                inputIngredientes.value = JSON.stringify(ingredientesArray);
+            });
+        }
+    });
+    
+    
+    
 });

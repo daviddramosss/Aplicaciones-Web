@@ -19,11 +19,11 @@
 
 
 .container_cabecera.Admin {
-    background-color: #ec1919;
+    background-color: #ff6d6d;
 }
 
 .container_cabecera.Chef {
-    background-color: #2abd09;
+    background-color: #00ffbf;
 }
 
 .container_cabecera.User {
@@ -131,7 +131,6 @@
 }
 
 /* #region INDEX */
-
 /*Video que aparece en el index*/
 video#videoPrincipal{
     width: 100vw; /* Ocupa todo el ancho de la ventana */
@@ -170,10 +169,9 @@ video#videoPrincipal{
 /* #region Formulario COMUN */
 /*Este tipo de formularios es el mas comun en la pagina. Se usa en Contacto, Login,
 Register... */
-
 /*Estilo comun para formularios*/
 form {
-    width: 50%;
+    width: 60%;
     margin: 20px auto;
     display: flex;
     flex-direction: column;
@@ -213,7 +211,15 @@ textarea {
 
 /*Imagen de previsualizacion; comun para crearReceta y registerForm*/
 #previewImage{
+    scale: 1;
     max-width: 200px;
+    max-height: 200px;
+}
+
+.passwords-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 /* #endregion */
@@ -279,30 +285,6 @@ hr {
     color: #555;
 }
 
-/* Alineación de las estrellas */
-/*
-.valoracion {
-    display: flex;
-    justify-content: center;  
-    gap: 5px;
-    margin-top: 10px;
-}
-
-.estrella_buscar {
-    font-size: 22px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.estrella_buscar:hover, 
-.estrella_buscar.seleccionada {
-    color: gold;
-}
-
-.tags_container_buscar{
-    background: #f6f6ae !important;
-}
-*/
 /* #endregion */
 
 /* #endregion */
@@ -534,6 +516,12 @@ p {
     color: #666;
 }
 
+/* Candado */
+.candado{
+    scale: 1;
+    font-size: 4em;
+}
+
 /*Contenedor comun; tiene una sombra*/
 .container {
     margin: 25px auto;
@@ -545,6 +533,90 @@ p {
 }
 
 /* #endregion
+
+/* #endregion */
+
+/* #region CARRITO */
+
+
+.carrito-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.carrito-imagen {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.carrito-info {
+    flex-grow: 1;
+}
+
+.carrito-eliminar-boton {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.carrito-eliminar-boton:hover {
+    background-color: #c0392b;
+}
+
+/* #endregion */
+
+/* #region PAGOS */
+.aviso {
+    padding: 20px;
+    margin: 40px auto;
+    max-width: 600px;
+    font-family: sans-serif;
+    text-align: center;
+    border-left: 6px solid;
+    border-radius: 5px;
+}
+
+.aviso.exito {
+    background-color: #ddffdd;
+    border-color: #4CAF50;
+    color: #2e7d32;
+}
+
+.aviso.error {
+    background-color: #ffdddd;
+    border-color: #f44336;
+    color: #a94442;
+}
+
+.aviso h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.aviso p {
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* #endregion */ 
+
+/* #region ERRORES */
+
+.error{
+    color: red; 
+    text-align: center;
+    padding-top: 2%;
+}
 
 /* #endregion */
 
@@ -593,29 +665,3 @@ p#copy {
 
 /* #endregion */
 
-/* #region NO IMPLEMENTADO - SIGUIENTES ACTUALIZACIONES */
-
-/* Contiene el CSS listo para implementarse en la proxima entrega. 
-Es el checkbox para usar la utilidad Mi Despensa a la hora de buscar.
-Se debatira la inclusion de esta funcionalidad dada la complejidad de la practica */ 
-
-/* Alineación de los checkboxes con sus labels */
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Espacio entre el checkbox y el texto */
-    margin-top: 10px;
-}
-
-.checkbox-container label{
-    position: relative;
-    top: -0.75vh; /* Sube un poco el label */
-}
-
-.checkbox-container input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-/* #endregion */

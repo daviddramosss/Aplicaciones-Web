@@ -49,14 +49,11 @@ spl_autoload_register(function ($class) {
     }
 });
 
-
-
 $app = application::getInstance();
 
 $app->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS));
 
 register_shutdown_function([$app, 'shutdown']);
-
 
 function gestorExcepciones(Throwable $exception) 
 {
@@ -74,7 +71,7 @@ function gestorExcepciones(Throwable $exception)
     require("comun/plantilla.php");
 }
 
-//set_exception_handler('gestorExcepciones');
+set_exception_handler('gestorExcepciones');
 
 // http://php.net/manual/es/exception.gettraceasstring.php#114980
 /**

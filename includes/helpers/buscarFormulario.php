@@ -21,7 +21,6 @@ class buscarFormulario extends formularioBase
         $ordenar = $datos['ordenar'] ?? '';
         $precioMin = $datos['precioMin'] ?? 0;
         $precioMax = $datos['precioMax'] ?? 100;
-        $valoracion = $datos['valoracion'] ?? 0;
         // Generación del HTML para el formulario
         $html = <<<EOF
             <!-- Sidebar con los filtros -->
@@ -37,8 +36,6 @@ class buscarFormulario extends formularioBase
                     <select id="ordenar" name="ordenar" value="$ordenar">
                         <option value="precio_asc">Precio (más barato primero)</option>
                         <option value="precio_desc">Precio (más caro primero)</option>
-                        <option value="valoracion_desc">Mejor valoradas</option>
-                        <option value="valoracion_asc">Peor valoradas</option>
                         <option value="nombre_asc">Nombre (A-Z)</option>
                         <option value="nombre_desc">Nombre (Z-A)</option>
                         <!-- <option value="popularidad">Más populares</option> -->
@@ -51,26 +48,6 @@ class buscarFormulario extends formularioBase
                     <label for="precioMax">Precio máx: <span id="maxValue">100</span>€</label>
                     <input type="range" id="precioMax" name="precioMax" min="0" max="100" value="$precioMax">
 
-
-                    <!-- Valoración con estrellas 
-                    <label>Valoración:</label>
-                    <div class="valoracion">
-                    <input type="hidden" name="valoracion" id="valoracionInput" value="$valoracion">
-                    <span class="estrella_buscar" data-value="1">★</span>
-                    <span class="estrella_buscar" data-value="2">★</span>
-                    <span class="estrella_buscar" data-value="3">★</span>
-                    <span class="estrella_buscar" data-value="4">★</span>
-                    <span class="estrella_buscar" data-value="5">★</span>
-                    </div>
-                    -->
-
-                    <!-- NO IMPLEMENTADO TODAVIA - SIGUIENTES ACTUALIZACIONES
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="usarDespensa" name="usarDespensa">
-                        <label for="usarDespensa">Usar Mi Despensa</label>
-                    </div>
-                    -->
-                                      
                     <label>Etiquetas</label>
                     <div id="tagsContainer" class="tags_container_buscar"></div>
 

@@ -65,6 +65,8 @@ $logged = $application->isLogged();
                     <a href="gestionarUsuarios.php">Gestionar usuarios</a>
                     <a href="gestionarIngredientes.php">Gestionar ingredientes</a>    
               </div>
+                            
+              <script src="JS/desplegable_admin.js"></script>
             <?php endif; ?>
           </div>
            
@@ -111,7 +113,7 @@ $logged = $application->isLogged();
                <!-- Si el usuario está logueado, mostramos el acceso a su información -->
               <?php if ($logged): ?>
                   <a href="perfil.php">Mi Perfil</a>
-                  <a href="despensa.php">Mi Despensa</a>
+                  <!-- <a href="despensa.php">Mi Despensa</a> -->
                   <a href ="recetario.php">Mi Recetario</a>
                   <a href="logout.php">Cerrar Sesión</a>
               <!-- Si el usuario no está logueado, mostramos iniciar sesión y registro -->
@@ -127,6 +129,5 @@ $logged = $application->isLogged();
           
      <!-- Scripts que permiten hacer los desplegables -->
     <script src="JS/desplegable_perfil.js"></script>
-    <script src="JS/desplegable_admin.js"></script>
 </body>
 </html>

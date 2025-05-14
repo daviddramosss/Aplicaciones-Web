@@ -24,27 +24,6 @@ class IngredienteRecetaAppService
     {
     } 
 
-    // Método para crear un ingrediente en una receta
-    public function crearIngredienteReceta($ingredienteRecetaDTO)
-    {
-        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
-
-        $createdIngredienteRecetaDTO = $IIngredienteRecetaDAO->crearIngredienteReceta($ingredienteRecetaDTO);
-    
-        return $createdIngredienteRecetaDTO;
-    }
-
-    // Método para eliminar un ingrediente de una receta
-    public function borrarIngredienteReceta($recetaDTO)
-    {
-        $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();
-
-        $deletedIngredienteRecetaDTO = $IIngredienteRecetaDAO->borrarIngredienteReceta($recetaDTO);
-    
-        return $deletedIngredienteRecetaDTO;
-    }
-
-
     public function buscarIngredienteReceta($recetaDTO, $criterio)
     {
         $IIngredienteRecetaDAO = ingredienteRecetaFactory::CreateIngredienteReceta();

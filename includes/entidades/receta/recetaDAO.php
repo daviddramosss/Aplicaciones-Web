@@ -33,14 +33,14 @@ class recetaDAO extends baseDAO implements IReceta
         if($stmt->execute())
         {
             // Declara las variables donde se almacenarán los resultados
-            $Id = $Nombre = $Autor = $Descripcion = $Pasos = $Tiempo = $Precio = $Fecha_Creacion = $Valoracion = $ruta = null ;
-            $stmt->bind_result($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion, $ruta);
+            $Id = $Nombre = $Autor = $Descripcion = $Pasos = $Tiempo = $Precio = $Fecha_Creacion = $ruta = null ;
+            $stmt->bind_result($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $ruta);
 
             // Si se encontró la receta
             if ($stmt->fetch())
             {
                 // Crea un objeto recetaDTO con los datos obtenidos
-                $receta = new recetaDTO($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $Valoracion, $ruta);
+                $receta = new recetaDTO($Id, $Nombre, $Autor, $Descripcion, $Pasos, $Tiempo, $Precio, $Fecha_Creacion, $ruta);
                 return $receta;
             }
             
@@ -62,7 +62,7 @@ class recetaDAO extends baseDAO implements IReceta
         $conn = application::getInstance()->getConexionBd();
 
         // Prepara la consulta SQL para insertar una receta
-        $query = "INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Fecha_Creacion, Valoracion, Ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO recetas (Nombre, Autor, Descripcion, Pasos, Tiempo, Precio, Fecha_Creacion, Ruta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         // Prepara la declaración SQL
         $stmt = $conn->prepare($query);
@@ -75,11 +75,10 @@ class recetaDAO extends baseDAO implements IReceta
         $tiempo = $recetaDTO->getTiempo();
         $precio = $recetaDTO->getPrecio();
         $fechaCreacion = $recetaDTO->getFechaCreacion(); 
-        $valoracion = $recetaDTO->getValoracion();
         $ruta = $recetaDTO->getRuta();
 
         // Asocia los parámetros de la consulta con los valores obtenidos
-        $stmt->bind_param("sissidsds", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $ruta);
+        $stmt->bind_param("sissidss", $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $ruta);
 
         // Ejecuta la consulta
         if ($stmt->execute())
@@ -87,7 +86,7 @@ class recetaDAO extends baseDAO implements IReceta
             $id = $conn->insert_id;
 
             // Crea un DTO de receta con los datos insertados
-            $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $valoracion, $ruta);
+            $createdRecetaDTO = new recetaDTO($id, $nombre, $autor, $descripcion, $pasos, $tiempo, $precio, $fechaCreacion, $ruta);
             return $createdRecetaDTO;
         }
 
@@ -132,7 +131,7 @@ class recetaDAO extends baseDAO implements IReceta
 
             // Si la consulta se ejecuta correctamente, crea el DTO de la receta editada
             if ($stmt->execute()) {
-                $editedRecetaDTO = new recetaDTO($id, $nombre, null, $descripcion, json_decode($pasos, true), $tiempo, $precio, null, null, $ruta);
+                $editedRecetaDTO = new recetaDTO($id, $nombre, null, $descripcion, json_decode($pasos, true), $tiempo, $precio, null, $ruta);
             }
 
             // Cierra la declaración
@@ -176,7 +175,7 @@ class recetaDAO extends baseDAO implements IReceta
         return $deletedRecetaDTO;
     }
 
-    public function mostarRecetasPorAutor($userDTO)
+    public function mostrarRecetasPorAutor($userDTO)
     {
 
         // Obtiene la conexión a la base de datos
@@ -207,7 +206,6 @@ class recetaDAO extends baseDAO implements IReceta
                     $recetas[] = new recetaDTO(
                         $row["ID"],
                         $row["Nombre"],
-                        null,
                         null,
                         null,
                         null,
@@ -265,7 +263,6 @@ class recetaDAO extends baseDAO implements IReceta
                         null,
                         null,
                         null,
-                        null,
                         $row["Ruta"]
                     );
                 }
@@ -281,7 +278,7 @@ class recetaDAO extends baseDAO implements IReceta
     }
     
 
-    public function buscarRecetasConEtiquetas($etiquetas, $idRecetaActual) // Recibimos un array de etiquetas
+    public function buscarRecetasConEtiquetas($etiquetas, $recetaDTO) // Recibimos un array de etiquetas
     {
         $recetas = [];
         $params = [];
@@ -297,8 +294,9 @@ class recetaDAO extends baseDAO implements IReceta
             // Convertimos la lista de etiquetas a un array
             $placeholders = implode(',', array_fill(0, count($etiquetas), '?'));
             
+            $id = $recetaDTO->getId();
             // Añadimos la condición de etiquetas a la consulta
-            $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE 1 AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($placeholders)) AND ID != $idRecetaActual ORDER BY RAND() LIMIT 4";
+            $query = "SELECT ID, Nombre, Ruta FROM recetas WHERE 1 AND ID IN (SELECT Receta FROM receta_etiqueta WHERE Etiqueta IN ($placeholders)) AND ID != $id ORDER BY RAND() LIMIT 4";
             
             foreach ($etiquetas as $etiqueta) {
                 $params[] = $etiqueta->getId();
@@ -327,7 +325,6 @@ class recetaDAO extends baseDAO implements IReceta
                         null,
                         null,
                         null,
-                        null,
                         $row["Ruta"]
                     );
                 }        
@@ -336,29 +333,39 @@ class recetaDAO extends baseDAO implements IReceta
             $stmt->close();
         }
 
-        if (empty($recetas)) {
-            $html ="<p>No existen recetas que cumplan esos criterios.</p>";
-        }
-        else{
-
-            $html = '<div class="recetas-container">';
-            
-                foreach ($recetas as $receta) {
-                    $html .= <<<HTML
-                        <div class="receta-card">
-                            <a href="mostrarReceta.php?id={$receta->getId()}">
-                                <img src="img/receta/{$receta->getRuta()}" alt="{$receta->getNombre()}" class="receta-imagen">
-                            </a>
-                            <p class="receta-titulo">{$receta->getNombre()}</p>
-                        </div>
-                    HTML;
-                }
-            
-            $html .= '</div>';
-        }
-
           // Devuelve todas las recetas
-        return $html;
+        return $recetas;
+    }
+
+    public function esAutor($recetaDTO)
+    {
+        // Obtiene la conexión a la base de datos
+        $conn = application::getInstance()->getConexionBd();
+
+        // Prepara la consulta SQL para eliminar la receta
+        $query = "SELECT 1 FROM recetas WHERE ID = ? AND Autor = ?";
+ 
+        // Prepara la declaración SQL
+        $stmt = $conn->prepare($query);
+ 
+        // Asocia el parámetro de la consulta con el valor del ID
+        //$id = $recetaDTO->getId();
+        $recetaId = $recetaDTO->getId();
+        $autor = $recetaDTO->getAutor();
+        $stmt->bind_param("ii", $recetaId, $autor);
+
+        // Ejecutar consulta
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if($result->num_rows > 0){
+            $stmt->close();
+            return true;
+        }
+
+        $stmt->close();
+
+        return false;
     }
 }  
 

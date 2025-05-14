@@ -4,14 +4,18 @@ namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\application;
 use es\ucm\fdi\aw\entidades\usuario\{userDTO, userAppService};
-use es\ucm\fdi\aw\entidades\receta\{recetaAppService, recetaDTO};
-use es\ucm\fdi\aw\entidades\chef\{chefAppService, chefDTO};
+use es\ucm\fdi\aw\entidades\receta\{recetaAppService};
+use es\ucm\fdi\aw\entidades\chef\{chefAppService};
 
 class estrellaMichelinHelper {
 
     private $user;
 
     public function __construct() {
+       
+    }
+
+    public function init(){
         $app = application::getInstance();
 
         $userAppService = userAppService::GetSingleton();
@@ -59,8 +63,8 @@ class estrellaMichelinHelper {
             return <<<HTML
                 <h1> ¡Bienvenido a tu cocina Chef!</h1>
 
-                <p> Es un placer tenerte de vuelta, {$this->user->getNombre()}. Desde MarketChef estamos deseando de ver tus nuevas creaciones, para ello puedes usar la funcionalida de crear recetas.</p>
-                <div class="crear-receta-container">
+                <p> Es un placer tenerte de vuelta, <b>{$this->user->getNombre()}</b>. Desde MarketChef estamos deseando de ver tus nuevas creaciones, para ello puedes usar la funcionalidad de crear recetas.</p>
+                <div>
                     <button type="button" class="send-button" onclick="location.href='crearReceta.php'">CREAR NUEVA RECETA</button>
                 </div>
 
@@ -75,7 +79,7 @@ class estrellaMichelinHelper {
 
     public function mostrarRecetasChef() {
         $recetaAppService = recetaAppService::GetSingleton();
-        $recetas = $recetaAppService->mostarRecetasPorAutor($this->user);
+        $recetas = $recetaAppService->mostrarRecetasPorAutor($this->user);
 
         if (empty($recetas)) {
             return "<p>No tienes recetas publicadas aún.</p>";

@@ -44,6 +44,8 @@ class ingredienteRecetaDAO extends baseDAO implements IIngredienteReceta
             return $createdRecetaDTO;
         }
 
+        $stmt->close();
+
         return $createdIngredienteReceta;
     }
 

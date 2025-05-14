@@ -12,5 +12,7 @@ interface IUser
     public function buscaUsuario($userDTO);
 
     public function buscarUsuarioPorID($userDTO);
+
+    public function editarPerfil($userDTO);
 }
 ?>
