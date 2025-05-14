@@ -4,6 +4,7 @@ namespace es\ucm\fdi\aw\helpers;
 
 use es\ucm\fdi\aw\comun\formularioBase;
 use es\ucm\fdi\aw\entidades\usuario\{userAppService, userDTO};
+use es\ucm\fdi\aw\application;
 
 // Clase editarPerfilForm para editar usuarios existentes y logueados
 class editarPerfilForm extends formularioBase
@@ -18,16 +19,23 @@ class editarPerfilForm extends formularioBase
 
     public function init()
     {
+        $app = application::getInstance();
+
         $this->userService = userAppService::GetSingleton();
         
         // Obtener el usuario logueado desde la base de datos
-        $this->userDTO = $this->userService->buscarUsuarioPorId(new userDTO($_SESSION["id"], null, null, null, null, null, null)); 
+        $this->userDTO = $this->userService->buscarUsuario(new userDTO(null, null, null, $app->getEmail(), null, null, null));
+
+        
     }
 
     // Método para generar los campos del formulario con los datos actuales
     protected function CreateFields($datos)
     {
-     
+        if($this->userDTO == false){
+            header("Location: login.php");
+            exit();
+        }
         $nombre = $this->userDTO->getNombre();
         $apellidos = $this->userDTO->getApellidos();
 
